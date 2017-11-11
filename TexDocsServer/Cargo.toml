@@ -1,0 +1,6 @@
+[package]
+name = "tex_docs_server"
+version = "0.1.0"
+authors = ["Til Blechschmidt <til@blechschmidt.de>"]
+
+[dependencies]
