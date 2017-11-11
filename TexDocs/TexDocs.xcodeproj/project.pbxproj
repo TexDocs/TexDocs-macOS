@@ -229,9 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				40A7D1121FB79261002FBB8B /* SourceCodeView.h */,
-				40A7D1451FB79984002FBB8B /* ImprovedTextView.swift */,
-				40A7D11D1FB79296002FBB8B /* SourceCodeView.swift */,
-				40A7D11F1FB7936B002FBB8B /* SourceCodeRulerView.swift */,
+				40A7D14B1FB7B5BF002FBB8B /* SourceCodeView */,
 				40A7D1131FB79261002FBB8B /* Info.plist */,
 			);
 			path = SourceCodeView;
@@ -254,6 +252,16 @@
 				40A7D1371FB7956B002FBB8B /* Info.plist */,
 			);
 			path = UIRegexLibTests;
+			sourceTree = "<group>";
+		};
+		40A7D14B1FB7B5BF002FBB8B /* SourceCodeView */ = {
+			isa = PBXGroup;
+			children = (
+				40A7D1451FB79984002FBB8B /* ImprovedTextView.swift */,
+				40A7D11D1FB79296002FBB8B /* SourceCodeView.swift */,
+				40A7D11F1FB7936B002FBB8B /* SourceCodeRulerView.swift */,
+			);
+			path = SourceCodeView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
