@@ -10,29 +10,36 @@ import Cocoa
 
 class SourceCodeView: ImprovedTextView {
     
-    //MARK: Line numbers
+    // MARK: Variables
     
+    /// The line number view on the left side.
     private var lineNumberRuler: SourceCodeRulerView!
+    
+    // MARK: View life cycle
     
     override func viewDidMoveToSuperview() {
         super.viewDidMoveToSuperview()
         setUpLineNumberRuler()
     }
     
-    private func setUpLineNumberRuler() {
-        if let enclosingScrollView = enclosingScrollView {
-            enclosingScrollView.hasHorizontalRuler = false
-            enclosingScrollView.hasVerticalRuler = true
-            let ruler = SourceCodeRulerView(sourceCodeView: self)
-            lineNumberRuler = ruler
-            enclosingScrollView.verticalRulerView = ruler
-            enclosingScrollView.rulersVisible = true
-        }
-    }
-    
     override func viewDidEndLiveResize() {
         super.viewDidEndLiveResize()
         lineNumberRuler.redrawLineNumbers()
+    }
+    
+    // MARK: Line Number
+    
+    private func setUpLineNumberRuler() {
+        guard let enclosingScrollView = enclosingScrollView else {
+            return
+        }
+
+        let ruler = SourceCodeRulerView(sourceCodeView: self)
+        lineNumberRuler = ruler
+        enclosingScrollView.hasHorizontalRuler = false
+        enclosingScrollView.hasVerticalRuler = true
+        enclosingScrollView.rulersVisible = true
+        enclosingScrollView.verticalRulerView = ruler
     }
     
     override func textDidChange(in range: NSRange, replacementString: String) {

@@ -8,10 +8,10 @@
 
 import Cocoa
 
-class ImprovedTextView: NSTextView, NSTextViewDelegate {
+/// Impoved Text view with helpfull helpers
+class ImprovedTextView: NSTextView {
     
-    
-    //MARK: Init
+    // MARK: Init
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         setUp()
@@ -22,20 +22,24 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
         setUp()
     }
     
+    /// Some basic setups
     private func setUp() {
-        delegate = self
+        self.usesFontPanel = false
     }
     
-    //MARK: Helper
+    // MARK: Helper
     
+    /// NSString version of string property
     var nsString: NSString {
         return NSString(string: string)
     }
     
+    /// The Range of the current line.
     var currentLineRange: NSRange {
         return nsString.lineRange(for: selectedRange())
     }
     
+    /// The string of the current line
     var currentLine: String {
         return nsString.substring(with: currentLineRange)
     }
@@ -60,7 +64,7 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
         return totalCharactersAdded
     }
     
-    //Mark: Delegates
+    // Mark: Text did change
     
     override func shouldChangeText(in affectedCharRange: NSRange, replacementString: String?) -> Bool {
         textDidChange(in: affectedCharRange, replacementString: replacementString ?? "")
@@ -69,9 +73,16 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
     
     open func textDidChange(in range: NSRange, replacementString: String) {}
     
-    
-    //MARK: Remove format
+    // MARK: Remove format
     override func changeFont(_ sender: Any?) {}
+    override func setFont(_ font: NSFont, range: NSRange) {}
     override func changeColor(_ sender: Any?) {}
+    override func setTextColor(_ color: NSColor?, range: NSRange) {}
+    override func pasteFont(_ sender: Any?) {}
+    override func pasteRuler(_ sender: Any?) {}
+    override func alignLeft(_ sender: Any?) {}
+    override func alignCenter(_ sender: Any?) {}
+    override func alignRight(_ sender: Any?) {}
+    override func underline(_ sender: Any?) {}
 }
 
