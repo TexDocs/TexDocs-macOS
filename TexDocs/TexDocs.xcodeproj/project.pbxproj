@@ -14,6 +14,18 @@
 		40A7D0E71FB78A3F002FBB8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40A7D0E51FB78A3F002FBB8B /* Main.storyboard */; };
 		40A7D0F31FB78A3F002FBB8B /* TexDocsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D0F21FB78A3F002FBB8B /* TexDocsTests.swift */; };
 		40A7D0FE1FB78A3F002FBB8B /* TexDocsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D0FD1FB78A3F002FBB8B /* TexDocsUITests.swift */; };
+		40A7D1141FB79261002FBB8B /* SourceCodeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 40A7D1121FB79261002FBB8B /* SourceCodeView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		40A7D1171FB79261002FBB8B /* SourceCodeView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A7D1101FB79261002FBB8B /* SourceCodeView.framework */; };
+		40A7D1181FB79261002FBB8B /* SourceCodeView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40A7D1101FB79261002FBB8B /* SourceCodeView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		40A7D11E1FB79296002FBB8B /* SourceCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D11D1FB79296002FBB8B /* SourceCodeView.swift */; };
+		40A7D1201FB7936B002FBB8B /* SourceCodeRulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D11F1FB7936B002FBB8B /* SourceCodeRulerView.swift */; };
+		40A7D12F1FB7956B002FBB8B /* UIRegexLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A7D1261FB7956B002FBB8B /* UIRegexLib.framework */; };
+		40A7D1361FB7956B002FBB8B /* UIRegexLibTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D1351FB7956B002FBB8B /* UIRegexLibTests.swift */; };
+		40A7D1381FB7956B002FBB8B /* UIRegexLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 40A7D1281FB7956B002FBB8B /* UIRegexLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		40A7D13B1FB7956B002FBB8B /* UIRegexLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A7D1261FB7956B002FBB8B /* UIRegexLib.framework */; };
+		40A7D13C1FB7956B002FBB8B /* UIRegexLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40A7D1261FB7956B002FBB8B /* UIRegexLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		40A7D1461FB79984002FBB8B /* ImprovedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D1451FB79984002FBB8B /* ImprovedTextView.swift */; };
+		40A7D14A1FB7A86F002FBB8B /* RegexLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D1491FB7A86F002FBB8B /* RegexLib.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,7 +43,50 @@
 			remoteGlobalIDString = 40A7D0D91FB78A3F002FBB8B;
 			remoteInfo = TexDocs;
 		};
+		40A7D1151FB79261002FBB8B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40A7D0D21FB78A3F002FBB8B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40A7D10F1FB79261002FBB8B;
+			remoteInfo = SourceCodeView;
+		};
+		40A7D1301FB7956B002FBB8B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40A7D0D21FB78A3F002FBB8B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40A7D1251FB7956B002FBB8B;
+			remoteInfo = UIRegexLib;
+		};
+		40A7D1321FB7956B002FBB8B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40A7D0D21FB78A3F002FBB8B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40A7D0D91FB78A3F002FBB8B;
+			remoteInfo = TexDocs;
+		};
+		40A7D1391FB7956B002FBB8B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40A7D0D21FB78A3F002FBB8B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40A7D1251FB7956B002FBB8B;
+			remoteInfo = UIRegexLib;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		40A7D11C1FB79261002FBB8B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				40A7D13C1FB7956B002FBB8B /* UIRegexLib.framework in Embed Frameworks */,
+				40A7D1181FB79261002FBB8B /* SourceCodeView.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		40A7D0DA1FB78A3F002FBB8B /* TexDocs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TexDocs.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,6 +103,19 @@
 		40A7D0F91FB78A3F002FBB8B /* TexDocsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TexDocsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40A7D0FD1FB78A3F002FBB8B /* TexDocsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TexDocsUITests.swift; sourceTree = "<group>"; };
 		40A7D0FF1FB78A3F002FBB8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40A7D1101FB79261002FBB8B /* SourceCodeView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SourceCodeView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		40A7D1121FB79261002FBB8B /* SourceCodeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceCodeView.h; sourceTree = "<group>"; };
+		40A7D1131FB79261002FBB8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40A7D11D1FB79296002FBB8B /* SourceCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCodeView.swift; sourceTree = "<group>"; };
+		40A7D11F1FB7936B002FBB8B /* SourceCodeRulerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCodeRulerView.swift; sourceTree = "<group>"; };
+		40A7D1261FB7956B002FBB8B /* UIRegexLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UIRegexLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		40A7D1281FB7956B002FBB8B /* UIRegexLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIRegexLib.h; sourceTree = "<group>"; };
+		40A7D1291FB7956B002FBB8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40A7D12E1FB7956B002FBB8B /* UIRegexLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIRegexLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		40A7D1351FB7956B002FBB8B /* UIRegexLibTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIRegexLibTests.swift; sourceTree = "<group>"; };
+		40A7D1371FB7956B002FBB8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40A7D1451FB79984002FBB8B /* ImprovedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImprovedTextView.swift; sourceTree = "<group>"; };
+		40A7D1491FB7A86F002FBB8B /* RegexLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexLib.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +123,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40A7D13B1FB7956B002FBB8B /* UIRegexLib.framework in Frameworks */,
+				40A7D1171FB79261002FBB8B /* SourceCodeView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +142,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		40A7D10C1FB79261002FBB8B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40A7D1221FB7956B002FBB8B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40A7D12B1FB7956B002FBB8B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40A7D12F1FB7956B002FBB8B /* UIRegexLib.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -79,8 +171,11 @@
 			isa = PBXGroup;
 			children = (
 				40A7D0DC1FB78A3F002FBB8B /* TexDocs */,
+				40A7D1111FB79261002FBB8B /* SourceCodeView */,
 				40A7D0F11FB78A3F002FBB8B /* TexDocsTests */,
 				40A7D0FC1FB78A3F002FBB8B /* TexDocsUITests */,
+				40A7D1271FB7956B002FBB8B /* UIRegexLib */,
+				40A7D1341FB7956B002FBB8B /* UIRegexLibTests */,
 				40A7D0DB1FB78A3F002FBB8B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -91,6 +186,9 @@
 				40A7D0DA1FB78A3F002FBB8B /* TexDocs.app */,
 				40A7D0EE1FB78A3F002FBB8B /* TexDocsTests.xctest */,
 				40A7D0F91FB78A3F002FBB8B /* TexDocsUITests.xctest */,
+				40A7D1101FB79261002FBB8B /* SourceCodeView.framework */,
+				40A7D1261FB7956B002FBB8B /* UIRegexLib.framework */,
+				40A7D12E1FB7956B002FBB8B /* UIRegexLibTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,7 +225,57 @@
 			path = TexDocsUITests;
 			sourceTree = "<group>";
 		};
+		40A7D1111FB79261002FBB8B /* SourceCodeView */ = {
+			isa = PBXGroup;
+			children = (
+				40A7D1121FB79261002FBB8B /* SourceCodeView.h */,
+				40A7D1451FB79984002FBB8B /* ImprovedTextView.swift */,
+				40A7D11D1FB79296002FBB8B /* SourceCodeView.swift */,
+				40A7D11F1FB7936B002FBB8B /* SourceCodeRulerView.swift */,
+				40A7D1131FB79261002FBB8B /* Info.plist */,
+			);
+			path = SourceCodeView;
+			sourceTree = "<group>";
+		};
+		40A7D1271FB7956B002FBB8B /* UIRegexLib */ = {
+			isa = PBXGroup;
+			children = (
+				40A7D1281FB7956B002FBB8B /* UIRegexLib.h */,
+				40A7D1491FB7A86F002FBB8B /* RegexLib.swift */,
+				40A7D1291FB7956B002FBB8B /* Info.plist */,
+			);
+			path = UIRegexLib;
+			sourceTree = "<group>";
+		};
+		40A7D1341FB7956B002FBB8B /* UIRegexLibTests */ = {
+			isa = PBXGroup;
+			children = (
+				40A7D1351FB7956B002FBB8B /* UIRegexLibTests.swift */,
+				40A7D1371FB7956B002FBB8B /* Info.plist */,
+			);
+			path = UIRegexLibTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		40A7D10D1FB79261002FBB8B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40A7D1141FB79261002FBB8B /* SourceCodeView.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40A7D1231FB7956B002FBB8B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40A7D1381FB7956B002FBB8B /* UIRegexLib.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		40A7D0D91FB78A3F002FBB8B /* TexDocs */ = {
@@ -137,10 +285,13 @@
 				40A7D0D61FB78A3F002FBB8B /* Sources */,
 				40A7D0D71FB78A3F002FBB8B /* Frameworks */,
 				40A7D0D81FB78A3F002FBB8B /* Resources */,
+				40A7D11C1FB79261002FBB8B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				40A7D1161FB79261002FBB8B /* PBXTargetDependency */,
+				40A7D13A1FB7956B002FBB8B /* PBXTargetDependency */,
 			);
 			name = TexDocs;
 			productName = TexDocs;
@@ -183,6 +334,61 @@
 			productReference = 40A7D0F91FB78A3F002FBB8B /* TexDocsUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		40A7D10F1FB79261002FBB8B /* SourceCodeView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40A7D1191FB79261002FBB8B /* Build configuration list for PBXNativeTarget "SourceCodeView" */;
+			buildPhases = (
+				40A7D10B1FB79261002FBB8B /* Sources */,
+				40A7D10C1FB79261002FBB8B /* Frameworks */,
+				40A7D10D1FB79261002FBB8B /* Headers */,
+				40A7D10E1FB79261002FBB8B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SourceCodeView;
+			productName = SourceCodeView;
+			productReference = 40A7D1101FB79261002FBB8B /* SourceCodeView.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		40A7D1251FB7956B002FBB8B /* UIRegexLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40A7D13D1FB7956B002FBB8B /* Build configuration list for PBXNativeTarget "UIRegexLib" */;
+			buildPhases = (
+				40A7D1211FB7956B002FBB8B /* Sources */,
+				40A7D1221FB7956B002FBB8B /* Frameworks */,
+				40A7D1231FB7956B002FBB8B /* Headers */,
+				40A7D1241FB7956B002FBB8B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UIRegexLib;
+			productName = UIRegexLib;
+			productReference = 40A7D1261FB7956B002FBB8B /* UIRegexLib.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		40A7D12D1FB7956B002FBB8B /* UIRegexLibTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40A7D1401FB7956B002FBB8B /* Build configuration list for PBXNativeTarget "UIRegexLibTests" */;
+			buildPhases = (
+				40A7D12A1FB7956B002FBB8B /* Sources */,
+				40A7D12B1FB7956B002FBB8B /* Frameworks */,
+				40A7D12C1FB7956B002FBB8B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				40A7D1311FB7956B002FBB8B /* PBXTargetDependency */,
+				40A7D1331FB7956B002FBB8B /* PBXTargetDependency */,
+			);
+			name = UIRegexLibTests;
+			productName = UIRegexLibTests;
+			productReference = 40A7D12E1FB7956B002FBB8B /* UIRegexLibTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -212,6 +418,21 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 40A7D0D91FB78A3F002FBB8B;
 					};
+					40A7D10F1FB79261002FBB8B = {
+						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0910;
+						ProvisioningStyle = Automatic;
+					};
+					40A7D1251FB7956B002FBB8B = {
+						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0910;
+						ProvisioningStyle = Automatic;
+					};
+					40A7D12D1FB7956B002FBB8B = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 40A7D0D91FB78A3F002FBB8B;
+					};
 				};
 			};
 			buildConfigurationList = 40A7D0D51FB78A3F002FBB8B /* Build configuration list for PBXProject "TexDocs" */;
@@ -230,6 +451,9 @@
 				40A7D0D91FB78A3F002FBB8B /* TexDocs */,
 				40A7D0ED1FB78A3F002FBB8B /* TexDocsTests */,
 				40A7D0F81FB78A3F002FBB8B /* TexDocsUITests */,
+				40A7D10F1FB79261002FBB8B /* SourceCodeView */,
+				40A7D1251FB7956B002FBB8B /* UIRegexLib */,
+				40A7D12D1FB7956B002FBB8B /* UIRegexLibTests */,
 			);
 		};
 /* End PBXProject section */
@@ -252,6 +476,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		40A7D0F71FB78A3F002FBB8B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40A7D10E1FB79261002FBB8B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40A7D1241FB7956B002FBB8B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40A7D12C1FB7956B002FBB8B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -287,6 +532,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		40A7D10B1FB79261002FBB8B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40A7D11E1FB79296002FBB8B /* SourceCodeView.swift in Sources */,
+				40A7D1461FB79984002FBB8B /* ImprovedTextView.swift in Sources */,
+				40A7D1201FB7936B002FBB8B /* SourceCodeRulerView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40A7D1211FB7956B002FBB8B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40A7D14A1FB7A86F002FBB8B /* RegexLib.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40A7D12A1FB7956B002FBB8B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40A7D1361FB7956B002FBB8B /* UIRegexLibTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -299,6 +570,26 @@
 			isa = PBXTargetDependency;
 			target = 40A7D0D91FB78A3F002FBB8B /* TexDocs */;
 			targetProxy = 40A7D0FA1FB78A3F002FBB8B /* PBXContainerItemProxy */;
+		};
+		40A7D1161FB79261002FBB8B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40A7D10F1FB79261002FBB8B /* SourceCodeView */;
+			targetProxy = 40A7D1151FB79261002FBB8B /* PBXContainerItemProxy */;
+		};
+		40A7D1311FB7956B002FBB8B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40A7D1251FB7956B002FBB8B /* UIRegexLib */;
+			targetProxy = 40A7D1301FB7956B002FBB8B /* PBXContainerItemProxy */;
+		};
+		40A7D1331FB7956B002FBB8B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40A7D0D91FB78A3F002FBB8B /* TexDocs */;
+			targetProxy = 40A7D1321FB7956B002FBB8B /* PBXContainerItemProxy */;
+		};
+		40A7D13A1FB7956B002FBB8B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40A7D1251FB7956B002FBB8B /* UIRegexLib */;
+			targetProxy = 40A7D1391FB7956B002FBB8B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -423,6 +714,7 @@
 		40A7D1031FB78A3F002FBB8B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -437,6 +729,7 @@
 		40A7D1041FB78A3F002FBB8B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -510,6 +803,138 @@
 			};
 			name = Release;
 		};
+		40A7D11A1FB79261002FBB8B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = SourceCodeView/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = de.blechschmidt.SourceCodeView;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		40A7D11B1FB79261002FBB8B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = SourceCodeView/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = de.blechschmidt.SourceCodeView;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		40A7D13E1FB7956B002FBB8B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = UIRegexLib/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = de.blechschmidt.UIRegexLib;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		40A7D13F1FB7956B002FBB8B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = UIRegexLib/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = de.blechschmidt.UIRegexLib;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		40A7D1411FB7956B002FBB8B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = UIRegexLibTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = de.blechschmidt.UIRegexLibTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TexDocs.app/Contents/MacOS/TexDocs";
+			};
+			name = Debug;
+		};
+		40A7D1421FB7956B002FBB8B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = UIRegexLibTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = de.blechschmidt.UIRegexLibTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TexDocs.app/Contents/MacOS/TexDocs";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -545,6 +970,33 @@
 			buildConfigurations = (
 				40A7D1091FB78A3F002FBB8B /* Debug */,
 				40A7D10A1FB78A3F002FBB8B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		40A7D1191FB79261002FBB8B /* Build configuration list for PBXNativeTarget "SourceCodeView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40A7D11A1FB79261002FBB8B /* Debug */,
+				40A7D11B1FB79261002FBB8B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		40A7D13D1FB7956B002FBB8B /* Build configuration list for PBXNativeTarget "UIRegexLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40A7D13E1FB7956B002FBB8B /* Debug */,
+				40A7D13F1FB7956B002FBB8B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		40A7D1401FB7956B002FBB8B /* Build configuration list for PBXNativeTarget "UIRegexLibTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40A7D1411FB7956B002FBB8B /* Debug */,
+				40A7D1421FB7956B002FBB8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
