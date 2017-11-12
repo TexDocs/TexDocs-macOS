@@ -1,5 +1,5 @@
 //
-//  EditorWindowController+ CollaborationClientDelegate.swift
+//  EditorWindowController+CollaborationClientDelegate.swift
 //  TexDocs
 //
 //  Created by Noah Peeters on 12.11.17.

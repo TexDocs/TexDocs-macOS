@@ -23,8 +23,11 @@ class ColorSchemeHandler {
 }
 
 
-enum ColorKey: Int {
+enum ColorKey {
     case text
     case comment
     case keyword
+    case variable
+    case escapedCharacter
+    case inlineMath
 }

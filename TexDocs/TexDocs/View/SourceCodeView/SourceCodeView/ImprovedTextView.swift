@@ -25,7 +25,6 @@ class ImprovedTextView: NSTextView, NSTextStorageDelegate {
     /// Some basic setups
     private func setUp() {
         self.textStorage?.delegate = self
-        self.usesFontPanel = false
     }
     
     // MARK: Helper

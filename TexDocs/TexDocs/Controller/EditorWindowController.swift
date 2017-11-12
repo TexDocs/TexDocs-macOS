@@ -27,8 +27,8 @@ class EditorWindowController: NSWindowController {
         return rootSplitViewController.splitViewItems[0]
     }
     
-    var outlineViewController: NSViewController {
-        return outlinePanel.viewController
+    var outlineViewController: OutlineViewController {
+        return outlinePanel.viewController as! OutlineViewController
     }
     
     // MARK: Center
