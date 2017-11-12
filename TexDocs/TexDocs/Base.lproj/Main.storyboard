@@ -710,11 +710,11 @@
             <objects>
                 <viewController id="0Pr-ML-Wrq" customClass="NewProjectViewController" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="u4D-VP-omw">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="163"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="206"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tBz-sD-iHg">
-                                <rect key="frame" x="148" y="85" width="184" height="78"/>
+                                <rect key="frame" x="148" y="128" width="184" height="78"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="TexDocs" id="BUX-zJ-3Dp">
                                     <font key="font" size="47" name="Avenir-Book"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -722,26 +722,35 @@
                                 </textFieldCell>
                             </textField>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gz9-bR-gBz">
-                                <rect key="frame" x="20" y="40" width="440" height="45"/>
+                                <rect key="frame" x="20" y="40" width="440" height="78"/>
                                 <subviews>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yfc-us-1tK">
-                                        <rect key="frame" x="156" y="29" width="128" height="16"/>
+                                        <rect key="frame" x="156" y="60" width="128" height="18"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="60o-0u-dYD">
-                                                <rect key="frame" x="-1" y="-1" width="63" height="18"/>
+                                                <rect key="frame" x="-1" y="1" width="63" height="18"/>
                                                 <buttonCell key="cell" type="radio" title="Join" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="L9h-R4-atb">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
+                                                <connections>
+                                                    <action selector="joinRadioButtonPressed:" target="0Pr-ML-Wrq" id="e73-V2-YRR"/>
+                                                </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T0B-mR-ezu">
-                                                <rect key="frame" x="67" y="-1" width="63" height="18"/>
+                                                <rect key="frame" x="67" y="1" width="63" height="18"/>
                                                 <buttonCell key="cell" type="radio" title="Create" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="o1w-Gt-TDg">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
+                                                <connections>
+                                                    <action selector="createRadioButtonPressed:" target="0Pr-ML-Wrq" id="BQl-Nv-JXz"/>
+                                                </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="18" id="B4H-9q-G3F"/>
+                                        </constraints>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
@@ -752,42 +761,58 @@
                                         </customSpacing>
                                     </stackView>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mcr-DI-Umt">
-                                        <rect key="frame" x="0.0" y="0.0" width="440" height="21"/>
+                                        <rect key="frame" x="0.0" y="30" width="440" height="22"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL" drawsBackground="YES" id="Ab6-uq-2Pn">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZlD-GX-NMB">
+                                        <rect key="frame" x="0.0" y="0.0" width="440" height="22"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Repo-URL (SSH)" drawsBackground="YES" id="Hxr-j1-Dlg">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="qhd-dY-HQk"/>
-                                </constraints>
                                 <visibilityPriorities>
+                                    <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YVe-Wi-yuf">
-                                <rect key="frame" x="314" y="0.0" width="146" height="32"/>
+                                <rect key="frame" x="328" y="0.0" width="132" height="32"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2iJ-8x-lYp">
-                                        <rect key="frame" x="-6" y="4" width="81" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sf4-vf-Qjt">
+                                        <rect key="frame" x="-6" y="4" width="82" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sf4-vf-Qjt">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
+                                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="cancel:" target="0Pr-ML-Wrq" id="5Bb-UF-K25"/>
+                                        </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Hk-zR-gKu">
-                                        <rect key="frame" x="71" y="4" width="81" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2DE-GT-Aaz">
+                                        <rect key="frame" x="72" y="4" width="66" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Join" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2DE-GT-Aaz">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="save:" target="0Pr-ML-Wrq" id="Zfg-aW-KKJ"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -809,11 +834,18 @@
                             <constraint firstAttribute="trailing" secondItem="YVe-Wi-yuf" secondAttribute="trailing" constant="20" id="DRP-EV-7sF"/>
                             <constraint firstItem="Gz9-bR-gBz" firstAttribute="leading" secondItem="u4D-VP-omw" secondAttribute="leading" constant="20" id="RCr-Ag-ZkJ"/>
                             <constraint firstItem="YVe-Wi-yuf" firstAttribute="top" secondItem="Gz9-bR-gBz" secondAttribute="bottom" constant="8" id="Vvk-2o-UP7"/>
-                            <constraint firstItem="Gz9-bR-gBz" firstAttribute="top" secondItem="tBz-sD-iHg" secondAttribute="bottom" id="fsU-Tq-gib"/>
+                            <constraint firstItem="Gz9-bR-gBz" firstAttribute="top" secondItem="tBz-sD-iHg" secondAttribute="bottom" constant="10" id="fsU-Tq-gib"/>
                             <constraint firstAttribute="trailing" secondItem="Gz9-bR-gBz" secondAttribute="trailing" constant="20" id="qCw-0U-V1t"/>
                             <constraint firstItem="tBz-sD-iHg" firstAttribute="centerX" secondItem="u4D-VP-omw" secondAttribute="centerX" id="yQa-6C-q0A"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="createRadioButton" destination="T0B-mR-ezu" id="YaJ-Y6-Xrp"/>
+                        <outlet property="joinRadioButton" destination="60o-0u-dYD" id="70v-tO-hZk"/>
+                        <outlet property="repoURLTextField" destination="ZlD-GX-NMB" id="P5K-QE-8Bw"/>
+                        <outlet property="saveButton" destination="3Hk-zR-gKu" id="dTo-VY-khL"/>
+                        <outlet property="serverURLTextField" destination="Mcr-DI-Umt" id="MjC-Ou-tfN"/>
+                    </connections>
                 </viewController>
                 <customObject id="vvC-0r-FD1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

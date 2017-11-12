@@ -12,13 +12,18 @@ class Document: NSDocument {
 
     override init() {
         super.init()
-        // Add your subclass-specific initialization here.
     }
 
+    init(localURL: URL) {
+        documentData = DocumentData(localURL: localURL)
+    }
+    
+    var documentData: DocumentData?
+    
     override class var autosavesInPlace: Bool {
         return true
     }
-
+    
     override func makeWindowControllers() {
         // Returns the Storyboard that contains your Document window.
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
@@ -27,23 +32,16 @@ class Document: NSDocument {
     }
 
     override func data(ofType typeName: String) throws -> Data {
-        
-        
-        // Insert code here to write your document to data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning nil.
-        // You can also choose to override fileWrapperOfType:error:, writeToURL:ofType:error:, or writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
-        throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
+        return try JSONEncoder().encode(documentData)
     }
 
     override func read(from data: Data, ofType typeName: String) throws {
-        // Insert code here to read your document from the given data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning false.
-        // You can also choose to override readFromFileWrapper:ofType:error: or readFromURL:ofType:error: instead.
-        // If you override either of these, you should also override -isEntireFileLoaded to return false if the contents are lazily loaded.
-        throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
+        documentData = try JSONDecoder().decode(DocumentData.self, from: data)
     }
 }
 
 struct DocumentData: Codable {
-    let url: URL
+    let localURL: URL
 }
 
 class TexDocsDocumentController: NSDocumentController {
@@ -52,41 +50,23 @@ class TexDocsDocumentController: NSDocumentController {
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("NewProjectWindowController")) as! NSWindowController
         
+        guard NSApplication.shared.runModal(for: windowController.window!) == .OK,
+            let method = (windowController.contentViewController as? NewProjectViewController)?.method else {
+            return NSDocument()
+        }
         
-        NSApp.runModal(for: windowController.window!)
+        try! FileManager.default.createDirectory(at: method.localURL, withIntermediateDirectories: true, attributes: nil)
         
-        return NSDocument()
-//        windowController.runM
+        let projectFileURL = method.localURL.appendingPathComponent(method.localURL.lastPathComponent).appendingPathExtension(".texdocs")
+        let document = Document(localURL: method.localURL)
+        document.save(to: projectFileURL, ofType: "", for: .saveOperation) { error in
+            self.addDocument(document)
+            document.makeWindowControllers()
+            if (displayDocument) {
+                document.showWindows()
+            }
+        }
         
-//        self.window?.beginSheet(windowController.window!, completionHandler: nil)
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//            self.window?.endSheet(windowController.window!)
-//        }
-        
-//        let doc: NSDocument
-//        let savePanel = NSSavePanel()
-//
-//        savePanel.prompt = "Create"
-//
-//        let modelResponse = savePanel.runModal()
-//
-//        print(modelResponse)
-//
-//        if modelResponse == .OK {
-//            print("ok")
-//        }
-//
-//
-//
-//        print("untitled")
-//        return try super.openUntitledDocumentAndDisplay(displayDocument)
+        return document
     }
-    
-//    override func makeUntitledDocument(ofType typeName: String) throws -> NSDocument {
-//
-//
-//
-//        print(typeName)
-//        return try super.makeUntitledDocument(ofType: typeName)
-//    }
 }
