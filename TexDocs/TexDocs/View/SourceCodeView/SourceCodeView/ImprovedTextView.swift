@@ -9,7 +9,7 @@
 import Cocoa
 
 /// Impoved Text view with helpfull helpers
-class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
+class ImprovedTextView: NSTextView, NSTextStorageDelegate {
     
     // MARK: Init
     override init(frame frameRect: NSRect) {
@@ -24,7 +24,6 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
     
     /// Some basic setups
     private func setUp() {
-        self.delegate = self
         self.textStorage?.delegate = self
         self.usesFontPanel = false
     }
@@ -67,16 +66,6 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
     }
     
     // Mark: Text did change
-    
-//    override func shouldChangeText(in affectedCharRange: NSRange, replacementString: String?) -> Bool {
-//        textDidChange(in: affectedCharRange, replacementString: replacementString ?? "", byUser: true)
-//        return super.shouldChangeText(in: affectedCharRange, replacementString: replacementString)
-//    }
-    
-//    override func insertText(_ string: Any, replacementRange: NSRange) {
-//        super.insertText(string, replacementRange: replacementRange)
-//        textDidChange(in: replacementRange, replacementString: string as? String ?? "", byUser: true)
-//    }
 
     private var userInitiated: Bool = true
     
