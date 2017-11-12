@@ -39,8 +39,8 @@ fn main() {
     thread::spawn(move|| {
         let mut stream = TcpStream::connect("127.0.0.1:8000").unwrap();
         for j in 0..30 {
-            write!(stream, "the answer is {}", j).unwrap();
-            sleep(Duration::new(0, 100000000));
+            write!(stream, "the answer is {}\n", j).unwrap();
+//            sleep(Duration::new(0, 100000000));
         }
     });
 
