@@ -47,3 +47,5 @@ class SourceCodeView: ImprovedTextView {
         lineNumberRuler?.redrawLineNumbers()
     }
 }
+
+

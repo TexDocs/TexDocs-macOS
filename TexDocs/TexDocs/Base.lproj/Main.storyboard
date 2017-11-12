@@ -913,10 +913,10 @@
             </objects>
             <point key="canvasLocation" x="739" y="532"/>
         </scene>
-        <!--View Controller-->
+        <!--Editor View Controller-->
         <scene sceneID="ys6-DR-FwR">
             <objects>
-                <viewController id="w3m-v7-CMc" sceneMemberID="viewController">
+                <viewController id="w3m-v7-CMc" customClass="EditorViewController" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="nnH-rj-WVI">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -927,7 +927,7 @@
                                     <rect key="frame" x="1" y="1" width="448" height="298"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="H8s-FE-kuL" customClass="CollaborationSourceCodeView" customModule="SourceCodeView">
+                                        <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="H8s-FE-kuL" customClass="CollaborationSourceCodeView" customModule="TexDocs" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="448" height="298"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -959,6 +959,9 @@
                             <constraint firstAttribute="trailing" secondItem="Oas-80-fXG" secondAttribute="trailing" id="WHL-DQ-ewV"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="editorView" destination="H8s-FE-kuL" id="bKM-40-YAy"/>
+                    </connections>
                 </viewController>
                 <customObject id="Ab1-A2-DAW" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

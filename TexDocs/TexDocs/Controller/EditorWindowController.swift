@@ -10,6 +10,13 @@ import Cocoa
 
 class EditorWindowController: NSWindowController {
     
+    let client = CollaborationClient()
+    
+    override func windowDidLoad() {
+        editorViewController.editorView.collaborationDelegate = self
+        client.delegate = self
+    }
+    
     var rootSplitViewController: NSSplitViewController {
         return contentViewController as! NSSplitViewController
     }
@@ -38,8 +45,8 @@ class EditorWindowController: NSWindowController {
         return centerSplitViewController.splitViewItems[0]
     }
     
-    var editorViewController: NSViewController {
-        return editorPanel.viewController
+    var editorViewController: EditorViewController {
+        return editorPanel.viewController as! EditorViewController
     }
     
     var consolePanel: NSSplitViewItem {

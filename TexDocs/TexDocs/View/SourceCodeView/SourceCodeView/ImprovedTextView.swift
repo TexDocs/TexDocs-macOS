@@ -96,4 +96,3 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
     override func alignRight(_ sender: Any?) {}
     override func underline(_ sender: Any?) {}
 }
-

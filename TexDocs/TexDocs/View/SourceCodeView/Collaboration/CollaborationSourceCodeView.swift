@@ -10,11 +10,14 @@ import Foundation
 
 class CollaborationSourceCodeView: SourceCodeView {
 
-    /// List of all cursors
-    var collaborationCursors: [CollaborationCursor] = [] {
-        didSet {
-            setNeedsDisplay(editorBounds)
-        }
+    weak var collaborationDelegate: CollaborationSourceCodeViewDelegate?
+    
+    func collaborationCursorsDidChange() {
+        setNeedsDisplay(editorBounds)
+    }
+    
+    private var collaborationCursors: [CollaborationCursor] {
+        return collaborationDelegate?.collaborationCursors(for: self) ?? []
     }
     
     override func draw(_ dirtyRect: NSRect) {
@@ -72,16 +75,8 @@ class CollaborationSourceCodeView: SourceCodeView {
         NSRect(x: editorBounds.minX, y: minY, width: editorBounds.width, height: maxY - minY).fill()
     }
     
-    let client = CollaborationClient()
-    
     override func viewDidMoveToSuperview() {
         super.viewDidMoveToSuperview()
-        client.initNetworkCommunication(host: "localhost" as CFString, port: 8000)
-        
-//        let mockPackage = "{\"packageID\": 3, \"userID\": 9}"
-//
-//        let a = try! JSONDecoder().decode(MetaPackage.self, from: mockPackage.data(using: .utf8)!)
-//        print(a.packageID)
         
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
 //            let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
@@ -93,71 +88,39 @@ class CollaborationSourceCodeView: SourceCodeView {
 //            }
 //        }
         self.replaceString(in: NSMakeRange(0, 0), replacementString: "12345678901234567890")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.collaborationCursors.append(CollaborationCursor(range: NSRange(location: 10, length: 6), color: .red))
-            print("red joined")
-        }
     }
     
-    override func textDidChange(in range: NSRange, replacementString: String, byUser: Bool) {
-        super.textDidChange(in: range, replacementString: replacementString, byUser: byUser)
-        collaborationCursors = collaborationCursors.map { cursor in
-            
-            let deltaCharacters = replacementString.count - range.length
-            let cursorMax = NSMaxRange(cursor.range)
-            let changeMax = NSMaxRange(range)
-            let newChangeMax = changeMax + deltaCharacters
-            
-            if cursor.range.location <= range.location {       // cursor starts in front of the change
-                if cursorMax <= range.location {               // cursor ends in front of the change
-                    return cursor
-                } else if range.contains(cursorMax) {          // cursor ends in change
-                    return cursor.withLenght(range.location - cursor.range.location)
-                } else {                                       // cursor ends behind change
-                    return cursor.withLenght(cursor.range.length + deltaCharacters)
-                }
-            } else if range.contains(cursor.range.location) {  // cursor starts in change
-                if range.contains(cursorMax) {                 // cursor ends in change
-                    return cursor.with(NSRange(location: newChangeMax, length: 0))
-                } else {                                       // cursor ends after change
-                    return cursor.with(NSRange(location: newChangeMax, length: cursorMax - changeMax))
-                }
-            } else {                                           // cursor starts and ends after change
-                return cursor.withDeltaLocation(deltaCharacters)
-            }
-        }
-    }
+//    override func textDidChange(in range: NSRange, replacementString: String, byUser: Bool) {
+//        super.textDidChange(in: range, replacementString: replacementString, byUser: byUser)
+//        collaborationCursors = collaborationCursors.map { cursor in
+//
+//            let deltaCharacters = replacementString.count - range.length
+//            let cursorMax = NSMaxRange(cursor.range)
+//            let changeMax = NSMaxRange(range)
+//            let newChangeMax = changeMax + deltaCharacters
+//
+//            if cursor.range.location <= range.location {       // cursor starts in front of the change
+//                if cursorMax <= range.location {               // cursor ends in front of the change
+//                    return cursor
+//                } else if range.contains(cursorMax) {          // cursor ends in change
+//                    return cursor.withLenght(range.location - cursor.range.location)
+//                } else {                                       // cursor ends behind change
+//                    return cursor.withLenght(cursor.range.length + deltaCharacters)
+//                }
+//            } else if range.contains(cursor.range.location) {  // cursor starts in change
+//                if range.contains(cursorMax) {                 // cursor ends in change
+//                    return cursor.with(NSRange(location: newChangeMax, length: 0))
+//                } else {                                       // cursor ends after change
+//                    return cursor.with(NSRange(location: newChangeMax, length: cursorMax - changeMax))
+//                }
+//            } else {                                           // cursor starts and ends after change
+//                return cursor.withDeltaLocation(deltaCharacters)
+//            }
+//        }
+//    }
 }
 
-class CollaborationClient: TCPClient {
-    override func onReceive(data: Data) {
-        guard let message = String(data: data, encoding: .utf8) else {
-            return
-        }
-        
-        for jsonMessage in message.components(separatedBy: "\n") {
-            print(jsonMessage)
-        }
-    }
-}
-
-struct MetaPackage: Codable {
-    let packageID: Int
-}
-
-struct CollaborationCursor {
-    let range: NSRange
-    let color: NSColor
-    
-    func withLenght(_ newLength: Int) -> CollaborationCursor {
-        return CollaborationCursor(range: NSRange(location: self.range.location, length: newLength), color: self.color)
-    }
-    
-    func withDeltaLocation(_ deltaLocation: Int) -> CollaborationCursor {
-        return CollaborationCursor(range: NSRange(location: self.range.location + deltaLocation, length: self.range.length), color: self.color)
-    }
-    
-    func with(_ range: NSRange) -> CollaborationCursor {
-        return CollaborationCursor(range: range, color: self.color)
-    }
+protocol CollaborationSourceCodeViewDelegate: class {
+    func textDidChange(in range: NSRange, replacementString: String, byUser: Bool)
+    func collaborationCursors(for editor: CollaborationSourceCodeView) -> [CollaborationCursor]
 }
