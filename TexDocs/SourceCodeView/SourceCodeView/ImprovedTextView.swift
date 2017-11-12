@@ -9,7 +9,7 @@
 import Cocoa
 
 /// Impoved Text view with helpfull helpers
-class ImprovedTextView: NSTextView {
+class ImprovedTextView: NSTextView, NSTextViewDelegate {
     
     // MARK: Init
     override init(frame frameRect: NSRect) {
@@ -24,6 +24,7 @@ class ImprovedTextView: NSTextView {
     
     /// Some basic setups
     private func setUp() {
+        self.delegate = self
         self.usesFontPanel = false
     }
     
@@ -71,7 +72,12 @@ class ImprovedTextView: NSTextView {
         return super.shouldChangeText(in: affectedCharRange, replacementString: replacementString)
     }
     
+    func textViewDidChangeSelection(_ notification: Notification) {
+        print(selectedRange())
+    }
+    
     open func textDidChange(in range: NSRange, replacementString: String) {}
+    open func selectionDidChange(selection: NSRange) {}
     
     // MARK: Remove format
     override func changeFont(_ sender: Any?) {}
