@@ -680,6 +680,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="TexDocs" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="BiU-SL-C6q" customClass="TexDocsDocumentController" customModule="TexDocs" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
         </scene>

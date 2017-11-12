@@ -1,0 +1,2 @@
+github "libgit2/objective-git" "0.13.0"
+github "tidwall/SwiftWebSocket" "2.6.5"

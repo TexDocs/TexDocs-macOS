@@ -9,7 +9,7 @@
 import Cocoa
 
 /// Impoved Text view with helpfull helpers
-class ImprovedTextView: NSTextView, NSTextStorageDelegate {
+class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
     
     // MARK: Init
     override init(frame frameRect: NSRect) {
@@ -24,6 +24,7 @@ class ImprovedTextView: NSTextView, NSTextStorageDelegate {
     
     /// Some basic setups
     private func setUp() {
+        self.delegate = self
         self.textStorage?.delegate = self
     }
     

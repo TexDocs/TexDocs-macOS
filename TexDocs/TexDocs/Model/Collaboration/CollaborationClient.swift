@@ -7,58 +7,95 @@
 //
 
 import Foundation
+import SwiftWebSocket
 
-class CollaborationClient: TCPClient {
+class CollaborationClient {
     
     // MARK: Public interface
+    weak var delegate: CollaborationClientDelegate?
+    
     private(set) var collaborationCursors: [String: CollaborationCursor] = [:] {
         didSet {
             delegate?.collaborationCursorsChanged(in: self)
         }
     }
     
-    weak var delegate: CollaborationClientDelegate?
+    private(set) var userID: String?
+    private(set) var repoURL: String?
+    var userName: String = ""
     
-    override init() {
-        super.init()
-        connect()
+    private let webSocket: WebSocket
+    
+    init(url: URL) {
+        webSocket = WebSocket(url: url)
+        webSocket.delegate = self
     }
     
-    // MARK: Private interface
-    
-    private func connect() {
-        initNetworkCommunication(host: "localhost" as CFString, port: 8000)
-    }
-    
-    private func connectionClosed() {
-        collaborationCursors = [:]
-    }
-    
-    // MARK: Callbacks
-    
-    override func onReceive(data: Data) {
-        guard let message = String(data: data, encoding: .utf8) else {
+    private func handleIncomingData(_ data: Data) throws {
+        let jsonDecoder = JSONDecoder()
+        
+        guard let message = try? jsonDecoder.decode(BasePackage.self, from: data) else {
             return
         }
         
-        for jsonMessage in message.components(separatedBy: "\n") {
-            print(jsonMessage)
+        guard let packageID = message.packageID else {
+            print(message.statusCode)
+            return
+        }
+        
+        switch packageID {
+        case .join:
+            handleJoinPackage(try jsonDecoder.decode(ProjectJoinPackage.self, from: data))
+            
+            webSocket.send(text: "{\"type\": \"cursor\"}")
         }
     }
     
-    override func outputStreamOpened() {
-        collaborationCursors = [
+    private func handleJoinPackage(_ package: ProjectJoinPackage) {
+        self.userID = package.userID
+        self.repoURL = package.repoURL
+    }
+}
+
+extension CollaborationClient: WebSocketDelegate {
+    func webSocketOpen() {
+        self.collaborationCursors = [
             UUID().uuidString: CollaborationCursor(range: NSRange(location: 10, length: 6), color: .red)
         ]
     }
     
-    override func error() {
-        connectionClosed()
+    func webSocketClose(_ code: Int, reason: String, wasClean: Bool) {
+        self.webSocket.open()
     }
     
-    override func closed() {
-        connectionClosed()
+    func webSocketError(_ error: NSError) {
+        print(error)
     }
+    
+    func webSocketMessageText(_ text: String) {
+        print(text)
+        guard let data = text.data(using: .utf8) else { return }
+        
+        do {
+            try handleIncomingData(data)
+        } catch {
+            print(error)
+        }
+            
+    }
+    
+    func webSocketMessageData(_ data: Data) {
+        do {
+            try handleIncomingData(data)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func webSocketPong() {
+        print("pong received")
+    }
+    
 }
 
 protocol CollaborationClientDelegate: class {

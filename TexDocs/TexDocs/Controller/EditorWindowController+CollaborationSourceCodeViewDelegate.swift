@@ -14,6 +14,6 @@ extension EditorWindowController: CollaborationSourceCodeViewDelegate {
     }
     
     func collaborationCursors(for editor: CollaborationSourceCodeView) -> [CollaborationCursor] {
-        return []//CollaborationCursor(range: NSRange(location: 10, length: 6), color: .red)]
+        return client.collaborationCursors.map { return $1 }
     }
 }
