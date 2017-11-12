@@ -26,19 +26,20 @@ class CollaborationSourceCodeView: SourceCodeView {
         
         for cursor in collaborationCursors {
     
-            let startPositionRange = NSRange(location: cursor.startPosition, length: 0)
+            let startPositionRange = NSRange(location: cursor.range.location, length: 0)
             let startPositionRect = layoutManager.boundingRect(forGlyphRange: startPositionRange, in: textContainer)
             let startPosition = startPositionRect.origin
             let cursorHeight = startPositionRect.size.height
             let cursorSize = CGSize(width: 1, height: cursorHeight)
             
-            // draw cursor
-            cursor.color.setFill()
-            NSRect(origin: startPosition, size: cursorSize).fill()
             
-            // draw selection
-            if cursor.length != 0 {
-                let endPositionRange = NSRange(location: cursor.startPosition + cursor.length, length: 0)
+            if cursor.range.length == 0 {
+                // draw cursor
+                cursor.color.setFill()
+                NSRect(origin: startPosition, size: cursorSize).fill()
+            } else {
+                // draw selection
+                let endPositionRange = NSRange(location: NSMaxRange(cursor.range), length: 0)
                 let endPositionRect = layoutManager.boundingRect(forGlyphRange: endPositionRange, in: textContainer)
                 let endPosition = endPositionRect.origin
                 
@@ -46,14 +47,10 @@ class CollaborationSourceCodeView: SourceCodeView {
                 
                 if startPosition.y == endPosition.y {
                     NSRect(x: startPosition.x, y: startPosition.y, width: endPosition.x - startPosition.x, height: cursorHeight).fill()
-                } else if startPosition.y < endPosition.y {
+                } else {
                     drawSelectionToEndOfLine(from: startPosition, cursorHeight: cursorHeight)
                     drawSelectionToBeginningOfLine(from: endPosition, cursorHeight: cursorHeight)
                     fillLines(between: startPositionRect.maxY, and: endPositionRect.minY)
-                } else {
-                    drawSelectionToEndOfLine(from: endPosition, cursorHeight: cursorHeight)
-                    drawSelectionToBeginningOfLine(from: startPosition, cursorHeight: cursorHeight)
-                    fillLines(between: endPositionRect.maxY, and: startPositionRect.minY)
                 }
             }
         }
@@ -81,21 +78,54 @@ class CollaborationSourceCodeView: SourceCodeView {
         super.viewDidMoveToSuperview()
         client.initNetworkCommunication(host: "localhost" as CFString, port: 8000)
         
-        let mockPackage = "{\"packageID\": 3, \"userID\": 9}"
+//        let mockPackage = "{\"packageID\": 3, \"userID\": 9}"
+//
+//        let a = try! JSONDecoder().decode(MetaPackage.self, from: mockPackage.data(using: .utf8)!)
+//        print(a.packageID)
         
-        let a = try! JSONDecoder().decode(MetaPackage.self, from: mockPackage.data(using: .utf8)!)
-        print(a.packageID)
-        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//            let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
+//            let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("LoadingWindowController")) as! NSWindowController
+//
+//            self.window?.beginSheet(windowController.window!, completionHandler: nil)
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                self.window?.endSheet(windowController.window!)
+//            }
+//        }
+        self.replaceString(in: NSMakeRange(0, 0), replacementString: "12345678901234567890")
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
-            let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("LoadingWindowController")) as! NSWindowController
+            self.collaborationCursors.append(CollaborationCursor(range: NSRange(location: 10, length: 6), color: .red))
+            print("red joined")
+        }
+    }
+    
+    override func textDidChange(in range: NSRange, replacementString: String, byUser: Bool) {
+        super.textDidChange(in: range, replacementString: replacementString, byUser: byUser)
+        collaborationCursors = collaborationCursors.map { cursor in
             
-            self.window?.beginSheet(windowController.window!, completionHandler: nil)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                self.window?.endSheet(windowController.window!)
+            let deltaCharacters = replacementString.count - range.length
+            let cursorMax = NSMaxRange(cursor.range)
+            let changeMax = NSMaxRange(range)
+            let newChangeMax = changeMax + deltaCharacters
+            
+            if cursor.range.location <= range.location {       // cursor starts in front of the change
+                if cursorMax <= range.location {               // cursor ends in front of the change
+                    return cursor
+                } else if range.contains(cursorMax) {          // cursor ends in change
+                    return cursor.withLenght(range.location - cursor.range.location)
+                } else {                                       // cursor ends behind change
+                    return cursor.withLenght(cursor.range.length + deltaCharacters)
+                }
+            } else if range.contains(cursor.range.location) {  // cursor starts in change
+                if range.contains(cursorMax) {                 // cursor ends in change
+                    return cursor.with(NSRange(location: newChangeMax, length: 0))
+                } else {                                       // cursor ends after change
+                    return cursor.with(NSRange(location: newChangeMax, length: cursorMax - changeMax))
+                }
+            } else {                                           // cursor starts and ends after change
+                return cursor.withDeltaLocation(deltaCharacters)
             }
         }
-        
     }
 }
 
@@ -116,7 +146,18 @@ struct MetaPackage: Codable {
 }
 
 struct CollaborationCursor {
-    let startPosition: Int
-    let length: Int
+    let range: NSRange
     let color: NSColor
+    
+    func withLenght(_ newLength: Int) -> CollaborationCursor {
+        return CollaborationCursor(range: NSRange(location: self.range.location, length: newLength), color: self.color)
+    }
+    
+    func withDeltaLocation(_ deltaLocation: Int) -> CollaborationCursor {
+        return CollaborationCursor(range: NSRange(location: self.range.location + deltaLocation, length: self.range.length), color: self.color)
+    }
+    
+    func with(_ range: NSRange) -> CollaborationCursor {
+        return CollaborationCursor(range: range, color: self.color)
+    }
 }

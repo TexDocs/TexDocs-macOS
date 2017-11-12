@@ -42,8 +42,8 @@ class SourceCodeView: ImprovedTextView {
         enclosingScrollView.verticalRulerView = ruler
     }
     
-    override func textDidChange(in range: NSRange, replacementString: String) {
-        super.textDidChange(in: range, replacementString: replacementString)
+    override func textDidChange(in range: NSRange, replacementString: String, byUser: Bool) {
+        super.textDidChange(in: range, replacementString: replacementString, byUser: byUser)
         lineNumberRuler?.redrawLineNumbers()
     }
 }

@@ -68,15 +68,20 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
     // Mark: Text did change
     
     override func shouldChangeText(in affectedCharRange: NSRange, replacementString: String?) -> Bool {
-        textDidChange(in: affectedCharRange, replacementString: replacementString ?? "")
+        textDidChange(in: affectedCharRange, replacementString: replacementString ?? "", byUser: true)
         return super.shouldChangeText(in: affectedCharRange, replacementString: replacementString)
     }
     
-    func textViewDidChangeSelection(_ notification: Notification) {
-        print(selectedRange())
+    func replaceString(in range: NSRange, replacementString: String, byUser: Bool = false) {
+        textStorage?.replaceCharacters(in: range, with: replacementString)
+        textDidChange(in: range, replacementString: replacementString, byUser: byUser)
     }
     
-    open func textDidChange(in range: NSRange, replacementString: String) {}
+    func textViewDidChangeSelection(_ notification: Notification) {
+        selectionDidChange(selection: selectedRange())
+    }
+    
+    open func textDidChange(in range: NSRange, replacementString: String, byUser: Bool) {}
     open func selectionDidChange(selection: NSRange) {}
     
     // MARK: Remove format

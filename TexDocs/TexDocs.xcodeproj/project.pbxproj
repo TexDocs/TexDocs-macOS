@@ -28,6 +28,7 @@
 		40A7D1461FB79984002FBB8B /* ImprovedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D1451FB79984002FBB8B /* ImprovedTextView.swift */; };
 		40A7D14A1FB7A86F002FBB8B /* RegexLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D1491FB7A86F002FBB8B /* RegexLib.swift */; };
 		40A7D14E1FB7B681002FBB8B /* CollaborationSourceCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D14D1FB7B681002FBB8B /* CollaborationSourceCodeView.swift */; };
+		40AB8C441FB87CE700BC6D82 /* EditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AB8C431FB87CE700BC6D82 /* EditorWindowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +121,7 @@
 		40A7D1451FB79984002FBB8B /* ImprovedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImprovedTextView.swift; sourceTree = "<group>"; };
 		40A7D1491FB7A86F002FBB8B /* RegexLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexLib.swift; sourceTree = "<group>"; };
 		40A7D14D1FB7B681002FBB8B /* CollaborationSourceCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationSourceCodeView.swift; sourceTree = "<group>"; };
+		40AB8C431FB87CE700BC6D82 /* EditorWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				40A7D0DD1FB78A3F002FBB8B /* AppDelegate.swift */,
+				40AB8C421FB87CCA00BC6D82 /* Controller */,
 				40A7D0DF1FB78A3F002FBB8B /* ViewController.swift */,
 				40A7D0E11FB78A3F002FBB8B /* Document.swift */,
 				40A7D0E31FB78A3F002FBB8B /* Assets.xcassets */,
@@ -276,6 +279,14 @@
 				40A7D14D1FB7B681002FBB8B /* CollaborationSourceCodeView.swift */,
 			);
 			path = Collaboration;
+			sourceTree = "<group>";
+		};
+		40AB8C421FB87CCA00BC6D82 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				40AB8C431FB87CE700BC6D82 /* EditorWindowController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -534,6 +545,7 @@
 			files = (
 				40A7D0E01FB78A3F002FBB8B /* ViewController.swift in Sources */,
 				40A7D0DE1FB78A3F002FBB8B /* AppDelegate.swift in Sources */,
+				40AB8C441FB87CE700BC6D82 /* EditorWindowController.swift in Sources */,
 				40A7D0E21FB78A3F002FBB8B /* Document.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -756,7 +756,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController storyboardIdentifier="Document Window Controller" id="jGA-0Y-lOj" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="Document Window Controller" id="jGA-0Y-lOj" customClass="EditorWindowController" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="Ckk-yw-fiv">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -783,12 +783,47 @@
                                                 </segment>
                                             </segments>
                                         </segmentedCell>
+                                        <connections>
+                                            <action selector="selectedModeDidChange:" target="jGA-0Y-lOj" id="ka6-yk-Rg7"/>
+                                        </connections>
                                     </segmentedControl>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="EDD34A2A-3A87-4821-AD23-03E95271AFA1" label="Panels" paletteLabel="Aditional Panels" id="Crh-5c-Ikz">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="67" height="24"/>
+                                    <size key="maxSize" width="74" height="24"/>
+                                    <segmentedControl key="view" verticalHuggingPriority="750" id="yvk-6a-KdP">
+                                        <rect key="frame" x="9" y="14" width="74" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="selectAny" id="3SE-Z9-cif">
+                                            <font key="font" metaFont="system"/>
+                                            <segments>
+                                                <segment image="LeftPanelTemplate" width="32" selected="YES"/>
+                                                <segment image="BottomPanelTemplate" selected="YES">
+                                                    <nil key="label"/>
+                                                </segment>
+                                            </segments>
+                                        </segmentedCell>
+                                        <connections>
+                                            <action selector="panelsDidChange:" target="jGA-0Y-lOj" id="pjs-dN-9Rs"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="2B46B15B-0B2C-4B13-A516-021D64222345" label="" paletteLabel="Seperator" tag="-1" id="AAR-pa-u7A">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="5" height="28"/>
+                                    <size key="maxSize" width="5" height="96"/>
+                                    <box key="view" horizontalHuggingPriority="750" boxType="separator" id="Ugo-6e-1Dg">
+                                        <rect key="frame" x="27" y="14" width="5" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </box>
                                 </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="2Bc-3Z-sQY"/>
                                 <toolbarItem reference="ihT-jl-5TQ"/>
+                                <toolbarItem reference="AAR-pa-u7A"/>
+                                <toolbarItem reference="Crh-5c-Ikz"/>
                             </defaultToolbarItems>
                         </toolbar>
                         <connections>
@@ -938,14 +973,14 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H3s-5B-4Km">
-                                <rect key="frame" x="0.0" y="155" width="20" height="20"/>
+                                <rect key="frame" x="0.0" y="155" width="80" height="20"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="G5N-LF-AAp">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="G5N-LF-AAp" secondAttribute="height" multiplier="1:1" id="PMj-Wh-huQ"/>
+                                            <constraint firstAttribute="width" secondItem="G5N-LF-AAp" secondAttribute="height" multiplier="4:1" id="PMj-Wh-huQ"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSTrashEmpty" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="YHN-HW-Omc">
+                                        <buttonCell key="cell" type="square" title="Clear" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="YHN-HW-Omc">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -1010,7 +1045,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <pdfView wantsLayer="YES" acceptsDraggedFiles="YES" autoScales="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZzK-Do-YY9">
+                            <pdfView wantsLayer="YES" autoScales="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZzK-Do-YY9">
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="qQ0-x0-nwX"/>
@@ -1032,9 +1067,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="BottomPanelTemplate" width="19" height="19"/>
+        <image name="LeftPanelTemplate" width="19" height="19"/>
         <image name="NSBookmarksTemplate" width="17" height="18"/>
         <image name="NSColumnViewTemplate" width="16" height="10"/>
         <image name="NSListViewTemplate" width="14" height="10"/>
-        <image name="NSTrashEmpty" width="32" height="32"/>
     </resources>
 </document>
