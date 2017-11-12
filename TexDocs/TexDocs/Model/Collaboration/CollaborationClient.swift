@@ -46,8 +46,6 @@ class CollaborationClient {
         switch packageID {
         case .join:
             handleJoinPackage(try jsonDecoder.decode(ProjectJoinPackage.self, from: data))
-            
-            webSocket.send(text: "{\"type\": \"cursor\"}")
         }
     }
     

@@ -47,12 +47,46 @@ struct DocumentData: Codable {
 }
 
 class TexDocsDocumentController: NSDocumentController {
-//    override func openUntitledDocumentAndDisplay(_ displayDocument: Bool) throws -> NSDocument {
+    override func openUntitledDocumentAndDisplay(_ displayDocument: Bool) throws -> NSDocument {
+        
+        let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
+        let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("NewProjectWindowController")) as! NSWindowController
+        
+        
+        NSApp.runModal(for: windowController.window!)
+        
+        return NSDocument()
+//        windowController.runM
+        
+//        self.window?.beginSheet(windowController.window!, completionHandler: nil)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//            self.window?.endSheet(windowController.window!)
+//        }
+        
+//        let doc: NSDocument
+//        let savePanel = NSSavePanel()
+//
+//        savePanel.prompt = "Create"
+//
+//        let modelResponse = savePanel.runModal()
+//
+//        print(modelResponse)
+//
+//        if modelResponse == .OK {
+//            print("ok")
+//        }
+//
+//
+//
 //        print("untitled")
 //        return try super.openUntitledDocumentAndDisplay(displayDocument)
-//    }
+    }
     
 //    override func makeUntitledDocument(ofType typeName: String) throws -> NSDocument {
+//
+//
+//
 //        print(typeName)
+//        return try super.makeUntitledDocument(ofType: typeName)
 //    }
 }

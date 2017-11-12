@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4048199D1FB8C64600AAFBF0 /* CollaborationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4048199C1FB8C64600AAFBF0 /* CollaborationProtocol.swift */; };
+		4048199F1FB8DD9400AAFBF0 /* NewProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4048199E1FB8DD9400AAFBF0 /* NewProjectViewController.swift */; };
 		40A4815E1FB7D29A00B7667F /* UIRegexLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40A7D1261FB7956B002FBB8B /* UIRegexLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		40A7D0DE1FB78A3F002FBB8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D0DD1FB78A3F002FBB8B /* AppDelegate.swift */; };
 		40A7D0E21FB78A3F002FBB8B /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D0E11FB78A3F002FBB8B /* Document.swift */; };
@@ -178,6 +179,7 @@
 
 /* Begin PBXFileReference section */
 		4048199C1FB8C64600AAFBF0 /* CollaborationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationProtocol.swift; sourceTree = "<group>"; };
+		4048199E1FB8DD9400AAFBF0 /* NewProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectViewController.swift; sourceTree = "<group>"; };
 		40A7D0DA1FB78A3F002FBB8B /* TexDocs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TexDocs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40A7D0DD1FB78A3F002FBB8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40A7D0E11FB78A3F002FBB8B /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 				40AA16EF1FB88A0000373B07 /* EditorWindowController+CollaborationClientDelegate.swift */,
 				40AB8C4C1FB8866200BC6D82 /* EditorViewController.swift */,
 				40C88C201FB8B659006F6BB9 /* OutlineViewController.swift */,
+				4048199E1FB8DD9400AAFBF0 /* NewProjectViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -760,6 +763,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				40AB8C4F1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift in Sources */,
+				4048199F1FB8DD9400AAFBF0 /* NewProjectViewController.swift in Sources */,
 				40A7D0DE1FB78A3F002FBB8B /* AppDelegate.swift in Sources */,
 				40C88C211FB8B659006F6BB9 /* OutlineViewController.swift in Sources */,
 				40AA16F81FB88BE700373B07 /* SimpleHighlighter.swift in Sources */,
