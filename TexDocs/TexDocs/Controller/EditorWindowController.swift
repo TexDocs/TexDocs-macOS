@@ -10,7 +10,7 @@ import Cocoa
 
 class EditorWindowController: NSWindowController {
     
-    let client = CollaborationClient()
+    let client = CollaborationClient(url: URL(string: "ws://192.168.150.49:8080/project/join/110ec58a-a0f2-4ac4-8393-c866d813b8d1")!)
     
     override func windowDidLoad() {
         editorViewController.editorView.collaborationDelegate = self
