@@ -9,7 +9,7 @@
 import Cocoa
 
 /// Impoved Text view with helpfull helpers
-class ImprovedTextView: NSTextView, NSTextViewDelegate {
+class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
     
     // MARK: Init
     override init(frame frameRect: NSRect) {
@@ -25,6 +25,7 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
     /// Some basic setups
     private func setUp() {
         self.delegate = self
+        self.textStorage?.delegate = self
         self.usesFontPanel = false
     }
     
@@ -67,21 +68,37 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
     
     // Mark: Text did change
     
-    override func shouldChangeText(in affectedCharRange: NSRange, replacementString: String?) -> Bool {
-        textDidChange(in: affectedCharRange, replacementString: replacementString ?? "", byUser: true)
-        return super.shouldChangeText(in: affectedCharRange, replacementString: replacementString)
+//    override func shouldChangeText(in affectedCharRange: NSRange, replacementString: String?) -> Bool {
+//        textDidChange(in: affectedCharRange, replacementString: replacementString ?? "", byUser: true)
+//        return super.shouldChangeText(in: affectedCharRange, replacementString: replacementString)
+//    }
+    
+//    override func insertText(_ string: Any, replacementRange: NSRange) {
+//        super.insertText(string, replacementRange: replacementRange)
+//        textDidChange(in: replacementRange, replacementString: string as? String ?? "", byUser: true)
+//    }
+
+    private var userInitiated: Bool = true
+    
+    func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorageEditActions, range editedRange: NSRange, changeInLength delta: Int) {
+        if editedMask.contains(NSTextStorageEditActions.editedCharacters) {
+            let oldRange = NSRange(location: editedRange.location, length: editedRange.length - delta)
+            print(oldRange, editedRange, delta, userInitiated)
+            textDidChange(oldRange: oldRange, newRange: editedRange, changeInLength: delta, byUser: userInitiated)
+        }
     }
     
     func replaceString(in range: NSRange, replacementString: String, byUser: Bool = false) {
+        userInitiated = false
         textStorage?.replaceCharacters(in: range, with: replacementString)
-        textDidChange(in: range, replacementString: replacementString, byUser: byUser)
+        userInitiated = true
     }
     
     func textViewDidChangeSelection(_ notification: Notification) {
         selectionDidChange(selection: selectedRange())
     }
     
-    open func textDidChange(in range: NSRange, replacementString: String, byUser: Bool) {}
+    open func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool) {}
     open func selectionDidChange(selection: NSRange) {}
     
     // MARK: Remove format

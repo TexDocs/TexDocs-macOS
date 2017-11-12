@@ -42,10 +42,30 @@ class SourceCodeView: ImprovedTextView {
         enclosingScrollView.verticalRulerView = ruler
     }
     
-    override func textDidChange(in range: NSRange, replacementString: String, byUser: Bool) {
-        super.textDidChange(in: range, replacementString: replacementString, byUser: byUser)
+    override func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool) {
+        super.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser)
         lineNumberRuler?.redrawLineNumbers()
+        updateSourceCodeHighlighting()
+    }
+    
+    func updateSourceCodeHighlighting() {
+        
+        
+        
+        let highlightingRules: [SourceCodeHighlightRule] = [
+            SimpleHighlighter(pattern: "(\\\\\\w*)", colors: [.keyword]),
+            SimpleHighlighter(pattern: "(%)(.*)$", colors: [.keyword, .comment]),
+        ]
+        
+        
+        textStorage?.addAttribute(NSAttributedStringKey.foregroundColor, value: ColorSchemeHandler.default.color(forKey: .text), range: rangeForUserParagraphAttributeChange)
+        for rule in highlightingRules {
+            rule.applyRule(to: self, range: rangeForUserParagraphAttributeChange)
+        }
+        
     }
 }
 
-
+protocol SourceCodeHighlightRule: class {
+    func applyRule(to sourceCodeView: SourceCodeView, range: NSRange)
+}

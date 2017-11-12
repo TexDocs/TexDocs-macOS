@@ -21,6 +21,9 @@
 		40A7D14A1FB7A86F002FBB8B /* RegexLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D1491FB7A86F002FBB8B /* RegexLib.swift */; };
 		40AA16EE1FB8881100373B07 /* CollaborationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AA16ED1FB8881100373B07 /* CollaborationClient.swift */; };
 		40AA16F01FB88A0000373B07 /* EditorWindowController+ CollaborationClientDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AA16EF1FB88A0000373B07 /* EditorWindowController+ CollaborationClientDelegate.swift */; };
+		40AA16F81FB88BE700373B07 /* SimpleHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AA16F71FB88BE700373B07 /* SimpleHighlighter.swift */; };
+		40AA16FC1FB88F5600373B07 /* ColorSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AA16FB1FB88F5600373B07 /* ColorSchemeHandler.swift */; };
+		40AA16FF1FB88FCC00373B07 /* ColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AA16FE1FB88FCC00373B07 /* ColorScheme.swift */; };
 		40AB8C441FB87CE700BC6D82 /* EditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AB8C431FB87CE700BC6D82 /* EditorWindowController.swift */; };
 		40AB8C451FB8840F00BC6D82 /* CollaborationSourceCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D14D1FB7B681002FBB8B /* CollaborationSourceCodeView.swift */; };
 		40AB8C461FB8841800BC6D82 /* TCPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A4815C1FB7D23B00B7667F /* TCPClient.swift */; };
@@ -112,6 +115,9 @@
 		40A7D14D1FB7B681002FBB8B /* CollaborationSourceCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationSourceCodeView.swift; sourceTree = "<group>"; };
 		40AA16ED1FB8881100373B07 /* CollaborationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationClient.swift; sourceTree = "<group>"; };
 		40AA16EF1FB88A0000373B07 /* EditorWindowController+ CollaborationClientDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+ CollaborationClientDelegate.swift"; sourceTree = "<group>"; };
+		40AA16F71FB88BE700373B07 /* SimpleHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleHighlighter.swift; sourceTree = "<group>"; };
+		40AA16FB1FB88F5600373B07 /* ColorSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeHandler.swift; sourceTree = "<group>"; };
+		40AA16FE1FB88FCC00373B07 /* ColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
 		40AB8C431FB87CE700BC6D82 /* EditorWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWindowController.swift; sourceTree = "<group>"; };
 		40AB8C4A1FB884C900BC6D82 /* CollaborationCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationCursor.swift; sourceTree = "<group>"; };
 		40AB8C4C1FB8866200BC6D82 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
@@ -186,14 +192,11 @@
 		40A7D0DC1FB78A3F002FBB8B /* TexDocs */ = {
 			isa = PBXGroup;
 			children = (
-				40A7D0DD1FB78A3F002FBB8B /* AppDelegate.swift */,
+				40AA16F31FB88A7A00373B07 /* Supporting Files */,
 				40AA16F21FB88A4200373B07 /* View */,
 				40AB8C421FB87CCA00BC6D82 /* Controller */,
 				40AA16F11FB88A3800373B07 /* Model */,
-				40A7D0E31FB78A3F002FBB8B /* Assets.xcassets */,
 				40A7D0E51FB78A3F002FBB8B /* Main.storyboard */,
-				40A7D0E81FB78A3F002FBB8B /* Info.plist */,
-				40A7D0E91FB78A3F002FBB8B /* TexDocs.entitlements */,
 			);
 			path = TexDocs;
 			sourceTree = "<group>";
@@ -266,9 +269,10 @@
 		40AA16F11FB88A3800373B07 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				40A4815C1FB7D23B00B7667F /* TCPClient.swift */,
-				40AA16ED1FB8881100373B07 /* CollaborationClient.swift */,
+				40AA16F41FB88B9E00373B07 /* Collaboration */,
+				40AA16F51FB88BA800373B07 /* TeX */,
 				40A7D0E11FB78A3F002FBB8B /* Document.swift */,
+				40AA16FD1FB88FBD00373B07 /* ColorSchemes */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -279,6 +283,51 @@
 				40A7D1111FB79261002FBB8B /* SourceCodeView */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		40AA16F31FB88A7A00373B07 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				40A7D0DD1FB78A3F002FBB8B /* AppDelegate.swift */,
+				40A7D0E31FB78A3F002FBB8B /* Assets.xcassets */,
+				40A7D0E81FB78A3F002FBB8B /* Info.plist */,
+				40A7D0E91FB78A3F002FBB8B /* TexDocs.entitlements */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		40AA16F41FB88B9E00373B07 /* Collaboration */ = {
+			isa = PBXGroup;
+			children = (
+				40A4815C1FB7D23B00B7667F /* TCPClient.swift */,
+				40AA16ED1FB8881100373B07 /* CollaborationClient.swift */,
+			);
+			path = Collaboration;
+			sourceTree = "<group>";
+		};
+		40AA16F51FB88BA800373B07 /* TeX */ = {
+			isa = PBXGroup;
+			children = (
+				40AA16F61FB88BD700373B07 /* Highlighting */,
+			);
+			path = TeX;
+			sourceTree = "<group>";
+		};
+		40AA16F61FB88BD700373B07 /* Highlighting */ = {
+			isa = PBXGroup;
+			children = (
+				40AA16F71FB88BE700373B07 /* SimpleHighlighter.swift */,
+			);
+			path = Highlighting;
+			sourceTree = "<group>";
+		};
+		40AA16FD1FB88FBD00373B07 /* ColorSchemes */ = {
+			isa = PBXGroup;
+			children = (
+				40AA16FB1FB88F5600373B07 /* ColorSchemeHandler.swift */,
+				40AA16FE1FB88FCC00373B07 /* ColorScheme.swift */,
+			);
+			path = ColorSchemes;
 			sourceTree = "<group>";
 		};
 		40AB8C421FB87CCA00BC6D82 /* Controller */ = {
@@ -509,7 +558,9 @@
 				40AB8C4F1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift in Sources */,
 				40A7D0DE1FB78A3F002FBB8B /* AppDelegate.swift in Sources */,
 				40AB8C461FB8841800BC6D82 /* TCPClient.swift in Sources */,
+				40AA16F81FB88BE700373B07 /* SimpleHighlighter.swift in Sources */,
 				40AB8C441FB87CE700BC6D82 /* EditorWindowController.swift in Sources */,
+				40AA16FC1FB88F5600373B07 /* ColorSchemeHandler.swift in Sources */,
 				40AA16EE1FB8881100373B07 /* CollaborationClient.swift in Sources */,
 				40AB8C4D1FB8866200BC6D82 /* EditorViewController.swift in Sources */,
 				40AA16F01FB88A0000373B07 /* EditorWindowController+ CollaborationClientDelegate.swift in Sources */,
@@ -519,6 +570,7 @@
 				40AB8C481FB8841C00BC6D82 /* SourceCodeView.swift in Sources */,
 				40AB8C491FB8841E00BC6D82 /* SourceCodeRulerView.swift in Sources */,
 				40AB8C471FB8841A00BC6D82 /* ImprovedTextView.swift in Sources */,
+				40AA16FF1FB88FCC00373B07 /* ColorScheme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,7 +761,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = TexDocs/Info.plist;
+				INFOPLIST_FILE = "TexDocs/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.blechschmidt.TexDocs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -724,7 +776,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = TexDocs/Info.plist;
+				INFOPLIST_FILE = "TexDocs/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.blechschmidt.TexDocs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
