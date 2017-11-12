@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "40A7D0D91FB78A3F002FBB8B"
-               BuildableName = "TexDocs.app"
-               BlueprintName = "TexDocs"
+               BlueprintIdentifier = "40A7D1251FB7956B002FBB8B"
+               BuildableName = "UIRegexLib.framework"
+               BlueprintName = "UIRegexLib"
                ReferencedContainer = "container:TexDocs.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,26 +33,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "40A7D0ED1FB78A3F002FBB8B"
-               BuildableName = "TexDocsTests.xctest"
-               BlueprintName = "TexDocsTests"
-               ReferencedContainer = "container:TexDocs.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "40A7D0F81FB78A3F002FBB8B"
-               BuildableName = "TexDocsUITests.xctest"
-               BlueprintName = "TexDocsUITests"
-               ReferencedContainer = "container:TexDocs.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "40A7D12D1FB7956B002FBB8B"
                BuildableName = "UIRegexLibTests.xctest"
                BlueprintName = "UIRegexLibTests"
@@ -63,9 +43,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "40A7D0D91FB78A3F002FBB8B"
-            BuildableName = "TexDocs.app"
-            BlueprintName = "TexDocs"
+            BlueprintIdentifier = "40A7D1251FB7956B002FBB8B"
+            BuildableName = "UIRegexLib.framework"
+            BlueprintName = "UIRegexLib"
             ReferencedContainer = "container:TexDocs.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -83,16 +63,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "40A7D0D91FB78A3F002FBB8B"
-            BuildableName = "TexDocs.app"
-            BlueprintName = "TexDocs"
+            BlueprintIdentifier = "40A7D1251FB7956B002FBB8B"
+            BuildableName = "UIRegexLib.framework"
+            BlueprintName = "UIRegexLib"
             ReferencedContainer = "container:TexDocs.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -102,16 +81,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "40A7D0D91FB78A3F002FBB8B"
-            BuildableName = "TexDocs.app"
-            BlueprintName = "TexDocs"
+            BlueprintIdentifier = "40A7D1251FB7956B002FBB8B"
+            BuildableName = "UIRegexLib.framework"
+            BlueprintName = "UIRegexLib"
             ReferencedContainer = "container:TexDocs.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
