@@ -14,8 +14,8 @@ class Document: NSDocument {
         super.init()
     }
 
-    init(localURL: URL) {
-        documentData = DocumentData(localURL: localURL)
+    init(documentData: DocumentData) {
+        self.documentData = documentData
     }
     
     var documentData: DocumentData?
@@ -25,7 +25,7 @@ class Document: NSDocument {
     }
     
     override func makeWindowControllers() {
-        // Returns the Storyboard that contains your Document window.
+        // Returns the Storyboard that contains the Document window.
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Document Window Controller")) as! EditorWindowController
         self.addWindowController(windowController)
@@ -40,10 +40,6 @@ class Document: NSDocument {
     }
 }
 
-struct DocumentData: Codable {
-    let localURL: URL
-}
-
 class TexDocsDocumentController: NSDocumentController {
     override func openUntitledDocumentAndDisplay(_ displayDocument: Bool) throws -> NSDocument {
         
@@ -51,14 +47,16 @@ class TexDocsDocumentController: NSDocumentController {
         let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("NewProjectWindowController")) as! NSWindowController
         
         guard NSApplication.shared.runModal(for: windowController.window!) == .OK,
-            let method = (windowController.contentViewController as? NewProjectViewController)?.method else {
+            let controller = windowController.contentViewController as? NewProjectViewController,
+            let method = controller.method,
+            let localURL = controller.localURL else {
             return NSDocument()
         }
         
-        try! FileManager.default.createDirectory(at: method.localURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: localURL, withIntermediateDirectories: true, attributes: nil)
         
-        let projectFileURL = method.localURL.appendingPathComponent(method.localURL.lastPathComponent).appendingPathExtension("texdocs")
-        let document = Document(localURL: method.localURL)
+        let projectFileURL = localURL.appendingPathComponent(localURL.lastPathComponent).appendingPathExtension("texdocs")
+        let document = Document(documentData: DocumentData(open: method))
         document.save(to: projectFileURL, ofType: "", for: .saveOperation) { error in
             self.addDocument(document)
             document.makeWindowControllers()

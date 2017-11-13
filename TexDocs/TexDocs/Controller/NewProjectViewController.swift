@@ -8,19 +8,26 @@
 
 import Cocoa
 
-class NewProjectViewController: NSViewController {
+let serverURLRegex = try! NSRegularExpression(pattern: "^wss?:\\/\\/[-a-z0-9@:%._\\+~#=\\/?&]+$", options: [.caseInsensitive])
+let repoURLRegex = try! NSRegularExpression(pattern: "^\\w+@[-a-z0-9@:%._\\+~#=\\/?&]+$", options: [.caseInsensitive])
 
+class NewProjectViewController: NSViewController {
     @IBOutlet weak var joinRadioButton: NSButton!
     @IBOutlet weak var createRadioButton: NSButton!
+    @IBOutlet weak var createOfflineRadioButton: NSButton!
     @IBOutlet weak var saveButton: NSButton!
     @IBOutlet weak var serverURLTextField: NSTextField!
-    @IBOutlet weak var repoURLTextField: NSTextField! {
-        didSet {
-            repoURLTextField.isHidden = true
-        }
-    }
+    @IBOutlet weak var repoURLTextField: NSTextField!
+    @IBOutlet weak var warningStackView: NSStackView!
+    
     
     private(set) var method: NewProjectOpenMethod?
+    private(set) var localURL: URL?
+    
+    override func viewDidLoad() {
+        repoURLTextField.isHidden = true
+        warningStackView.isHidden = true
+    }
     
     override func viewDidDisappear() {
         super.viewDidDisappear()
@@ -28,15 +35,60 @@ class NewProjectViewController: NSViewController {
     }
     
     @IBAction func joinRadioButtonPressed(_ sender: NSButton) {
+        serverURLTextField.isHidden = false
         repoURLTextField.isHidden = true
         saveButton.title = "Join"
         createRadioButton.state = .off
+        createOfflineRadioButton.state = .off
+        inputChanged()
     }
     
     @IBAction func createRadioButtonPressed(_ sender: NSButton) {
+        serverURLTextField.isHidden = false
         repoURLTextField.isHidden = false
         saveButton.title = "Create"
         joinRadioButton.state = .off
+        createOfflineRadioButton.state = .off
+        inputChanged()
+    }
+    
+    @IBAction func createOfflineRadioButtonPressed(_ sender: NSButton) {
+        serverURLTextField.isHidden = true
+        repoURLTextField.isHidden = true
+        saveButton.title = "Create"
+        joinRadioButton.state = .off
+        createRadioButton.state = .off
+        inputChanged()
+    }
+    
+    @IBAction func userEditedURL(_ sender: NSTextField) {
+        inputChanged()
+    }
+    
+    private func inputChanged() {
+        warningStackView.isHidden = true
+    }
+    
+    private func getServerURL() -> String? {
+        let url = serverURLTextField.stringValue
+        return serverURLRegex.firstMatch(in: url, options: [], range: NSRange(location: 0, length: url.count)) != nil ? url : nil
+    }
+    
+    private func getRepoURL() -> String? {
+        let url = repoURLTextField.stringValue
+        return repoURLRegex.firstMatch(in: url, options: [], range: NSRange(location: 0, length: url.count)) != nil ? url : nil
+    }
+    
+    private func getNewProjectMethod() -> NewProjectOpenMethod? {
+        if createOfflineRadioButton.state == .on {
+            return .offline
+        } else if joinRadioButton.state == .on {
+            guard let serverURL = getServerURL() else { return nil }
+            return .join(serverURL: serverURL)
+        } else {
+            guard let serverURL = getServerURL(), let repoURL = getRepoURL() else { return nil }
+            return .create(serverURL: serverURL, repoURL: repoURL)
+        }
     }
     
     @IBAction func cancel(_ sender: Any) {
@@ -49,23 +101,19 @@ class NewProjectViewController: NSViewController {
             return
         }
         
+        guard let method = getNewProjectMethod() else {
+            warningStackView.isHidden = false
+            return
+        }
+        
+        self.method = method
+        
         let savePanel = NSSavePanel()
         savePanel.prompt = "Create"
         
         savePanel.beginSheetModal(for: window) { [weak self] response in
-            if response == .OK, let url = savePanel.url, let unwrappedSelf = self {
-                
-                if unwrappedSelf.joinRadioButton.state == .on {
-                    unwrappedSelf.method = .join(
-                        serverURL: unwrappedSelf.serverURLTextField.stringValue,
-                        localURL: url)
-                } else {
-                    unwrappedSelf.method = .create(
-                        serverURL: unwrappedSelf.serverURLTextField.stringValue,
-                        repoURL: unwrappedSelf.repoURLTextField.stringValue,
-                        localURL: url)
-                }
-                
+            if response == .OK, let url = savePanel.url {
+                self?.localURL = url
                 window.close()
                 NSApp.stopModal(withCode: .OK)
             }
@@ -73,25 +121,26 @@ class NewProjectViewController: NSViewController {
     }
 }
 
+extension NewProjectViewController: NSTextFieldDelegate {
+    
+}
+
 enum NewProjectOpenMethod {
-    case join(serverURL: String, localURL: URL)
-    case create(serverURL: String, repoURL: String, localURL: URL)
+    case offline
+    case join(serverURL: String)
+    case create(serverURL: String, repoURL: String)
     
-    var localURL: URL {
-        switch self { case .join(_, let localURL), .create(_, _, let localURL):
-            return localURL
-        }
-    }
-    
-    var serverURL: String {
-        switch self { case .join(let serverURL, _), .create(let serverURL, _, _):
+    var serverURL: String? {
+        switch self { case .join(let serverURL), .create(let serverURL, _):
             return serverURL
+        default:
+            return nil
         }
     }
     
     var repoURL: String? {
         switch self {
-        case .create(_, let repoURL, _):
+        case .create(_, let repoURL):
             return repoURL
         default:
             return nil
