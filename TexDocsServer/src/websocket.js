@@ -153,6 +153,7 @@ export function setupWebsocket(server) {
 
             switch (data.type) {
                 case 'cursor':
+                    data.userID = ws.userID;
                     getProject(ws.projectID).then((project) => {
                         for (let userID in project.users) {
                             if (!project.users.hasOwnProperty(userID) || userID === ws.userID) continue;
