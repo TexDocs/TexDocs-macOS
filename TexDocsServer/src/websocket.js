@@ -12,8 +12,8 @@ const NOT_FOUND = {
 const projects = {
     "110ec58a-a0f2-4ac4-8393-c866d813b8d1": {
         repoURL: "git@gitlab.com:TheMegaTB/testLatex.git",
-        serverChanges: [],
         gitLog: [],
+        users: {}
     }
 };
 
@@ -30,34 +30,27 @@ async function getProject(projectID) {
     })
 }
 
-async function updateProject(projectID) {
+function getProjectDir(projectID) {
+    return path.join(config.storageFolder, projectID);
+}
+
+async function executeInProject(projectID, spawnClosure) {
     return new Promise((resolve, reject) => {
         getProject(projectID).then((project) => {
-            const projectDir = path.join(config.storageFolder, projectID);
+            let shellCmd = spawnClosure(project);
 
-            fs.ensureDirSync(config.storageFolder);
-            let gitShell;
-            if (fs.existsSync(projectDir)) {
-                console.log("executing pull");
-                // TODO Check for local, uncommited changes
-                gitShell = spawn('git', ['pull'], { cwd: projectDir });
-            } else {
-                console.log("executing clone");
-                gitShell = spawn('git', ['clone', project.repoURL, projectDir]);
-            }
+            shellCmd.stdout.setEncoding('utf8');
+            shellCmd.stderr.setEncoding('utf8');
 
-            gitShell.stdout.setEncoding('utf8');
-            gitShell.stderr.setEncoding('utf8');
-
-            gitShell.stdout.on('data', (chunk) => {
+            shellCmd.stdout.on('data', (chunk) => {
                 project.gitLog.push([Date.now().toString(), 'stdout', chunk]);
             });
 
-            gitShell.stderr.on('data', (chunk) => {
+            shellCmd.stderr.on('data', (chunk) => {
                 project.gitLog.push([Date.now().toString(), 'stderr', chunk]);
             });
 
-            gitShell.on('close', (code) => {
+            shellCmd.on('close', (code) => {
                 console.log(`child process exited with code ${code}`);
                 if (code === 0) resolve();
                 else reject(code);
@@ -66,11 +59,49 @@ async function updateProject(projectID) {
     });
 }
 
-// updateProject("110ec58a-a0f2-4ac4-8393-c866d813b8d1").then(() => console.log("updated!"));
+function updateProject(projectID) {
+    return executeInProject(projectID, (project) => {
+        const projectDir = getProjectDir(projectID);
 
-function joinProject(projectID, userID) {
+        fs.ensureDirSync(config.storageFolder);
+        if (fs.existsSync(projectDir)) {
+            console.log("executing pull");
+            // TODO Check for local, uncommited changes
+            return spawn('git', ['pull'], { cwd: projectDir });
+        } else {
+            console.log("executing clone");
+            return spawn('git', ['clone', project.repoURL, projectDir]);
+        }
+    });
+}
+
+function pushProject(projectID) {
+    const projectDir = getProjectDir(projectID);
+    return executeInProject(projectID, (project) => {
+        console.log("add files");
+        return spawn('git', ['add', '.'], { cwd: projectDir });
+    }).then(() =>
+        executeInProject(projectID, (project) => {
+            console.log("commit");
+            return spawn('git', ['commit', '-m', '"Server side commit"'], { cwd: projectDir });
+        }).then(() =>
+            executeInProject(projectID, (project) => {
+                console.log("push");
+                return spawn('git', ['push'], { cwd: projectDir });
+            })
+        )
+    );
+}
+
+// updateProject("110ec58a-a0f2-4ac4-8393-c866d813b8d1").then(() => {
+//     console.log("updated!");
+//     pushProject("110ec58a-a0f2-4ac4-8393-c866d813b8d1").then(() => console.log("pushed!"));
+// });
+
+function joinProject(projectID, userID, ws) {
     if (projects.hasOwnProperty(projectID)) {
         const project = projects[projectID];
+        project.users[userID] = ws;
         return {
             status: 200,
             type: "project-open",
@@ -88,7 +119,8 @@ function handshake(ws, req, userID) {
     let msg = {};
     if (url[0] === "project") {
         if (url[1] === 'join') {
-            msg = joinProject(url[2], userID);
+            msg = joinProject(url[2], userID, ws);
+            ws.projectID = url[2];
         } else if (url[1] === 'create') {
             msg = {
                 status: 501
@@ -105,8 +137,6 @@ export function setupWebsocket(server) {
     const wss = new WebSocket.Server({server});
     wss.on('connection', (ws, req) => {
         ws.userID = uuidv4();
-        console.log(req.url);
-        // TODO Map to project invite link
 
         ws.isAlive = true;
         ws.on('pong', heartbeat);
@@ -121,20 +151,23 @@ export function setupWebsocket(server) {
                 return;
             }
 
-            // TODO Interpret data
-
             switch (data.type) {
                 case 'cursor':
-                    wss.clients.forEach((client) => {
-                        if (ws.userID === client.userID) return;
-                        data.userID = ws.userID;
-                        client.send(JSON.stringify(data));
+                    data.userID = ws.userID;
+                    getProject(ws.projectID).then((project) => {
+                        for (let userID in project.users) {
+                            if (!project.users.hasOwnProperty(userID) || userID === ws.userID) continue;
+                            project.users[userID].send(JSON.stringify(data));
+                        }
                     });
                     break;
                 case 'edit':
-                    wss.clients.forEach((client) => {
-                        if (ws.userID === client.userID) return;
-                        client.send(JSON.stringify(data));
+                    getProject(ws.projectID).then((project) => {
+                        // TODO Apply edit
+                        for (let userID in project.users) {
+                            if (!project.users.hasOwnProperty(userID) || userID === ws.userID) continue;
+                            project.users[userID].send(JSON.stringify(data));
+                        }
                     });
                     break;
             }
@@ -142,13 +175,13 @@ export function setupWebsocket(server) {
 
 
         handshake(ws, req, ws.userID);
-
     });
 
     const interval = setInterval(function ping() {
         wss.clients.forEach(function each(ws) {
             if (ws.isAlive === false) {
                 // TODO Notify others about this state
+                console.log("Client disconnected");
                 return ws.terminate();
             }
 
