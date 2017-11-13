@@ -133,6 +133,26 @@ function handshake(ws, req, userID) {
     ws.send(JSON.stringify(msg));
 }
 
+function removeClient(ws) {
+    // TODO Notify others about this state
+    console.log("Client disconnected");
+    getProject(ws.projectID).then((project) => {
+        delete project.users[ws.userID];
+    });
+    return ws.terminate();
+}
+
+function broadcastToProject(projectID, uID, data) {
+    getProject(projectID).then((project) => {
+        for (let userID in project.users) {
+            if (!project.users.hasOwnProperty(userID) || userID === uID) continue;
+            const ws = project.users[userID];
+            if (!ws.isAlive) removeClient(ws);
+            else ws.send(JSON.stringify(data));
+        }
+    });
+}
+
 export function setupWebsocket(server) {
     const wss = new WebSocket.Server({server});
     wss.on('connection', (ws, req) => {
@@ -154,21 +174,10 @@ export function setupWebsocket(server) {
             switch (data.type) {
                 case 'cursor':
                     data.userID = ws.userID;
-                    getProject(ws.projectID).then((project) => {
-                        for (let userID in project.users) {
-                            if (!project.users.hasOwnProperty(userID) || userID === ws.userID) continue;
-                            project.users[userID].send(JSON.stringify(data));
-                        }
-                    });
+                    broadcastToProject(ws.projectID, ws.userID, data);
                     break;
                 case 'edit':
-                    getProject(ws.projectID).then((project) => {
-                        // TODO Apply edit
-                        for (let userID in project.users) {
-                            if (!project.users.hasOwnProperty(userID) || userID === ws.userID) continue;
-                            project.users[userID].send(JSON.stringify(data));
-                        }
-                    });
+                    broadcastToProject(ws.projectID, ws.userID, data);
                     break;
             }
         });
@@ -179,14 +188,12 @@ export function setupWebsocket(server) {
 
     const interval = setInterval(function ping() {
         wss.clients.forEach(function each(ws) {
-            if (ws.isAlive === false) {
-                // TODO Notify others about this state
-                console.log("Client disconnected");
-                return ws.terminate();
+            if (ws.isAlive === false)
+                removeClient(ws);
+            else {
+                ws.isAlive = false;
+                ws.ping('', false, true);
             }
-
-            ws.isAlive = false;
-            ws.ping('', false, true);
         });
     }, 30000);
 }
