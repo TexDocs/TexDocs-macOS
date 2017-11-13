@@ -35,7 +35,6 @@ class CollaborationSourceCodeView: SourceCodeView {
             let cursorHeight = startPositionRect.size.height
             let cursorSize = CGSize(width: 1, height: cursorHeight)
             
-            
             if cursor.range.length == 0 {
                 // draw cursor
                 cursor.color.setFill()
@@ -87,40 +86,22 @@ class CollaborationSourceCodeView: SourceCodeView {
 //                self.window?.endSheet(windowController.window!)
 //            }
 //        }
-        self.replaceString(in: NSMakeRange(0, 0), replacementString: "12345678901234567890")
+//        self.replaceString(in: NSMakeRange(0, 0), replacementString: "12345678901234567890")
     }
     
-//    override func textDidChange(in range: NSRange, replacementString: String, byUser: Bool) {
-//        super.textDidChange(in: range, replacementString: replacementString, byUser: byUser)
-//        collaborationCursors = collaborationCursors.map { cursor in
-//
-//            let deltaCharacters = replacementString.count - range.length
-//            let cursorMax = NSMaxRange(cursor.range)
-//            let changeMax = NSMaxRange(range)
-//            let newChangeMax = changeMax + deltaCharacters
-//
-//            if cursor.range.location <= range.location {       // cursor starts in front of the change
-//                if cursorMax <= range.location {               // cursor ends in front of the change
-//                    return cursor
-//                } else if range.contains(cursorMax) {          // cursor ends in change
-//                    return cursor.withLenght(range.location - cursor.range.location)
-//                } else {                                       // cursor ends behind change
-//                    return cursor.withLenght(cursor.range.length + deltaCharacters)
-//                }
-//            } else if range.contains(cursor.range.location) {  // cursor starts in change
-//                if range.contains(cursorMax) {                 // cursor ends in change
-//                    return cursor.with(NSRange(location: newChangeMax, length: 0))
-//                } else {                                       // cursor ends after change
-//                    return cursor.with(NSRange(location: newChangeMax, length: cursorMax - changeMax))
-//                }
-//            } else {                                           // cursor starts and ends after change
-//                return cursor.withDeltaLocation(deltaCharacters)
-//            }
-//        }
-//    }
+    override func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool) {
+        super.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser)
+        collaborationDelegate?.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser)
+    }
+    
+    override func selectionDidChange(selection: NSRange) {
+        super.selectionDidChange(selection: selection)
+        collaborationDelegate?.userSelectionDidChange(selection)
+    }
 }
 
 protocol CollaborationSourceCodeViewDelegate: class {
-    func textDidChange(in range: NSRange, replacementString: String, byUser: Bool)
+    func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool)
     func collaborationCursors(for editor: CollaborationSourceCodeView) -> [CollaborationCursor]
+    func userSelectionDidChange(_ newSelection: NSRange)
 }

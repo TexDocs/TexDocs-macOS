@@ -8,12 +8,17 @@
 
 import Foundation
 
-enum PackgeID: String, Codable {
+enum ReceivedPackgeID: String, Codable {
     case join = "project-open"
+    case collaboratorCurserUpdate = "cursor"
+}
+
+enum SendPackageID: String, Codable {
+    case userCurserUpdate = "cursor"
 }
 
 struct BasePackage: Codable {
-    let packageID: PackgeID?
+    let packageID: ReceivedPackgeID?
     let statusCode: Int
     
     enum CodingKeys: String, CodingKey {
@@ -22,8 +27,32 @@ struct BasePackage: Codable {
     }
 }
 
+// MARK: Server -> Client
 
 struct ProjectJoinPackage: Codable {
     let userID: String
     let repoURL: String
+}
+
+struct CollaborationCursorUpdatePackage: Codable {
+    let userID: String
+    let start: Int
+    let length: Int
+    
+    var selectionRange: NSRange {
+        return NSRange(location: start, length: length)
+    }
+}
+
+// MARK: Client -> Server
+
+struct UserCurserUpdatePackage: Codable {
+    let packageID = SendPackageID.userCurserUpdate
+    let start: Int
+    let length: Int
+    
+    init(range: NSRange) {
+        start = range.location
+        length = range.length
+    }
 }

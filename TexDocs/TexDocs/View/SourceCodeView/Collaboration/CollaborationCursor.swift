@@ -9,7 +9,7 @@
 import Cocoa
 
 struct CollaborationCursor {
-    let range: NSRange
+    var range: NSRange
     let color: NSColor
     
     func withLenght(_ newLength: Int) -> CollaborationCursor {
@@ -22,5 +22,13 @@ struct CollaborationCursor {
     
     func with(_ range: NSRange) -> CollaborationCursor {
         return CollaborationCursor(range: range, color: self.color)
+    }
+    
+    mutating func updateRange(_ range: NSRange) {
+        self.range = range
+    }
+    
+    static func withRandomColor() -> CollaborationCursor {
+        return CollaborationCursor(range: NSRange(), color: NSColor.red)
     }
 }
