@@ -33,10 +33,13 @@ extension OutlineViewController: NSOutlineViewDataSource {
         return item.numberOfChildren > 0
     }
     
-    func outlineView(_ outlineView: NSOutlineView, objectValueFor tableColumn: NSTableColumn?, byItem item: Any?) -> Any? {
-        guard let item = item as? FileSystemItem else { return "Project" }
+    func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
+        guard let item = item as? FileSystemItem else { return nil }
         
-        return item.url.lastPathComponent
+        let cell = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "FileSystemItemCell"), owner: nil) as! FileSystemItemCell
+        cell.iconView.image = NSWorkspace.shared.icon(forFile: item.url.path)
+        cell.nameTextField.stringValue = item.url.lastPathComponent
+        return cell
     }
 }
 

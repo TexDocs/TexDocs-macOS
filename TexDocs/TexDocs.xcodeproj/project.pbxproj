@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A34491FBA27E60070E237 /* DocumentData.swift */; };
 		4048199D1FB8C64600AAFBF0 /* CollaborationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4048199C1FB8C64600AAFBF0 /* CollaborationProtocol.swift */; };
+		4048199F1FB8DD9400AAFBF0 /* NewProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4048199E1FB8DD9400AAFBF0 /* NewProjectViewController.swift */; };
+		404819A11FB8F37300AAFBF0 /* FileSystemItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404819A01FB8F37300AAFBF0 /* FileSystemItemCell.swift */; };
 		40A4815E1FB7D29A00B7667F /* UIRegexLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40A7D1261FB7956B002FBB8B /* UIRegexLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		40A7D0DE1FB78A3F002FBB8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D0DD1FB78A3F002FBB8B /* AppDelegate.swift */; };
 		40A7D0E21FB78A3F002FBB8B /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D0E11FB78A3F002FBB8B /* Document.swift */; };
@@ -34,7 +37,6 @@
 		40AB8C4D1FB8866200BC6D82 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AB8C4C1FB8866200BC6D82 /* EditorViewController.swift */; };
 		40AB8C4F1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AB8C4E1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift */; };
 		40C88C211FB8B659006F6BB9 /* OutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C88C201FB8B659006F6BB9 /* OutlineViewController.swift */; };
-		40C88C4E1FB8C2E5006F6BB9 /* ObjectiveGit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40C88C2E1FB8C2B7006F6BB9 /* ObjectiveGit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		40C88C501FB8C2EE006F6BB9 /* SwiftWebSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40C88C411FB8C2BC006F6BB9 /* SwiftWebSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -73,34 +75,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 40A7D1251FB7956B002FBB8B;
 			remoteInfo = UIRegexLib;
-		};
-		40C88C2D1FB8C2B7006F6BB9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40C88C221FB8C2B7006F6BB9 /* ObjectiveGitFramework.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
-			remoteInfo = "ObjectiveGit-Mac";
-		};
-		40C88C2F1FB8C2B7006F6BB9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40C88C221FB8C2B7006F6BB9 /* ObjectiveGitFramework.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 88F05A6B16011E5400B7AD1D;
-			remoteInfo = "ObjectiveGit-MacTests";
-		};
-		40C88C311FB8C2B7006F6BB9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40C88C221FB8C2B7006F6BB9 /* ObjectiveGitFramework.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D01B6ED319F82E2000D411BC;
-			remoteInfo = "ObjectiveGit-iOS";
-		};
-		40C88C331FB8C2B7006F6BB9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40C88C221FB8C2B7006F6BB9 /* ObjectiveGitFramework.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F879D8361B4B7F7C002D5C07;
-			remoteInfo = "ObjectiveGit-iOSTests";
 		};
 		40C88C3E1FB8C2BC006F6BB9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -144,13 +118,6 @@
 			remoteGlobalIDString = D78C40301C232C3800EB72AA;
 			remoteInfo = "Test-ObjectiveC";
 		};
-		40C88C4A1FB8C2DB006F6BB9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40C88C221FB8C2B7006F6BB9 /* ObjectiveGitFramework.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = "ObjectiveGit-Mac";
-		};
 		40C88C4C1FB8C2DB006F6BB9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 40C88C351FB8C2BC006F6BB9 /* SwiftWebSocket.xcodeproj */;
@@ -168,7 +135,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				40C88C501FB8C2EE006F6BB9 /* SwiftWebSocket.framework in Embed Frameworks */,
-				40C88C4E1FB8C2E5006F6BB9 /* ObjectiveGit.framework in Embed Frameworks */,
 				40A4815E1FB7D29A00B7667F /* UIRegexLib.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -177,7 +143,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		400A34491FBA27E60070E237 /* DocumentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentData.swift; sourceTree = "<group>"; };
 		4048199C1FB8C64600AAFBF0 /* CollaborationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationProtocol.swift; sourceTree = "<group>"; };
+		4048199E1FB8DD9400AAFBF0 /* NewProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectViewController.swift; sourceTree = "<group>"; };
+		404819A01FB8F37300AAFBF0 /* FileSystemItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemItemCell.swift; sourceTree = "<group>"; };
 		40A7D0DA1FB78A3F002FBB8B /* TexDocs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TexDocs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40A7D0DD1FB78A3F002FBB8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40A7D0E11FB78A3F002FBB8B /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -212,7 +181,6 @@
 		40AB8C4C1FB8866200BC6D82 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		40AB8C4E1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+CollaborationSourceCodeViewDelegate.swift"; sourceTree = "<group>"; };
 		40C88C201FB8B659006F6BB9 /* OutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewController.swift; sourceTree = "<group>"; };
-		40C88C221FB8C2B7006F6BB9 /* ObjectiveGitFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ObjectiveGitFramework.xcodeproj; path = "Carthage/Checkouts/objective-git/ObjectiveGitFramework.xcodeproj"; sourceTree = "<group>"; };
 		40C88C351FB8C2BC006F6BB9 /* SwiftWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftWebSocket.xcodeproj; path = Carthage/Checkouts/SwiftWebSocket/SwiftWebSocket.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -257,10 +225,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		400A34431FBA27840070E237 /* Document */ = {
+			isa = PBXGroup;
+			children = (
+				40A7D0E11FB78A3F002FBB8B /* Document.swift */,
+				400A34491FBA27E60070E237 /* DocumentData.swift */,
+			);
+			path = Document;
+			sourceTree = "<group>";
+		};
 		40A7D0D11FB78A3F002FBB8B = {
 			isa = PBXGroup;
 			children = (
-				40C88C221FB8C2B7006F6BB9 /* ObjectiveGitFramework.xcodeproj */,
 				40C88C351FB8C2BC006F6BB9 /* SwiftWebSocket.xcodeproj */,
 				40A7D0DC1FB78A3F002FBB8B /* TexDocs */,
 				40A7D0F11FB78A3F002FBB8B /* TexDocsTests */,
@@ -365,7 +341,7 @@
 			children = (
 				40AA16F41FB88B9E00373B07 /* Collaboration */,
 				40AA16F51FB88BA800373B07 /* TeX */,
-				40A7D0E11FB78A3F002FBB8B /* Document.swift */,
+				400A34431FBA27840070E237 /* Document */,
 				40AA16FD1FB88FBD00373B07 /* ColorSchemes */,
 			);
 			path = Model;
@@ -375,6 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				40A7D1111FB79261002FBB8B /* SourceCodeView */,
+				404819A01FB8F37300AAFBF0 /* FileSystemItemCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -432,19 +409,9 @@
 				40AA16EF1FB88A0000373B07 /* EditorWindowController+CollaborationClientDelegate.swift */,
 				40AB8C4C1FB8866200BC6D82 /* EditorViewController.swift */,
 				40C88C201FB8B659006F6BB9 /* OutlineViewController.swift */,
+				4048199E1FB8DD9400AAFBF0 /* NewProjectViewController.swift */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		40C88C231FB8C2B7006F6BB9 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				40C88C2E1FB8C2B7006F6BB9 /* ObjectiveGit.framework */,
-				40C88C301FB8C2B7006F6BB9 /* ObjectiveGit-MacTests.xctest */,
-				40C88C321FB8C2B7006F6BB9 /* ObjectiveGit.framework */,
-				40C88C341FB8C2B7006F6BB9 /* ObjectiveGit-iOSTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		40C88C361FB8C2BC006F6BB9 /* Products */ = {
@@ -486,7 +453,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				40C88C4B1FB8C2DB006F6BB9 /* PBXTargetDependency */,
 				40C88C4D1FB8C2DB006F6BB9 /* PBXTargetDependency */,
 				40A7D13A1FB7956B002FBB8B /* PBXTargetDependency */,
 			);
@@ -622,10 +588,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 40C88C231FB8C2B7006F6BB9 /* Products */;
-					ProjectRef = 40C88C221FB8C2B7006F6BB9 /* ObjectiveGitFramework.xcodeproj */;
-				},
-				{
 					ProductGroup = 40C88C361FB8C2BC006F6BB9 /* Products */;
 					ProjectRef = 40C88C351FB8C2BC006F6BB9 /* SwiftWebSocket.xcodeproj */;
 				},
@@ -642,34 +604,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		40C88C2E1FB8C2B7006F6BB9 /* ObjectiveGit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ObjectiveGit.framework;
-			remoteRef = 40C88C2D1FB8C2B7006F6BB9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		40C88C301FB8C2B7006F6BB9 /* ObjectiveGit-MacTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "ObjectiveGit-MacTests.xctest";
-			remoteRef = 40C88C2F1FB8C2B7006F6BB9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		40C88C321FB8C2B7006F6BB9 /* ObjectiveGit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ObjectiveGit.framework;
-			remoteRef = 40C88C311FB8C2B7006F6BB9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		40C88C341FB8C2B7006F6BB9 /* ObjectiveGit-iOSTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "ObjectiveGit-iOSTests.xctest";
-			remoteRef = 40C88C331FB8C2B7006F6BB9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		40C88C3F1FB8C2BC006F6BB9 /* SwiftWebSocket.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -760,13 +694,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				40AB8C4F1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift in Sources */,
+				4048199F1FB8DD9400AAFBF0 /* NewProjectViewController.swift in Sources */,
 				40A7D0DE1FB78A3F002FBB8B /* AppDelegate.swift in Sources */,
+				404819A11FB8F37300AAFBF0 /* FileSystemItemCell.swift in Sources */,
 				40C88C211FB8B659006F6BB9 /* OutlineViewController.swift in Sources */,
 				40AA16F81FB88BE700373B07 /* SimpleHighlighter.swift in Sources */,
 				40AB8C441FB87CE700BC6D82 /* EditorWindowController.swift in Sources */,
 				4048199D1FB8C64600AAFBF0 /* CollaborationProtocol.swift in Sources */,
 				40AA16FC1FB88F5600373B07 /* ColorSchemeHandler.swift in Sources */,
 				40AA16EE1FB8881100373B07 /* CollaborationClient.swift in Sources */,
+				400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */,
 				40AB8C4D1FB8866200BC6D82 /* EditorViewController.swift in Sources */,
 				40AA16F01FB88A0000373B07 /* EditorWindowController+CollaborationClientDelegate.swift in Sources */,
 				40A7D0E21FB78A3F002FBB8B /* Document.swift in Sources */,
@@ -838,11 +775,6 @@
 			isa = PBXTargetDependency;
 			target = 40A7D1251FB7956B002FBB8B /* UIRegexLib */;
 			targetProxy = 40A7D1391FB7956B002FBB8B /* PBXContainerItemProxy */;
-		};
-		40C88C4B1FB8C2DB006F6BB9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "ObjectiveGit-Mac";
-			targetProxy = 40C88C4A1FB8C2DB006F6BB9 /* PBXContainerItemProxy */;
 		};
 		40C88C4D1FB8C2DB006F6BB9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
