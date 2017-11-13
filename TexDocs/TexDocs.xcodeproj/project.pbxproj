@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A34491FBA27E60070E237 /* DocumentData.swift */; };
+		400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 400D97B51FBA3E1800540207 /* Quartz.framework */; };
 		4048199D1FB8C64600AAFBF0 /* CollaborationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4048199C1FB8C64600AAFBF0 /* CollaborationProtocol.swift */; };
 		4048199F1FB8DD9400AAFBF0 /* NewProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4048199E1FB8DD9400AAFBF0 /* NewProjectViewController.swift */; };
 		404819A11FB8F37300AAFBF0 /* FileSystemItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404819A01FB8F37300AAFBF0 /* FileSystemItemCell.swift */; };
@@ -144,6 +145,7 @@
 
 /* Begin PBXFileReference section */
 		400A34491FBA27E60070E237 /* DocumentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentData.swift; sourceTree = "<group>"; };
+		400D97B51FBA3E1800540207 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		4048199C1FB8C64600AAFBF0 /* CollaborationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationProtocol.swift; sourceTree = "<group>"; };
 		4048199E1FB8DD9400AAFBF0 /* NewProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectViewController.swift; sourceTree = "<group>"; };
 		404819A01FB8F37300AAFBF0 /* FileSystemItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemItemCell.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */,
 				40A7D13B1FB7956B002FBB8B /* UIRegexLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -234,6 +237,14 @@
 			path = Document;
 			sourceTree = "<group>";
 		};
+		400D97AF1FBA3E1800540207 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				400D97B51FBA3E1800540207 /* Quartz.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		40A7D0D11FB78A3F002FBB8B = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +255,7 @@
 				40A7D1271FB7956B002FBB8B /* UIRegexLib */,
 				40A7D1341FB7956B002FBB8B /* UIRegexLibTests */,
 				40A7D0DB1FB78A3F002FBB8B /* Products */,
+				400D97AF1FBA3E1800540207 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

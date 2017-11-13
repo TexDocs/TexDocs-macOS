@@ -72,13 +72,12 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
     func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorageEditActions, range editedRange: NSRange, changeInLength delta: Int) {
         if editedMask.contains(NSTextStorageEditActions.editedCharacters) {
             let oldRange = NSRange(location: editedRange.location, length: editedRange.length - delta)
-            print(oldRange, editedRange, delta, userInitiated)
             textDidChange(oldRange: oldRange, newRange: editedRange, changeInLength: delta, byUser: userInitiated)
         }
     }
     
     func replaceString(in range: NSRange, replacementString: String, byUser: Bool = false) {
-        userInitiated = false
+        userInitiated = byUser
         textStorage?.replaceCharacters(in: range, with: replacementString)
         userInitiated = true
     }

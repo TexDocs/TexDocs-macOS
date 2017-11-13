@@ -91,7 +91,7 @@ class CollaborationSourceCodeView: SourceCodeView {
     
     override func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool) {
         super.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser)
-        collaborationDelegate?.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser)
+        collaborationDelegate?.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser, to: nsString.substring(with: newRange))
     }
     
     override func selectionDidChange(selection: NSRange) {
@@ -101,7 +101,7 @@ class CollaborationSourceCodeView: SourceCodeView {
 }
 
 protocol CollaborationSourceCodeViewDelegate: class {
-    func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool)
+    func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, to newString: String)
     func collaborationCursors(for editor: CollaborationSourceCodeView) -> [CollaborationCursor]
     func userSelectionDidChange(_ newSelection: NSRange)
 }

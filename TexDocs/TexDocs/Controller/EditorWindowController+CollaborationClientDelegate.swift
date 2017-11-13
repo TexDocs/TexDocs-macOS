@@ -9,6 +9,10 @@
 import Foundation
 
 extension EditorWindowController: CollaborationClientDelegate {
+    func collaborationClient(receivedChangeIn range: NSRange, replacedWith replaceString: String) {
+        editorViewController.editorView.replaceString(in: range, replacementString: replaceString)
+    }
+    
     func collaborationCursorsChanged(in client: CollaborationClient) {
         editorViewController.editorView.collaborationCursorsDidChange()
     }

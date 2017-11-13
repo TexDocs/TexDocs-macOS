@@ -11,20 +11,17 @@ import Foundation
 enum ReceivedPackgeID: String, Codable {
     case join = "project-open"
     case collaboratorCurserUpdate = "cursor"
+    case collaboratorEditText = "edit"
 }
 
 enum SendPackageID: String, Codable {
     case userCurserUpdate = "cursor"
+    case userEditText = "edit"
 }
 
 struct BasePackage: Codable {
-    let packageID: ReceivedPackgeID?
-    let statusCode: Int
-    
-    enum CodingKeys: String, CodingKey {
-        case packageID = "type"
-        case statusCode = "status"
-    }
+    let type: ReceivedPackgeID?
+    let status: Int
 }
 
 // MARK: Server -> Client
@@ -44,15 +41,40 @@ struct CollaborationCursorUpdatePackage: Codable {
     }
 }
 
+struct CollaborationEditTextPackage: Codable {
+    let start: Int
+    let replaceLength: Int
+    let replaceText: String
+    
+    var range: NSRange {
+        return NSRange(location: start, length: replaceLength)
+    }
+}
+
 // MARK: Client -> Server
 
 struct UserCurserUpdatePackage: Codable {
-    let packageID = SendPackageID.userCurserUpdate
+    let type = SendPackageID.userCurserUpdate
+    let status = 200
     let start: Int
     let length: Int
     
     init(range: NSRange) {
         start = range.location
         length = range.length
+    }
+}
+
+struct UserEditTextPackge: Codable {
+    let type = SendPackageID.userEditText
+    let status = 200
+    let start: Int
+    let replaceLength: Int
+    let replaceText: String
+    
+    init(range: NSRange, replaceText: String) {
+        self.start = range.location
+        self.replaceLength = range.length
+        self.replaceText = replaceText
     }
 }

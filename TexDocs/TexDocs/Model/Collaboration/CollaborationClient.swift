@@ -39,8 +39,10 @@ class CollaborationClient {
         }
     }
     
-    func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool) {
-        // TODO send packge
+    func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, to newString: String) {
+        if byUser {
+            send(package: UserEditTextPackge(range: oldRange, replaceText: newString))
+        }
         
         collaborationCursors = collaborationCursors.mapValues { cursor in
             let cursorMax = NSMaxRange(cursor.range)
@@ -52,16 +54,16 @@ class CollaborationClient {
                     return cursor
                 } else if oldRange.contains(cursorMax) {          // cursor ends in change
                     return cursor.withLenght(oldRange.location - cursor.range.location)
-                } else {                                       // cursor ends behind change
+                } else {                                          // cursor ends behind change
                     return cursor.withLenght(cursor.range.length + delta)
                 }
             } else if oldRange.contains(cursor.range.location) {  // cursor starts in change
                 if oldRange.contains(cursorMax) {                 // cursor ends in change
                     return cursor.with(NSRange(location: newChangeMax, length: 0))
-                } else {                                       // cursor ends after change
+                } else {                                          // cursor ends after change
                     return cursor.with(NSRange(location: newChangeMax, length: cursorMax - changeMax))
                 }
-            } else {                                           // cursor starts and ends after change
+            } else {                                              // cursor starts and ends after change
                 return cursor.withDeltaLocation(delta)
             }
         }
@@ -73,13 +75,11 @@ class CollaborationClient {
     
     private func handleIncomingData(_ data: Data) throws {
         let jsonDecoder = JSONDecoder()
-        
-        guard let message = try? jsonDecoder.decode(BasePackage.self, from: data) else {
-            return
-        }
-        
-        guard let packageID = message.packageID else {
-            print(message.statusCode)
+
+        let message = try jsonDecoder.decode(BasePackage.self, from: data)
+
+        guard let packageID = message.type else {
+            print(message.status)
             return
         }
         
@@ -88,6 +88,8 @@ class CollaborationClient {
             handleJoinPackage(try jsonDecoder.decode(ProjectJoinPackage.self, from: data))
         case .collaboratorCurserUpdate:
             handleCollaborationCursorUpdatePackage(try jsonDecoder.decode(CollaborationCursorUpdatePackage.self, from: data))
+        case .collaboratorEditText:
+            handleCollaborationEditTextPackage(try jsonDecoder.decode(CollaborationEditTextPackage.self, from: data))
         }
     }
     
@@ -99,6 +101,10 @@ class CollaborationClient {
     private func handleCollaborationCursorUpdatePackage(_ package: CollaborationCursorUpdatePackage) {
         self.collaborationCursors[package.userID, default: CollaborationCursor.withRandomColor()].updateRange(package.selectionRange)
         delegate?.collaborationCursorsChanged(in: self)
+    }
+    
+    private func handleCollaborationEditTextPackage(_ package: CollaborationEditTextPackage) {
+        delegate?.collaborationClient(receivedChangeIn: package.range, replacedWith: package.replaceText)
     }
 }
 
@@ -145,4 +151,5 @@ extension CollaborationClient: WebSocketDelegate {
 
 protocol CollaborationClientDelegate: class {
     func collaborationCursorsChanged(in client: CollaborationClient)
+    func collaborationClient(receivedChangeIn range: NSRange, replacedWith replaceString: String)
 }

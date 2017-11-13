@@ -9,8 +9,8 @@
 import Foundation
 
 extension EditorWindowController: CollaborationSourceCodeViewDelegate {
-    func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool) {
-        client.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser)
+    func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, to newString: String) {
+        client.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser, to: newString)
     }
     
     func userSelectionDidChange(_ newSelection: NSRange) {
