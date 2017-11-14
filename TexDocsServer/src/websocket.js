@@ -139,7 +139,11 @@ function removeClient(ws) {
     getProject(ws.projectID).then((project) => {
         delete project.users[ws.userID];
     });
-    return ws.terminate();
+    ws.terminate();
+    broadcastToProject(ws.projectID, ws.userID, {
+        type: 'disconnect',
+        userID: ws.userID
+    });
 }
 
 function broadcastToProject(projectID, uID, data) {
