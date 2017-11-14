@@ -17,10 +17,6 @@ const projects = {
     }
 };
 
-function heartbeat() {
-    this.isAlive = true;
-}
-
 async function getProject(projectID) {
     return new Promise((resolve, reject) => {
         if (projects.hasOwnProperty(projectID))
@@ -151,8 +147,7 @@ function broadcastToProject(projectID, uID, data) {
         for (let userID in project.users) {
             if (!project.users.hasOwnProperty(userID) || userID === uID) continue;
             const ws = project.users[userID];
-            if (!ws.isAlive) removeClient(ws);
-            else ws.send(JSON.stringify(data));
+            ws.send(JSON.stringify(data));
         }
     });
 }
@@ -161,9 +156,6 @@ export function setupWebsocket(server) {
     const wss = new WebSocket.Server({server});
     wss.on('connection', (ws, req) => {
         ws.userID = uuidv4();
-
-        ws.isAlive = true;
-        ws.on('pong', heartbeat);
 
         ws.on('message', (message) => {
             console.log('received: %s', message);
@@ -186,18 +178,11 @@ export function setupWebsocket(server) {
             }
         });
 
+        ws.on('close', (code, reason) => {
+            removeClient(ws);
+        })
+
 
         handshake(ws, req, ws.userID);
     });
-
-    const interval = setInterval(function ping() {
-        wss.clients.forEach(function each(ws) {
-            if (ws.isAlive === false)
-                removeClient(ws);
-            else {
-                ws.isAlive = false;
-                ws.ping('', false, true);
-            }
-        });
-    }, 30000);
 }
