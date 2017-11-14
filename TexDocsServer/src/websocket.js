@@ -152,10 +152,15 @@ function broadcastToProject(projectID, uID, data) {
     });
 }
 
+function heartbeat() {
+    this.isAlive = true;
+}
+
 export function setupWebsocket(server) {
     const wss = new WebSocket.Server({server});
     wss.on('connection', (ws, req) => {
         ws.userID = uuidv4();
+        ws.isAlice = true
 
         ws.on('message', (message) => {
             console.log('received: %s', message);
@@ -178,11 +183,25 @@ export function setupWebsocket(server) {
             }
         });
 
-        ws.on('close', (code, reason) => {
-            removeClient(ws);
-        })
+        ws.on('pong', heartbeat);
 
+        ws.on('close', (code, reason) => {
+            if (ws.isAlive === true) {
+                removeClient(ws);
+            }
+        })
 
         handshake(ws, req, ws.userID);
     });
+
+    const interval = setInterval(function ping() {
+        wss.clients.forEach(function each(ws) {
+            if (ws.isAlive === false) {
+                removeClient(ws);
+            } else {
+                ws.isAlive = false;
+                ws.ping('', false, true);
+            }
+        });
+    }, 1000);
 }
