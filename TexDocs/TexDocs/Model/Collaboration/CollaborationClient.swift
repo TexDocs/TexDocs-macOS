@@ -25,6 +25,10 @@ class CollaborationClient {
     
     private let webSocket: WebSocket
     
+    deinit {
+        webSocket.close()
+    }
+    
     init(url: URL) {
         webSocket = WebSocket(url: url)
         webSocket.delegate = self

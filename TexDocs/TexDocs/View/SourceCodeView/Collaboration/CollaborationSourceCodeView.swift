@@ -74,9 +74,9 @@ class CollaborationSourceCodeView: SourceCodeView {
         NSRect(x: editorBounds.minX, y: minY, width: editorBounds.width, height: maxY - minY).fill()
     }
     
-    override func viewDidMoveToSuperview() {
-        super.viewDidMoveToSuperview()
-        
+//    override func viewDidMoveToSuperview() {
+//        super.viewDidMoveToSuperview()
+//
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
 //            let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
 //            let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("LoadingWindowController")) as! NSWindowController
@@ -87,7 +87,7 @@ class CollaborationSourceCodeView: SourceCodeView {
 //            }
 //        }
 //        self.replaceString(in: NSMakeRange(0, 0), replacementString: "12345678901234567890")
-    }
+//    }
     
     override func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool) {
         super.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser)
