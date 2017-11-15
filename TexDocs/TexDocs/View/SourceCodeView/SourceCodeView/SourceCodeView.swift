@@ -46,7 +46,6 @@ class SourceCodeView: ImprovedTextView {
         super.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser)
         lineNumberRuler?.redrawLineNumbers()
         updateSourceCodeHighlighting(in: newRange)
-        font = NSFont.userFixedPitchFont(ofSize: 0)
     }
     
     func updateSourceCodeHighlighting(in editedRange: NSRange) {
