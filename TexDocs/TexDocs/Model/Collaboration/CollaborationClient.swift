@@ -9,10 +9,6 @@
 import Foundation
 
 class CollaborationClient {
-    
-    // MARK: Public interface
-    weak var delegate: CollaborationClientDelegate?
-    
     private(set) var collaborationCursors: [String: CollaborationCursor] = [:] {
         didSet {
             delegate?.collaborationCursorsChanged(in: self)
@@ -21,19 +17,29 @@ class CollaborationClient {
     
     private(set) var userID: String?
     private(set) var repoURL: String?
-    var userName: String = ""
+    
+    weak var delegate: CollaborationClientDelegate?
     
     private let webSocket: WebSocket
-    
-    deinit {
-        webSocket.close()
-    }
     
     init(url: URL) {
         webSocket = WebSocket(url: url)
         webSocket.delegate = self
     }
     
+    deinit {
+        webSocket.close()
+    }
+}
+
+/// Protocols
+protocol CollaborationClientDelegate: class {
+    func collaborationCursorsChanged(in client: CollaborationClient)
+    func collaborationClient(receivedChangeIn range: NSRange, replacedWith replaceString: String)
+}
+
+// MARK: - Web Socket handler
+extension CollaborationClient {
     func send<Package: Encodable>(package: Package) {
         do {
             try webSocket.send(data: JSONEncoder().encode(package))
@@ -42,6 +48,69 @@ class CollaborationClient {
         }
     }
     
+    private func handleIncomingData(_ data: Data) throws {
+        let jsonDecoder = JSONDecoder()
+        
+        let message = try jsonDecoder.decode(BasePackage.self, from: data)
+        
+        guard let packageID = message.type else {
+            print(message.status)
+            return
+        }
+        
+        switch packageID {
+        case .join:
+            handleJoinPackage(try jsonDecoder.decode(ProjectJoinPackage.self, from: data))
+        case .collaboratorCurserUpdate:
+            handleCollaborationCursorUpdatePackage(try jsonDecoder.decode(CollaborationCursorUpdatePackage.self, from: data))
+        case .collaboratorEditText:
+            handleCollaborationEditTextPackage(try jsonDecoder.decode(CollaborationEditTextPackage.self, from: data))
+        }
+    }
+}
+
+// MARK: - WebSocketDelegate
+extension CollaborationClient: WebSocketDelegate {
+    func webSocketOpen() {
+        print("Web socket opened")
+    }
+    
+    func webSocketClose(_ code: Int, reason: String, wasClean: Bool) {
+        self.webSocket.open()
+    }
+    
+    func webSocketError(_ error: NSError) {
+        print(error)
+    }
+    
+    func webSocketMessageText(_ text: String) {
+        print(text)
+        guard let data = text.data(using: .utf8) else { return }
+        
+        do {
+            try handleIncomingData(data)
+        } catch {
+            print(error)
+        }
+        
+    }
+    
+    func webSocketMessageData(_ data: Data) {
+        do {
+            try handleIncomingData(data)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func webSocketPong() {
+        print("pong received")
+    }
+    
+}
+
+// MARK: - User Interaction
+extension CollaborationClient {
     func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, to newString: String) {
         if byUser {
             send(package: UserEditTextPackge(range: oldRange, replaceText: newString))
@@ -75,27 +144,10 @@ class CollaborationClient {
     func userSelectionDidChange(_ newSelection: NSRange) {
         send(package: UserCurserUpdatePackage(range: newSelection))
     }
-    
-    private func handleIncomingData(_ data: Data) throws {
-        let jsonDecoder = JSONDecoder()
+}
 
-        let message = try jsonDecoder.decode(BasePackage.self, from: data)
-
-        guard let packageID = message.type else {
-            print(message.status)
-            return
-        }
-        
-        switch packageID {
-        case .join:
-            handleJoinPackage(try jsonDecoder.decode(ProjectJoinPackage.self, from: data))
-        case .collaboratorCurserUpdate:
-            handleCollaborationCursorUpdatePackage(try jsonDecoder.decode(CollaborationCursorUpdatePackage.self, from: data))
-        case .collaboratorEditText:
-            handleCollaborationEditTextPackage(try jsonDecoder.decode(CollaborationEditTextPackage.self, from: data))
-        }
-    }
-    
+// MARK: - Handle received packages
+extension CollaborationClient {
     private func handleJoinPackage(_ package: ProjectJoinPackage) {
         self.userID = package.userID
         self.repoURL = package.repoURL
@@ -109,50 +161,4 @@ class CollaborationClient {
     private func handleCollaborationEditTextPackage(_ package: CollaborationEditTextPackage) {
         delegate?.collaborationClient(receivedChangeIn: package.range, replacedWith: package.replaceText)
     }
-}
-
-extension CollaborationClient: WebSocketDelegate {
-    func webSocketOpen() {
-        self.collaborationCursors = [
-            UUID().uuidString: CollaborationCursor(range: NSRange(location: 10, length: 6), color: .red)
-        ]
-    }
-    
-    func webSocketClose(_ code: Int, reason: String, wasClean: Bool) {
-        self.webSocket.open()
-    }
-    
-    func webSocketError(_ error: NSError) {
-        print(error)
-    }
-    
-    func webSocketMessageText(_ text: String) {
-        print(text)
-        guard let data = text.data(using: .utf8) else { return }
-        
-        do {
-            try handleIncomingData(data)
-        } catch {
-            print(error)
-        }
-            
-    }
-    
-    func webSocketMessageData(_ data: Data) {
-        do {
-            try handleIncomingData(data)
-        } catch {
-            print(error)
-        }
-    }
-    
-    func webSocketPong() {
-        print("pong received")
-    }
-    
-}
-
-protocol CollaborationClientDelegate: class {
-    func collaborationCursorsChanged(in client: CollaborationClient)
-    func collaborationClient(receivedChangeIn range: NSRange, replacedWith replaceString: String)
 }
