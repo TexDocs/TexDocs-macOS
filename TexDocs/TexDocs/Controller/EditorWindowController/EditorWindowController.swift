@@ -15,6 +15,7 @@ class EditorWindowController: NSWindowController {
     override func windowDidLoad() {
         editorViewController.editorView.collaborationDelegate = self
         client.delegate = self
+        shouldCascadeWindows = true
     }
     
     @IBAction func panelsDidChange(_ sender: NSSegmentedControl) {
