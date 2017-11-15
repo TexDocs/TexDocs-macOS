@@ -39,6 +39,7 @@
 		40AB8C4F1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AB8C4E1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift */; };
 		40BD25DC1FBCB7B900211743 /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BD25DB1FBCB7B900211743 /* WebSocket.swift */; };
 		40BD25DE1FBCB90C00211743 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BD25DD1FBCB90C00211743 /* libz.tbd */; };
+		40BD25E11FBCDC3400211743 /* NewProjectOpenMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BD25E01FBCDC3400211743 /* NewProjectOpenMethod.swift */; };
 		40C88C211FB8B659006F6BB9 /* OutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C88C201FB8B659006F6BB9 /* OutlineViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -135,6 +136,7 @@
 		40AB8C4E1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+CollaborationSourceCodeViewDelegate.swift"; sourceTree = "<group>"; };
 		40BD25DB1FBCB7B900211743 /* WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
 		40BD25DD1FBCB90C00211743 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		40BD25E01FBCDC3400211743 /* NewProjectOpenMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectOpenMethod.swift; sourceTree = "<group>"; };
 		40C88C201FB8B659006F6BB9 /* OutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,6 +188,7 @@
 			children = (
 				40A7D0E11FB78A3F002FBB8B /* Document.swift */,
 				400A34491FBA27E60070E237 /* DocumentData.swift */,
+				40BD25E01FBCDC3400211743 /* NewProjectOpenMethod.swift */,
 			);
 			path = Document;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				40AA16FC1FB88F5600373B07 /* ColorSchemeHandler.swift in Sources */,
 				40AA16EE1FB8881100373B07 /* CollaborationClient.swift in Sources */,
 				400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */,
+				40BD25E11FBCDC3400211743 /* NewProjectOpenMethod.swift in Sources */,
 				40AB8C4D1FB8866200BC6D82 /* EditorViewController.swift in Sources */,
 				40AA16F01FB88A0000373B07 /* EditorWindowController+CollaborationClientDelegate.swift in Sources */,
 				40BD25DC1FBCB7B900211743 /* WebSocket.swift in Sources */,

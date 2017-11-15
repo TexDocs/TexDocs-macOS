@@ -121,29 +121,3 @@ class NewProjectViewController: NSViewController {
     }
 }
 
-extension NewProjectViewController: NSTextFieldDelegate {
-    
-}
-
-enum NewProjectOpenMethod {
-    case offline
-    case join(serverURL: String)
-    case create(serverURL: String, repoURL: String)
-    
-    var serverURL: String? {
-        switch self { case .join(let serverURL), .create(let serverURL, _):
-            return serverURL
-        default:
-            return nil
-        }
-    }
-    
-    var repoURL: String? {
-        switch self {
-        case .create(_, let repoURL):
-            return repoURL
-        default:
-            return nil
-        }
-    }
-}
