@@ -9,20 +9,24 @@
 import Foundation
 
 struct DocumentData: Codable {
-    let repoURL: String?
-    let server: Server?
+    var repo: Repo? = nil
+    var server: Server? = nil
     
     init(open method: NewProjectOpenMethod) {
-        repoURL = method.repoURL
+        if let repoURL = method.repoURL {
+            repo = Repo(url: repoURL)
+        }
         
         if let serverURL = method.serverURL {
             server = Server(url: serverURL)
-        } else {
-            server = nil
         }
     }
     
     struct Server: Codable {
+        let url: String
+    }
+    
+    struct Repo: Codable {
         let url: String
     }
 }
