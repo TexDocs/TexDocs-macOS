@@ -1,13 +1,13 @@
 /*
-* SwiftWebSocket (websocket.swift)
-*
-* Copyright (C) Josh Baker. All Rights Reserved.
-* Contact: @tidwall, joshbaker77@gmail.com
-*
-* This software may be modified and distributed under the terms
-* of the MIT license.  See the LICENSE file for details.
-*
-*/
+ * SwiftWebSocket (websocket.swift)
+ *
+ * Copyright (C) Josh Baker. All Rights Reserved.
+ * Contact: @tidwall, joshbaker77@gmail.com
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
+ *
+ */
 
 import Foundation
 
@@ -297,7 +297,7 @@ private class UTF8 {
                 }
             }
             if ascii {
-                text += NSString(bytes: bytes, length: length, encoding: String.Encoding.ascii.rawValue) as! String
+                text += NSString(bytes: bytes, length: length, encoding: String.Encoding.ascii.rawValue)! as String
                 bcount += length
                 return
             }
@@ -386,18 +386,18 @@ private struct z_stream {
     var next_in : UnsafePointer<UInt8>? = nil
     var avail_in : CUnsignedInt = 0
     var total_in : CUnsignedLong = 0
-
+    
     var next_out : UnsafeMutablePointer<UInt8>? = nil
     var avail_out : CUnsignedInt = 0
     var total_out : CUnsignedLong = 0
-
+    
     var msg : UnsafePointer<CChar>? = nil
     var state : OpaquePointer? = nil
-
+    
     var zalloc : OpaquePointer? = nil
     var zfree : OpaquePointer? = nil
     var opaque : OpaquePointer? = nil
-
+    
     var data_type : CInt = 0
     var adler : CUnsignedLong = 0
     var reserved : CUnsignedLong = 0
@@ -487,8 +487,8 @@ private class Deflater {
         free(buffer)
     }
     /*func deflate(_ bufin : UnsafePointer<UInt8>, length : Int, final : Bool) -> (p : UnsafeMutablePointer<UInt8>, n : Int, err : NSError?){
-        return (nil, 0, nil)
-    }*/
+     return (nil, 0, nil)
+     }*/
 }
 
 /// WebSocketDelegate is an Objective-C alternative to WebSocketEvents and is used to delegate the events for the WebSocket connection.
@@ -540,8 +540,8 @@ private class InnerWebSocket: Hashable {
     var _binaryType = WebSocketBinaryType.uInt8Array
     var _readyState = WebSocketReadyState.connecting
     var _networkTimeout = TimeInterval(-1)
-
-
+    
+    
     var url : String {
         return request.url!.description
     }
@@ -587,7 +587,7 @@ private class InnerWebSocket: Hashable {
         get { lock(); defer { unlock() }; return _readyState }
         set { lock(); defer { unlock() }; _readyState = newValue }
     }
-
+    
     func copyOpen(_ request: URLRequest, subProtocols : [String] = []) -> InnerWebSocket{
         let ws = InnerWebSocket(request: request, subProtocols: subProtocols, stub: false)
         ws.eclose = eclose
@@ -599,9 +599,9 @@ private class InnerWebSocket: Hashable {
         ws.binaryType = binaryType
         return ws
     }
-
+    
     var hashValue: Int { return id }
-
+    
     init(request: URLRequest, subProtocols : [String] = [], stub : Bool = false){
         pthread_mutex_init(&mutex, nil)
         self.id = manager.nextId()
@@ -637,7 +637,7 @@ private class InnerWebSocket: Hashable {
     @inline(__always) fileprivate func unlock(){
         pthread_mutex_unlock(&mutex)
     }
-
+    
     fileprivate var dirty : Bool {
         lock()
         defer { unlock() }
@@ -716,20 +716,20 @@ private class InnerWebSocket: Hashable {
                 switch frame.code {
                 case .text:
                     fire {
-                        self.event.message(data: frame.utf8.text)
+                        self.event.message(frame.utf8.text)
                         self.eventDelegate?.webSocketMessageText?(frame.utf8.text)
                     }
                 case .binary:
                     fire {
                         switch self.binaryType {
                         case .uInt8Array:
-                            self.event.message(data: frame.payload.array)
+                            self.event.message(frame.payload.array)
                         case .nsData:
-                            self.event.message(data: frame.payload.nsdata)
+                            self.event.message(frame.payload.nsdata)
                             // The WebSocketDelegate is necessary to add Objective-C compability and it is only possible to send binary data with NSData.
                             self.eventDelegate?.webSocketMessageData?(frame.payload.nsdata)
                         case .uInt8UnsafeBufferPointer:
-                            self.event.message(data: frame.payload.buffer)
+                            self.event.message(frame.payload.buffer)
                         }
                     }
                 case .ping:
@@ -742,11 +742,11 @@ private class InnerWebSocket: Hashable {
                     fire {
                         switch self.binaryType {
                         case .uInt8Array:
-                            self.event.pong(data: frame.payload.array)
+                            self.event.pong(frame.payload.array)
                         case .nsData:
-                            self.event.pong(data: frame.payload.nsdata)
+                            self.event.pong(frame.payload.nsdata)
                         case .uInt8UnsafeBufferPointer:
-                            self.event.pong(data: frame.payload.buffer)
+                            self.event.pong(frame.payload.buffer)
                         }
                         self.eventDelegate?.webSocketPong?()
                     }
@@ -775,7 +775,7 @@ private class InnerWebSocket: Hashable {
             case .end:
                 fire {
                     self.event.end(Int(self.closeCode), self.closeReason, self.closeClean, self.finalError)
-                    self.eventDelegate?.webSocketEnd?(Int(self.closeCode), reason: self.closeReason, wasClean: self.closeClean, error: self.finalError as? NSError)
+                    self.eventDelegate?.webSocketEnd?(Int(self.closeCode), reason: self.closeReason, wasClean: self.closeClean, error: self.finalError as NSError?)
                 }
                 exit = true
                 manager.remove(self)
@@ -910,7 +910,7 @@ private class InnerWebSocket: Hashable {
             block()
         }
     }
-
+    
     var readStateSaved = false
     var readStateFrame : Frame?
     var readStateFinished = false
@@ -965,7 +965,7 @@ private class InnerWebSocket: Hashable {
         readStateFinished = false
         return frame
     }
-
+    
     func closeConn() {
         rd.remove(from: RunLoop.main, forMode: RunLoopMode.defaultRunLoopMode)
         wr.remove(from: RunLoop.main, forMode: RunLoopMode.defaultRunLoopMode)
@@ -974,16 +974,16 @@ private class InnerWebSocket: Hashable {
         rd.close()
         wr.close()
     }
-
+    
     func openConn() throws {
         var req = request!
         req.setValue("websocket", forHTTPHeaderField: "Upgrade")
         req.setValue("Upgrade", forHTTPHeaderField: "Connection")
         if req.value(forHTTPHeaderField: "User-Agent") == nil {
-                req.setValue("SwiftWebSocket", forHTTPHeaderField: "User-Agent")
+            req.setValue("SwiftWebSocket", forHTTPHeaderField: "User-Agent")
         }
         req.setValue("13", forHTTPHeaderField: "Sec-WebSocket-Version")
-
+        
         if req.url == nil || req.url!.host == nil{
             throw WebSocketError.invalidAddress
         }
@@ -1013,18 +1013,18 @@ private class InnerWebSocket: Hashable {
             }
             req.setValue(val, forHTTPHeaderField: "Sec-WebSocket-Extensions")
         }
-		
-		let security: TCPConnSecurity
-		let port : Int
-		if req.url!.scheme == "wss" {
-			port = req.url!.port ?? 443
-			security = .negoticatedSSL
-		} else {
-			port = req.url!.port ?? 80
-			security = .none
-		}
-
-		var path = CFURLCopyPath(req.url! as CFURL!) as String
+        
+        let security: TCPConnSecurity
+        let port : Int
+        if req.url!.scheme == "wss" {
+            port = req.url!.port ?? 443
+            security = .negoticatedSSL
+        } else {
+            port = req.url!.port ?? 80
+            security = .none
+        }
+        
+        var path = CFURLCopyPath(req.url! as CFURL!) as String
         if path == "" {
             path = "/"
         }
@@ -1054,7 +1054,7 @@ private class InnerWebSocket: Hashable {
         if addr.count != 2 || Int(addr[1]) == nil {
             throw WebSocketError.invalidAddress
         }
-
+        
         var (rdo, wro) : (InputStream?, OutputStream?)
         var readStream:  Unmanaged<CFReadStream>?
         var writeStream: Unmanaged<CFWriteStream>?
@@ -1063,7 +1063,7 @@ private class InnerWebSocket: Hashable {
         wro = writeStream!.takeRetainedValue()
         (rd, wr) = (rdo!, wro!)
         rd.setProperty(security.level, forKey: Stream.PropertyKey.socketSecurityLevelKey)
-		wr.setProperty(security.level, forKey: Stream.PropertyKey.socketSecurityLevelKey)
+        wr.setProperty(security.level, forKey: Stream.PropertyKey.socketSecurityLevelKey)
         if services.contains(.VoIP) {
             rd.setProperty(StreamNetworkServiceTypeValue.voIP.rawValue, forKey: Stream.PropertyKey.networkServiceType)
             wr.setProperty(StreamNetworkServiceTypeValue.voIP.rawValue, forKey: Stream.PropertyKey.networkServiceType)
@@ -1093,7 +1093,7 @@ private class InnerWebSocket: Hashable {
         wr.open()
         try write(header, length: header.count)
     }
-
+    
     func write(_ bytes: UnsafePointer<UInt8>, length: Int) throws {
         if outputBytesStart+outputBytesLength+length > outputBytesSize {
             var size = outputBytesSize
@@ -1110,7 +1110,7 @@ private class InnerWebSocket: Hashable {
         memcpy(outputBytes!+outputBytesStart+outputBytesLength, bytes, length)
         outputBytesLength += length
     }
-
+    
     func readResponse() throws {
         let end : [UInt8] = [ 0x0D, 0x0A, 0x0D, 0x0A ]
         let ptr = memmem(inputBytes!+inputBytesStart, inputBytesLength, end, 4)
@@ -1119,7 +1119,7 @@ private class InnerWebSocket: Hashable {
         }
         let buffer = inputBytes!+inputBytesStart
         let bufferCount = ptr!.assumingMemoryBound(to: UInt8.self)-(inputBytes!+inputBytesStart)
-        let string = NSString(bytesNoCopy: buffer, length: bufferCount, encoding: String.Encoding.utf8.rawValue, freeWhenDone: false) as? String
+        let string = NSString(bytesNoCopy: buffer, length: bufferCount, encoding: String.Encoding.utf8.rawValue, freeWhenDone: false) as String?
         if string == nil {
             throw WebSocketError.invalidHeader
         }
@@ -1192,7 +1192,7 @@ private class InnerWebSocket: Hashable {
             inputBytesStart += bufferCount+4
         }
     }
-
+    
     class ByteReader {
         var start : UnsafePointer<UInt8>
         var end : UnsafePointer<UInt8>
@@ -1222,7 +1222,7 @@ private class InnerWebSocket: Hashable {
             }
         }
     }
-
+    
     var fragStateSaved = false
     var fragStatePosition = 0
     var fragStateInflate = false
@@ -1247,7 +1247,7 @@ private class InnerWebSocket: Hashable {
         var statusCode : UInt16
         var headerLen : Int
         var leader = leader
-
+        
         let reader = ByteReader(bytes: inputBytes!+inputBytesStart, length: inputBytesLength)
         if fragStateSaved {
             // load state
@@ -1351,7 +1351,7 @@ private class InnerWebSocket: Hashable {
             }
             headerLen = reader.position
         }
-
+        
         let rlen : Int
         let rfin : Bool
         let chopped : Bool
@@ -1372,13 +1372,13 @@ private class InnerWebSocket: Hashable {
             (bytes, bytesLen) = (UnsafeMutablePointer<UInt8>.init(mutating: reader.bytes), rlen)
         }
         reader.bytes += rlen
-
+        
         if leaderCode == .text || leaderCode == .close {
             try utf8.append(bytes, length: bytesLen)
         } else {
             payload.append(bytes, length: bytesLen)
         }
-
+        
         if chopped {
             // save state
             fragStateHeaderLen = headerLen
@@ -1394,19 +1394,19 @@ private class InnerWebSocket: Hashable {
             fragStateSaved = true
             throw WebSocketError.needMoreInput
         }
-
+        
         inputBytesLength -= reader.position
         if inputBytesLength == 0 {
             inputBytesStart = 0
         } else {
             inputBytesStart += reader.position
         }
-
+        
         let f = Frame()
         (f.code, f.payload, f.utf8, f.statusCode, f.inflate, f.finished) = (code, payload, utf8, statusCode, inflate, fin)
         return f
     }
-
+    
     var head = [UInt8](repeating: 0, count: 0xFF)
     func writeFrame(_ f : Frame) throws {
         if !f.finished{
@@ -1432,7 +1432,7 @@ private class InnerWebSocket: Hashable {
         }
         payloadLen += payloadBytes.count
         if deflate {
-
+            
         }
         var usingStatusCode = false
         if f.statusCode != 0 && payloadLen != 0 {
@@ -1492,7 +1492,7 @@ private class InnerWebSocket: Hashable {
     func close(_ code : Int = 1000, reason : String = "Normal Closure") {
         let f = Frame()
         f.code = .close
-        f.statusCode = UInt16(truncatingBitPattern: code)
+        f.statusCode = UInt16(truncatingIfNeeded: code)
         f.utf8.text = reason
         sendFrame(f)
     }
@@ -1551,13 +1551,13 @@ private func ==(lhs: InnerWebSocket, rhs: InnerWebSocket) -> Bool {
 private enum TCPConnSecurity {
     case none
     case negoticatedSSL
-	
-	var level: String {
-		switch self {
-		case .none: return StreamSocketSecurityLevel.none.rawValue
-		case .negoticatedSSL: return StreamSocketSecurityLevel.negotiatedSSL.rawValue
-		}
-	}
+    
+    var level: String {
+        switch self {
+        case .none: return StreamSocketSecurityLevel.none.rawValue
+        case .negoticatedSSL: return StreamSocketSecurityLevel.negotiatedSSL.rawValue
+        }
+    }
 }
 
 // Manager class is used to minimize the number of dispatches and cycle through network events
@@ -1756,7 +1756,7 @@ open class WebSocket: NSObject {
     }
     /**
      Closes the WebSocket connection or connection attempt, if any. If the connection is already closed or in the state of closing, this method does nothing.
-
+     
      :param: code An integer indicating the status code explaining why the connection is being closed. If this parameter is not specified, a default value of 1000 (indicating a normal closure) is assumed.
      :param: reason A human-readable string explaining why the connection is closing. This string must be no longer than 123 bytes of UTF-8 text (not characters).
      */
@@ -1769,7 +1769,7 @@ open class WebSocket: NSObject {
     }
     /**
      Transmits message to the server over the WebSocket connection.
-
+     
      :param: message The message to be sent to the server.
      */
     open func send(_ message : Any){
@@ -1780,7 +1780,7 @@ open class WebSocket: NSObject {
     }
     /**
      Transmits a ping to the server over the WebSocket connection.
-
+     
      :param: optional message The data to be sent to the server.
      */
     open func ping(_ message : Any){
@@ -1812,7 +1812,7 @@ extension WebSocket {
     }
     /**
      Transmits message to the server over the WebSocket connection.
-
+     
      :param: text The message (string) to be sent to the server.
      */
     @objc
@@ -1821,7 +1821,7 @@ extension WebSocket {
     }
     /**
      Transmits message to the server over the WebSocket connection.
-
+     
      :param: data The message (binary) to be sent to the server.
      */
     @objc

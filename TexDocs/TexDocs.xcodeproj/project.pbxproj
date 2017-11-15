@@ -37,8 +37,9 @@
 		40AB8C4B1FB884C900BC6D82 /* CollaborationCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AB8C4A1FB884C900BC6D82 /* CollaborationCursor.swift */; };
 		40AB8C4D1FB8866200BC6D82 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AB8C4C1FB8866200BC6D82 /* EditorViewController.swift */; };
 		40AB8C4F1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AB8C4E1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift */; };
+		40BD25DC1FBCB7B900211743 /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BD25DB1FBCB7B900211743 /* WebSocket.swift */; };
+		40BD25DE1FBCB90C00211743 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BD25DD1FBCB90C00211743 /* libz.tbd */; };
 		40C88C211FB8B659006F6BB9 /* OutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C88C201FB8B659006F6BB9 /* OutlineViewController.swift */; };
-		40C88C501FB8C2EE006F6BB9 /* SwiftWebSocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40C88C411FB8C2BC006F6BB9 /* SwiftWebSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,55 +78,6 @@
 			remoteGlobalIDString = 40A7D1251FB7956B002FBB8B;
 			remoteInfo = UIRegexLib;
 		};
-		40C88C3E1FB8C2BC006F6BB9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40C88C351FB8C2BC006F6BB9 /* SwiftWebSocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 03D1E7031B20897100AC49AC;
-			remoteInfo = "SwiftWebSocket-iOS";
-		};
-		40C88C401FB8C2BC006F6BB9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40C88C351FB8C2BC006F6BB9 /* SwiftWebSocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D71949011B35E6130015C529;
-			remoteInfo = "SwiftWebSocket-OSX";
-		};
-		40C88C421FB8C2BC006F6BB9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40C88C351FB8C2BC006F6BB9 /* SwiftWebSocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 03957A3C1C5A71DB005CC1DB;
-			remoteInfo = "SwiftWebSocket-tvOS";
-		};
-		40C88C441FB8C2BC006F6BB9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40C88C351FB8C2BC006F6BB9 /* SwiftWebSocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 03D70CCC1BDAC5EC00D245C3;
-			remoteInfo = "Test-OSX";
-		};
-		40C88C461FB8C2BC006F6BB9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40C88C351FB8C2BC006F6BB9 /* SwiftWebSocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 03D70CDB1BDAC63600D245C3;
-			remoteInfo = "Test-iOS";
-		};
-		40C88C481FB8C2BC006F6BB9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40C88C351FB8C2BC006F6BB9 /* SwiftWebSocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D78C40301C232C3800EB72AA;
-			remoteInfo = "Test-ObjectiveC";
-		};
-		40C88C4C1FB8C2DB006F6BB9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40C88C351FB8C2BC006F6BB9 /* SwiftWebSocket.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D71949001B35E6130015C529;
-			remoteInfo = "SwiftWebSocket-OSX";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -135,7 +87,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				40C88C501FB8C2EE006F6BB9 /* SwiftWebSocket.framework in Embed Frameworks */,
 				40A4815E1FB7D29A00B7667F /* UIRegexLib.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -182,8 +133,9 @@
 		40AB8C4A1FB884C900BC6D82 /* CollaborationCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationCursor.swift; sourceTree = "<group>"; };
 		40AB8C4C1FB8866200BC6D82 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		40AB8C4E1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+CollaborationSourceCodeViewDelegate.swift"; sourceTree = "<group>"; };
+		40BD25DB1FBCB7B900211743 /* WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
+		40BD25DD1FBCB90C00211743 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		40C88C201FB8B659006F6BB9 /* OutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewController.swift; sourceTree = "<group>"; };
-		40C88C351FB8C2BC006F6BB9 /* SwiftWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftWebSocket.xcodeproj; path = Carthage/Checkouts/SwiftWebSocket/SwiftWebSocket.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */,
+				40BD25DE1FBCB90C00211743 /* libz.tbd in Frameworks */,
 				40A7D13B1FB7956B002FBB8B /* UIRegexLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,6 +193,7 @@
 		400D97AF1FBA3E1800540207 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				40BD25DD1FBCB90C00211743 /* libz.tbd */,
 				400D97B51FBA3E1800540207 /* Quartz.framework */,
 			);
 			name = Frameworks;
@@ -248,7 +202,7 @@
 		40A7D0D11FB78A3F002FBB8B = {
 			isa = PBXGroup;
 			children = (
-				40C88C351FB8C2BC006F6BB9 /* SwiftWebSocket.xcodeproj */,
+				40BD25D81FBCB5BC00211743 /* External Libraries */,
 				40A7D0DC1FB78A3F002FBB8B /* TexDocs */,
 				40A7D0F11FB78A3F002FBB8B /* TexDocsTests */,
 				40A7D0FC1FB78A3F002FBB8B /* TexDocsUITests */,
@@ -426,17 +380,12 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		40C88C361FB8C2BC006F6BB9 /* Products */ = {
+		40BD25D81FBCB5BC00211743 /* External Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				40C88C3F1FB8C2BC006F6BB9 /* SwiftWebSocket.framework */,
-				40C88C411FB8C2BC006F6BB9 /* SwiftWebSocket.framework */,
-				40C88C431FB8C2BC006F6BB9 /* SwiftWebSocket.framework */,
-				40C88C451FB8C2BC006F6BB9 /* Test-OSX.xctest */,
-				40C88C471FB8C2BC006F6BB9 /* Test-iOS.xctest */,
-				40C88C491FB8C2BC006F6BB9 /* Test-ObjectiveC.xctest */,
+				40BD25DB1FBCB7B900211743 /* WebSocket.swift */,
 			);
-			name = Products;
+			path = "External Libraries";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -465,7 +414,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				40C88C4D1FB8C2DB006F6BB9 /* PBXTargetDependency */,
 				40A7D13A1FB7956B002FBB8B /* PBXTargetDependency */,
 			);
 			name = TexDocs;
@@ -598,12 +546,6 @@
 			mainGroup = 40A7D0D11FB78A3F002FBB8B;
 			productRefGroup = 40A7D0DB1FB78A3F002FBB8B /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 40C88C361FB8C2BC006F6BB9 /* Products */;
-					ProjectRef = 40C88C351FB8C2BC006F6BB9 /* SwiftWebSocket.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				40A7D0D91FB78A3F002FBB8B /* TexDocs */,
@@ -614,51 +556,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		40C88C3F1FB8C2BC006F6BB9 /* SwiftWebSocket.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftWebSocket.framework;
-			remoteRef = 40C88C3E1FB8C2BC006F6BB9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		40C88C411FB8C2BC006F6BB9 /* SwiftWebSocket.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftWebSocket.framework;
-			remoteRef = 40C88C401FB8C2BC006F6BB9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		40C88C431FB8C2BC006F6BB9 /* SwiftWebSocket.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftWebSocket.framework;
-			remoteRef = 40C88C421FB8C2BC006F6BB9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		40C88C451FB8C2BC006F6BB9 /* Test-OSX.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Test-OSX.xctest";
-			remoteRef = 40C88C441FB8C2BC006F6BB9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		40C88C471FB8C2BC006F6BB9 /* Test-iOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Test-iOS.xctest";
-			remoteRef = 40C88C461FB8C2BC006F6BB9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		40C88C491FB8C2BC006F6BB9 /* Test-ObjectiveC.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Test-ObjectiveC.xctest";
-			remoteRef = 40C88C481FB8C2BC006F6BB9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		40A7D0D81FB78A3F002FBB8B /* Resources */ = {
@@ -718,6 +615,7 @@
 				400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */,
 				40AB8C4D1FB8866200BC6D82 /* EditorViewController.swift in Sources */,
 				40AA16F01FB88A0000373B07 /* EditorWindowController+CollaborationClientDelegate.swift in Sources */,
+				40BD25DC1FBCB7B900211743 /* WebSocket.swift in Sources */,
 				40A7D0E21FB78A3F002FBB8B /* Document.swift in Sources */,
 				40AB8C4B1FB884C900BC6D82 /* CollaborationCursor.swift in Sources */,
 				40AB8C451FB8840F00BC6D82 /* CollaborationSourceCodeView.swift in Sources */,
@@ -787,11 +685,6 @@
 			isa = PBXTargetDependency;
 			target = 40A7D1251FB7956B002FBB8B /* UIRegexLib */;
 			targetProxy = 40A7D1391FB7956B002FBB8B /* PBXContainerItemProxy */;
-		};
-		40C88C4D1FB8C2DB006F6BB9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "SwiftWebSocket-OSX";
-			targetProxy = 40C88C4C1FB8C2DB006F6BB9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

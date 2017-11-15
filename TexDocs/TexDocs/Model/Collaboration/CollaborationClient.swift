@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SwiftWebSocket
 
 class CollaborationClient {
     
