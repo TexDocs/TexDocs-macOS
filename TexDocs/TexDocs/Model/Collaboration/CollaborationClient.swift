@@ -9,33 +9,45 @@
 import Foundation
 
 class CollaborationClient {
-    private(set) var collaborationCursors: [String: CollaborationCursor] = [:] {
-        didSet {
-            delegate?.collaborationCursorsChanged(in: self)
-        }
-    }
-    
+    private(set) var collaborationCursors: [String: CollaborationCursor] = [:]
     private(set) var userID: String?
-    private(set) var repoURL: String?
+    private(set) var repoURL: URL?
     
     weak var delegate: CollaborationClientDelegate?
     
     private let webSocket: WebSocket
+    private var encounteredError: Bool = false
     
-    init(url: URL) {
-        webSocket = WebSocket(url: url)
+    func connect(to url: URL) {
+        encounteredError = false
+        webSocket.open(nsurl: url)
         webSocket.delegate = self
+    }
+    
+    init() {
+        webSocket = WebSocket()
     }
     
     deinit {
         webSocket.close()
     }
+    
+    private func connectionError(_ error: Error) {
+        encounteredError = true
+        webSocket.close()
+        delegate?.collaborationClient(self, encounteredError: error)
+    }
 }
 
-/// Protocols
+// MARK: Protocols
+
+/// Collaboration Client Protocol
 protocol CollaborationClientDelegate: class {
-    func collaborationCursorsChanged(in client: CollaborationClient)
-    func collaborationClient(receivedChangeIn range: NSRange, replacedWith replaceString: String)
+    func collaborationClient(_ client: CollaborationClient, encounteredError error: Error)
+    func collaborationCursorsChanged(_ client: CollaborationClient)
+    func collaborationClient(_ client: CollaborationClient, didConnectedAndReceivedRepoURL repoURL: URL)
+    func collaborationClient(_ client: CollaborationClient, didReceivedChangeIn range: NSRange, replacedWith replaceString: String)
+    func collaborationClient(_ client: CollaborationClient, didDisconnectedBecause reason: String)
 }
 
 // MARK: - Web Socket handler
@@ -44,17 +56,23 @@ extension CollaborationClient {
         do {
             try webSocket.send(data: JSONEncoder().encode(package))
         } catch {
-            print(error)
+            delegate?.collaborationClient(self, encounteredError: error)
         }
     }
     
     private func handleIncomingData(_ data: Data) throws {
         let jsonDecoder = JSONDecoder()
+        let message: BasePackage
         
-        let message = try jsonDecoder.decode(BasePackage.self, from: data)
+        do {
+            message = try jsonDecoder.decode(BasePackage.self, from: data)
+        } catch {
+            connectionError(error)
+            return
+        }
         
         guard let packageID = message.type else {
-            print(message.status)
+            connectionError(CollaborationClientError.responseStatusCode(statusCode: message.status))
             return
         }
         
@@ -76,11 +94,12 @@ extension CollaborationClient: WebSocketDelegate {
     }
     
     func webSocketClose(_ code: Int, reason: String, wasClean: Bool) {
-        self.webSocket.open()
+        guard !encounteredError else { return }
+        delegate?.collaborationClient(self, didDisconnectedBecause: reason)
     }
     
     func webSocketError(_ error: NSError) {
-        print(error)
+        connectionError(error)
     }
     
     func webSocketMessageText(_ text: String) {
@@ -150,15 +169,20 @@ extension CollaborationClient {
 extension CollaborationClient {
     private func handleJoinPackage(_ package: ProjectJoinPackage) {
         self.userID = package.userID
-        self.repoURL = package.repoURL
+        guard let url = URL(string: package.repoURL) else {
+            connectionError(CollaborationClientError.receivedInvalidRepoURL(repoURLString: package.repoURL))
+            return
+        }
+        self.repoURL = url
+        delegate?.collaborationClient(self, didConnectedAndReceivedRepoURL: url)
     }
     
     private func handleCollaborationCursorUpdatePackage(_ package: CollaborationCursorUpdatePackage) {
-        self.collaborationCursors[package.userID, default: CollaborationCursor.withRandomColor()].updateRange(package.selectionRange)
-        delegate?.collaborationCursorsChanged(in: self)
+        collaborationCursors[package.userID, default: CollaborationCursor.withRandomColor()].updateRange(package.selectionRange)
+        delegate?.collaborationCursorsChanged(self)
     }
     
     private func handleCollaborationEditTextPackage(_ package: CollaborationEditTextPackage) {
-        delegate?.collaborationClient(receivedChangeIn: package.range, replacedWith: package.replaceText)
+        delegate?.collaborationClient(self, didReceivedChangeIn: package.range, replacedWith: package.replaceText)
     }
 }

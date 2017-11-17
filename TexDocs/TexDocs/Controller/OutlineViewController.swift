@@ -10,7 +10,7 @@ import Cocoa
 
 class OutlineViewController: NSViewController {
 
-    let rootDirectory = FileSystemItem(URL(fileURLWithPath: "/Users/noahpeeters/Documents/Education/NAK/Organisatorisch"))
+    var rootDirectory: FileSystemItem?
     
     @IBOutlet weak var outlineView: NSOutlineView!
 }
@@ -23,7 +23,9 @@ extension OutlineViewController: NSOutlineViewDataSource {
     }
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
-        guard let item = item as? FileSystemItem else { return rootDirectory }
+        guard let item = item as? FileSystemItem else {
+            return (rootDirectory as Any?) ?? 0
+        }
         
         return item.children[index]
     }

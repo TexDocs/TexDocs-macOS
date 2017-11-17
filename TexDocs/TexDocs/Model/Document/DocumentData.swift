@@ -50,24 +50,24 @@ struct DocumentData: Codable {
         
         struct Server: Codable {
             /// Collaboration web socket server url.
-            let url: String
+            let url: URL
             
             /// Initializes collaboration server data with a url.
             ///
             /// - Parameter url: WebSocketServer url.
-            init(url: String) {
+            init(url: URL) {
                 self.url = url
             }
         }
         
         struct Repo: Codable {
             /// Git repo url
-            let url: String
+            let url: URL
             
             /// Initializes repo data with a url.
             ///
             /// - Parameter url: Git url.
-            init(url: String) {
+            init(url: URL) {
                 self.url = url
             }
         }

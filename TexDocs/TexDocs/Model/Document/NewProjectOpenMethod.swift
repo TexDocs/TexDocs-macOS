@@ -10,10 +10,10 @@ import Foundation
 
 enum NewProjectOpenMethod {
     case offline
-    case join(serverURL: String)
-    case create(serverURL: String, repoURL: String)
+    case join(serverURL: URL)
+    case create(serverURL: URL, repoURL: URL)
     
-    var serverURL: String? {
+    var serverURL: URL? {
         switch self { case .join(let serverURL), .create(let serverURL, _):
             return serverURL
         default:
@@ -21,7 +21,7 @@ enum NewProjectOpenMethod {
         }
     }
     
-    var repoURL: String? {
+    var repoURL: URL? {
         switch self {
         case .create(_, let repoURL):
             return repoURL

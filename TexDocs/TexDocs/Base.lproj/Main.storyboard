@@ -687,6 +687,7 @@
         <!--Window Controller-->
         <scene sceneID="hK4-de-e3E">
             <objects>
+                <customObject id="xwl-ev-kFp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <windowController storyboardIdentifier="NewProjectWindowController" id="S7p-R1-ihh" sceneMemberID="viewController">
                     <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="utilityWindow" frameAutosaveName="" tabbingMode="disallowed" titleVisibility="hidden" id="qCL-Mc-h3g">
                         <windowStyleMask key="styleMask" titled="YES"/>
@@ -702,13 +703,13 @@
                         <segue destination="0Pr-ML-Wrq" kind="relationship" relationship="window.shadowedContentViewController" id="SYP-vv-Rrg"/>
                     </connections>
                 </windowController>
-                <customObject id="xwl-ev-kFp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-982" y="-190"/>
         </scene>
         <!--New Project View Controller-->
         <scene sceneID="UrC-Jy-RoY">
             <objects>
+                <customObject id="vvC-0r-FD1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <viewController id="0Pr-ML-Wrq" customClass="NewProjectViewController" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="u4D-VP-omw">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="243"/>
@@ -897,13 +898,13 @@ Gw
                         <outlet property="warningStackView" destination="EW2-Cg-weX" id="yzx-4R-UsJ"/>
                     </connections>
                 </viewController>
-                <customObject id="vvC-0r-FD1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-394" y="-159.5"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="B1K-5h-eZ2">
             <objects>
+                <customObject id="DNt-ui-Rem" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <windowController storyboardIdentifier="LoadingWindowController" id="veR-gM-fPY" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="v3s-DV-zNH">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
@@ -918,13 +919,13 @@ Gw
                         <segue destination="EeP-Te-CFq" kind="relationship" relationship="window.shadowedContentViewController" id="jg8-nz-qac"/>
                     </connections>
                 </windowController>
-                <customObject id="DNt-ui-Rem" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-553" y="382"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="g4A-EM-gcd">
             <objects>
+                <customObject id="3SJ-ua-hPP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <viewController id="EeP-Te-CFq" sceneMemberID="viewController">
                     <view key="view" id="171-e4-y48">
                         <rect key="frame" x="0.0" y="0.0" width="340" height="90"/>
@@ -967,7 +968,6 @@ Gw
                         </constraints>
                     </view>
                 </viewController>
-                <customObject id="3SJ-ua-hPP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-553" y="679"/>
         </scene>

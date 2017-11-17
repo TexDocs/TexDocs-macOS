@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13529"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
+    </dependencies>
+    <scenes>
+        <!--Simple Sheet-->
+        <scene sceneID="zal-Qg-ACh">
+            <objects>
+                <viewController storyboardIdentifier="SimpleSheet" id="MXl-if-Q0B" customClass="SimpleSheet" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="OkP-AK-U4y">
+                        <rect key="frame" x="0.0" y="0.0" width="340" height="146"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BB4-rY-9GK">
+                                <rect key="frame" x="18" y="75" width="304" height="51"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="vw5-Qo-vEK"/>
+                                </constraints>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Loading Stuff... jzdjdf gisd jfgsidjfgisdfjgisdjfgid sjgfisjdifgjfd sfg ksokdf goskdfgoskdfgo sdkfgopsdfgko sofdg sokf gosfgd" id="KST-pd-Ey5">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nHT-Vy-aaN">
+                                <rect key="frame" x="251" y="20" width="69" height="21"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mVb-5E-fgC">
+                                        <rect key="frame" x="-6" y="-7" width="81" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="wSG-uo-TEP"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="BkL-Yr-JWa">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="buttonPressed:" target="MXl-if-Q0B" id="2Wt-fc-6t6"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Het-Rt-Ihe"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                            <progressIndicator wantsLayer="YES" maxValue="1" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="GOA-Ds-Mpt">
+                                <rect key="frame" x="20" y="48" width="300" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="q65-kf-uZ8"/>
+                                </constraints>
+                            </progressIndicator>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="nHT-Vy-aaN" firstAttribute="top" secondItem="GOA-Ds-Mpt" secondAttribute="bottom" constant="8" id="5rs-Zm-FfK"/>
+                            <constraint firstAttribute="bottom" secondItem="nHT-Vy-aaN" secondAttribute="bottom" constant="20" id="Cws-14-Oim"/>
+                            <constraint firstItem="GOA-Ds-Mpt" firstAttribute="top" secondItem="BB4-rY-9GK" secondAttribute="bottom" constant="8" id="IGd-hf-Ts0"/>
+                            <constraint firstAttribute="trailing" secondItem="nHT-Vy-aaN" secondAttribute="trailing" constant="20" id="MRp-iD-b1t"/>
+                            <constraint firstItem="BB4-rY-9GK" firstAttribute="top" secondItem="OkP-AK-U4y" secondAttribute="top" constant="20" id="WSj-uZ-Gsu"/>
+                            <constraint firstItem="GOA-Ds-Mpt" firstAttribute="leading" secondItem="OkP-AK-U4y" secondAttribute="leading" constant="20" id="bje-Ja-lKr"/>
+                            <constraint firstAttribute="trailing" secondItem="BB4-rY-9GK" secondAttribute="trailing" constant="20" id="gzQ-cM-k1N"/>
+                            <constraint firstAttribute="trailing" secondItem="GOA-Ds-Mpt" secondAttribute="trailing" constant="20" id="oeN-KV-Pad"/>
+                            <constraint firstItem="BB4-rY-9GK" firstAttribute="leading" secondItem="OkP-AK-U4y" secondAttribute="leading" constant="20" id="zMP-l2-TIA"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="button" destination="mVb-5E-fgC" id="AG7-Pi-Sja"/>
+                        <outlet property="progressBar" destination="GOA-Ds-Mpt" id="vQK-hd-xk1"/>
+                        <outlet property="statusLabel" destination="BB4-rY-9GK" id="fmu-jx-OFm"/>
+                    </connections>
+                </viewController>
+                <customObject id="Gbc-TO-3vY" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-523" y="773.5"/>
+        </scene>
+    </scenes>
+</document>

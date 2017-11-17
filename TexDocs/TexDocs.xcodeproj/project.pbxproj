@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A34491FBA27E60070E237 /* DocumentData.swift */; };
 		400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 400D97B51FBA3E1800540207 /* Quartz.framework */; };
+		4026AC8D1FBCE91D00FFB18B /* Sheets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */; };
+		4026AC901FBCEC5000FFB18B /* SimpleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026AC8F1FBCEC5000FFB18B /* SimpleSheet.swift */; };
+		4026AC921FBE1CD000FFB18B /* CollaborationClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026AC911FBE1CD000FFB18B /* CollaborationClientError.swift */; };
 		4048199D1FB8C64600AAFBF0 /* CollaborationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4048199C1FB8C64600AAFBF0 /* CollaborationProtocol.swift */; };
 		4048199F1FB8DD9400AAFBF0 /* NewProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4048199E1FB8DD9400AAFBF0 /* NewProjectViewController.swift */; };
 		404819A11FB8F37300AAFBF0 /* FileSystemItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404819A01FB8F37300AAFBF0 /* FileSystemItemCell.swift */; };
@@ -99,6 +102,9 @@
 /* Begin PBXFileReference section */
 		400A34491FBA27E60070E237 /* DocumentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentData.swift; sourceTree = "<group>"; };
 		400D97B51FBA3E1800540207 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Sheets.storyboard; sourceTree = "<group>"; };
+		4026AC8F1FBCEC5000FFB18B /* SimpleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSheet.swift; sourceTree = "<group>"; };
+		4026AC911FBE1CD000FFB18B /* CollaborationClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationClientError.swift; sourceTree = "<group>"; };
 		4048199C1FB8C64600AAFBF0 /* CollaborationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationProtocol.swift; sourceTree = "<group>"; };
 		4048199E1FB8DD9400AAFBF0 /* NewProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectViewController.swift; sourceTree = "<group>"; };
 		404819A01FB8F37300AAFBF0 /* FileSystemItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemItemCell.swift; sourceTree = "<group>"; };
@@ -215,6 +221,14 @@
 			path = EditorWindowController;
 			sourceTree = "<group>";
 		};
+		4026AC8E1FBCEC4200FFB18B /* Sheets */ = {
+			isa = PBXGroup;
+			children = (
+				4026AC8F1FBCEC5000FFB18B /* SimpleSheet.swift */,
+			);
+			path = Sheets;
+			sourceTree = "<group>";
+		};
 		40A7D0D11FB78A3F002FBB8B = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +263,7 @@
 				40AB8C421FB87CCA00BC6D82 /* Controller */,
 				40AA16F11FB88A3800373B07 /* Model */,
 				40A7D0E51FB78A3F002FBB8B /* Main.storyboard */,
+				4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */,
 			);
 			path = TexDocs;
 			sourceTree = "<group>";
@@ -353,6 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				40AA16ED1FB8881100373B07 /* CollaborationClient.swift */,
+				4026AC911FBE1CD000FFB18B /* CollaborationClientError.swift */,
 				4048199C1FB8C64600AAFBF0 /* CollaborationProtocol.swift */,
 			);
 			path = Collaboration;
@@ -390,6 +406,7 @@
 				40AB8C4C1FB8866200BC6D82 /* EditorViewController.swift */,
 				40C88C201FB8B659006F6BB9 /* OutlineViewController.swift */,
 				4048199E1FB8DD9400AAFBF0 /* NewProjectViewController.swift */,
+				4026AC8E1FBCEC4200FFB18B /* Sheets */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -576,6 +593,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4026AC8D1FBCE91D00FFB18B /* Sheets.storyboard in Resources */,
 				40A7D0E41FB78A3F002FBB8B /* Assets.xcassets in Resources */,
 				40A7D0E71FB78A3F002FBB8B /* Main.storyboard in Resources */,
 			);
@@ -626,6 +644,7 @@
 				40BD25E31FBCE2B100211743 /* EditorWindowController+UI.swift in Sources */,
 				4048199D1FB8C64600AAFBF0 /* CollaborationProtocol.swift in Sources */,
 				40AA16FC1FB88F5600373B07 /* ColorSchemeHandler.swift in Sources */,
+				4026AC921FBE1CD000FFB18B /* CollaborationClientError.swift in Sources */,
 				40AA16EE1FB8881100373B07 /* CollaborationClient.swift in Sources */,
 				400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */,
 				40BD25E11FBCDC3400211743 /* NewProjectOpenMethod.swift in Sources */,
@@ -639,6 +658,7 @@
 				40AB8C491FB8841E00BC6D82 /* SourceCodeRulerView.swift in Sources */,
 				40AB8C471FB8841A00BC6D82 /* ImprovedTextView.swift in Sources */,
 				40AA16FF1FB88FCC00373B07 /* ColorScheme.swift in Sources */,
+				4026AC901FBCEC5000FFB18B /* SimpleSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

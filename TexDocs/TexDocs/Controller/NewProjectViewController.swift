@@ -69,14 +69,12 @@ class NewProjectViewController: NSViewController {
         warningStackView.isHidden = true
     }
     
-    private func getServerURL() -> String? {
-        let url = serverURLTextField.stringValue
-        return serverURLRegex.firstMatch(in: url, options: [], range: NSRange(location: 0, length: url.count)) != nil ? url : nil
+    private func getServerURL() -> URL? {
+        return URL(string: serverURLTextField.stringValue)
     }
     
-    private func getRepoURL() -> String? {
-        let url = repoURLTextField.stringValue
-        return repoURLRegex.firstMatch(in: url, options: [], range: NSRange(location: 0, length: url.count)) != nil ? url : nil
+    private func getRepoURL() -> URL? {
+        return URL(string: repoURLTextField.stringValue)
     }
     
     private func getNewProjectMethod() -> NewProjectOpenMethod? {
