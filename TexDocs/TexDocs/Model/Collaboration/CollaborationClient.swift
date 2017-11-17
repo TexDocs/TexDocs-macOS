@@ -111,7 +111,8 @@ extension CollaborationClient: WebSocketDelegate {
         print(text)
         guard let data = text.data(using: .utf8) else { return }
         
-        DispatchQueue.global(qos: .userInteractive).async {
+        // Dispatch to prevent the server closing the connection.
+        DispatchQueue.main.async {
             do {
                 try self.handleIncomingData(data)
             } catch {

@@ -30,6 +30,12 @@ class EditorWindowController: NSWindowController {
         }
     }
     
+    func editedDocument() {
+        DispatchQueue.main.async {
+            self.texDocsDocument?.updateChangeCount(.changeDone)
+        }
+    }
+    
     let currentSheet: SimpleSheet = {
         let sheetsStoryboard = NSStoryboard(name: NSStoryboard.Name("Sheets"), bundle: nil)
         return sheetsStoryboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("SimpleSheet")) as! SimpleSheet

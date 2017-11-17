@@ -19,6 +19,7 @@ extension EditorWindowController: CollaborationClientDelegate {
     
     func collaborationClient(_ client: CollaborationClient, didReceivedChangeIn range: NSRange, replacedWith replaceString: String) {
         editorViewController.editorView.replaceString(in: range, replacementString: replaceString)
+        editedDocument()
     }
     
     func collaborationCursorsChanged(_ client: CollaborationClient) {
@@ -28,12 +29,10 @@ extension EditorWindowController: CollaborationClientDelegate {
     func collaborationClient(_ client: CollaborationClient, didConnectedAndReceivedRepositoryURL repositoryURL: URL) {
         guard let oldRepositoryURL = texDocsDocument?.documentData?.collaboration?.repository?.url else {
             showSheetStep(text: "Cloning repository...", progressBarValue: .indeterminate)
-            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                do {
-                    try self?.clone(repositoryURL: repositoryURL)
-                } catch {
-                    self?.showErrorClosingSheet(text: error.localizedDescription)
-                }
+            do {
+                try self.clone(repositoryURL: repositoryURL)
+            } catch {
+                self.showErrorClosingSheet(text: error.localizedDescription)
             }
             return
         }

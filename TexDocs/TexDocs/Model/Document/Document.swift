@@ -9,7 +9,6 @@
 import Cocoa
 
 class Document: NSDocument {
-
     var workspaceURL: URL? {
         return fileURL?.deletingLastPathComponent()
     }
@@ -20,6 +19,7 @@ class Document: NSDocument {
 
     init(documentData: DocumentData) {
         self.documentData = documentData
+        super.init()
     }
     
     var documentData: DocumentData?

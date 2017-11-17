@@ -42,6 +42,7 @@ extension EditorWindowController {
         }
         
         texDocsDocument?.documentData?.collaboration?.repository = DocumentData.Collaboration.Repository(url: repositoryURL)
+        editedDocument()
         
         showUserNotificationSheet(text: "Cloned Repository") {
             print("sync")
