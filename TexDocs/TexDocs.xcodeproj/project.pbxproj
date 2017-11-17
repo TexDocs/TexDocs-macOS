@@ -48,6 +48,7 @@
 		40BD25E11FBCDC3400211743 /* NewProjectOpenMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BD25E01FBCDC3400211743 /* NewProjectOpenMethod.swift */; };
 		40BD25E31FBCE2B100211743 /* EditorWindowController+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BD25E21FBCE2B100211743 /* EditorWindowController+UI.swift */; };
 		40C88C211FB8B659006F6BB9 /* OutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C88C201FB8B659006F6BB9 /* OutlineViewController.swift */; };
+		40EF5D521FBF9612003E0E40 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 40EF5D511FBF9612003E0E40 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +154,7 @@
 		40BD25E01FBCDC3400211743 /* NewProjectOpenMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectOpenMethod.swift; sourceTree = "<group>"; };
 		40BD25E21FBCE2B100211743 /* EditorWindowController+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+UI.swift"; sourceTree = "<group>"; };
 		40C88C201FB8B659006F6BB9 /* OutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewController.swift; sourceTree = "<group>"; };
+		40EF5D511FBF9612003E0E40 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,6 +374,7 @@
 				40A7D0E81FB78A3F002FBB8B /* Info.plist */,
 				40A7D0E91FB78A3F002FBB8B /* TexDocs.entitlements */,
 				4026ACC51FBF549600FFB18B /* Bridging-Header.h */,
+				40EF5D511FBF9612003E0E40 /* Localizable.strings */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -607,6 +610,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4026AC8D1FBCE91D00FFB18B /* Sheets.storyboard in Resources */,
+				40EF5D521FBF9612003E0E40 /* Localizable.strings in Resources */,
 				40A7D0E41FB78A3F002FBB8B /* Assets.xcassets in Resources */,
 				40A7D0E71FB78A3F002FBB8B /* Main.storyboard in Resources */,
 			);

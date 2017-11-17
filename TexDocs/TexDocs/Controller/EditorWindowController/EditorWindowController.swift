@@ -20,14 +20,21 @@ class EditorWindowController: NSWindowController {
             }
             
             if let collaborationServer = texDocsDocument.documentData?.collaboration?.server {
-                showSheetStep(text: "Connecting to server...", progressBarValue: .indeterminate)
-                print(collaborationServer.url)
-                client.connect(to: collaborationServer.url)
+                connectTo(collaborationServer: collaborationServer)
             }
             
             outlineViewController.rootDirectory = FileSystemItem(texDocsDocument.workspaceURL!)
             outlineViewController.outlineView.reloadData()
         }
+    }
+    
+    func connectTo(collaborationServer: DocumentData.Collaboration.Server) {
+        showSheetStep(
+            text: NSLocalizedString("TD_NOTIFICATION_CONNECTING_TO_SERVER", comment: "Message shown to the user while connecting to the server."),
+            progressBarValue: .indeterminate
+        )
+        print(collaborationServer.url)
+        client.connect(to: collaborationServer.url)
     }
     
     func editedDocument() {
@@ -72,7 +79,7 @@ class EditorWindowController: NSWindowController {
         DispatchQueue.main.async { [weak self] in
             self?.showSheetIfRequired()
             self?.currentSheet.updateLabel(text: text)
-            self?.currentSheet.updateButton(title: "Close") {
+            self?.currentSheet.updateButton(title: NSLocalizedString("TD_BUTTON_CLOSE", comment: "Button title of notification sheets.")) {
                 self?.closeSheet()
                 action?()
             }
@@ -85,7 +92,7 @@ class EditorWindowController: NSWindowController {
             self?.showSheetIfRequired()
             self?.currentSheet.updateLabel(text: text)
             self?.currentSheet.updateProgressBar(value: .hidden)
-            self?.currentSheet.updateButton(title: "Close Project") {
+            self?.currentSheet.updateButton(title: NSLocalizedString("TD_BUTTON_CLOSE_PROJECT", comment: "Button title of error sheets.")) {
                 self?.close()
             }
         }

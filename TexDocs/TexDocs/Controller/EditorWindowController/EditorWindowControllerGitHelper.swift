@@ -20,14 +20,21 @@ extension EditorWindowController {
     }
     
     func clone(repositoryURL: URL) throws {
-        guard let repositoryLocalURL = repositoryLocalURL else {
-            showErrorClosingSheet(text: "Workspace not found!")
+        showSheetStep(
+            text: NSLocalizedString("TD_NOTIFICATION_CLONING_REPOSITORY", comment: "Message shown to the user while starting the cloning."),
+            progressBarValue: .indeterminate
+        )
+        
+        guard let localRepositoryURL = localRepositoryURL else {
+            showErrorClosingSheet(
+                text: NSLocalizedString("TD_ERROR_INTERNAL_ERROR", comment: "Message shown to the user if an internal error occures.")
+            )
             return
         }
         
         repository = try GTRepository.clone(
             from: repositoryURL,
-            toWorkingDirectory: repositoryLocalURL,
+            toWorkingDirectory: localRepositoryURL,
             options: [
                 GTRepositoryCloneOptionsPerformCheckout: true,
                 GTRepositoryCloneOptionsCredentialProvider: credentialsProvider
@@ -36,7 +43,7 @@ extension EditorWindowController {
             let totalObjects = transferProgress.pointee.total_objects
 
             self?.showSheetStep(
-                text: "Receiving objects (\(receivedObjects)/\(totalObjects))",
+                text: "\(NSLocalizedString("TD_NOTIFICATION_RECEIVING_OBJECTS", comment: "Shown while receiving objects from git remote.")) (\(receivedObjects)/\(totalObjects))",
                 progressBarValue: .value(Double(receivedObjects)/Double(totalObjects))
             )
         }
@@ -44,7 +51,7 @@ extension EditorWindowController {
         texDocsDocument?.documentData?.collaboration?.repository = DocumentData.Collaboration.Repository(url: repositoryURL)
         editedDocument()
         
-        showUserNotificationSheet(text: "Cloned Repository") {
+        showUserNotificationSheet(text: NSLocalizedString("TD_NOTIFICATION_REPOSITORY_CLONED", comment: "Notification for the user after a successfull clone.")) {
             print("sync")
         }
     }

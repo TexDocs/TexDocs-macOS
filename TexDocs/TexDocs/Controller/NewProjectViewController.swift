@@ -37,7 +37,7 @@ class NewProjectViewController: NSViewController {
     @IBAction func joinRadioButtonPressed(_ sender: NSButton) {
         serverURLTextField.isHidden = false
         repositoryURLTextField.isHidden = true
-        saveButton.title = "Join"
+        saveButton.title = NSLocalizedString("TD_BUTTON_JOIN", comment: "Button to join an existing project.")
         createRadioButton.state = .off
         createOfflineRadioButton.state = .off
         inputChanged()
@@ -46,7 +46,7 @@ class NewProjectViewController: NSViewController {
     @IBAction func createRadioButtonPressed(_ sender: NSButton) {
         serverURLTextField.isHidden = false
         repositoryURLTextField.isHidden = false
-        saveButton.title = "Create"
+        saveButton.title = NSLocalizedString("TD_BUTTON_CREATE", comment: "Button to create a new project.")
         joinRadioButton.state = .off
         createOfflineRadioButton.state = .off
         inputChanged()
@@ -55,7 +55,7 @@ class NewProjectViewController: NSViewController {
     @IBAction func createOfflineRadioButtonPressed(_ sender: NSButton) {
         serverURLTextField.isHidden = true
         repositoryURLTextField.isHidden = true
-        saveButton.title = "Create"
+        saveButton.title = NSLocalizedString("TD_BUTTON_CREATE_OFFLINE", comment: "Button to create a new offline project.")
         joinRadioButton.state = .off
         createRadioButton.state = .off
         inputChanged()
@@ -107,7 +107,6 @@ class NewProjectViewController: NSViewController {
         self.method = method
         
         let savePanel = NSSavePanel()
-        savePanel.prompt = "Create"
         
         savePanel.beginSheetModal(for: window) { [weak self] response in
             if response == .OK, let url = savePanel.url {

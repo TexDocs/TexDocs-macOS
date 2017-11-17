@@ -28,7 +28,6 @@ extension EditorWindowController: CollaborationClientDelegate {
     
     func collaborationClient(_ client: CollaborationClient, didConnectedAndReceivedRepositoryURL repositoryURL: URL) {
         guard let oldRepositoryURL = texDocsDocument?.documentData?.collaboration?.repository?.url else {
-            showSheetStep(text: "Cloning repository...", progressBarValue: .indeterminate)
             do {
                 try self.clone(repositoryURL: repositoryURL)
             } catch {
@@ -38,7 +37,9 @@ extension EditorWindowController: CollaborationClientDelegate {
         }
         
         guard oldRepositoryURL == repositoryURL else {
-            showErrorClosingSheet(text: "Missmatching repository url received from server.")
+            showErrorClosingSheet(
+                text: NSLocalizedString("TD_ERROR_MISSMATCHED_REPOSITORY_URL", comment: "Message shown to the user if the saved and the received repository url don't match.")
+            )
             return
         }
         

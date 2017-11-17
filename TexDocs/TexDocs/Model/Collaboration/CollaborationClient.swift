@@ -97,7 +97,7 @@ extension CollaborationClient: WebSocketDelegate {
         guard !encounteredError else { return }
         
         guard reason.count > 0 else {
-            delegate?.collaborationClient(self, didDisconnectedBecause: "Connection lost!")
+            delegate?.collaborationClient(self, didDisconnectedBecause: NSLocalizedString("TD_ERROR_CONNECTION_LOST", comment: "Error message after unexpected connection drop."))
             return
         }
         delegate?.collaborationClient(self, didDisconnectedBecause: reason)
