@@ -19,10 +19,10 @@ struct DocumentData: Codable {
     /// - Parameter method: The method used to open the project.
     init(open method: NewProjectOpenMethod) {
         switch method {
-        case .create(let serverURL, let repoURL):
+        case .create(let serverURL, let repositoryURL):
             collaboration = Collaboration(
                 server: Collaboration.Server(url: serverURL),
-                repo: Collaboration.Repo(url: repoURL))
+                repository: Collaboration.Repository(url: repositoryURL))
         case .join(let serverURL):
             collaboration = Collaboration(server: Collaboration.Server(url: serverURL))
         case .offline:
@@ -35,17 +35,17 @@ struct DocumentData: Codable {
         /// Collaboration server used for live collaboration.
         var server: Server
         
-        /// Repo used for offline collaboration.
-        var repo: Repo?
+        /// Repository used for offline collaboration.
+        var repository: Repository?
         
         /// Initializes collaboration data with at least a collaboration server.
         ///
         /// - Parameters:
         ///   - server: Collaboration server used for live collaboration.
-        ///   - repo: Repo used for offline collaboration.
-        init(server: Server, repo: Repo? = nil) {
+        ///   - repository: Repository used for offline collaboration.
+        init(server: Server, repository: Repository? = nil) {
             self.server = server
-            self.repo = repo
+            self.repository = repository
         }
         
         struct Server: Codable {
@@ -60,11 +60,11 @@ struct DocumentData: Codable {
             }
         }
         
-        struct Repo: Codable {
-            /// Git repo url
+        struct Repository: Codable {
+            /// Git repository url
             let url: URL
             
-            /// Initializes repo data with a url.
+            /// Initializes repository data with a url.
             ///
             /// - Parameter url: Git url.
             init(url: URL) {

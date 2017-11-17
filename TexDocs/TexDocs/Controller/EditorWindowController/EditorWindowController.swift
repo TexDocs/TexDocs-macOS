@@ -11,10 +11,7 @@ import Cocoa
 class EditorWindowController: NSWindowController {
     
     let client = CollaborationClient()
-    
-    var texDocsDocument: Document? {
-        return self.document as? Document
-    }
+    var repository: GTRepository?
     
     override var document: AnyObject? {
         didSet {
@@ -23,7 +20,7 @@ class EditorWindowController: NSWindowController {
             }
             
             if let collaborationServer = texDocsDocument.documentData?.collaboration?.server {
-                showSheetStep(text: "Connecting to server...")
+                showSheetStep(text: "Connecting to server...", progressBarValue: .indeterminate)
                 print(collaborationServer.url)
                 client.connect(to: collaborationServer.url)
             }
@@ -40,43 +37,53 @@ class EditorWindowController: NSWindowController {
     private var sheetIsShown: Bool = false
     
     private func showSheetIfRequired() {
-        guard !sheetIsShown else { return }
-        sheetIsShown = true
-        DispatchQueue.main.async { [weak self] in
-            guard let unwrappedSelf = self else { return }
-            unwrappedSelf.window?.contentViewController?.presentViewControllerAsSheet(unwrappedSelf.currentSheet)
+        guard !sheetIsShown else {
+            return
         }
+        sheetIsShown = true
+        window?.contentViewController?.presentViewControllerAsSheet(currentSheet)
     }
     
     func closeSheet() {
-        guard sheetIsShown else { return }
-        sheetIsShown = false
         DispatchQueue.main.async { [weak self] in
+            guard let unwrappedSelf = self, unwrappedSelf.sheetIsShown else {
+                return
+            }
             self?.currentSheet.dismiss(self)
         }
     }
     
-    func showSheetStep(text: String, buttonTitle: String? = nil, progressBarValue: Double? = nil) {
-        showSheetIfRequired()
+    func showSheetStep(text: String, buttonTitle: String? = nil, progressBarValue: ProgressBarValue) {
         DispatchQueue.main.async { [weak self] in
+            self?.showSheetIfRequired()
             self?.currentSheet.updateLabel(text: text)
             self?.currentSheet.updateButton(title: buttonTitle)
-            self?.currentSheet.updateProgressBar(value: progressBarValue, enableButton: progressBarValue == 1)
+            self?.currentSheet.updateProgressBar(value: progressBarValue)
+        }
+    }
+    
+    func showUserNotificationSheet(text: String, action: (() -> Void)? = nil) {
+        DispatchQueue.main.async { [weak self] in
+            self?.showSheetIfRequired()
+            self?.currentSheet.updateLabel(text: text)
+            self?.currentSheet.updateButton(title: "Close") {
+                self?.closeSheet()
+                action?()
+            }
+            self?.currentSheet.updateProgressBar(value: .hidden)
         }
     }
     
     func showErrorClosingSheet(text: String) {
-        showSheetIfRequired()
         DispatchQueue.main.async { [weak self] in
+            self?.showSheetIfRequired()
             self?.currentSheet.updateLabel(text: text)
-            self?.currentSheet.updateProgressBar(value: nil, enableButton: true)
+            self?.currentSheet.updateProgressBar(value: .hidden)
             self?.currentSheet.updateButton(title: "Close Project") {
                 self?.close()
             }
         }
     }
-    
-
     
     override func windowDidLoad() {
         editorViewController.editorView.collaborationDelegate = self

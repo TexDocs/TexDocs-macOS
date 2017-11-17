@@ -9,7 +9,7 @@
 import Cocoa
 
 let serverURLRegex = try! NSRegularExpression(pattern: "^wss?:\\/\\/[-a-z0-9@:%._\\+~#=\\/?&]+$", options: [.caseInsensitive])
-let repoURLRegex = try! NSRegularExpression(pattern: "^\\w+@[-a-z0-9@:%._\\+~#=\\/?&]+$", options: [.caseInsensitive])
+let repositoryURLRegex = try! NSRegularExpression(pattern: "^\\w+@[-a-z0-9@:%._\\+~#=\\/?&]+$", options: [.caseInsensitive])
 
 class NewProjectViewController: NSViewController {
     @IBOutlet weak var joinRadioButton: NSButton!
@@ -17,7 +17,7 @@ class NewProjectViewController: NSViewController {
     @IBOutlet weak var createOfflineRadioButton: NSButton!
     @IBOutlet weak var saveButton: NSButton!
     @IBOutlet weak var serverURLTextField: NSTextField!
-    @IBOutlet weak var repoURLTextField: NSTextField!
+    @IBOutlet weak var repositoryURLTextField: NSTextField!
     @IBOutlet weak var warningStackView: NSStackView!
     
     
@@ -25,7 +25,7 @@ class NewProjectViewController: NSViewController {
     private(set) var localURL: URL?
     
     override func viewDidLoad() {
-        repoURLTextField.isHidden = true
+        repositoryURLTextField.isHidden = true
         warningStackView.isHidden = true
     }
     
@@ -36,7 +36,7 @@ class NewProjectViewController: NSViewController {
     
     @IBAction func joinRadioButtonPressed(_ sender: NSButton) {
         serverURLTextField.isHidden = false
-        repoURLTextField.isHidden = true
+        repositoryURLTextField.isHidden = true
         saveButton.title = "Join"
         createRadioButton.state = .off
         createOfflineRadioButton.state = .off
@@ -45,7 +45,7 @@ class NewProjectViewController: NSViewController {
     
     @IBAction func createRadioButtonPressed(_ sender: NSButton) {
         serverURLTextField.isHidden = false
-        repoURLTextField.isHidden = false
+        repositoryURLTextField.isHidden = false
         saveButton.title = "Create"
         joinRadioButton.state = .off
         createOfflineRadioButton.state = .off
@@ -54,7 +54,7 @@ class NewProjectViewController: NSViewController {
     
     @IBAction func createOfflineRadioButtonPressed(_ sender: NSButton) {
         serverURLTextField.isHidden = true
-        repoURLTextField.isHidden = true
+        repositoryURLTextField.isHidden = true
         saveButton.title = "Create"
         joinRadioButton.state = .off
         createRadioButton.state = .off
@@ -73,8 +73,8 @@ class NewProjectViewController: NSViewController {
         return URL(string: serverURLTextField.stringValue)
     }
     
-    private func getRepoURL() -> URL? {
-        return URL(string: repoURLTextField.stringValue)
+    private func getRepositoryURL() -> URL? {
+        return URL(string: repositoryURLTextField.stringValue)
     }
     
     private func getNewProjectMethod() -> NewProjectOpenMethod? {
@@ -84,8 +84,8 @@ class NewProjectViewController: NSViewController {
             guard let serverURL = getServerURL() else { return nil }
             return .join(serverURL: serverURL)
         } else {
-            guard let serverURL = getServerURL(), let repoURL = getRepoURL() else { return nil }
-            return .create(serverURL: serverURL, repoURL: repoURL)
+            guard let serverURL = getServerURL(), let repositoryURL = getRepositoryURL() else { return nil }
+            return .create(serverURL: serverURL, repositoryURL: repositoryURL)
         }
     }
     

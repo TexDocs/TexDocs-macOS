@@ -11,15 +11,16 @@
             <objects>
                 <viewController storyboardIdentifier="SimpleSheet" id="MXl-if-Q0B" customClass="SimpleSheet" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="OkP-AK-U4y">
-                        <rect key="frame" x="0.0" y="0.0" width="340" height="146"/>
+                        <rect key="frame" x="0.0" y="0.0" width="340" height="163"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BB4-rY-9GK">
-                                <rect key="frame" x="18" y="75" width="304" height="51"/>
+                                <rect key="frame" x="18" y="75" width="304" height="68"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="Eq6-en-2FK"/>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="vw5-Qo-vEK"/>
                                 </constraints>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Loading Stuff... jzdjdf gisd jfgsidjfgisdfjgisdjfgid sjgfisjdifgjfd sfg ksokdf goskdfgoskdfgo sdkfgopsdfgko sofdg sokf gosfgd" id="KST-pd-Ey5">
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Failed to clone repository from git@gitlab.com:TheMegaTB/testLatex.git to file:///Users/noahpeeters/Desktop/Untitled/Untitled/" id="KST-pd-Ey5">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

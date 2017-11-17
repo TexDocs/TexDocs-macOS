@@ -454,4 +454,13 @@ fabric.properties
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 
+### Carthage ###
+# Carthage
+#
+# Add this line if you want to avoid checking in source code from Carthage dependencies.
+Carthage/Checkouts
+
+Carthage/Build
+
+
 # End of https://www.gitignore.io/api/node,macos,xcode,swift,latex,webstorm

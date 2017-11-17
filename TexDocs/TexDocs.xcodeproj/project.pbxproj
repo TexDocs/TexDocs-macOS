@@ -12,9 +12,12 @@
 		4026AC8D1FBCE91D00FFB18B /* Sheets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */; };
 		4026AC901FBCEC5000FFB18B /* SimpleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026AC8F1FBCEC5000FFB18B /* SimpleSheet.swift */; };
 		4026AC921FBE1CD000FFB18B /* CollaborationClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026AC911FBE1CD000FFB18B /* CollaborationClientError.swift */; };
+		4026ACC01FBF525C00FFB18B /* ObjectiveGit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4026ACBF1FBF525C00FFB18B /* ObjectiveGit.framework */; };
+		4026ACC71FBF55D700FFB18B /* EditorWindowControllerHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026ACC61FBF55D700FFB18B /* EditorWindowControllerHelpers.swift */; };
 		4048199D1FB8C64600AAFBF0 /* CollaborationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4048199C1FB8C64600AAFBF0 /* CollaborationProtocol.swift */; };
 		4048199F1FB8DD9400AAFBF0 /* NewProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4048199E1FB8DD9400AAFBF0 /* NewProjectViewController.swift */; };
 		404819A11FB8F37300AAFBF0 /* FileSystemItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404819A01FB8F37300AAFBF0 /* FileSystemItemCell.swift */; };
+		407302C21FBF630D00D5AB8F /* EditorWindowControllerGitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407302C11FBF630D00D5AB8F /* EditorWindowControllerGitHelper.swift */; };
 		40A4815E1FB7D29A00B7667F /* UIRegexLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40A7D1261FB7956B002FBB8B /* UIRegexLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		40A7D0DE1FB78A3F002FBB8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D0DD1FB78A3F002FBB8B /* AppDelegate.swift */; };
 		40A7D0E21FB78A3F002FBB8B /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D0E11FB78A3F002FBB8B /* Document.swift */; };
@@ -105,9 +108,13 @@
 		4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Sheets.storyboard; sourceTree = "<group>"; };
 		4026AC8F1FBCEC5000FFB18B /* SimpleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSheet.swift; sourceTree = "<group>"; };
 		4026AC911FBE1CD000FFB18B /* CollaborationClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationClientError.swift; sourceTree = "<group>"; };
+		4026ACBF1FBF525C00FFB18B /* ObjectiveGit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectiveGit.framework; path = Carthage/Build/Mac/ObjectiveGit.framework; sourceTree = "<group>"; };
+		4026ACC51FBF549600FFB18B /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		4026ACC61FBF55D700FFB18B /* EditorWindowControllerHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWindowControllerHelpers.swift; sourceTree = "<group>"; };
 		4048199C1FB8C64600AAFBF0 /* CollaborationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationProtocol.swift; sourceTree = "<group>"; };
 		4048199E1FB8DD9400AAFBF0 /* NewProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectViewController.swift; sourceTree = "<group>"; };
 		404819A01FB8F37300AAFBF0 /* FileSystemItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemItemCell.swift; sourceTree = "<group>"; };
+		407302C11FBF630D00D5AB8F /* EditorWindowControllerGitHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWindowControllerGitHelper.swift; sourceTree = "<group>"; };
 		40A7D0DA1FB78A3F002FBB8B /* TexDocs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TexDocs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40A7D0DD1FB78A3F002FBB8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40A7D0E11FB78A3F002FBB8B /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -153,6 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4026ACC01FBF525C00FFB18B /* ObjectiveGit.framework in Frameworks */,
 				400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */,
 				40BD25DE1FBCB90C00211743 /* libz.tbd in Frameworks */,
 				40A7D13B1FB7956B002FBB8B /* UIRegexLib.framework in Frameworks */,
@@ -204,6 +212,7 @@
 		400D97AF1FBA3E1800540207 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4026ACBF1FBF525C00FFB18B /* ObjectiveGit.framework */,
 				40BD25DD1FBCB90C00211743 /* libz.tbd */,
 				400D97B51FBA3E1800540207 /* Quartz.framework */,
 			);
@@ -214,9 +223,11 @@
 			isa = PBXGroup;
 			children = (
 				40AB8C431FB87CE700BC6D82 /* EditorWindowController.swift */,
+				4026ACC61FBF55D700FFB18B /* EditorWindowControllerHelpers.swift */,
 				40BD25E21FBCE2B100211743 /* EditorWindowController+UI.swift */,
 				40AB8C4E1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift */,
 				40AA16EF1FB88A0000373B07 /* EditorWindowController+CollaborationClientDelegate.swift */,
+				407302C11FBF630D00D5AB8F /* EditorWindowControllerGitHelper.swift */,
 			);
 			path = EditorWindowController;
 			sourceTree = "<group>";
@@ -360,6 +371,7 @@
 				40A7D0E31FB78A3F002FBB8B /* Assets.xcassets */,
 				40A7D0E81FB78A3F002FBB8B /* Info.plist */,
 				40A7D0E91FB78A3F002FBB8B /* TexDocs.entitlements */,
+				4026ACC51FBF549600FFB18B /* Bridging-Header.h */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -441,6 +453,7 @@
 				40A7D0D71FB78A3F002FBB8B /* Frameworks */,
 				40A7D0D81FB78A3F002FBB8B /* Resources */,
 				40A7D11C1FB79261002FBB8B /* Embed Frameworks */,
+				4026ACC31FBF530700FFB18B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -629,6 +642,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4026ACC31FBF530700FFB18B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/Mac/ObjectiveGit.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		40A7D0D61FB78A3F002FBB8B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -649,6 +679,7 @@
 				400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */,
 				40BD25E11FBCDC3400211743 /* NewProjectOpenMethod.swift in Sources */,
 				40AB8C4D1FB8866200BC6D82 /* EditorViewController.swift in Sources */,
+				407302C21FBF630D00D5AB8F /* EditorWindowControllerGitHelper.swift in Sources */,
 				40AA16F01FB88A0000373B07 /* EditorWindowController+CollaborationClientDelegate.swift in Sources */,
 				40BD25DC1FBCB7B900211743 /* WebSocket.swift in Sources */,
 				40A7D0E21FB78A3F002FBB8B /* Document.swift in Sources */,
@@ -656,6 +687,7 @@
 				40AB8C451FB8840F00BC6D82 /* CollaborationSourceCodeView.swift in Sources */,
 				40AB8C481FB8841C00BC6D82 /* SourceCodeView.swift in Sources */,
 				40AB8C491FB8841E00BC6D82 /* SourceCodeRulerView.swift in Sources */,
+				4026ACC71FBF55D700FFB18B /* EditorWindowControllerHelpers.swift in Sources */,
 				40AB8C471FB8841A00BC6D82 /* ImprovedTextView.swift in Sources */,
 				40AA16FF1FB88FCC00373B07 /* ColorScheme.swift in Sources */,
 				4026AC901FBCEC5000FFB18B /* SimpleSheet.swift in Sources */,
@@ -849,10 +881,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/Mac/ObjectiveGit.framework/Headers/";
 				INFOPLIST_FILE = "TexDocs/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.blechschmidt.TexDocs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TexDocs/Supporting Files/Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -864,10 +902,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/Mac/ObjectiveGit.framework/Headers/";
 				INFOPLIST_FILE = "TexDocs/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.blechschmidt.TexDocs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TexDocs/Supporting Files/Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;

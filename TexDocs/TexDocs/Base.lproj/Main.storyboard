@@ -787,7 +787,7 @@
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZlD-GX-NMB">
                                         <rect key="frame" x="0.0" y="28" width="440" height="22"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Repo-URL (SSH)" drawsBackground="YES" id="Hxr-j1-Dlg">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Repository-URL (SSH)" drawsBackground="YES" id="Hxr-j1-Dlg">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -892,7 +892,7 @@ Gw
                         <outlet property="createOfflineRadioButton" destination="7Ld-Gl-Pmi" id="hhL-YP-5jO"/>
                         <outlet property="createRadioButton" destination="T0B-mR-ezu" id="YaJ-Y6-Xrp"/>
                         <outlet property="joinRadioButton" destination="60o-0u-dYD" id="70v-tO-hZk"/>
-                        <outlet property="repoURLTextField" destination="ZlD-GX-NMB" id="P5K-QE-8Bw"/>
+                        <outlet property="repositoryURLTextField" destination="ZlD-GX-NMB" id="P5K-QE-8Bw"/>
                         <outlet property="saveButton" destination="3Hk-zR-gKu" id="dTo-VY-khL"/>
                         <outlet property="serverURLTextField" destination="Mcr-DI-Umt" id="MjC-Ou-tfN"/>
                         <outlet property="warningStackView" destination="EW2-Cg-weX" id="yzx-4R-UsJ"/>

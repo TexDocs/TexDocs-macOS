@@ -28,7 +28,12 @@ struct BasePackage: Codable {
 
 struct ProjectJoinPackage: Codable {
     let userID: String
-    let repoURL: String
+    let repositoryURL: String
+    
+    enum CodingKeys: String, CodingKey {
+        case userID
+        case repositoryURL = "repoURL"
+    }
 }
 
 struct CollaborationCursorUpdatePackage: Codable {

@@ -9,7 +9,7 @@
 import Cocoa
 
 class SimpleSheet: NSViewController {
-    @IBOutlet weak var progressBar: NSProgressIndicator? { didSet { updateProgressBar(value: progressValue, enableButton: enableButton) }}
+    @IBOutlet weak var progressBar: NSProgressIndicator? { didSet { updateProgressBar(value: progressValue) }}
     @IBOutlet weak var statusLabel: NSTextField? { didSet { updateLabel(text: labelText) }}
     @IBOutlet weak var button: NSButton? { didSet { updateButton(title: buttonTitle) }}
     
@@ -20,9 +20,8 @@ class SimpleSheet: NSViewController {
     }
     
     private var buttonTitle: String? = nil
-    private var labelText: String? = nil
-    private var progressValue: Double? = nil
-    private var enableButton: Bool = false
+    private var labelText: String = ""
+    private var progressValue: ProgressBarValue = .indeterminate
     
     private var action: (() -> Void)?
     
@@ -39,29 +38,30 @@ class SimpleSheet: NSViewController {
         button?.isHidden = false
     }
 
-    func updateLabel(text: String?) {
+    func updateLabel(text: String) {
         self.labelText = text
-        guard let text = text else {
-            statusLabel?.isHidden = true
-            return
-        }
-        
         statusLabel?.stringValue = text
-        statusLabel?.isHidden = false
     }
     
-    func updateProgressBar(value: Double?, enableButton: Bool) {
+    func updateProgressBar(value: ProgressBarValue) {
         self.progressValue = value
-        self.enableButton = enableButton
-        button?.isEnabled = enableButton
+        progressBar?.isHidden = false
         
-        guard let value = value else {
+        switch value {
+        case .hidden:
+            progressBar?.isHidden = true
+        case .indeterminate:
             progressBar?.isIndeterminate = true
             progressBar?.startAnimation(self)
-            return
+        case .value(let progress):
+            progressBar?.isIndeterminate = true
+            progressBar?.doubleValue = progress
         }
-        
-        progressBar?.isIndeterminate = false
-        progressBar?.doubleValue = value
     }
+}
+
+enum ProgressBarValue {
+    case hidden
+    case indeterminate
+    case value(Double)
 }

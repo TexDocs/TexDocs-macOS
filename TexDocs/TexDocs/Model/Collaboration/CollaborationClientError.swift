@@ -10,14 +10,14 @@ import Foundation
 
 enum CollaborationClientError: Error {
     case responseStatusCode(statusCode: Int)
-    case receivedInvalidRepoURL(repoURLString: String)
+    case receivedInvalidRepositoryURL(repositoryURLString: String)
     
     var localizedDescription: String {
         switch self {
         case .responseStatusCode(let statusCode):
             return "Received unexpected status code: \(statusCode)."
-        case .receivedInvalidRepoURL(let repoURLString):
-            return "Received invalid repo URL: '\(repoURLString)'."
+        case .receivedInvalidRepositoryURL(let repositoryURLString):
+            return "Received invalid repository URL: '\(repositoryURLString)'."
         }
     }
 }

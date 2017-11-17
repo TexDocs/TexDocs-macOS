@@ -25,16 +25,21 @@ extension EditorWindowController: CollaborationClientDelegate {
         editorViewController.editorView.collaborationCursorsDidChange()
     }
     
-    func collaborationClient(_ client: CollaborationClient, didConnectedAndReceivedRepoURL repoURL: URL) {
-        guard let oldRepoURL = self.texDocsDocument?.documentData?.collaboration?.repo?.url else {
-            //TODO: clone repo
-            print("clone")
-            closeSheet()
+    func collaborationClient(_ client: CollaborationClient, didConnectedAndReceivedRepositoryURL repositoryURL: URL) {
+        guard let oldRepositoryURL = texDocsDocument?.documentData?.collaboration?.repository?.url else {
+            showSheetStep(text: "Cloning repository...", progressBarValue: .indeterminate)
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                do {
+                    try self?.clone(repositoryURL: repositoryURL)
+                } catch {
+                    self?.showErrorClosingSheet(text: error.localizedDescription)
+                }
+            }
             return
         }
         
-        guard oldRepoURL == repoURL else {
-            showErrorClosingSheet(text: "Missmatching repo url received from server.")
+        guard oldRepositoryURL == repositoryURL else {
+            showErrorClosingSheet(text: "Missmatching repository url received from server.")
             return
         }
         

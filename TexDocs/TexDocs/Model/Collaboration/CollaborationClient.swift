@@ -11,7 +11,7 @@ import Foundation
 class CollaborationClient {
     private(set) var collaborationCursors: [String: CollaborationCursor] = [:]
     private(set) var userID: String?
-    private(set) var repoURL: URL?
+    private(set) var repositoryURL: URL?
     
     weak var delegate: CollaborationClientDelegate?
     
@@ -45,7 +45,7 @@ class CollaborationClient {
 protocol CollaborationClientDelegate: class {
     func collaborationClient(_ client: CollaborationClient, encounteredError error: Error)
     func collaborationCursorsChanged(_ client: CollaborationClient)
-    func collaborationClient(_ client: CollaborationClient, didConnectedAndReceivedRepoURL repoURL: URL)
+    func collaborationClient(_ client: CollaborationClient, didConnectedAndReceivedRepositoryURL repositoryURL: URL)
     func collaborationClient(_ client: CollaborationClient, didReceivedChangeIn range: NSRange, replacedWith replaceString: String)
     func collaborationClient(_ client: CollaborationClient, didDisconnectedBecause reason: String)
 }
@@ -95,6 +95,11 @@ extension CollaborationClient: WebSocketDelegate {
     
     func webSocketClose(_ code: Int, reason: String, wasClean: Bool) {
         guard !encounteredError else { return }
+        
+        guard reason.count > 0 else {
+            delegate?.collaborationClient(self, didDisconnectedBecause: "Connection lost!")
+            return
+        }
         delegate?.collaborationClient(self, didDisconnectedBecause: reason)
     }
     
@@ -106,12 +111,13 @@ extension CollaborationClient: WebSocketDelegate {
         print(text)
         guard let data = text.data(using: .utf8) else { return }
         
-        do {
-            try handleIncomingData(data)
-        } catch {
-            print(error)
+        DispatchQueue.global(qos: .userInteractive).async {
+            do {
+                try self.handleIncomingData(data)
+            } catch {
+                print(error)
+            }
         }
-        
     }
     
     func webSocketMessageData(_ data: Data) {
@@ -169,12 +175,12 @@ extension CollaborationClient {
 extension CollaborationClient {
     private func handleJoinPackage(_ package: ProjectJoinPackage) {
         self.userID = package.userID
-        guard let url = URL(string: package.repoURL) else {
-            connectionError(CollaborationClientError.receivedInvalidRepoURL(repoURLString: package.repoURL))
+        guard let url = URL(string: package.repositoryURL) else {
+            connectionError(CollaborationClientError.receivedInvalidRepositoryURL(repositoryURLString: package.repositoryURL))
             return
         }
-        self.repoURL = url
-        delegate?.collaborationClient(self, didConnectedAndReceivedRepoURL: url)
+        self.repositoryURL = url
+        delegate?.collaborationClient(self, didConnectedAndReceivedRepositoryURL: url)
     }
     
     private func handleCollaborationCursorUpdatePackage(_ package: CollaborationCursorUpdatePackage) {
