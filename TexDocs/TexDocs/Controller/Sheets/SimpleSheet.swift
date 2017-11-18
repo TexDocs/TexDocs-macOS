@@ -54,7 +54,7 @@ class SimpleSheet: NSViewController {
             progressBar?.isIndeterminate = true
             progressBar?.startAnimation(self)
         case .value(let progress):
-            progressBar?.isIndeterminate = true
+            progressBar?.isIndeterminate = false
             progressBar?.doubleValue = progress
         }
     }

@@ -52,7 +52,17 @@ extension EditorWindowController {
         editedDocument()
         
         showUserNotificationSheet(text: NSLocalizedString("TD_NOTIFICATION_REPOSITORY_CLONED", comment: "Notification for the user after a successfull clone.")) {
-            print("sync")
+            self.initiateSync()
         }
+    }
+    
+    func initiateSync() {
+        client.initiateSync()
+        showSheetStep(text: "Requested Sync", progressBarValue: .indeterminate)
+    }
+    
+    func completedUserSync() {
+        self.client.completedUserSync()
+        showSheetStep(text: "Waiting for sync to complete", progressBarValue: .indeterminate)
     }
 }

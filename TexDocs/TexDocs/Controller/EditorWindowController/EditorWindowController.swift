@@ -62,6 +62,7 @@ class EditorWindowController: NSWindowController {
             guard let unwrappedSelf = self, unwrappedSelf.sheetIsShown else {
                 return
             }
+            unwrappedSelf.sheetIsShown = false
             self?.currentSheet.dismiss(self)
         }
     }

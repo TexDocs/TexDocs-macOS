@@ -13,7 +13,10 @@ const projects = {
     "110ec58a-a0f2-4ac4-8393-c866d813b8d1": {
         repoURL: "git@gitlab.com:TheMegaTB/testLatex.git",
         gitLog: [],
-        users: {}
+        users: {},
+        activeSyncClient: undefined,
+        unsyncedUsers: [],
+        inSync: false
     }
 };
 
@@ -85,19 +88,64 @@ function pushProject(projectID) {
                 console.log("push");
                 return spawn('git', ['push'], { cwd: projectDir });
             })
+        ).catch(() =>
+            console.log("catch 1")
         )
     );
 }
 
-// updateProject("110ec58a-a0f2-4ac4-8393-c866d813b8d1").then(() => {
-//     console.log("updated!");
-//     pushProject("110ec58a-a0f2-4ac4-8393-c866d813b8d1").then(() => console.log("pushed!"));
-// });
+ updateProject("110ec58a-a0f2-4ac4-8393-c866d813b8d1").then(() => {
+     console.log("updated!");
+     pushProject("110ec58a-a0f2-4ac4-8393-c866d813b8d1").then(() => console.log("pushed!"));
+ });
+
+function nextUserSync(projectID, project) {
+    project.activeSyncClient = project.unsyncedUsers.shift();
+    
+    if (project.activeSyncClient !== undefined) {
+        project.activeSyncClient.send(JSON.stringify({type: 'startUserSync', status: 200}));
+    } else {
+        completeSync(projectID, project);
+    }
+}
+
+function startSync(projectID) {
+    if (projects.hasOwnProperty(projectID)) {
+        broadcastToProject(projectID, null, {type: 'startSync', status: 200});
+        const project = projects[projectID];
+        project.inSync = true;
+        project.unsyncedUsers = Object.values(project.users)
+        pushProject(projectID).then(() => {
+            nextUserSync(projectID, project);
+        })
+    }
+}
+
+function completeSync(projectID, project) {
+    projects.unsyncedUsers = [];
+    updateProject(projectID).then(() => {
+        broadcastToProject(projectID, null, {type: 'completedSync', status: 200});
+        project.inSync = false;
+    })
+}
+
+function userCompletedSync(projectID) {
+    if (projects.hasOwnProperty(projectID)) {
+        const project = projects[projectID];
+        project.activeSyncClient = undefined;
+        nextUserSync(projectID, project);
+    }
+}
 
 function joinProject(projectID, userID, ws) {
     if (projects.hasOwnProperty(projectID)) {
         const project = projects[projectID];
         project.users[userID] = ws;
+        
+        if (projects.inSync) {
+            projects.unsyncedUsers.push(ws);
+        }
+        
         return {
             status: 200,
             type: "project-open",
@@ -129,15 +177,35 @@ function handshake(ws, req, userID) {
     ws.send(JSON.stringify(msg));
 }
 
+Array.prototype.removeByVal = function(val) {
+    for (var i = 0; i < this.length; i++) {
+        if (this[i] === val) {
+            this.splice(i, 1);
+            i--;
+        }
+    }
+    return this;
+}
+
 function removeClient(ws) {
     // TODO Notify others about this state
     console.log("Client disconnected");
     getProject(ws.projectID).then((project) => {
         delete project.users[ws.userID];
+        
+        if (project.inSync) {
+          if (project.activeSyncClient === ws) {
+              project.activeSyncClient = undefined;
+              nextUserSync(project);
+          } else {
+              project.unsyncedUsers = project.unsyncedUsers.removeByVal(ws);
+          }
+        }
     });
     ws.terminate();
     broadcastToProject(ws.projectID, ws.userID, {
         type: 'disconnect',
+        status: 200,
         userID: ws.userID
     });
 }
@@ -171,15 +239,25 @@ export function setupWebsocket(server) {
                 console.warn("Received bogus message", data);
                 return;
             }
-
-            switch (data.type) {
-                case 'cursor':
-                    data.userID = ws.userID;
-                    broadcastToProject(ws.projectID, ws.userID, data);
-                    break;
-                case 'edit':
-                    broadcastToProject(ws.projectID, ws.userID, data);
-                    break;
+              
+            if (projects.hasOwnProperty(ws.projectID) && projects[ws.projectID].inSync) {
+              switch (data.type) {
+                case 'completedUserSync':
+                    userCompletedSync(ws.projectID)
+              }
+            } else {
+                switch (data.type) {
+                    case 'cursor':
+                        data.userID = ws.userID;
+                        broadcastToProject(ws.projectID, ws.userID, data);
+                        break;
+                    case 'edit':
+                        broadcastToProject(ws.projectID, ws.userID, data);
+                        break;
+                    case 'startSync':
+                        startSync(ws.projectID)
+                        break;
+                }
             }
         });
 

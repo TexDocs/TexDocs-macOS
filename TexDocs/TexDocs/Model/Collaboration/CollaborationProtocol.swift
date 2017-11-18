@@ -12,11 +12,17 @@ enum ReceivedPackgeID: String, Codable {
     case join = "project-open"
     case collaboratorCurserUpdate = "cursor"
     case collaboratorEditText = "edit"
+    case startSync = "startSync"
+    case startUserSync = "startUserSync"
+    case completedSync = "completedSync"
+    case userDisconnected = "disconnect"
 }
 
 enum SendPackageID: String, Codable {
     case userCurserUpdate = "cursor"
     case userEditText = "edit"
+    case startSync = "startSync"
+    case completedUserSync = "completedUserSync"
 }
 
 struct BasePackage: Codable {
@@ -56,6 +62,10 @@ struct CollaborationEditTextPackage: Codable {
     }
 }
 
+struct CollaborationUserDisconnectedPackage: Codable {
+    let userID: String
+}
+
 // MARK: Client -> Server
 
 struct UserCurserUpdatePackage: Codable {
@@ -70,7 +80,7 @@ struct UserCurserUpdatePackage: Codable {
     }
 }
 
-struct UserEditTextPackge: Codable {
+struct UserEditTextPackage: Codable {
     let type = SendPackageID.userEditText
     let status = 200
     let start: Int
@@ -82,4 +92,14 @@ struct UserEditTextPackge: Codable {
         self.replaceLength = range.length
         self.replaceText = replaceText
     }
+}
+
+struct InitiateSyncPackage: Codable {
+    let type = SendPackageID.startSync
+    let status = 200
+}
+
+struct CompletedUserSyncPackage: Codable {
+    let type = SendPackageID.completedUserSync
+    let status = 200
 }

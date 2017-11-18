@@ -48,6 +48,9 @@ protocol CollaborationClientDelegate: class {
     func collaborationClient(_ client: CollaborationClient, didConnectedAndReceivedRepositoryURL repositoryURL: URL)
     func collaborationClient(_ client: CollaborationClient, didReceivedChangeIn range: NSRange, replacedWith replaceString: String)
     func collaborationClient(_ client: CollaborationClient, didDisconnectedBecause reason: String)
+    func collaborationClientDidStartSync(_ client: CollaborationClient)
+    func collaborationClientDidStartUserSync(_ client: CollaborationClient)
+    func collaborationClientDidCompletedSync(_ client: CollaborationClient)
 }
 
 // MARK: - Web Socket handler
@@ -83,6 +86,14 @@ extension CollaborationClient {
             handleCollaborationCursorUpdatePackage(try jsonDecoder.decode(CollaborationCursorUpdatePackage.self, from: data))
         case .collaboratorEditText:
             handleCollaborationEditTextPackage(try jsonDecoder.decode(CollaborationEditTextPackage.self, from: data))
+        case .userDisconnected:
+            handleCollaborationUserDisconnectedPackage(try jsonDecoder.decode(CollaborationUserDisconnectedPackage.self, from: data))
+        case .startSync:
+            delegate?.collaborationClientDidStartSync(self)
+        case .startUserSync:
+            delegate?.collaborationClientDidStartUserSync(self)
+        case .completedSync:
+            delegate?.collaborationClientDidCompletedSync(self)
         }
     }
 }
@@ -139,7 +150,7 @@ extension CollaborationClient: WebSocketDelegate {
 extension CollaborationClient {
     func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, to newString: String) {
         if byUser {
-            send(package: UserEditTextPackge(range: oldRange, replaceText: newString))
+            send(package: UserEditTextPackage(range: oldRange, replaceText: newString))
         }
         
         collaborationCursors = collaborationCursors.mapValues { cursor in
@@ -170,6 +181,14 @@ extension CollaborationClient {
     func userSelectionDidChange(_ newSelection: NSRange) {
         send(package: UserCurserUpdatePackage(range: newSelection))
     }
+    
+    func initiateSync() {
+        send(package: InitiateSyncPackage())
+    }
+    
+    func completedUserSync() {
+        send(package: CompletedUserSyncPackage())
+    }
 }
 
 // MARK: - Handle received packages
@@ -191,5 +210,10 @@ extension CollaborationClient {
     
     private func handleCollaborationEditTextPackage(_ package: CollaborationEditTextPackage) {
         delegate?.collaborationClient(self, didReceivedChangeIn: package.range, replacedWith: package.replaceText)
+    }
+    
+    private func handleCollaborationUserDisconnectedPackage(_ package: CollaborationUserDisconnectedPackage) {
+        collaborationCursors.removeValue(forKey: package.userID)
+        delegate?.collaborationCursorsChanged(self)
     }
 }

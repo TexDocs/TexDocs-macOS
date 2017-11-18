@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension EditorWindowController: CollaborationClientDelegate {
+extension EditorWindowController: CollaborationClientDelegate {    
     func collaborationClient(_ client: CollaborationClient, didDisconnectedBecause reason: String) {
         showErrorClosingSheet(text: reason)
     }
@@ -43,7 +43,22 @@ extension EditorWindowController: CollaborationClientDelegate {
             return
         }
         
-        print("start sync")
-        closeSheet()
+        initiateSync()
+    }
+    
+    func collaborationClientDidStartSync(_ client: CollaborationClient) {
+        showSheetStep(text: "Waiting for sync", progressBarValue: .indeterminate)
+    }
+    
+    func collaborationClientDidStartUserSync(_ client: CollaborationClient) {
+        showSheetStep(text: "Syncing...", progressBarValue: .value(0.5))
+        //TODO commit pull push
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.completedUserSync()
+        }
+    }
+    
+    func collaborationClientDidCompletedSync(_ client: CollaborationClient) {
+        showUserNotificationSheet(text: "Completed sync.")
     }
 }
