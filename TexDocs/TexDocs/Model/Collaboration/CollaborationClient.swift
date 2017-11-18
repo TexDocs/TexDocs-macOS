@@ -16,10 +16,13 @@ class CollaborationClient {
     weak var delegate: CollaborationClientDelegate?
     
     private let webSocket: WebSocket
-    private var encounteredError: Bool = false
+    private var encounteredError = false
+    private var syncStatus = SyncStatus.notSyncing
+    private var syncRequired = false
     
     func connect(to url: URL) {
         encounteredError = false
+        syncStatus = .notSyncing
         webSocket.open(nsurl: url)
         webSocket.delegate = self
     }
@@ -89,11 +92,18 @@ extension CollaborationClient {
         case .userDisconnected:
             handleCollaborationUserDisconnectedPackage(try jsonDecoder.decode(CollaborationUserDisconnectedPackage.self, from: data))
         case .startSync:
+            syncStatus = .waitingForSync
+            syncRequired = false
             delegate?.collaborationClientDidStartSync(self)
         case .startUserSync:
+            syncStatus = .userSync
             delegate?.collaborationClientDidStartUserSync(self)
         case .completedSync:
+            syncStatus = .notSyncing
             delegate?.collaborationClientDidCompletedSync(self)
+            if syncRequired {
+                scheduleSync()
+            }
         }
     }
 }
@@ -182,11 +192,20 @@ extension CollaborationClient {
         send(package: UserCurserUpdatePackage(range: newSelection))
     }
     
-    func initiateSync() {
-        send(package: InitiateSyncPackage())
+    func scheduleSync() {
+        switch syncStatus {
+        case .notSyncing:
+            send(package: InitiateSyncPackage())
+        case .userSync, .waitingForSyncToComplete:
+            syncRequired = true
+        case .waitingForSync:
+            // Sync is already running. No need to start a new one.
+            break
+        }
     }
     
     func completedUserSync() {
+        syncStatus = .waitingForSyncToComplete
         send(package: CompletedUserSyncPackage())
     }
 }
@@ -216,4 +235,11 @@ extension CollaborationClient {
         collaborationCursors.removeValue(forKey: package.userID)
         delegate?.collaborationCursorsChanged(self)
     }
+}
+
+enum SyncStatus {
+    case notSyncing
+    case waitingForSync
+    case userSync
+    case waitingForSyncToComplete
 }

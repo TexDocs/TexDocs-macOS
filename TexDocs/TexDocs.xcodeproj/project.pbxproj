@@ -49,6 +49,7 @@
 		40BD25E31FBCE2B100211743 /* EditorWindowController+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BD25E21FBCE2B100211743 /* EditorWindowController+UI.swift */; };
 		40C88C211FB8B659006F6BB9 /* OutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C88C201FB8B659006F6BB9 /* OutlineViewController.swift */; };
 		40EF5D521FBF9612003E0E40 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 40EF5D511FBF9612003E0E40 /* Localizable.strings */; };
+		40EF5D541FC05EC0003E0E40 /* EditorWindowController+Sheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EF5D531FC05EC0003E0E40 /* EditorWindowController+Sheets.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,7 +155,8 @@
 		40BD25E01FBCDC3400211743 /* NewProjectOpenMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectOpenMethod.swift; sourceTree = "<group>"; };
 		40BD25E21FBCE2B100211743 /* EditorWindowController+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+UI.swift"; sourceTree = "<group>"; };
 		40C88C201FB8B659006F6BB9 /* OutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewController.swift; sourceTree = "<group>"; };
-		40EF5D511FBF9612003E0E40 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		40EF5D511FBF9612003E0E40 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		40EF5D531FC05EC0003E0E40 /* EditorWindowController+Sheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+Sheets.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +228,7 @@
 			children = (
 				40AB8C431FB87CE700BC6D82 /* EditorWindowController.swift */,
 				4026ACC61FBF55D700FFB18B /* EditorWindowControllerHelpers.swift */,
+				40EF5D531FC05EC0003E0E40 /* EditorWindowController+Sheets.swift */,
 				40BD25E21FBCE2B100211743 /* EditorWindowController+UI.swift */,
 				40AB8C4E1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift */,
 				40AA16EF1FB88A0000373B07 /* EditorWindowController+CollaborationClientDelegate.swift */,
@@ -672,6 +675,7 @@
 				4048199F1FB8DD9400AAFBF0 /* NewProjectViewController.swift in Sources */,
 				40A7D0DE1FB78A3F002FBB8B /* AppDelegate.swift in Sources */,
 				404819A11FB8F37300AAFBF0 /* FileSystemItemCell.swift in Sources */,
+				40EF5D541FC05EC0003E0E40 /* EditorWindowController+Sheets.swift in Sources */,
 				40C88C211FB8B659006F6BB9 /* OutlineViewController.swift in Sources */,
 				40AA16F81FB88BE700373B07 /* SimpleHighlighter.swift in Sources */,
 				40AB8C441FB87CE700BC6D82 /* EditorWindowController.swift in Sources */,

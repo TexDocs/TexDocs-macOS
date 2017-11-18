@@ -20,17 +20,11 @@ extension EditorWindowController {
     }
     
     func clone(repositoryURL: URL) throws {
-        showSheetStep(
-            text: NSLocalizedString("TD_NOTIFICATION_CLONING_REPOSITORY", comment: "Message shown to the user while starting the cloning."),
-            progressBarValue: .indeterminate
-        )
-        
         guard let localRepositoryURL = localRepositoryURL else {
-            showErrorClosingSheet(
-                text: NSLocalizedString("TD_ERROR_INTERNAL_ERROR", comment: "Message shown to the user if an internal error occures.")
-            )
+            showInternalErrorSheet()
             return
         }
+        showCloningSheet()
         
         repository = try GTRepository.clone(
             from: repositoryURL,
@@ -42,27 +36,24 @@ extension EditorWindowController {
             let receivedObjects = transferProgress.pointee.received_objects
             let totalObjects = transferProgress.pointee.total_objects
 
-            self?.showSheetStep(
-                text: "\(NSLocalizedString("TD_NOTIFICATION_RECEIVING_OBJECTS", comment: "Shown while receiving objects from git remote.")) (\(receivedObjects)/\(totalObjects))",
-                progressBarValue: .value(Double(receivedObjects)/Double(totalObjects))
-            )
+            self?.showCloningProgressSheet(total: totalObjects, completed: receivedObjects)
         }
         
         texDocsDocument?.documentData?.collaboration?.repository = DocumentData.Collaboration.Repository(url: repositoryURL)
         editedDocument()
-        
-        showUserNotificationSheet(text: NSLocalizedString("TD_NOTIFICATION_REPOSITORY_CLONED", comment: "Notification for the user after a successfull clone.")) {
-            self.initiateSync()
+        showCloningCompletedSheet() {
+            self.scheduleSync()
         }
+        
     }
     
-    func initiateSync() {
-        client.initiateSync()
-        showSheetStep(text: "Requested Sync", progressBarValue: .indeterminate)
+    func scheduleSync() {
+        client.scheduleSync()
+        showScheduledSyncSheet()
     }
     
     func completedUserSync() {
-        self.client.completedUserSync()
-        showSheetStep(text: "Waiting for sync to complete", progressBarValue: .indeterminate)
+        client.completedUserSync()
+        showCompletedUserSyncSheet()
     }
 }

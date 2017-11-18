@@ -29,11 +29,7 @@ class EditorWindowController: NSWindowController {
     }
     
     func connectTo(collaborationServer: DocumentData.Collaboration.Server) {
-        showSheetStep(
-            text: NSLocalizedString("TD_NOTIFICATION_CONNECTING_TO_SERVER", comment: "Message shown to the user while connecting to the server."),
-            progressBarValue: .indeterminate
-        )
-        print(collaborationServer.url)
+        showConnectingSheet()
         client.connect(to: collaborationServer.url)
     }
     
@@ -47,57 +43,7 @@ class EditorWindowController: NSWindowController {
         let sheetsStoryboard = NSStoryboard(name: NSStoryboard.Name("Sheets"), bundle: nil)
         return sheetsStoryboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("SimpleSheet")) as! SimpleSheet
     }()
-    private var sheetIsShown: Bool = false
-    
-    private func showSheetIfRequired() {
-        guard !sheetIsShown else {
-            return
-        }
-        sheetIsShown = true
-        window?.contentViewController?.presentViewControllerAsSheet(currentSheet)
-    }
-    
-    func closeSheet() {
-        DispatchQueue.main.async { [weak self] in
-            guard let unwrappedSelf = self, unwrappedSelf.sheetIsShown else {
-                return
-            }
-            unwrappedSelf.sheetIsShown = false
-            self?.currentSheet.dismiss(self)
-        }
-    }
-    
-    func showSheetStep(text: String, buttonTitle: String? = nil, progressBarValue: ProgressBarValue) {
-        DispatchQueue.main.async { [weak self] in
-            self?.showSheetIfRequired()
-            self?.currentSheet.updateLabel(text: text)
-            self?.currentSheet.updateButton(title: buttonTitle)
-            self?.currentSheet.updateProgressBar(value: progressBarValue)
-        }
-    }
-    
-    func showUserNotificationSheet(text: String, action: (() -> Void)? = nil) {
-        DispatchQueue.main.async { [weak self] in
-            self?.showSheetIfRequired()
-            self?.currentSheet.updateLabel(text: text)
-            self?.currentSheet.updateButton(title: NSLocalizedString("TD_BUTTON_CLOSE", comment: "Button title of notification sheets.")) {
-                self?.closeSheet()
-                action?()
-            }
-            self?.currentSheet.updateProgressBar(value: .hidden)
-        }
-    }
-    
-    func showErrorClosingSheet(text: String) {
-        DispatchQueue.main.async { [weak self] in
-            self?.showSheetIfRequired()
-            self?.currentSheet.updateLabel(text: text)
-            self?.currentSheet.updateProgressBar(value: .hidden)
-            self?.currentSheet.updateButton(title: NSLocalizedString("TD_BUTTON_CLOSE_PROJECT", comment: "Button title of error sheets.")) {
-                self?.close()
-            }
-        }
-    }
+    var sheetIsShown: Bool = false
     
     override func windowDidLoad() {
         editorViewController.editorView.collaborationDelegate = self

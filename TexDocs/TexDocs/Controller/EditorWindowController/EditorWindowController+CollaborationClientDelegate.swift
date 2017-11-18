@@ -37,21 +37,19 @@ extension EditorWindowController: CollaborationClientDelegate {
         }
         
         guard oldRepositoryURL == repositoryURL else {
-            showErrorClosingSheet(
-                text: NSLocalizedString("TD_ERROR_MISSMATCHED_REPOSITORY_URL", comment: "Message shown to the user if the saved and the received repository url don't match.")
-            )
+            showMissmatchedURLReceivedSheet()
             return
         }
         
-        initiateSync()
+        scheduleSync()
     }
     
     func collaborationClientDidStartSync(_ client: CollaborationClient) {
-        showSheetStep(text: "Waiting for sync", progressBarValue: .indeterminate)
+        showSyncStartedSheet()
     }
     
     func collaborationClientDidStartUserSync(_ client: CollaborationClient) {
-        showSheetStep(text: "Syncing...", progressBarValue: .value(0.5))
+        showCloningProgressSheet(total: 2, completed: 1)
         //TODO commit pull push
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.completedUserSync()
@@ -59,6 +57,6 @@ extension EditorWindowController: CollaborationClientDelegate {
     }
     
     func collaborationClientDidCompletedSync(_ client: CollaborationClient) {
-        showUserNotificationSheet(text: "Completed sync.")
+        showSyncCompletedSheet()
     }
 }
