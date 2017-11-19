@@ -63,12 +63,10 @@ extension EditorWindowController {
 
 extension EditorWindowController {
     func showErrorSheet(_ error: Error) {
-        print(error)
         showErrorClosingSheet(text: error.localizedDescription)
     }
     
     func showErrorSheet(withCustomMessage text: String) {
-        print(text)
         showErrorClosingSheet(text: text)
     }
     

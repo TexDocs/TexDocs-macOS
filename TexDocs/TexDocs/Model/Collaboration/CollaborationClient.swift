@@ -19,10 +19,12 @@ class CollaborationClient {
     private var ignoreClosingReason = false
     private var syncStatus = SyncStatus.notSyncing
     private var syncRequired = false
+    private var editsInSyncMode: [CollaborationEditTextPackage] = []
     
     func connect(to url: URL) {
         ignoreClosingReason = false
         syncStatus = .notSyncing
+        editsInSyncMode = []
         webSocket.open(nsurl: url)
         webSocket.delegate = self
     }
@@ -99,11 +101,7 @@ extension CollaborationClient {
             syncStatus = .userSync
             delegate?.collaborationClientDidStartUserSync(self)
         case .completedSync:
-            syncStatus = .notSyncing
             delegate?.collaborationClientDidCompletedSync(self)
-            if syncRequired {
-                scheduleSync()
-            }
         }
     }
 }
@@ -129,7 +127,6 @@ extension CollaborationClient: WebSocketDelegate {
     }
     
     func webSocketMessageText(_ text: String) {
-        print(text)
         guard let data = text.data(using: .utf8) else { return }
         
         // Dispatch to prevent the server closing the connection.
@@ -209,6 +206,21 @@ extension CollaborationClient {
         send(package: CompletedUserSyncPackage())
     }
     
+    func completedSync() {
+        syncStatus = .notSyncing
+        
+        // apply changes
+        for package in editsInSyncMode {
+            handleCollaborationEditTextPackage(package)
+        }
+        editsInSyncMode = []
+        
+        //start next sync
+        if syncRequired {
+            scheduleSync()
+        }
+    }
+    
     func close() {
         ignoreClosingReason = true
         webSocket.close()
@@ -233,7 +245,11 @@ extension CollaborationClient {
     }
     
     private func handleCollaborationEditTextPackage(_ package: CollaborationEditTextPackage) {
-        delegate?.collaborationClient(self, didReceivedChangeIn: package.range, replacedWith: package.replaceText)
+        if syncStatus == .notSyncing {
+            delegate?.collaborationClient(self, didReceivedChangeIn: package.range, replacedWith: package.replaceText)
+        } else {
+            editsInSyncMode.append(package)
+        }
     }
     
     private func handleCollaborationUserDisconnectedPackage(_ package: CollaborationUserDisconnectedPackage) {

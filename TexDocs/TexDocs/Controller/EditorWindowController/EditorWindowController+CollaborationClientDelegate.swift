@@ -134,6 +134,7 @@ extension EditorWindowController: CollaborationClientDelegate {
             try pull(repository, branch: master, from: origin)
             
             showSyncCompletedSheet()
+            client.completedSync()
         } catch {
             showErrorSheet(error)
         }

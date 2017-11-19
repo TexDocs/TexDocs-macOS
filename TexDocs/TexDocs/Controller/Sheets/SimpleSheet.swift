@@ -39,7 +39,6 @@ class SimpleSheet: NSViewController {
     }
 
     func updateLabel(text: String) {
-        print(text)
         self.labelText = text
         statusLabel?.stringValue = text
     }
