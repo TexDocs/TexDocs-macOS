@@ -33,71 +33,71 @@ function getProjectDir(projectID) {
     return path.join(config.storageFolder, projectID);
 }
 
-async function executeInProject(projectID, spawnClosure) {
-    return new Promise((resolve, reject) => {
-        getProject(projectID).then((project) => {
-            let shellCmd = spawnClosure(project);
+//async function executeInProject(projectID, spawnClosure) {
+//    return new Promise((resolve, reject) => {
+//        getProject(projectID).then((project) => {
+//            let shellCmd = spawnClosure(project);
+//
+//            shellCmd.stdout.setEncoding('utf8');
+//            shellCmd.stderr.setEncoding('utf8');
+//
+//            shellCmd.stdout.on('data', (chunk) => {
+//                project.gitLog.push([Date.now().toString(), 'stdout', chunk]);
+//            });
+//
+//            shellCmd.stderr.on('data', (chunk) => {
+//                project.gitLog.push([Date.now().toString(), 'stderr', chunk]);
+//            });
+//
+//            shellCmd.on('close', (code) => {
+//                console.log(`child process exited with code ${code}`);
+//                if (code === 0) resolve();
+//                else reject(code);
+//            });
+//        }).catch((err) => reject(err));
+//    });
+//}
 
-            shellCmd.stdout.setEncoding('utf8');
-            shellCmd.stderr.setEncoding('utf8');
+//function updateProject(projectID) {
+//    return executeInProject(projectID, (project) => {
+//        const projectDir = getProjectDir(projectID);
+//
+//        fs.ensureDirSync(config.storageFolder);
+//        if (fs.existsSync(projectDir)) {
+//            console.log("executing pull");
+//            // TODO Check for local, uncommited changes
+//            return spawn('git', ['pull'], { cwd: projectDir });
+//        } else {
+//            console.log("executing clone");
+//            return spawn('git', ['clone', project.repoURL, projectDir]);
+//        }
+//    });
+//}
 
-            shellCmd.stdout.on('data', (chunk) => {
-                project.gitLog.push([Date.now().toString(), 'stdout', chunk]);
-            });
-
-            shellCmd.stderr.on('data', (chunk) => {
-                project.gitLog.push([Date.now().toString(), 'stderr', chunk]);
-            });
-
-            shellCmd.on('close', (code) => {
-                console.log(`child process exited with code ${code}`);
-                if (code === 0) resolve();
-                else reject(code);
-            });
-        }).catch((err) => reject(err));
-    });
-}
-
-function updateProject(projectID) {
-    return executeInProject(projectID, (project) => {
-        const projectDir = getProjectDir(projectID);
-
-        fs.ensureDirSync(config.storageFolder);
-        if (fs.existsSync(projectDir)) {
-            console.log("executing pull");
-            // TODO Check for local, uncommited changes
-            return spawn('git', ['pull'], { cwd: projectDir });
-        } else {
-            console.log("executing clone");
-            return spawn('git', ['clone', project.repoURL, projectDir]);
-        }
-    });
-}
-
-function pushProject(projectID) {
-    const projectDir = getProjectDir(projectID);
-    return executeInProject(projectID, (project) => {
-        console.log("add files");
-        return spawn('git', ['add', '.'], { cwd: projectDir });
-    }).then(() =>
-        executeInProject(projectID, (project) => {
-            console.log("commit");
-            return spawn('git', ['commit', '-m', '"Server side commit"'], { cwd: projectDir });
-        }).then(() =>
-            executeInProject(projectID, (project) => {
-                console.log("push");
-                return spawn('git', ['push'], { cwd: projectDir });
-            })
-        ).catch(() =>
-            console.log("catch 1")
-        )
-    );
-}
-
- updateProject("110ec58a-a0f2-4ac4-8393-c866d813b8d1").then(() => {
-     console.log("updated!");
-     pushProject("110ec58a-a0f2-4ac4-8393-c866d813b8d1").then(() => console.log("pushed!"));
- });
+//function pushProject(projectID) {
+//    const projectDir = getProjectDir(projectID);
+//    return executeInProject(projectID, (project) => {
+//        console.log("add files");
+//        return spawn('git', ['add', '.'], { cwd: projectDir });
+//    }).then(() =>
+//        executeInProject(projectID, (project) => {
+//            console.log("commit");
+//            return spawn('git', ['commit', '-m', '"Server side commit"'], { cwd: projectDir });
+//        }).then(() =>
+//            executeInProject(projectID, (project) => {
+//                console.log("push");
+//                return spawn('git', ['push'], { cwd: projectDir });
+//            })
+//        ).catch(() =>
+//            console.log("catch 1")
+//        )
+//    );
+//}
+//
+// updateProject("110ec58a-a0f2-4ac4-8393-c866d813b8d1").then(() => {
+//     console.log("updated!");
+//     pushProject("110ec58a-a0f2-4ac4-8393-c866d813b8d1").then(() => console.log("pushed!"));
+// });
 
 function nextUserSync(projectID, project) {
     project.activeSyncClient = project.unsyncedUsers.shift();
@@ -115,18 +115,18 @@ function startSync(projectID) {
         const project = projects[projectID];
         project.inSync = true;
         project.unsyncedUsers = Object.values(project.users)
-        pushProject(projectID).then(() => {
+//        pushProject(projectID).then(() => {
             nextUserSync(projectID, project);
-        })
+//        })
     }
 }
 
 function completeSync(projectID, project) {
     project.unsyncedUsers = [];
-    updateProject(projectID).then(() => {
+//    updateProject(projectID).then(() => {
         broadcastToProject(projectID, null, {type: 'completedSync', status: 200});
         project.inSync = false;
-    })
+//    })
 }
 
 function userCompletedSync(projectID) {
