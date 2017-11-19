@@ -16,12 +16,12 @@ class CollaborationClient {
     weak var delegate: CollaborationClientDelegate?
     
     private let webSocket: WebSocket
-    private var encounteredError = false
+    private var ignoreClosingReason = false
     private var syncStatus = SyncStatus.notSyncing
     private var syncRequired = false
     
     func connect(to url: URL) {
-        encounteredError = false
+        ignoreClosingReason = false
         syncStatus = .notSyncing
         webSocket.open(nsurl: url)
         webSocket.delegate = self
@@ -36,7 +36,7 @@ class CollaborationClient {
     }
     
     private func connectionError(_ error: Error) {
-        encounteredError = true
+        ignoreClosingReason = true
         webSocket.close()
         delegate?.collaborationClient(self, encounteredError: error)
     }
@@ -115,7 +115,7 @@ extension CollaborationClient: WebSocketDelegate {
     }
     
     func webSocketClose(_ code: Int, reason: String, wasClean: Bool) {
-        guard !encounteredError else { return }
+        guard !ignoreClosingReason else { return }
         
         guard reason.count > 0 else {
             delegate?.collaborationClient(self, didDisconnectedBecause: NSLocalizedString("TD_ERROR_CONNECTION_LOST", comment: "Error message after unexpected connection drop."))
@@ -133,11 +133,11 @@ extension CollaborationClient: WebSocketDelegate {
         guard let data = text.data(using: .utf8) else { return }
         
         // Dispatch to prevent the server closing the connection.
-        DispatchQueue.main.async {
+        DispatchQueue.global(qos: .userInteractive).async {
             do {
                 try self.handleIncomingData(data)
             } catch {
-                print(error)
+                self.connectionError(error)
             }
         }
     }
@@ -146,7 +146,7 @@ extension CollaborationClient: WebSocketDelegate {
         do {
             try handleIncomingData(data)
         } catch {
-            print(error)
+            connectionError(error)
         }
     }
     
@@ -207,6 +207,11 @@ extension CollaborationClient {
     func completedUserSync() {
         syncStatus = .waitingForSyncToComplete
         send(package: CompletedUserSyncPackage())
+    }
+    
+    func close() {
+        ignoreClosingReason = true
+        webSocket.close()
     }
 }
 

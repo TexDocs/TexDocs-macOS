@@ -11,7 +11,7 @@ const NOT_FOUND = {
 
 const projects = {
     "110ec58a-a0f2-4ac4-8393-c866d813b8d1": {
-        repoURL: "git@gitlab.com:TheMegaTB/testLatex.git",
+        repoURL: "ssh://git@gitlab.com:TheMegaTB/testLatex.git",
         gitLog: [],
         users: {},
         activeSyncClient: undefined,
@@ -122,7 +122,7 @@ function startSync(projectID) {
 }
 
 function completeSync(projectID, project) {
-    projects.unsyncedUsers = [];
+    project.unsyncedUsers = [];
     updateProject(projectID).then(() => {
         broadcastToProject(projectID, null, {type: 'completedSync', status: 200});
         project.inSync = false;
@@ -143,7 +143,7 @@ function joinProject(projectID, userID, ws) {
         project.users[userID] = ws;
         
         if (projects.inSync) {
-            projects.unsyncedUsers.push(ws);
+            project.unsyncedUsers.push(ws);
         }
         
         return {
@@ -196,7 +196,7 @@ function removeClient(ws) {
         if (project.inSync) {
           if (project.activeSyncClient === ws) {
               project.activeSyncClient = undefined;
-              nextUserSync(project);
+              nextUserSync(ws.projectID, project);
           } else {
               project.unsyncedUsers = project.unsyncedUsers.removeByVal(ws);
           }

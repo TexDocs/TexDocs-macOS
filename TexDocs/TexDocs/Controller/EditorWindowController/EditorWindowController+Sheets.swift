@@ -48,7 +48,8 @@ extension EditorWindowController {
         }
     }
     
-    func showErrorClosingSheet(text: String) {
+    private func showErrorClosingSheet(text: String) {
+        self.client.close()
         DispatchQueue.main.async { [weak self] in
             self?.showSheetIfRequired()
             self?.currentSheet.updateLabel(text: text)
@@ -61,6 +62,16 @@ extension EditorWindowController {
 }
 
 extension EditorWindowController {
+    func showErrorSheet(_ error: Error) {
+        print(error)
+        showErrorClosingSheet(text: error.localizedDescription)
+    }
+    
+    func showErrorSheet(withCustomMessage text: String) {
+        print(text)
+        showErrorClosingSheet(text: text)
+    }
+    
     func showInternalErrorSheet() {
         showErrorClosingSheet(
             text: NSLocalizedString(
@@ -114,6 +125,39 @@ extension EditorWindowController {
             action: action)
     }
     
+    func showPullingProgressSheet(total: UInt32, completed: UInt32) {
+        let text = NSLocalizedString(
+            "TD_NOTIFICATION_PULLING_PROGRESS",
+            comment: "Shown while pulling from git remote.")
+        
+        showSheetStep(
+            text: "\(text) (\(completed)/\(total))",
+            progressBarValue: .value(Double(completed)/Double(total))
+        )
+    }
+    
+    func showFetchProgressSheet(total: UInt32, completed: UInt32) {
+        let text = NSLocalizedString(
+            "TD_NOTIFICATION_FETCH_PROGRESS",
+            comment: "Shown while fetching from git remote.")
+        
+        showSheetStep(
+            text: "\(text) (\(completed)/\(total))",
+            progressBarValue: .value(Double(completed)/Double(total))
+        )
+    }
+    
+    func showPushingProgressSheet(total: UInt32, completed: UInt32) {
+        let text = NSLocalizedString(
+            "TD_NOTIFICATION_PUSHING_PROGRESS",
+            comment: "Shown while pushing to git remote.")
+        
+        showSheetStep(
+            text: "\(text) (\(completed)/\(total))",
+            progressBarValue: .value(Double(completed)/Double(total))
+        )
+    }
+    
     func showScheduledSyncSheet() {
         showSheetStep(
             text: NSLocalizedString(
@@ -143,5 +187,13 @@ extension EditorWindowController {
             text: NSLocalizedString(
                 "TD_NOTIFICATION_SYNC_COMPLETED",
                 comment: "Notification for the user after a successfull sync."))
+    }
+    
+    func showPullingStartedSheet() {
+        showSheetStep(
+            text: NSLocalizedString(
+                "TD_NOTIFICATION_STARTED_PULLING",
+                comment: "Notification for the user after pull started."),
+            progressBarValue: .indeterminate)
     }
 }
