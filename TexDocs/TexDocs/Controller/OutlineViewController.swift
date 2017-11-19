@@ -9,10 +9,16 @@
 import Cocoa
 
 class OutlineViewController: NSViewController {
-
-    var rootDirectory: FileSystemItem?
-    
     @IBOutlet weak var outlineView: NSOutlineView!
+    
+    weak var delegate: OutlineViewControllerDelegate?
+    
+    func reloadData(expandAll: Bool = false) {
+        outlineView.reloadData()
+        if expandAll {
+            outlineView.expandItem(delegate?.rootDirectory, expandChildren: true)
+        }
+    }
 }
 
 extension OutlineViewController: NSOutlineViewDataSource {
@@ -24,7 +30,7 @@ extension OutlineViewController: NSOutlineViewDataSource {
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         guard let item = item as? FileSystemItem else {
-            return (rootDirectory as Any?) ?? 0
+            return (delegate?.rootDirectory as Any?) ?? 0
         }
         
         return item.children[index]
@@ -46,7 +52,17 @@ extension OutlineViewController: NSOutlineViewDataSource {
 }
 
 extension OutlineViewController: NSOutlineViewDelegate {
-    
+    func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
+        guard let item = item as? FileSystemItem else { return false }
+        
+        print(item.url)
+        return true
+    }
+}
+
+protocol OutlineViewControllerDelegate: class {
+    var rootDirectory: FileSystemItem? { get }
+    func selected(item: FileSystemItem)
 }
 
 class FileSystemItem: NSObject {
@@ -55,15 +71,49 @@ class FileSystemItem: NSObject {
     }
     let url: URL
     
-    var children: [FileSystemItem]
+    var children: [FileSystemItem] = []
+    
+    var name: String {
+        return url.lastPathComponent
+    }
+    
+    var isDirectory: Bool {
+        return url.hasDirectoryPath
+    }
     
     init(_ url: URL) {
         self.url = url
-        
-        self.children = (try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants]).map { subURL in
-            FileSystemItem(subURL)
-        }) ?? []
-        
         super.init()
+        
+        updateChildren()
+    }
+    
+    private func subURLs() -> [URL] {
+        guard isDirectory else { return [] }
+        return (try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])) ?? []
+    }
+    
+    func updateChildren() {
+        let newChildrenURLs = subURLs()
+        
+        children = children.filter { newChildrenURLs.contains($0.url) }
+        
+        children.append(contentsOf: newChildrenURLs.filter { url in
+            !children.contains { child in
+                child.url == url
+            }
+        }.fileSystemItems())
+        
+        children.sort {
+            $0.name.lowercased() < $1.name.lowercased()
+        }
+    }
+}
+
+extension Array where Element == URL {
+    func fileSystemItems() -> [FileSystemItem] {
+        return map {
+            FileSystemItem($0)
+        }
     }
 }

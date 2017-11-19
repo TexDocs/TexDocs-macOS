@@ -7,30 +7,51 @@
 //
 
 import Cocoa
+import EonilFileSystemEvents
 
 class EditorWindowController: NSWindowController {
     
+    // MARK: Variables
+    
+    /// Client used to connect to the collaboration server
     let client = CollaborationClient()
+    
+    /// Local repository
     var repository: GTRepository?
     
+    /// File system event monitoring
+    var fileSystemMonitor: FileSystemEventMonitor?
+    
+    /// Content directory
+    var rootDirectory: FileSystemItem?
+    
+    /// Document loaded in this window controller.
     override var document: AnyObject? {
         didSet {
             guard let texDocsDocument = texDocsDocument else {
                 return
             }
-            
-            if let collaborationServer = texDocsDocument.documentData?.collaboration?.server {
-                connectTo(collaborationServer: collaborationServer)
-            }
-            
-            outlineViewController.rootDirectory = FileSystemItem(texDocsDocument.workspaceURL!)
-            outlineViewController.outlineView.reloadData()
+            loaded(document: texDocsDocument)
         }
     }
     
-    func connectTo(collaborationServer: DocumentData.Collaboration.Server) {
-        showConnectingSheet()
-        client.connect(to: collaborationServer.url)
+    let notificationSheet: SimpleSheet = {
+        let sheetsStoryboard = NSStoryboard(name: NSStoryboard.Name("Sheets"), bundle: nil)
+        return sheetsStoryboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("SimpleSheet")) as! SimpleSheet
+    }()
+    var sheetIsShown: Bool = false
+    
+    // Mark: Document
+    
+    func loaded(document: Document) {
+        if let collaborationServer = document.documentData?.collaboration?.server {
+            connectTo(collaborationServer: collaborationServer)
+        }
+
+        rootDirectory = FileSystemItem(dataFolderURL!)
+        outlineViewController.reloadData(expandAll: true)
+        
+        startDirectoryMonitoring()
     }
     
     func editedDocument() {
@@ -38,18 +59,21 @@ class EditorWindowController: NSWindowController {
             self.texDocsDocument?.updateChangeCount(.changeDone)
         }
     }
-    
-    let currentSheet: SimpleSheet = {
-        let sheetsStoryboard = NSStoryboard(name: NSStoryboard.Name("Sheets"), bundle: nil)
-        return sheetsStoryboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("SimpleSheet")) as! SimpleSheet
-    }()
-    var sheetIsShown: Bool = false
+
+    // MARK: Life cycle
     
     override func windowDidLoad() {
         editorViewController.editorView.collaborationDelegate = self
+        outlineViewController.delegate = self
         client.delegate = self
         shouldCascadeWindows = true
     }
+    
+    deinit {
+        stopDirectoryMonitoring()
+    }
+    
+    // MARK: Actions
     
     @IBAction func panelsDidChange(_ sender: NSSegmentedControl) {
         outlinePanel.isCollapsed = !sender.isSelected(forSegment: 0)
@@ -71,4 +95,16 @@ class EditorWindowController: NSWindowController {
             break
         }
     }
+}
+
+extension FileSystemEventFlag {
+    static var fileListChangedGroup: FileSystemEventFlag = [
+        .itemCreated,
+        .itemRemoved,
+        .itemRenamed,
+        .rootChanged,
+        .mustScanSubDirs,
+        .mount,
+        .unmount
+    ]
 }

@@ -21,6 +21,10 @@ class CollaborationClient {
     private var syncRequired = false
     private var editsInSyncMode: [CollaborationEditTextPackage] = []
     
+    var inSync: Bool {
+        return syncStatus != .notSyncing
+    }
+    
     func connect(to url: URL) {
         ignoreClosingReason = false
         syncStatus = .notSyncing
@@ -94,8 +98,6 @@ extension CollaborationClient {
         case .userDisconnected:
             handleCollaborationUserDisconnectedPackage(try jsonDecoder.decode(CollaborationUserDisconnectedPackage.self, from: data))
         case .startSync:
-            syncStatus = .waitingForSync
-            syncRequired = false
             delegate?.collaborationClientDidStartSync(self)
         case .startUserSync:
             syncStatus = .userSync
@@ -192,6 +194,8 @@ extension CollaborationClient {
     func scheduleSync() {
         switch syncStatus {
         case .notSyncing:
+            syncStatus = .waitingForSync
+            syncRequired = false
             send(package: InitiateSyncPackage())
         case .userSync, .waitingForSyncToComplete:
             syncRequired = true

@@ -14,7 +14,7 @@ extension EditorWindowController {
             return
         }
         sheetIsShown = true
-        window?.contentViewController?.presentViewControllerAsSheet(currentSheet)
+        window?.contentViewController?.presentViewControllerAsSheet(notificationSheet)
     }
     
     func closeSheet() {
@@ -23,28 +23,28 @@ extension EditorWindowController {
                 return
             }
             unwrappedSelf.sheetIsShown = false
-            self?.currentSheet.dismiss(self)
+            self?.notificationSheet.dismiss(self)
         }
     }
     
     private func showSheetStep(text: String, buttonTitle: String? = nil, progressBarValue: ProgressBarValue) {
         DispatchQueue.main.async { [weak self] in
             self?.showSheetIfRequired()
-            self?.currentSheet.updateLabel(text: text)
-            self?.currentSheet.updateButton(title: buttonTitle)
-            self?.currentSheet.updateProgressBar(value: progressBarValue)
+            self?.notificationSheet.updateLabel(text: text)
+            self?.notificationSheet.updateButton(title: buttonTitle)
+            self?.notificationSheet.updateProgressBar(value: progressBarValue)
         }
     }
     
     private func showUserNotificationSheet(text: String, action: (() -> Void)? = nil) {
         DispatchQueue.main.async { [weak self] in
             self?.showSheetIfRequired()
-            self?.currentSheet.updateLabel(text: text)
-            self?.currentSheet.updateButton(title: NSLocalizedString("TD_BUTTON_CLOSE", comment: "Button title of notification sheets.")) {
+            self?.notificationSheet.updateLabel(text: text)
+            self?.notificationSheet.updateButton(title: NSLocalizedString("TD_BUTTON_CLOSE", comment: "Button title of notification sheets.")) {
                 self?.closeSheet()
                 action?()
             }
-            self?.currentSheet.updateProgressBar(value: .hidden)
+            self?.notificationSheet.updateProgressBar(value: .hidden)
         }
     }
     
@@ -52,9 +52,9 @@ extension EditorWindowController {
         self.client.close()
         DispatchQueue.main.async { [weak self] in
             self?.showSheetIfRequired()
-            self?.currentSheet.updateLabel(text: text)
-            self?.currentSheet.updateProgressBar(value: .hidden)
-            self?.currentSheet.updateButton(title: NSLocalizedString("TD_BUTTON_CLOSE_PROJECT", comment: "Button title of error sheets.")) {
+            self?.notificationSheet.updateLabel(text: text)
+            self?.notificationSheet.updateProgressBar(value: .hidden)
+            self?.notificationSheet.updateButton(title: NSLocalizedString("TD_BUTTON_CLOSE_PROJECT", comment: "Button title of error sheets.")) {
                 self?.close()
             }
         }

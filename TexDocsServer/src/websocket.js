@@ -101,20 +101,26 @@ function getProjectDir(projectID) {
 
 function nextUserSync(projectID, project) {
     project.activeSyncClient = project.unsyncedUsers.shift();
+    console.log("read next client")
     
     if (project.activeSyncClient !== undefined) {
+        console.log("found next client")
         project.activeSyncClient.send(JSON.stringify({type: 'startUserSync', status: 200}));
+        console.log("informed next client")
     } else {
         completeSync(projectID, project);
+        console.log("completed")
     }
 }
 
 function startSync(projectID) {
     if (projects.hasOwnProperty(projectID)) {
+        console.log("broadcast")
         broadcastToProject(projectID, null, {type: 'startSync', status: 200});
         const project = projects[projectID];
         project.inSync = true;
         project.unsyncedUsers = Object.values(project.users)
+        console.log("created user list")
 //        pushProject(projectID).then(() => {
             nextUserSync(projectID, project);
 //        })
@@ -255,6 +261,7 @@ export function setupWebsocket(server) {
                         broadcastToProject(ws.projectID, ws.userID, data);
                         break;
                     case 'startSync':
+                        console.log("start sync")
                         startSync(ws.projectID)
                         break;
                 }

@@ -27,7 +27,7 @@ extension EditorWindowController {
     }
     
     func clone(repositoryURL: URL, action: (() -> Void)? = nil) throws -> GTRepository? {
-        guard let localRepositoryURL = localRepositoryURL else {
+        guard let localRepositoryURL = dataFolderURL else {
             showInternalErrorSheet()
             return nil
         }
@@ -53,7 +53,7 @@ extension EditorWindowController {
     }
     
     func openLocalRepository() throws -> GTRepository? {
-        guard let localRepositoryURL = localRepositoryURL else {
+        guard let localRepositoryURL = dataFolderURL else {
             showInternalErrorSheet()
             return nil
         }
@@ -95,7 +95,7 @@ extension EditorWindowController {
             withOptions: [
                 GTRepositoryRemoteOptionsCredentialProvider: credentialsProvider
             ]) { [weak self] (pushed, total, _, _) in
-                self?.showPullingProgressSheet(total: total, completed: pushed)
+                self?.showPushingProgressSheet(total: total, completed: pushed)
         }
     }
     

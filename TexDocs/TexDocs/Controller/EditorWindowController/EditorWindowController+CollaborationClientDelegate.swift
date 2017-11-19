@@ -8,7 +8,14 @@
 
 import Foundation
 
-extension EditorWindowController: CollaborationClientDelegate {    
+extension EditorWindowController {
+    func connectTo(collaborationServer: DocumentData.Collaboration.Server) {
+        showConnectingSheet()
+        client.connect(to: collaborationServer.url)
+    }
+}
+
+extension EditorWindowController: CollaborationClientDelegate {
     func collaborationClient(_ client: CollaborationClient, didDisconnectedBecause reason: String) {
         showErrorSheet(withCustomMessage: reason)
     }
