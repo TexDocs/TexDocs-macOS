@@ -56,6 +56,9 @@ class SourceCodeRulerView: NSRulerView {
             return
         }
         
+        NSColor.white.setFill()
+        rect.fill()
+        
         let relativeYTranslation = convert(NSPoint.zero, from: textView).y
         
         // get visible range

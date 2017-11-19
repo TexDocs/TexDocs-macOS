@@ -55,7 +55,7 @@ extension OutlineViewController: NSOutlineViewDelegate {
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
         guard let item = item as? FileSystemItem else { return false }
         
-        print(item.url)
+        delegate?.selected(item: item)
         return true
     }
 }
