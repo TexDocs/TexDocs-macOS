@@ -14,10 +14,13 @@ struct DocumentData: Codable {
     /// Collaboration data of the project.
     var collaboration: Collaboration?
     
+    /// Name of the repository folder.
+    var dataFolderName: String
+    
     /// Initializes the document data for a new project.
     ///
     /// - Parameter method: The method used to open the project.
-    init(open method: NewProjectOpenMethod) {
+    init(open method: NewProjectOpenMethod, dataFolderName: String) {
         switch method {
         case .create(let serverURL, let repositoryURL):
             collaboration = Collaboration(
@@ -28,6 +31,7 @@ struct DocumentData: Codable {
         case .offline:
             collaboration = nil
         }
+        self.dataFolderName = dataFolderName
     }
     
     /// Data required for collaboration.

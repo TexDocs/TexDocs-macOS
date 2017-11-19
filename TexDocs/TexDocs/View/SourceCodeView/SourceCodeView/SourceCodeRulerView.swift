@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import UIRegexLib
 
 /// Ruler view for line numbers
 class SourceCodeRulerView: NSRulerView {

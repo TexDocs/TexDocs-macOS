@@ -1,8 +1,8 @@
 //
 //  RegexLib.swift
-//  UIRegexLib
+//  TexDocs
 //
-//  Created by Noah Peeters on 11.11.17.
+//  Created by Noah Peeters on 19.11.17.
 //  Copyright © 2017 TexDocs. All rights reserved.
 //
 

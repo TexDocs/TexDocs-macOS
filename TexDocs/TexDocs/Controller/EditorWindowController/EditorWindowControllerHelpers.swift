@@ -18,7 +18,7 @@ extension EditorWindowController {
     }
     
     var localRepositoryURL: URL? {
-        guard let workspaceURL = workspaceURL else { return nil }
-        return workspaceURL.appendingPathComponent(workspaceURL.lastPathComponent, isDirectory: true)
+        guard let documentData = texDocsDocument?.documentData else { return nil }
+        return workspaceURL?.appendingPathComponent(documentData.dataFolderName, isDirectory: true)
     }
 }

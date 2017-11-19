@@ -60,7 +60,7 @@ class TexDocsDocumentController: NSDocumentController {
         try! FileManager.default.createDirectory(at: localURL, withIntermediateDirectories: true, attributes: nil)
         
         let projectFileURL = localURL.appendingPathComponent(localURL.lastPathComponent).appendingPathExtension("texdocs")
-        let document = Document(documentData: DocumentData(open: method))
+        let document = Document(documentData: DocumentData(open: method, dataFolderName: localURL.lastPathComponent))
         document.save(to: projectFileURL, ofType: "", for: .saveOperation) { error in
             self.addDocument(document)
             document.makeWindowControllers()
