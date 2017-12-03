@@ -10,13 +10,21 @@ import Foundation
 
 extension EditorWindowController {
     func reloadOutlineView() {
-        rootDirectory?.updateChildren()
-        outlineViewController.outlineView.reloadData()
+        do {
+            try rootDirectory?.updateChildren()
+            outlineViewController.outlineView.reloadData()
+        } catch {
+            showErrorSheet(error)
+        }
     }
 }
 
 extension EditorWindowController: OutlineViewControllerDelegate {
     func selected(item: FileSystemItem) {
-        print("selected \(item.url)")
+        guard item.url.pathExtension == "tex", let editableItem = item as? EditableFileSystemItem else {
+            editorViewController.editorView.openFile(nil)
+            return
+        }
+        editorViewController.editorView.openFile(editableItem)
     }
 }

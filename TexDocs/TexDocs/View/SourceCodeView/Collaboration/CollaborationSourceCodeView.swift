@@ -11,6 +11,43 @@ import Foundation
 class CollaborationSourceCodeView: SourceCodeView {
 
     weak var collaborationDelegate: CollaborationSourceCodeViewDelegate?
+    private weak var openedFile: EditableFileSystemItem? {
+        didSet {
+            handleFileOpen(openedFile, oldFile: oldValue)
+        }
+    }
+    
+    override func setUp() {
+        super.setUp()
+        openFile(nil)
+    }
+    
+    func openFile(_ file: EditableFileSystemItem?) {
+        openedFile = file
+    }
+    
+    private func handleFileOpen(_ newFile: EditableFileSystemItem?, oldFile: EditableFileSystemItem?) {
+        if let oldFile = oldFile {
+            saveContent(to: oldFile)
+        }
+        
+        loadContent(from: newFile)
+    }
+    
+    func loadContent(from fileItem: EditableFileSystemItem? = nil) {
+        guard let fileItem = fileItem ?? openedFile else {
+            isEditable = false
+            replaceContent(with: "")
+            return
+        }
+        
+        replaceContent(with: fileItem.text)
+        self.isEditable = true
+    }
+    
+    func saveContent(to fileItem: EditableFileSystemItem? = nil) {
+        (fileItem ?? openedFile)?.text = string
+    }
     
     func collaborationCursorsDidChange() {
         setNeedsDisplay(editorBounds)

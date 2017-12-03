@@ -65,6 +65,8 @@ extension EditorWindowController: CollaborationClientDelegate {
     func collaborationClientDidStartUserSync(_ client: CollaborationClient) {
         do {
             showPullingStartedSheet()
+            saveAllDocuments()
+            
             guard let repository = repository else {
                 showInternalErrorSheet()
                 return
@@ -98,8 +100,23 @@ extension EditorWindowController: CollaborationClientDelegate {
                 let index = try repository.index()
                 
                 if index.hasConflicts {
-                    git_index_conflict_cleanup(index.git_index())
-                    index.addAll()
+                    
+                    try index.enumerateConflictedFiles { (ancestor, ours, theirs, _) in
+                        
+                        let result: UnsafeMutablePointer<git_merge_file_result>! = nil
+                        
+                        git_merge_file_from_index(result, repository.git_repository(), ancestor.git_index_entry(), ours.git_index_entry(), theirs.git_index_entry(), nil)
+                        
+                        let content = String(cString: result.pointee.ptr)
+                        let path = String(cString: result.pointee.path)
+                        
+                        try! content.write(to: URL(fileURLWithPath: path), atomically: false, encoding: .utf8)
+                        git_index_conflict_remove(index.git_index(), result.pointee.path)
+                        try! index.addFile(path)
+                        
+                        git_merge_file_result_free(result)
+                    }
+                    
                     try index.write()
                 }
                 
@@ -142,6 +159,7 @@ extension EditorWindowController: CollaborationClientDelegate {
             
             showSyncCompletedSheet()
             client.completedSync()
+            reloadAllDocuments()
         } catch {
             showErrorSheet(error)
         }

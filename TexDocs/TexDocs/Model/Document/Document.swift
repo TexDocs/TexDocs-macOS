@@ -24,6 +24,8 @@ class Document: NSDocument {
     
     var documentData: DocumentData?
     
+    var mainWindowController: EditorWindowController?
+    
     override class var autosavesInPlace: Bool {
         return true
     }
@@ -32,10 +34,12 @@ class Document: NSDocument {
         // Returns the Storyboard that contains the Document window.
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Document Window Controller")) as! EditorWindowController
+        mainWindowController = windowController
         self.addWindowController(windowController)
     }
 
     override func data(ofType typeName: String) throws -> Data {
+        mainWindowController?.saveAllDocuments()
         return try JSONEncoder().encode(documentData)
     }
 

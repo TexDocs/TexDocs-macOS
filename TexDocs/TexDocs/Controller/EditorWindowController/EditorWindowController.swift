@@ -47,16 +47,49 @@ class EditorWindowController: NSWindowController {
         if let collaborationServer = document.documentData?.collaboration?.server {
             connectTo(collaborationServer: collaborationServer)
         }
-
-        rootDirectory = FileSystemItem(dataFolderURL!)
-        outlineViewController.reloadData(expandAll: true)
+        do {
+            rootDirectory = try FileSystemItem(dataFolderURL!)
+            outlineViewController.reloadData(expandAll: true)
         
-        startDirectoryMonitoring()
+            startDirectoryMonitoring()
+        } catch {
+            showErrorSheet(error)
+        }
     }
     
     func editedDocument() {
         DispatchQueue.main.async {
             self.texDocsDocument?.updateChangeCount(.changeDone)
+        }
+    }
+    
+    func saveAllDocuments() {
+        do {
+            if !Thread.current.isMainThread {
+                DispatchQueue.main.sync {
+                    editorViewController.editorView.saveContent()
+                }
+            } else {
+                editorViewController.editorView.saveContent()
+            }
+            for item in rootDirectory?.allSubItems().filterEditable() ?? [] {
+                try item.save()
+            }
+        } catch {
+            showErrorSheet(error)
+        }
+    }
+    
+    func reloadAllDocuments() {
+        do {
+            for item in rootDirectory?.allSubItems().filterEditable() ?? [] {
+                try item.reload()
+            }
+            DispatchQueue.main.sync {
+                editorViewController.editorView.loadContent()
+            }
+        } catch {
+            showErrorSheet(error)
         }
     }
 

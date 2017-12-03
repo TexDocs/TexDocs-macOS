@@ -23,7 +23,7 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
     }
     
     /// Some basic setups
-    private func setUp() {
+    open func setUp() {
         self.delegate = self
         self.textStorage?.delegate = self
     }
@@ -79,6 +79,12 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
     func replaceString(in range: NSRange, replacementString: String, byUser: Bool = false) {
         userInitiated = byUser
         textStorage?.replaceCharacters(in: range, with: replacementString)
+        userInitiated = true
+    }
+    
+    func replaceContent(with newString: String, byUser: Bool = false) {
+        userInitiated = byUser
+        textStorage?.replaceCharacters(in: NSRange(location: 0, length: textStorage?.length ?? 0), with: newString)
         userInitiated = true
     }
     

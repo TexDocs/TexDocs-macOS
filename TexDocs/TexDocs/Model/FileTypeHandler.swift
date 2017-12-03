@@ -17,6 +17,10 @@ struct FileTypeHandler {
         "tex"
     ]
     
+    private static var supportEditing: Set = [
+        "tex"
+    ]
+    
     private init() {}
     
     static func shouldIgnoreEvent(of path: URL) -> Bool {
@@ -25,5 +29,9 @@ struct FileTypeHandler {
     
     static func shouldIgnoreModification(of path: URL) -> Bool {
         return modificationsIgnored.contains(path.pathExtension)
+    }
+    
+    static func supportEditing(of path: URL) -> Bool {
+        return supportEditing.contains(path.pathExtension)
     }
 }

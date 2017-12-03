@@ -52,11 +52,11 @@ extension OutlineViewController: NSOutlineViewDataSource {
 }
 
 extension OutlineViewController: NSOutlineViewDelegate {
-    func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
-        guard let item = item as? FileSystemItem else { return false }
-        
+    func outlineViewSelectionDidChange(_ notification: Notification) {
+        guard let item = outlineView.item(atRow: outlineView.selectedRow) as? FileSystemItem else {
+            return
+        }
         delegate?.selected(item: item)
-        return true
     }
 }
 
@@ -81,11 +81,11 @@ class FileSystemItem: NSObject {
         return url.hasDirectoryPath
     }
     
-    init(_ url: URL) {
+    init(_ url: URL) throws {
         self.url = url
         super.init()
         
-        updateChildren()
+        try updateChildren()
     }
     
     private func subURLs() -> [URL] {
@@ -93,12 +93,12 @@ class FileSystemItem: NSObject {
         return (try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])) ?? []
     }
     
-    func updateChildren() {
+    func updateChildren() throws {
         let newChildrenURLs = subURLs()
         
         children = children.filter { newChildrenURLs.contains($0.url) }
         
-        children.append(contentsOf: newChildrenURLs.filter { url in
+        try children.append(contentsOf: newChildrenURLs.filter { url in
             !children.contains { child in
                 child.url == url
             }
@@ -108,12 +108,68 @@ class FileSystemItem: NSObject {
             $0.name.lowercased() < $1.name.lowercased()
         }
     }
+    
+    func findChild(withURL url: URL) -> FileSystemItem? {
+        // TODO: better search algo
+        if self.url == url {
+            return self
+        } else {
+            for child in children {
+                if let item = child.findChild(withURL: url) {
+                    return item
+                }
+            }
+            return nil
+        }
+    }
+    
+    func allSubItems() -> [FileSystemItem] {
+        return children.map({ [[$0], $0.allSubItems()].flatMap({ $0 }) }).flatMap({ $0 })
+    }
+}
+
+class EditableFileSystemItem: FileSystemItem {
+    var text: String {
+        didSet {
+            modified = true
+        }
+    }
+    
+    private(set) var modified = false
+    
+    override init(_ url: URL) throws {
+        text = try String(contentsOf: url)
+        
+        try super.init(url)
+    }
+    
+    func save() throws {
+        if modified {
+            try text.write(to: url, atomically: false, encoding: .utf8)
+            modified = false
+        }
+    }
+    
+    func reload() throws {
+        text = try String(contentsOf: url)
+        modified = false
+    }
 }
 
 extension Array where Element == URL {
-    func fileSystemItems() -> [FileSystemItem] {
-        return map {
-            FileSystemItem($0)
+    func fileSystemItems() throws -> [FileSystemItem] {
+        return try map {
+            if FileTypeHandler.supportEditing(of: $0) {
+                return try EditableFileSystemItem($0)
+            } else {
+                return try FileSystemItem($0)
+            }
         }
+    }
+}
+
+extension Array where Element == FileSystemItem {
+    func filterEditable() -> [EditableFileSystemItem] {
+        return map { $0 as? EditableFileSystemItem }.flatMap { $0 }
     }
 }
