@@ -33,7 +33,7 @@ extension EditorWindowController: OutlineViewControllerDelegate {
     }
 
     func selected(item: FileSystemItem) {
-        guard item.url.pathExtension == "tex", let editableItem = item as? EditableFileSystemItem else {
+        guard let editableItem = item as? EditableFileSystemItem else {
             editorViewController.editorView.openFile(nil)
             return
         }
