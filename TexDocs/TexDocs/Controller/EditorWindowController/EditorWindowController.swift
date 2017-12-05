@@ -34,6 +34,9 @@ class EditorWindowController: NSWindowController {
     /// Document loaded in this window controller.
     override var document: AnyObject? {
         didSet {
+            guard let texDocsDocument = texDocsDocument else {
+                return
+            }
             loaded(document: texDocsDocument)
         }
     }
@@ -55,9 +58,9 @@ class EditorWindowController: NSWindowController {
     func loaded(document: Document) {
         reloadSchemeSelector()
 
-        if let collaborationServer = document.documentData?.collaboration?.server {
-            connectTo(collaborationServer: collaborationServer)
-        }
+//        if let collaborationServer = document.documentData?.collaboration?.server {
+//            connectTo(collaborationServer: collaborationServer)
+//        }
         do {
             rootDirectory = try FileSystemItem(dataFolderURL!)
             outlineViewController.reloadData(expandAll: true)
@@ -100,9 +103,7 @@ class EditorWindowController: NSWindowController {
         }
     }
 
-    var selectedSchemeMenuItem: SchemeMenuItem? {
-        return schemeSelector.selectedItem as? SchemeMenuItem
-    }
+    var selectedSchemeMenuItem: SchemeMenuItem? = nil
 
     var selectedScheme: DocumentData.Scheme? {
         guard let uuid = selectedSchemeMenuItem?.uuid else { return nil }
@@ -115,17 +116,42 @@ class EditorWindowController: NSWindowController {
         let initialUUID = newSelctedUUID ?? selectedSchemeMenuItem?.uuid
         schemeSelector.removeAllItems()
 
-        for scheme in schemes {
-            let menuItem = SchemeMenuItem(scheme: scheme)
-            schemeSelector.menu?.addItem(menuItem)
-            if scheme.uuid == initialUUID {
-                schemeSelector.select(menuItem)
+        if schemes.count > 0 {
+            for scheme in schemes {
+                let menuItem = SchemeMenuItem(scheme: scheme)
+                schemeSelector.menu?.addItem(menuItem)
+                if scheme.uuid == initialUUID {
+                    schemeSelector.select(menuItem)
+                }
             }
+            schemeSelectorSelectionDidChange(self)
+
+            schemeSelector.menu?.addItem(NSMenuItem.separator())
+            schemeSelector.menu?.addItem(withTitle: "Edit Scheme...", action: #selector(editScheme), keyEquivalent: "")
+            schemeSelector.menu?.addItem(withTitle: "Delete Scheme", action: #selector(deleteScheme), keyEquivalent: "")
+            typesetButton.isEnabled = true
+        } else {
+            selectedSchemeMenuItem = nil
+            typesetButton.isEnabled = false
+        }
+    }
+
+    @objc func editScheme() {
+        schemeSelectorSelectionDidChange(self)
+        guard let scheme = selectedScheme else { return }
+        let sheet = editSchemeSheet()
+        sheet.scheme = scheme
+        window?.contentViewController?.presentViewControllerAsSheet(sheet)
+    }
+
+    @objc func deleteScheme() {
+        schemeSelectorSelectionDidChange(self)
+        guard let index = texDocsDocument.documentData?.schemes.index(where: { $0.uuid == selectedScheme?.uuid }) else {
+            return
         }
 
-        let enableButtons = schemes.count > 0
-        typesetButton.isEnabled = enableButtons
-        editSchemeButton.isEnabled = enableButtons
+        texDocsDocument.documentData?.schemes.remove(at: index)
+        reloadSchemeSelector()
     }
 
     // MARK: Life cycle
@@ -145,7 +171,6 @@ class EditorWindowController: NSWindowController {
 
     @IBOutlet weak var schemeSelector: NSPopUpButton!
     @IBOutlet weak var typesetButton: NSButton!
-    @IBOutlet weak var editSchemeButton: NSButton!
     @IBOutlet weak var stopProcessButton: NSButton!
 
     // MARK: Actions
@@ -172,6 +197,7 @@ class EditorWindowController: NSWindowController {
     }
 
     @IBAction func typesetButtonClicked(_ sender: Any) {
+        print(selectedScheme?.name)
         typeset()
     }
     
@@ -179,11 +205,12 @@ class EditorWindowController: NSWindowController {
         currentTypesetProcess?.terminate()
     }
 
-    @IBAction func editSchemeButtonClicked(_ sender: Any) {
-        guard let scheme = selectedScheme else { return }
-        let sheet = editSchemeSheet()
-        sheet.scheme = scheme
-        window?.contentViewController?.presentViewControllerAsSheet(sheet)
+    @IBAction func schemeSelectorSelectionDidChange(_ sender: Any) {
+        guard let newSelection = schemeSelector.selectedItem as? SchemeMenuItem else {
+            schemeSelector.select(selectedSchemeMenuItem)
+            return
+        }
+        selectedSchemeMenuItem = newSelection
     }
 }
 

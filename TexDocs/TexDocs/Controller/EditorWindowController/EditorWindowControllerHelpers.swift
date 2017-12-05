@@ -9,11 +9,11 @@
 import Foundation
 
 extension EditorWindowController {
-    var texDocsDocument: Document {
-        return self.document as! Document
+    var texDocsDocument: Document! {
+        return self.document as? Document
     }
     
-    var workspaceURL: URL {
+    var workspaceURL: URL! {
         return texDocsDocument.workspaceURL
     }
     

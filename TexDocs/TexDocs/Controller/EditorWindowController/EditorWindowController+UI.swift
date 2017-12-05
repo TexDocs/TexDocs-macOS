@@ -19,8 +19,8 @@ extension EditorWindowController {
         return rootSplitViewController.splitViewItems[0]
     }
     
-    var outlineViewController: OutlineViewController {
-        return outlinePanel.viewController as! OutlineViewController
+    var outlineViewController: NavigationOutlineViewController {
+        return outlinePanel.viewController as! NavigationOutlineViewController
     }
     
     // MARK: Center

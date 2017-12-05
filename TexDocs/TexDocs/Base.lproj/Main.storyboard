@@ -991,26 +991,13 @@ Gw
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OiP-vH-Pxh">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="menu"/>
                                             <menu key="menu" id="Tgg-ns-BaJ"/>
                                         </popUpButtonCell>
+                                        <connections>
+                                            <action selector="schemeSelectorSelectionDidChange:" target="jGA-0Y-lOj" id="Tdw-53-Wt6"/>
+                                        </connections>
                                     </popUpButton>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="3A98B576-C47B-480A-AB41-E3E25436042A" label="Edit" paletteLabel="Edit" image="NSGoForwardTemplate" id="wXm-7a-fub">
-                                    <nil key="toolTip"/>
-                                    <size key="minSize" width="39" height="25"/>
-                                    <size key="maxSize" width="39" height="25"/>
-                                    <button key="view" verticalHuggingPriority="750" id="iG7-xq-Hnw">
-                                        <rect key="frame" x="0.0" y="14" width="39" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSGoForwardTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ftH-gb-0MO">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                    </button>
-                                    <connections>
-                                        <action selector="editSchemeButtonClicked:" target="jGA-0Y-lOj" id="aHg-oH-L6k"/>
-                                    </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="A66D84B2-B30E-4A8E-AC44-ADB2F6772340" label="Stop" paletteLabel="Stop" image="NSStopProgressFreestandingTemplate" id="SQ4-WP-4Zb">
                                     <nil key="toolTip"/>
@@ -1033,7 +1020,6 @@ Gw
                                 <toolbarItem reference="xab-RK-WiN"/>
                                 <toolbarItem reference="SQ4-WP-4Zb"/>
                                 <toolbarItem reference="1lE-0l-ejD"/>
-                                <toolbarItem reference="wXm-7a-fub"/>
                                 <toolbarItem reference="2Bc-3Z-sQY"/>
                                 <toolbarItem reference="ihT-jl-5TQ"/>
                                 <toolbarItem reference="AAR-pa-u7A"/>
@@ -1045,7 +1031,6 @@ Gw
                         </connections>
                     </window>
                     <connections>
-                        <outlet property="editSchemeButton" destination="iG7-xq-Hnw" id="jON-rz-Uot"/>
                         <outlet property="schemeSelector" destination="Pno-Lv-Lpd" id="JoH-9N-Uhh"/>
                         <outlet property="stopProcessButton" destination="4mE-9q-EWj" id="ys3-rA-AyT"/>
                         <outlet property="typesetButton" destination="Mak-y3-QJk" id="Txf-8J-TyQ"/>
@@ -1082,10 +1067,10 @@ Gw
             </objects>
             <point key="canvasLocation" x="75" y="743"/>
         </scene>
-        <!--Outline View Controller-->
+        <!--Navigation Outline View Controller-->
         <scene sceneID="Af1-IA-BUc">
             <objects>
-                <viewController id="7G5-ZZ-tBV" customClass="OutlineViewController" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7G5-ZZ-tBV" customClass="NavigationOutlineViewController" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="bRg-VK-NGw">
                         <rect key="frame" x="0.0" y="0.0" width="163" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1096,7 +1081,7 @@ Gw
                                     <rect key="frame" x="1" y="1" width="161" height="298"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" autoresizesOutlineColumn="YES" outlineTableColumn="gUI-nL-fmb" id="lmb-5I-QbA">
+                                        <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" autoresizesOutlineColumn="YES" outlineTableColumn="gUI-nL-fmb" id="lmb-5I-QbA" customClass="NavigationOutlineView" customModule="TexDocs" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="161" height="298"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -1172,7 +1157,7 @@ Gw
                     </connections>
                 </viewController>
                 <customObject id="ePl-V0-Okl" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <menu id="nOG-oj-vgx">
+                <menu autoenablesItems="NO" id="nOG-oj-vgx">
                     <items>
                         <menuItem title="New Scheme" id="uGf-a8-5Ki">
                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -2173,7 +2158,6 @@ Gw
         <image name="NSBookmarksTemplate" width="17" height="18"/>
         <image name="NSCaution" width="32" height="32"/>
         <image name="NSColumnViewTemplate" width="16" height="10"/>
-        <image name="NSGoForwardTemplate" width="9" height="12"/>
         <image name="NSListViewTemplate" width="14" height="10"/>
         <image name="NSStopProgressFreestandingTemplate" width="11" height="11"/>
     </resources>
