@@ -9,16 +9,16 @@
 import Foundation
 
 extension EditorWindowController {
-    var texDocsDocument: Document? {
-        return self.document as? Document
+    var texDocsDocument: Document {
+        return self.document as! Document
     }
     
-    var workspaceURL: URL? {
-        return texDocsDocument?.workspaceURL
+    var workspaceURL: URL {
+        return texDocsDocument.workspaceURL
     }
     
     var dataFolderURL: URL? {
-        guard let documentData = texDocsDocument?.documentData else { return nil }
-        return workspaceURL?.appendingPathComponent(documentData.dataFolderName, isDirectory: true)
+        guard let documentData = texDocsDocument.documentData else { return nil }
+        return workspaceURL.appendingPathComponent(documentData.dataFolderName, isDirectory: true)
     }
 }

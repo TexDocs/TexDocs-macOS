@@ -34,9 +34,6 @@ class EditorWindowController: NSWindowController {
     /// Document loaded in this window controller.
     override var document: AnyObject? {
         didSet {
-            guard let texDocsDocument = texDocsDocument else {
-                return
-            }
             loaded(document: texDocsDocument)
         }
     }
@@ -73,10 +70,10 @@ class EditorWindowController: NSWindowController {
     
     func editedDocument() {
         DispatchQueue.main.async {
-            self.texDocsDocument?.updateChangeCount(.changeDone)
+            self.texDocsDocument.updateChangeCount(.changeDone)
         }
     }
-    
+
     func saveAllDocuments() {
         do {
             DispatchQueue.ensureMain {
@@ -109,11 +106,11 @@ class EditorWindowController: NSWindowController {
 
     var selectedScheme: DocumentData.Scheme? {
         guard let uuid = selectedSchemeMenuItem?.uuid else { return nil }
-        return texDocsDocument?.documentData?.scheme(withUUID: uuid)
+        return texDocsDocument.documentData?.scheme(withUUID: uuid)
     }
 
     func reloadSchemeSelector(selectUUID newSelctedUUID: UUID? = nil) {
-        guard let schemes = texDocsDocument?.documentData?.schemes else { return }
+        guard let schemes = texDocsDocument.documentData?.schemes else { return }
 
         let initialUUID = newSelctedUUID ?? selectedSchemeMenuItem?.uuid
         schemeSelector.removeAllItems()

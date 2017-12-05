@@ -46,7 +46,7 @@ extension EditorWindowController {
                 self?.showCloningProgressSheet(total: totalObjects, completed: receivedObjects)
         }
         
-        texDocsDocument?.documentData?.collaboration?.repository = DocumentData.Collaboration.Repository(url: repositoryURL)
+        texDocsDocument.documentData?.collaboration?.repository = DocumentData.Collaboration.Repository(url: repositoryURL)
         editedDocument()
         showCloningCompletedSheet(action: action)
         return repository

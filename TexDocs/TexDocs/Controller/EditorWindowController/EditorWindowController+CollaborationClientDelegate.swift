@@ -39,7 +39,7 @@ extension EditorWindowController: CollaborationClientDelegate {
     
     func collaborationClient(_ client: CollaborationClient, didConnectedAndReceivedRepositoryURL repositoryURL: URL) {
         do {
-            guard let oldRepositoryURL = texDocsDocument?.documentData?.collaboration?.repository?.url else {
+            guard let oldRepositoryURL = texDocsDocument.documentData?.collaboration?.repository?.url else {
                 repository = try self.clone(repositoryURL: repositoryURL) {
                     self.scheduleSync()
                 }

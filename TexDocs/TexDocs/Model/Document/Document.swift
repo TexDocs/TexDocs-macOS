@@ -9,8 +9,8 @@
 import Cocoa
 
 class Document: NSDocument {
-    var workspaceURL: URL? {
-        return fileURL?.deletingLastPathComponent()
+    var workspaceURL: URL! {
+        return fileURL!.deletingLastPathComponent()
     }
     
     override init() {

@@ -10,7 +10,7 @@ import Foundation
 
 extension EditorWindowController {
     func typeset() {
-        guard let workspaceURL = workspaceURL, let scheme = selectedScheme else {
+        guard let scheme = selectedScheme else {
             return
         }
 
