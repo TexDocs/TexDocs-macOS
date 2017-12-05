@@ -197,7 +197,6 @@ class EditorWindowController: NSWindowController {
     }
 
     @IBAction func typesetButtonClicked(_ sender: Any) {
-        print(selectedScheme?.name)
         typeset()
     }
     
