@@ -56,7 +56,7 @@ class SourceCodeView: ImprovedTextView {
             SimpleHighlighter(pattern: "(%.*)$", colors: [.comment]),
             SimpleHighlighter(pattern: "(?:\\\\documentclass|usepackage|input)(?:\\[([^\\]]*)\\])?\\{([^}]*)\\}", colors: [.variable, .variable]),
             SimpleHighlighter(pattern: "(?:\\\\(?:begin|end))\\{([^}]*)\\}", colors: [.variable]),
-            SimpleHighlighter(pattern: "(\\$.*\\$)", colors: [.inlineMath]),
+            SimpleHighlighter(pattern: "(\\$.*?\\$)", colors: [.inlineMath]),
         ]
         
         let range = nsString.lineRange(for: editedRange)

@@ -195,3 +195,11 @@ extension EditorWindowController {
             progressBarValue: .indeterminate)
     }
 }
+
+
+extension EditorWindowController: EditSchemeSheetDelegate {
+    func schemeUpdated() {
+        editedDocument()
+        reloadSchemeSelector()
+    }
+}

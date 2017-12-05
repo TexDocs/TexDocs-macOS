@@ -45,8 +45,8 @@ extension EditorWindowController {
         return centerSplitViewController.splitViewItems[1]
     }
     
-    var consoleViewController: NSViewController {
-        return consolePanel.viewController
+    var consoleViewController: ConsoleViewController {
+        return consolePanel.viewController as! ConsoleViewController
     }
     
     // Mark: Right
@@ -55,7 +55,7 @@ extension EditorWindowController {
         return rootSplitViewController.splitViewItems[2]
     }
     
-    var pdfViewController: NSViewController {
-        return pdfViewPanel.viewController
+    var pdfViewController: PDFViewController {
+        return pdfViewPanel.viewController as! PDFViewController
     }
 }

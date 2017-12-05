@@ -902,76 +902,6 @@ Gw
             <point key="canvasLocation" x="-394" y="-159.5"/>
         </scene>
         <!--Window Controller-->
-        <scene sceneID="B1K-5h-eZ2">
-            <objects>
-                <customObject id="DNt-ui-Rem" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <windowController storyboardIdentifier="LoadingWindowController" id="veR-gM-fPY" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="v3s-DV-zNH">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="425" y="461" width="466" height="100"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
-                        <connections>
-                            <outlet property="delegate" destination="veR-gM-fPY" id="Q0z-J2-d1Q"/>
-                        </connections>
-                    </window>
-                    <connections>
-                        <segue destination="EeP-Te-CFq" kind="relationship" relationship="window.shadowedContentViewController" id="jg8-nz-qac"/>
-                    </connections>
-                </windowController>
-            </objects>
-            <point key="canvasLocation" x="-553" y="382"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="g4A-EM-gcd">
-            <objects>
-                <customObject id="3SJ-ua-hPP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <viewController id="EeP-Te-CFq" sceneMemberID="viewController">
-                    <view key="view" id="171-e4-y48">
-                        <rect key="frame" x="0.0" y="0.0" width="340" height="90"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2LY-II-06E">
-                                <rect key="frame" x="20" y="20" width="300" height="50"/>
-                                <subviews>
-                                    <progressIndicator wantsLayer="YES" maxValue="100" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="FIM-ve-6Sb">
-                                        <rect key="frame" x="0.0" y="24" width="300" height="27"/>
-                                    </progressIndicator>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="02z-CW-TS3">
-                                        <rect key="frame" x="102" y="0.0" width="97" height="17"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Loading Stuff..." id="ccl-vC-ski">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="Z5g-vk-Tsj"/>
-                                    <constraint firstAttribute="height" constant="50" id="zgT-vO-tFJ"/>
-                                </constraints>
-                                <visibilityPriorities>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                </visibilityPriorities>
-                                <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                </customSpacing>
-                            </stackView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="2LY-II-06E" secondAttribute="bottom" constant="20" id="92x-mF-gN1"/>
-                            <constraint firstAttribute="trailing" secondItem="2LY-II-06E" secondAttribute="trailing" constant="20" id="AH0-Xp-F6f"/>
-                            <constraint firstItem="2LY-II-06E" firstAttribute="top" secondItem="171-e4-y48" secondAttribute="top" constant="20" id="I38-sL-Zij"/>
-                            <constraint firstItem="2LY-II-06E" firstAttribute="leading" secondItem="171-e4-y48" secondAttribute="leading" constant="20" id="hIQ-8h-ibf"/>
-                        </constraints>
-                    </view>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="-553" y="679"/>
-        </scene>
-        <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController storyboardIdentifier="Document Window Controller" id="jGA-0Y-lOj" customClass="EditorWindowController" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
@@ -1036,8 +966,74 @@ Gw
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </box>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="FD9BF738-50D5-4FDE-96D2-B02366301F23" label="Typeset" paletteLabel="Typeset" image="NSActionTemplate" id="xab-RK-WiN">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="39" height="25"/>
+                                    <size key="maxSize" width="39" height="28"/>
+                                    <button key="view" verticalHuggingPriority="750" id="Mak-y3-QJk">
+                                        <rect key="frame" x="5" y="14" width="39" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSActionTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Xr9-PH-kU4">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="typesetButtonClicked:" target="jGA-0Y-lOj" id="76V-ag-0co"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="53DD2E32-415C-4856-8D8A-21452383BD64" label="Scheme" paletteLabel="Scheme" id="1lE-0l-ejD">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="100" height="18"/>
+                                    <size key="maxSize" width="300" height="28"/>
+                                    <popUpButton key="view" verticalHuggingPriority="750" id="Pno-Lv-Lpd">
+                                        <rect key="frame" x="0.0" y="14" width="200" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OiP-vH-Pxh">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <menu key="menu" id="Tgg-ns-BaJ"/>
+                                        </popUpButtonCell>
+                                    </popUpButton>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="3A98B576-C47B-480A-AB41-E3E25436042A" label="Edit" paletteLabel="Edit" image="NSGoForwardTemplate" id="wXm-7a-fub">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="39" height="25"/>
+                                    <size key="maxSize" width="39" height="25"/>
+                                    <button key="view" verticalHuggingPriority="750" id="iG7-xq-Hnw">
+                                        <rect key="frame" x="0.0" y="14" width="39" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSGoForwardTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ftH-gb-0MO">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                    <connections>
+                                        <action selector="editSchemeButtonClicked:" target="jGA-0Y-lOj" id="aHg-oH-L6k"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="A66D84B2-B30E-4A8E-AC44-ADB2F6772340" label="Stop" paletteLabel="Stop" image="NSStopProgressFreestandingTemplate" id="SQ4-WP-4Zb">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="39" height="25"/>
+                                    <size key="maxSize" width="39" height="25"/>
+                                    <button key="view" verticalHuggingPriority="750" id="4mE-9q-EWj">
+                                        <rect key="frame" x="0.0" y="14" width="39" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSStopProgressFreestandingTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5dv-Kb-GDN">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="stopProcessButtonClicked:" target="jGA-0Y-lOj" id="hO2-yZ-fwh"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
+                                <toolbarItem reference="xab-RK-WiN"/>
+                                <toolbarItem reference="SQ4-WP-4Zb"/>
+                                <toolbarItem reference="1lE-0l-ejD"/>
+                                <toolbarItem reference="wXm-7a-fub"/>
                                 <toolbarItem reference="2Bc-3Z-sQY"/>
                                 <toolbarItem reference="ihT-jl-5TQ"/>
                                 <toolbarItem reference="AAR-pa-u7A"/>
@@ -1049,6 +1045,10 @@ Gw
                         </connections>
                     </window>
                     <connections>
+                        <outlet property="editSchemeButton" destination="iG7-xq-Hnw" id="jON-rz-Uot"/>
+                        <outlet property="schemeSelector" destination="Pno-Lv-Lpd" id="JoH-9N-Uhh"/>
+                        <outlet property="stopProcessButton" destination="4mE-9q-EWj" id="ys3-rA-AyT"/>
+                        <outlet property="typesetButton" destination="Mak-y3-QJk" id="Txf-8J-TyQ"/>
                         <segue destination="YHY-yB-G6S" kind="relationship" relationship="window.shadowedContentViewController" id="9NU-Vf-HJS"/>
                     </connections>
                 </windowController>
@@ -1144,6 +1144,7 @@ Gw
                                             <connections>
                                                 <outlet property="dataSource" destination="7G5-ZZ-tBV" id="iE2-gK-fuh"/>
                                                 <outlet property="delegate" destination="7G5-ZZ-tBV" id="2s2-CH-YOb"/>
+                                                <outlet property="menu" destination="nOG-oj-vgx" id="6lj-FB-Tg5"/>
                                             </connections>
                                         </outlineView>
                                     </subviews>
@@ -1171,6 +1172,16 @@ Gw
                     </connections>
                 </viewController>
                 <customObject id="ePl-V0-Okl" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <menu id="nOG-oj-vgx">
+                    <items>
+                        <menuItem title="New Scheme" id="uGf-a8-5Ki">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="newSchemeButtonClicked:" target="7G5-ZZ-tBV" id="ohX-rt-2CF"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                </menu>
             </objects>
             <point key="canvasLocation" x="75" y="1341"/>
         </scene>
@@ -2044,10 +2055,10 @@ Gw
             </objects>
             <point key="canvasLocation" x="1395" y="282"/>
         </scene>
-        <!--View Controller-->
+        <!--Console View Controller-->
         <scene sceneID="CYh-BX-JA1">
             <objects>
-                <viewController id="VMl-Yd-oth" sceneMemberID="viewController">
+                <viewController id="VMl-Yd-oth" customClass="ConsoleViewController" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="l9N-fu-Bn0">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="175"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -2064,6 +2075,9 @@ Gw
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="clearButtonPressed:" target="VMl-Yd-oth" id="FHg-vY-POm"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -2112,6 +2126,9 @@ Gw
                             <constraint firstAttribute="trailing" secondItem="Hiv-m3-Tu9" secondAttribute="trailing" id="jiT-eT-Eqm"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textView" destination="t8k-Im-dhT" id="Huh-Xl-DQg"/>
+                    </connections>
                 </viewController>
                 <customObject id="hRA-q7-9yc" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2120,7 +2137,7 @@ Gw
         <!--View Controller-->
         <scene sceneID="vF0-pS-mWJ">
             <objects>
-                <viewController id="uzk-1v-fKD" sceneMemberID="viewController">
+                <viewController id="uzk-1v-fKD" customClass="PDFViewController" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Zi4-Jd-hhI">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -2140,6 +2157,9 @@ Gw
                             <constraint firstAttribute="bottom" secondItem="ZzK-Do-YY9" secondAttribute="bottom" id="ekr-fl-DRL"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="pdfView" destination="ZzK-Do-YY9" id="32H-2m-ymJ"/>
+                    </connections>
                 </viewController>
                 <customObject id="bSw-Bx-oFy" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2153,6 +2173,8 @@ Gw
         <image name="NSBookmarksTemplate" width="17" height="18"/>
         <image name="NSCaution" width="32" height="32"/>
         <image name="NSColumnViewTemplate" width="16" height="10"/>
+        <image name="NSGoForwardTemplate" width="9" height="12"/>
         <image name="NSListViewTemplate" width="14" height="10"/>
+        <image name="NSStopProgressFreestandingTemplate" width="11" height="11"/>
     </resources>
 </document>

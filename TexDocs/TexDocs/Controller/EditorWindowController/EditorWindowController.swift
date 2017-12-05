@@ -24,6 +24,12 @@ class EditorWindowController: NSWindowController {
     
     /// Content directory
     var rootDirectory: FileSystemItem?
+
+    var currentTypesetProcess: Process? {
+        didSet {
+            stopProcessButton.isEnabled = currentTypesetProcess != nil
+        }
+    }
     
     /// Document loaded in this window controller.
     override var document: AnyObject? {
@@ -34,16 +40,24 @@ class EditorWindowController: NSWindowController {
             loaded(document: texDocsDocument)
         }
     }
-    
+
     let notificationSheet: SimpleSheet = {
-        let sheetsStoryboard = NSStoryboard(name: NSStoryboard.Name("Sheets"), bundle: nil)
-        return sheetsStoryboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("SimpleSheet")) as! SimpleSheet
+        return NSStoryboard.sheets.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("SimpleSheet")) as! SimpleSheet
     }()
+
+    func editSchemeSheet() -> EditSchemeSheet {
+        let sheet = NSStoryboard.sheets.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("editSchemeSheet")) as! EditSchemeSheet
+        sheet.delegate = self
+        return sheet
+    }
+
     var sheetIsShown: Bool = false
     
     // Mark: Document
     
     func loaded(document: Document) {
+        reloadSchemeSelector()
+
         if let collaborationServer = document.documentData?.collaboration?.server {
             connectTo(collaborationServer: collaborationServer)
         }
@@ -65,11 +79,7 @@ class EditorWindowController: NSWindowController {
     
     func saveAllDocuments() {
         do {
-            if !Thread.current.isMainThread {
-                DispatchQueue.main.sync {
-                    editorViewController.editorView.saveContent()
-                }
-            } else {
+            DispatchQueue.ensureMain {
                 editorViewController.editorView.saveContent()
             }
             for item in rootDirectory?.allSubItems().filterEditable() ?? [] {
@@ -79,7 +89,7 @@ class EditorWindowController: NSWindowController {
             showErrorSheet(error)
         }
     }
-    
+
     func reloadAllDocuments() {
         do {
             for item in rootDirectory?.allSubItems().filterEditable() ?? [] {
@@ -91,6 +101,34 @@ class EditorWindowController: NSWindowController {
         } catch {
             showErrorSheet(error)
         }
+    }
+
+    var selectedSchemeMenuItem: SchemeMenuItem? {
+        return schemeSelector.selectedItem as? SchemeMenuItem
+    }
+
+    var selectedScheme: DocumentData.Scheme? {
+        guard let uuid = selectedSchemeMenuItem?.uuid else { return nil }
+        return texDocsDocument?.documentData?.scheme(withUUID: uuid)
+    }
+
+    func reloadSchemeSelector(selectUUID newSelctedUUID: UUID? = nil) {
+        guard let schemes = texDocsDocument?.documentData?.schemes else { return }
+
+        let initialUUID = newSelctedUUID ?? selectedSchemeMenuItem?.uuid
+        schemeSelector.removeAllItems()
+
+        for scheme in schemes {
+            let menuItem = SchemeMenuItem(scheme: scheme)
+            schemeSelector.menu?.addItem(menuItem)
+            if scheme.uuid == initialUUID {
+                schemeSelector.select(menuItem)
+            }
+        }
+
+        let enableButtons = schemes.count > 0
+        typesetButton.isEnabled = enableButtons
+        editSchemeButton.isEnabled = enableButtons
     }
 
     // MARK: Life cycle
@@ -105,7 +143,14 @@ class EditorWindowController: NSWindowController {
     deinit {
         stopDirectoryMonitoring()
     }
-    
+
+    // MARK: Outlets
+
+    @IBOutlet weak var schemeSelector: NSPopUpButton!
+    @IBOutlet weak var typesetButton: NSButton!
+    @IBOutlet weak var editSchemeButton: NSButton!
+    @IBOutlet weak var stopProcessButton: NSButton!
+
     // MARK: Actions
     
     @IBAction func panelsDidChange(_ sender: NSSegmentedControl) {
@@ -128,6 +173,21 @@ class EditorWindowController: NSWindowController {
             break
         }
     }
+
+    @IBAction func typesetButtonClicked(_ sender: Any) {
+        typeset()
+    }
+    
+    @IBAction func stopProcessButtonClicked(_ sender: Any) {
+        currentTypesetProcess?.terminate()
+    }
+
+    @IBAction func editSchemeButtonClicked(_ sender: Any) {
+        guard let scheme = selectedScheme else { return }
+        let sheet = editSchemeSheet()
+        sheet.scheme = scheme
+        window?.contentViewController?.presentViewControllerAsSheet(sheet)
+    }
 }
 
 extension FileSystemEventFlag {
@@ -140,4 +200,10 @@ extension FileSystemEventFlag {
         .mount,
         .unmount
     ]
+}
+
+extension NSStoryboard {
+    static var sheets: NSStoryboard {
+        return NSStoryboard(name: NSStoryboard.Name("Sheets"), bundle: nil)
+    }
 }

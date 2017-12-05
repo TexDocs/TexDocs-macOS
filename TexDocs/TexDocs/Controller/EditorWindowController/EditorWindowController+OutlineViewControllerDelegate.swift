@@ -20,6 +20,22 @@ extension EditorWindowController {
 }
 
 extension EditorWindowController: OutlineViewControllerDelegate {
+    func createNewScheme(for item: FileSystemItem) {
+        guard let workspaceURL = workspaceURL else {
+            return
+        }
+
+        guard let path = item.url.path(relativeTo: workspaceURL) else {
+            return
+        }
+
+        let newSceme = DocumentData.Scheme(name: item.name, path: path)
+        texDocsDocument?.documentData?.schemes.append(newSceme)
+        editedDocument()
+
+        reloadSchemeSelector(selectUUID: newSceme.uuid)
+    }
+
     func selected(item: FileSystemItem) {
         guard item.url.pathExtension == "tex", let editableItem = item as? EditableFileSystemItem else {
             editorViewController.editorView.openFile(nil)

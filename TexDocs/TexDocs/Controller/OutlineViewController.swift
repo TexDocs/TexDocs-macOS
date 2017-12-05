@@ -19,6 +19,18 @@ class OutlineViewController: NSViewController {
             outlineView.expandItem(delegate?.rootDirectory, expandChildren: true)
         }
     }
+
+    func item(at row: Int) -> FileSystemItem? {
+        return outlineView.item(atRow: row) as? FileSystemItem
+    }
+
+    @IBAction func newSchemeButtonClicked(_ sender: Any) {
+        guard let item = item(at: outlineView.clickedRow) else {
+            return
+        }
+
+        delegate?.createNewScheme(for: item)
+    }
 }
 
 extension OutlineViewController: NSOutlineViewDataSource {
@@ -53,7 +65,7 @@ extension OutlineViewController: NSOutlineViewDataSource {
 
 extension OutlineViewController: NSOutlineViewDelegate {
     func outlineViewSelectionDidChange(_ notification: Notification) {
-        guard let item = outlineView.item(atRow: outlineView.selectedRow) as? FileSystemItem else {
+        guard let item = item(at: outlineView.selectedRow) else {
             return
         }
         delegate?.selected(item: item)
@@ -63,6 +75,7 @@ extension OutlineViewController: NSOutlineViewDelegate {
 protocol OutlineViewControllerDelegate: class {
     var rootDirectory: FileSystemItem? { get }
     func selected(item: FileSystemItem)
+    func createNewScheme(for item: FileSystemItem)
 }
 
 class FileSystemItem: NSObject {
@@ -110,17 +123,28 @@ class FileSystemItem: NSObject {
     }
     
     func findChild(withURL url: URL) -> FileSystemItem? {
-        // TODO: better search algo
-        if self.url == url {
-            return self
-        } else {
-            for child in children {
-                if let item = child.findChild(withURL: url) {
-                    return item
-                }
-            }
+        guard let relativePath = url.path(relativeTo: self.url) else {
             return nil
         }
+
+        return findChild(withRelativePath: relativePath)
+    }
+
+    func findChild(withRelativePath relativePath: String) -> FileSystemItem? {
+        return findChild(withRelativePathComponents: relativePath.components(separatedBy: "/"))
+    }
+
+    func findChild(withRelativePathComponents relativePath: [String]) -> FileSystemItem? {
+        if relativePath.count == 0 {
+            return self
+        }
+
+        for child in children {
+            if child.name == relativePath.first {
+                return child.findChild(withRelativePathComponents: Array(relativePath.dropFirst()))
+            }
+        }
+        return nil
     }
     
     func allSubItems() -> [FileSystemItem] {
@@ -171,5 +195,16 @@ extension Array where Element == URL {
 extension Array where Element == FileSystemItem {
     func filterEditable() -> [EditableFileSystemItem] {
         return map { $0 as? EditableFileSystemItem }.flatMap { $0 }
+    }
+}
+
+extension URL {
+    func path(relativeTo base: URL) -> String? {
+        let basePath = base.path
+        guard path.hasPrefix(basePath) else {
+            return nil
+        }
+
+        return String(path[basePath.endIndex...].dropFirst())
     }
 }

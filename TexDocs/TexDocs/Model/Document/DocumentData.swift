@@ -16,6 +16,12 @@ struct DocumentData: Codable {
     
     /// Name of the repository folder.
     var dataFolderName: String
+
+    var schemes: [Scheme]
+
+    func scheme(withUUID uuid: UUID) -> Scheme? {
+        return schemes.first { $0.uuid == uuid }
+    }
     
     /// Initializes the document data for a new project.
     ///
@@ -32,6 +38,7 @@ struct DocumentData: Codable {
             collaboration = nil
         }
         self.dataFolderName = dataFolderName
+        self.schemes = []
     }
     
     /// Data required for collaboration.
@@ -74,6 +81,18 @@ struct DocumentData: Codable {
             init(url: URL) {
                 self.url = url
             }
+        }
+    }
+
+    class Scheme: Codable {
+        let uuid: UUID
+        var name: String
+        var path: String
+
+        init(name: String, path: String) {
+            self.uuid = UUID()
+            self.name = name
+            self.path = path
         }
     }
 }
