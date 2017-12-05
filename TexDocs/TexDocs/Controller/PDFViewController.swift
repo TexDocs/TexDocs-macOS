@@ -29,12 +29,11 @@ class PDFViewController: NSViewController {
         let pdf = PDFDocument(url: url)
         pdfView.document = pdf
 
-        if let oldDestination = oldDestination,
-            let page = pdf?.page(at: min((pdf?.pageCount ?? 0) - 1, oldDestination.pageIndex)){
-            let newDestination = PDFDestination(page: page, at: oldDestination.point)
+        if let oldDestination = oldDestination, let page = pdf?.page(at: oldDestination.pageIndex) ?? pdf?.page(at: 0) {
+            let point = NSPoint(x: oldDestination.point.x, y: oldDestination.point.y - pdfView.frame.height / 2)
+            let newDestination = PDFDestination(page: page, at: point)
+            newDestination.zoom = oldDestination.zoom
             pdfView.go(to: newDestination)
-            pdfView.scaleFactor = oldDestination.zoom
         }
     }
-    
 }
