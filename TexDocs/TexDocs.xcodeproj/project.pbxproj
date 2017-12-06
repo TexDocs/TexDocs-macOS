@@ -22,6 +22,7 @@
 		407302C21FBF630D00D5AB8F /* EditorWindowControllerGitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407302C11FBF630D00D5AB8F /* EditorWindowControllerGitHelper.swift */; };
 		4074B3501FC1BB4A0038176A /* RegexLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074B34F1FC1BB4A0038176A /* RegexLib.swift */; };
 		409176B11FD86ACD0086421B /* FileManager+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409176B01FD86ACD0086421B /* FileManager+Helpers.swift */; };
+		409176C51FD8917A0086421B /* EonilFileSystemEvents.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40BD4C341FC1C7220048ABF6 /* EonilFileSystemEvents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		40A13BD41FD5D2800044E897 /* SchemeMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */; };
 		40A13BDA1FD5ECBA0044E897 /* EditSchemeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD91FD5ECBA0044E897 /* EditSchemeSheet.swift */; };
 		40A13BDE1FD5F4C80044E897 /* EditorWindowController+Typeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BDD1FD5F4C80044E897 /* EditorWindowController+Typeset.swift */; };
@@ -114,6 +115,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				409176C51FD8917A0086421B /* EonilFileSystemEvents.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
