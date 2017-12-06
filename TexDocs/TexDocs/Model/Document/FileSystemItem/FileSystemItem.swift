@@ -50,6 +50,10 @@ class FileSystemItem: NSObject {
         children.sort {
             $0.name.lowercased() < $1.name.lowercased()
         }
+
+        try children.forEach {
+            try $0.updateChildren()
+        }
     }
 
     func findChild(withURL url: URL) -> FileSystemItem? {

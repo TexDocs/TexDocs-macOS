@@ -17,7 +17,7 @@ extension EditorWindowController {
         return texDocsDocument.workspaceURL
     }
     
-    var dataFolderURL: URL? {
+    var dataFolderURL: URL! {
         guard let documentData = texDocsDocument.documentData else { return nil }
         return workspaceURL.appendingPathComponent(documentData.dataFolderName, isDirectory: true)
     }

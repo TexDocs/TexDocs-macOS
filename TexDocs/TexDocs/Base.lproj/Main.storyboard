@@ -1109,11 +1109,14 @@ Gw
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yui-69-UgM">
                                                                     <rect key="frame" x="25" y="0.0" width="133" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="MZr-WD-2ak">
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="MZr-WD-2ak">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <connections>
+                                                                        <action selector="nameChanged:" target="F3V-TW-JaZ" id="Cjp-rn-Rz5"/>
+                                                                    </connections>
                                                                 </textField>
                                                             </subviews>
                                                             <connections>
@@ -1159,16 +1162,42 @@ Gw
                 <customObject id="ePl-V0-Okl" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu autoenablesItems="NO" id="nOG-oj-vgx">
                     <items>
+                        <menuItem title="Show in Finder" id="lo4-su-rak">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="showInFinder:" target="7G5-ZZ-tBV" id="pN4-kZ-lte"/>
+                            </connections>
+                        </menuItem>
                         <menuItem title="New Scheme" id="uGf-a8-5Ki">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <action selector="newSchemeButtonClicked:" target="7G5-ZZ-tBV" id="ohX-rt-2CF"/>
+                                <action selector="newScheme:" target="7G5-ZZ-tBV" id="elK-lk-MXF"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="QHX-we-orh"/>
+                        <menuItem title="New File" id="1i5-mY-E1i">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="newFile:" target="7G5-ZZ-tBV" id="WWo-4W-5a5"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="New Folder" id="7Rs-LG-bm5">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="newFolder:" target="7G5-ZZ-tBV" id="VGh-nn-OZQ"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="702-vw-8uc"/>
+                        <menuItem title="Delete" id="xx7-TN-oTo">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="delete:" target="7G5-ZZ-tBV" id="wBU-CG-bgA"/>
                             </connections>
                         </menuItem>
                     </items>
                 </menu>
             </objects>
-            <point key="canvasLocation" x="75" y="1341"/>
+            <point key="canvasLocation" x="74.5" y="1341"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="UM9-9p-w5F">

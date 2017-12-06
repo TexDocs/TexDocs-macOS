@@ -22,8 +22,16 @@ class NavigationOutlineView: NSOutlineView {
         }
     }
 
-    private var clickedItem: Any? {
-        return item(atRow: clickedRow)
+    func castedItem<T>(at row: Int) -> T? {
+        return item(atRow: row) as? T
+    }
+
+    func clickedItem<T>() -> T? {
+        return castedItem(at: clickedRow)
+    }
+
+    func selectedItem<T>() -> T? {
+        return castedItem(at: selectedRow)
     }
 }
 
@@ -34,9 +42,9 @@ extension NavigationOutlineView: NSMenuDelegate {
             return
         }
 
-        guard let fileSystemItem = clickedItem as? FileSystemItem else { return }
-
-        contextMenuDelegate?.navigationOutlineView(self, updateContextMenu: menu, for: fileSystemItem)
+        if let fileSystemItem: FileSystemItem = clickedItem() {
+            contextMenuDelegate?.navigationOutlineView(self, updateContextMenu: menu, for: fileSystemItem)
+        }
     }
 }
 
@@ -44,11 +52,4 @@ extension NavigationOutlineView: NSMenuDelegate {
 protocol NavigationOutlineViewContextMenuDelegate: class {
     func navigationOutlineView(_ navigationOutlineView: NavigationOutlineView, updateContextMenu menu: NSMenu, for fileSystemItem: FileSystemItem)
     func navigationOutlineView(_ navigationOutlineView: NavigationOutlineView, updateContextMenu menu: NSMenu)
-}
-
-extension NSMenu {
-    func addItem(_ item: NSMenuItem, enabled: Bool) {
-        item.isEnabled = enabled
-        self.addItem(item)
-    }
 }

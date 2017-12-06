@@ -12,6 +12,7 @@ extension EditorWindowController {
     func reloadOutlineView() {
         do {
             try rootDirectory?.updateChildren()
+//            rootDirectory = try FileSystemItem(dataFolderURL)
             outlineViewController.outlineView.reloadData()
         } catch {
             showErrorSheet(error)
@@ -19,8 +20,16 @@ extension EditorWindowController {
     }
 }
 
-extension EditorWindowController: OutlineViewControllerDelegate {
-    func createNewScheme(for item: FileSystemItem) {
+extension EditorWindowController: NavigationOutlineViewControllerDelegate {
+    func rootDirectory(for outlineViewController: NavigationOutlineViewController) -> FileSystemItem? {
+        return rootDirectory
+    }
+
+    func outlineViewController(_ outlineViewController: NavigationOutlineViewController, selectedItem: FileSystemItem) {
+        editorViewController.editorView.openFile(selectedItem as? EditableFileSystemItem)
+    }
+
+    func outlineViewController(_ outlineViewController: NavigationOutlineViewController, createNewSchemeFor item: FileSystemItem) {
         guard let path = item.url.path(relativeTo: workspaceURL) else {
             return
         }
@@ -32,11 +41,7 @@ extension EditorWindowController: OutlineViewControllerDelegate {
         reloadSchemeSelector(selectUUID: newSceme.uuid)
     }
 
-    func selected(item: FileSystemItem) {
-        guard let editableItem = item as? EditableFileSystemItem else {
-            editorViewController.editorView.openFile(nil)
-            return
-        }
-        editorViewController.editorView.openFile(editableItem)
+    func outlineViewController(_ outlineViewController: NavigationOutlineViewController, encounterdError error: Error) {
+        showErrorSheet(error)
     }
 }

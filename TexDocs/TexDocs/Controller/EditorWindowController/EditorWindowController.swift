@@ -58,11 +58,16 @@ class EditorWindowController: NSWindowController {
     func loaded(document: Document) {
         reloadSchemeSelector()
 
-//        if let collaborationServer = document.documentData?.collaboration?.server {
-//            connectTo(collaborationServer: collaborationServer)
-//        }
         do {
-            rootDirectory = try FileSystemItem(dataFolderURL!)
+            if let collaborationServer = document.documentData?.collaboration?.server {
+//                connectTo(collaborationServer: collaborationServer)
+            } else {
+                if !FileManager.default.fileExists(atPath: dataFolderURL.path) {
+                    try FileManager.default.createDirectory(at: dataFolderURL, withIntermediateDirectories: true, attributes: nil)
+                }
+            }
+
+            rootDirectory = try FileSystemItem(dataFolderURL)
             outlineViewController.reloadData(expandAll: true)
         
             startDirectoryMonitoring()

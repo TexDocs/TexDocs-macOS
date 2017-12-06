@@ -49,7 +49,7 @@ extension EditorWindowController {
         return consolePanel.viewController as! ConsoleViewController
     }
     
-    // Mark: Right
+    // MARK: Right
     
     var pdfViewPanel: NSSplitViewItem {
         return rootSplitViewController.splitViewItems[2]

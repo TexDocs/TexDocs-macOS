@@ -21,6 +21,7 @@
 		404819A11FB8F37300AAFBF0 /* FileSystemItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404819A01FB8F37300AAFBF0 /* FileSystemItemCell.swift */; };
 		407302C21FBF630D00D5AB8F /* EditorWindowControllerGitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407302C11FBF630D00D5AB8F /* EditorWindowControllerGitHelper.swift */; };
 		4074B3501FC1BB4A0038176A /* RegexLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074B34F1FC1BB4A0038176A /* RegexLib.swift */; };
+		409176B11FD86ACD0086421B /* FileManager+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409176B01FD86ACD0086421B /* FileManager+Helpers.swift */; };
 		40A13BD41FD5D2800044E897 /* SchemeMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */; };
 		40A13BDA1FD5ECBA0044E897 /* EditSchemeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD91FD5ECBA0044E897 /* EditSchemeSheet.swift */; };
 		40A13BDE1FD5F4C80044E897 /* EditorWindowController+Typeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BDD1FD5F4C80044E897 /* EditorWindowController+Typeset.swift */; };
@@ -135,6 +136,7 @@
 		404819A01FB8F37300AAFBF0 /* FileSystemItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemItemCell.swift; sourceTree = "<group>"; };
 		407302C11FBF630D00D5AB8F /* EditorWindowControllerGitHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWindowControllerGitHelper.swift; sourceTree = "<group>"; };
 		4074B34F1FC1BB4A0038176A /* RegexLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexLib.swift; sourceTree = "<group>"; };
+		409176B01FD86ACD0086421B /* FileManager+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Helpers.swift"; sourceTree = "<group>"; };
 		40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeMenuItem.swift; sourceTree = "<group>"; };
 		40A13BD91FD5ECBA0044E897 /* EditSchemeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSchemeSheet.swift; sourceTree = "<group>"; };
 		40A13BDD1FD5F4C80044E897 /* EditorWindowController+Typeset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+Typeset.swift"; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 				40BD4C3C1FC1C9CF0048ABF6 /* FileTypeHandler.swift */,
 				40A13BE71FD720C30044E897 /* ThreadHelpers.swift */,
 				40A13BF71FD731930044E897 /* URL+RelativePath.swift */,
+				409176B01FD86ACD0086421B /* FileManager+Helpers.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -683,6 +686,7 @@
 				40BD25DC1FBCB7B900211743 /* WebSocket.swift in Sources */,
 				40A7D0E21FB78A3F002FBB8B /* Document.swift in Sources */,
 				40A13BEB1FD724AC0044E897 /* NavigationOutlineView.swift in Sources */,
+				409176B11FD86ACD0086421B /* FileManager+Helpers.swift in Sources */,
 				40AB8C4B1FB884C900BC6D82 /* CollaborationCursor.swift in Sources */,
 				40AB8C451FB8840F00BC6D82 /* CollaborationSourceCodeView.swift in Sources */,
 				4074B3501FC1BB4A0038176A /* RegexLib.swift in Sources */,

@@ -65,7 +65,7 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
         return totalCharactersAdded
     }
     
-    // Mark: Text did change
+    // MARK: Text did change
 
     private var userInitiated: Bool = true
     
