@@ -29,6 +29,13 @@ extension EditorWindowController {
             .appendingPathComponent(inputFileNameWithoutExtension)
             .appendingPathExtension("pdf")
 
+        do {
+            try FileManager.default.createDirectory(at: outputDirectory, withIntermediateDirectories: true, attributes: nil)
+        } catch {
+            showErrorSheet(error)
+            currentTypesetProcess = nil
+            return
+        }
 
         process.currentDirectoryPath = workspaceURL.path
         process.launchPath = "/Library/TeX/texbin/pdflatex"
