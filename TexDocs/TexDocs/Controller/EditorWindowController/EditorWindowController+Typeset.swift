@@ -9,10 +9,27 @@
 import Foundation
 
 extension EditorWindowController {
+    var autoTypesetEnabled: Bool {
+        return autoTypesetToggle.state == .on
+    }
+
+    func resetAutoTypesetTimer(withTimeInterval timeInterval: TimeInterval = 3) {
+        guard autoTypesetEnabled else { return }
+
+        autoTypesetTimer?.invalidate()
+        autoTypesetTimer = Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: false) { [weak self] _ in
+            guard self?.autoTypesetEnabled == true else { return }
+            self?.typeset()
+        }
+    }
+
     func typeset() {
         guard let scheme = selectedScheme else {
             return
         }
+
+        autoTypesetTimer?.invalidate()
+        autoTypesetTimer = nil
 
         guard currentTypesetProcess == nil else {
             return

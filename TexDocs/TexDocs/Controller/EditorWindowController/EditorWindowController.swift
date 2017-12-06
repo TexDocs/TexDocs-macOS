@@ -30,6 +30,8 @@ class EditorWindowController: NSWindowController {
             stopProcessButton.isEnabled = currentTypesetProcess != nil
         }
     }
+
+    var autoTypesetTimer: Timer?
     
     /// Document loaded in this window controller.
     override var document: AnyObject? {
@@ -75,7 +77,7 @@ class EditorWindowController: NSWindowController {
             showErrorSheet(error)
         }
     }
-    
+
     func editedDocument() {
         DispatchQueue.main.async {
             self.texDocsDocument.updateChangeCount(.changeDone)
@@ -177,6 +179,7 @@ class EditorWindowController: NSWindowController {
     @IBOutlet weak var schemeSelector: NSPopUpButton!
     @IBOutlet weak var typesetButton: NSButton!
     @IBOutlet weak var stopProcessButton: NSButton!
+    @IBOutlet weak var autoTypesetToggle: NSButton!
 
     // MARK: Actions
     

@@ -1015,8 +1015,22 @@ Gw
                                         </connections>
                                     </button>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="B0709F43-131B-41F7-8F21-6B037C230F70" label="Auto" paletteLabel="Auto Typeset" image="NSSlideshowTemplate" id="NqJ-Qa-hh6">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="39" height="25"/>
+                                    <size key="maxSize" width="39" height="25"/>
+                                    <button key="view" verticalHuggingPriority="750" id="p9s-i2-SLO">
+                                        <rect key="frame" x="19" y="14" width="39" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSSlideshowTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qpK-fs-bOe">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
+                                <toolbarItem reference="NqJ-Qa-hh6"/>
                                 <toolbarItem reference="xab-RK-WiN"/>
                                 <toolbarItem reference="SQ4-WP-4Zb"/>
                                 <toolbarItem reference="1lE-0l-ejD"/>
@@ -1031,6 +1045,7 @@ Gw
                         </connections>
                     </window>
                     <connections>
+                        <outlet property="autoTypesetToggle" destination="p9s-i2-SLO" id="Vjv-aC-n4B"/>
                         <outlet property="schemeSelector" destination="Pno-Lv-Lpd" id="JoH-9N-Uhh"/>
                         <outlet property="stopProcessButton" destination="4mE-9q-EWj" id="ys3-rA-AyT"/>
                         <outlet property="typesetButton" destination="Mak-y3-QJk" id="Txf-8J-TyQ"/>
@@ -2188,6 +2203,7 @@ Gw
         <image name="NSCaution" width="32" height="32"/>
         <image name="NSColumnViewTemplate" width="16" height="10"/>
         <image name="NSListViewTemplate" width="14" height="10"/>
+        <image name="NSSlideshowTemplate" width="17" height="14"/>
         <image name="NSStopProgressFreestandingTemplate" width="11" height="11"/>
     </resources>
 </document>
