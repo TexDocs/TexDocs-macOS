@@ -30,7 +30,7 @@ class PDFViewController: NSViewController {
         pdfView.document = pdf
 
         if let oldDestination = oldDestination, let page = pdf?.page(at: oldDestination.pageIndex) ?? pdf?.page(at: 0) {
-            let point = NSPoint(x: oldDestination.point.x, y: oldDestination.point.y - pdfView.frame.height / 2)
+            let point = NSPoint(x: oldDestination.point.x, y: oldDestination.point.y - pdfView.bounds.height / oldDestination.zoom / 2)
             let newDestination = PDFDestination(page: page, at: point)
             newDestination.zoom = oldDestination.zoom
             pdfView.go(to: newDestination)
