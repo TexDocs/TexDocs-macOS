@@ -13,6 +13,21 @@ extension EditorWindowController {
         showConnectingSheet()
         client.connect(to: collaborationServer.url)
     }
+
+    func receivedChange(in range: NSRange, replaceWith replaceString: String, inFile relativeFilePath: String) {
+        if relativePathOfOpenedFile() == relativeFilePath {
+            DispatchQueue.main.async {
+                self.editorViewController.editorView.replaceString(in: range, replacementString: replaceString)
+                self.editedDocument()
+            }
+        } else {
+            guard let fileSystemItem = rootDirectory?.findChild(withRelativePath: relativeFilePath, includesRootItemsName: true) as? EditableFileSystemItem else {
+                return
+            }
+            fileSystemItem.text.replaceString(in: range, replacementString: replaceString)
+            editedDocument()
+        }
+    }
 }
 
 extension EditorWindowController: CollaborationClientDelegate {
@@ -24,11 +39,8 @@ extension EditorWindowController: CollaborationClientDelegate {
         showErrorSheet(error)
     }
     
-    func collaborationClient(_ client: CollaborationClient, didReceivedChangeIn range: NSRange, replacedWith replaceString: String) {
-        DispatchQueue.main.async {
-            self.editorViewController.editorView.replaceString(in: range, replacementString: replaceString)
-            self.editedDocument()
-        }
+    func collaborationClient(_ client: CollaborationClient, didReceivedChangeIn range: NSRange, replacedWith replaceString: String, inFile relativeFilePath: String) {
+        receivedChange(in: range, replaceWith: replaceString, inFile: relativeFilePath)
     }
     
     func collaborationCursorsChanged(_ client: CollaborationClient) {
@@ -104,7 +116,7 @@ extension EditorWindowController: CollaborationClientDelegate {
                     try index.enumerateConflictedFiles { (ancestor, ours, theirs, _) in
                         
                         let result: UnsafeMutablePointer<git_merge_file_result>! = nil
-                        
+
                         git_merge_file_from_index(result, repository.git_repository(), ancestor.git_index_entry(), ours.git_index_entry(), theirs.git_index_entry(), nil)
                         
                         let content = String(cString: result.pointee.ptr)
@@ -169,5 +181,12 @@ extension EditorWindowController: CollaborationClientDelegate {
 extension GTIndex {
     func addAll() {
         git_index_add_all(git_index(), nil, GIT_INDEX_ADD_CHECK_PATHSPEC.rawValue, nil, nil)
+    }
+}
+
+extension String {
+    mutating func replaceString(in range: NSRange, replacementString: String) {
+        let stringRange = Range(range, in: self)!
+        self.replaceSubrange(stringRange, with: replacementString)
     }
 }

@@ -55,7 +55,7 @@ protocol CollaborationClientDelegate: class {
     func collaborationClient(_ client: CollaborationClient, encounteredError error: Error)
     func collaborationCursorsChanged(_ client: CollaborationClient)
     func collaborationClient(_ client: CollaborationClient, didConnectedAndReceivedRepositoryURL repositoryURL: URL)
-    func collaborationClient(_ client: CollaborationClient, didReceivedChangeIn range: NSRange, replacedWith replaceString: String)
+    func collaborationClient(_ client: CollaborationClient, didReceivedChangeIn range: NSRange, replacedWith replaceString: String, inFile relativeFilePath: String)
     func collaborationClient(_ client: CollaborationClient, didDisconnectedBecause reason: String)
     func collaborationClientDidStartSync(_ client: CollaborationClient)
     func collaborationClientDidStartUserSync(_ client: CollaborationClient)
@@ -157,12 +157,16 @@ extension CollaborationClient: WebSocketDelegate {
 
 // MARK: - User Interaction
 extension CollaborationClient {
-    func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, to newString: String) {
+    func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, to newString: String, inFile relativeFilePath: String) {
         if byUser {
-            send(package: UserEditTextPackage(range: oldRange, replaceText: newString))
+            send(package: UserEditTextPackage(range: oldRange, replaceText: newString, inFile: relativeFilePath))
         }
         
         collaborationCursors = collaborationCursors.mapValues { cursor in
+            guard cursor.relativeFilePath == relativeFilePath else {
+                return cursor
+            }
+
             let cursorMax = NSMaxRange(cursor.range)
             let changeMax = NSMaxRange(oldRange)
             let newChangeMax = NSMaxRange(newRange)
@@ -187,8 +191,8 @@ extension CollaborationClient {
         }
     }
     
-    func userSelectionDidChange(_ newSelection: NSRange) {
-        send(package: UserCurserUpdatePackage(range: newSelection))
+    func userSelectionDidChange(_ newSelection: NSRange, inFile relativeFilePath: String) {
+        send(package: UserCurserUpdatePackage(range: newSelection, inFile: relativeFilePath))
     }
     
     func scheduleSync() {
@@ -244,13 +248,13 @@ extension CollaborationClient {
     }
     
     private func handleCollaborationCursorUpdatePackage(_ package: CollaborationCursorUpdatePackage) {
-        collaborationCursors[package.userID, default: CollaborationCursor.withRandomColor()].updateRange(package.selectionRange)
+        collaborationCursors[package.userID, default: CollaborationCursor.withRandomColor()].updateLocation(package.selectionRange, inFile: package.relativeFilePath)
         delegate?.collaborationCursorsChanged(self)
     }
     
     private func handleCollaborationEditTextPackage(_ package: CollaborationEditTextPackage) {
         if syncStatus == .notSyncing {
-            delegate?.collaborationClient(self, didReceivedChangeIn: package.range, replacedWith: package.replaceText)
+            delegate?.collaborationClient(self, didReceivedChangeIn: package.range, replacedWith: package.replaceText, inFile: package.relativeFilePath)
         } else {
             editsInSyncMode.append(package)
         }

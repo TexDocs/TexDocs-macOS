@@ -26,7 +26,53 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
     open func setUp() {
         self.delegate = self
         self.textStorage?.delegate = self
+        openFile(nil)
     }
+
+    // MARK: Opened file
+
+    private(set) weak var openedFile: EditableFileSystemItem? {
+        didSet {
+            handleFileOpen(openedFile, oldFile: oldValue)
+        }
+    }
+
+    func openFile(_ file: EditableFileSystemItem?) {
+        openedFile = file
+    }
+
+    private func handleFileOpen(_ newFile: EditableFileSystemItem?, oldFile: EditableFileSystemItem?) {
+        if let oldFile = oldFile {
+            saveContent(to: oldFile)
+        }
+
+        loadContent(from: newFile)
+
+        if let newFile = newFile {
+            opened(file: newFile)
+        }
+    }
+
+    private func loadContent(from fileItem: EditableFileSystemItem? = nil) {
+        guard let fileItem = fileItem ?? openedFile else {
+            isEditable = false
+            replaceContent(with: "")
+            return
+        }
+
+        replaceContent(with: fileItem.text)
+        self.isEditable = true
+    }
+
+    func reloadContentFromDisk() {
+        loadContent()
+    }
+
+    func saveContent(to fileItem: EditableFileSystemItem? = nil) {
+        (fileItem ?? openedFile)?.text = string
+    }
+
+    open func opened(file: EditableFileSystemItem) {}
     
     // MARK: Helper
     
@@ -67,12 +113,13 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
     
     // MARK: Text did change
 
-    private var userInitiated: Bool = true
+    private var userInitiated = true
+    private var isContentReplace = false
     
     func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorageEditActions, range editedRange: NSRange, changeInLength delta: Int) {
         if editedMask.contains(NSTextStorageEditActions.editedCharacters) {
             let oldRange = NSRange(location: editedRange.location, length: editedRange.length - delta)
-            textDidChange(oldRange: oldRange, newRange: editedRange, changeInLength: delta, byUser: userInitiated)
+            textDidChange(oldRange: oldRange, newRange: editedRange, changeInLength: delta, byUser: userInitiated, isContentReplace: isContentReplace)
         }
     }
     
@@ -83,16 +130,18 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
     }
     
     func replaceContent(with newString: String, byUser: Bool = false) {
+        isContentReplace = true
         userInitiated = byUser
         textStorage?.replaceCharacters(in: NSRange(location: 0, length: textStorage?.length ?? 0), with: newString)
         userInitiated = true
+        isContentReplace = false
     }
     
     func textViewDidChangeSelection(_ notification: Notification) {
         selectionDidChange(selection: selectedRange())
     }
     
-    open func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool) {}
+    open func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, isContentReplace: Bool) {}
     open func selectionDidChange(selection: NSRange) {}
     
     // MARK: Remove format

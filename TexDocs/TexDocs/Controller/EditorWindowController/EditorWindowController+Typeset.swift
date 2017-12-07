@@ -57,8 +57,8 @@ extension EditorWindowController {
         process.currentDirectoryPath = workspaceURL.path
         process.launchPath = "/Library/TeX/texbin/pdflatex"
         process.arguments = [
-            "-output-directory=\(outputDirectory.path(relativeTo: workspaceURL)!)",
-            inputFile.path(relativeTo: workspaceURL)!
+            "-output-directory=\(relativePath(of: outputDirectory)!)",
+            relativePath(of: inputFile)!
         ]
 
         // handle outputs

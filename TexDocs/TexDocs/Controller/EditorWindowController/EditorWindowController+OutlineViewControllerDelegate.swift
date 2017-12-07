@@ -12,7 +12,6 @@ extension EditorWindowController {
     func reloadOutlineView() {
         do {
             try rootDirectory?.updateChildren()
-//            rootDirectory = try FileSystemItem(dataFolderURL)
             outlineViewController.outlineView.reloadData()
         } catch {
             showErrorSheet(error)

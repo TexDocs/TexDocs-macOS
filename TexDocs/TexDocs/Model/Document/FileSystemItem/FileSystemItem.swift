@@ -64,18 +64,23 @@ class FileSystemItem: NSObject {
         return findChild(withRelativePath: relativePath)
     }
 
-    func findChild(withRelativePath relativePath: String) -> FileSystemItem? {
-        return findChild(withRelativePathComponents: relativePath.components(separatedBy: "/"))
+    func findChild(withRelativePath relativePath: String, includesRootItemsName: Bool = false) -> FileSystemItem? {
+        let components = relativePath.components(separatedBy: "/")
+        if includesRootItemsName {
+            return findChild(withRelativePathComponents: components.dropFirst())
+        } else {
+            return findChild(withRelativePathComponents: ArraySlice(components))
+        }
     }
 
-    func findChild(withRelativePathComponents relativePath: [String]) -> FileSystemItem? {
+    func findChild(withRelativePathComponents relativePath: ArraySlice<String>) -> FileSystemItem? {
         if relativePath.count == 0 {
             return self
         }
 
         for child in children {
             if child.name == relativePath.first {
-                return child.findChild(withRelativePathComponents: Array(relativePath.dropFirst()))
+                return child.findChild(withRelativePathComponents: relativePath.dropFirst())
             }
         }
         return nil

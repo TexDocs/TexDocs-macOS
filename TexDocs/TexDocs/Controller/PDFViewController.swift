@@ -12,7 +12,11 @@ import Quartz
 class PDFViewController: NSViewController {
 
     @IBOutlet weak var pdfView: PDFView!
-    
+
+    override func viewDidLoad() {
+        pdfView.autoScales = true
+    }
+
     private func destinationOfCurrentPDF() -> (pageIndex: Int, point: NSPoint, zoom: CGFloat)? {
         guard let destination = pdfView.currentDestination,
             let page = destination.page,

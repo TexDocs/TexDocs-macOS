@@ -14,6 +14,12 @@ class SourceCodeView: ImprovedTextView {
     
     /// The line number view on the left side.
     private var lineNumberRuler: SourceCodeRulerView!
+
+    var languageDelegate: SourceCodeViewLanguageDelegate? {
+        didSet {
+            updateSourceCodeHighlighting(in: NSRange(location: 0, length: string.count))
+        }
+    }
     
     // MARK: View life cycle
     
@@ -42,30 +48,20 @@ class SourceCodeView: ImprovedTextView {
         enclosingScrollView.verticalRulerView = ruler
     }
     
-    override func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool) {
-        super.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser)
+    override func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, isContentReplace: Bool) {
+        super.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser, isContentReplace: isContentReplace)
         lineNumberRuler?.redrawLineNumbers()
-        updateSourceCodeHighlighting(in: newRange)
+        if !isContentReplace {
+            updateSourceCodeHighlighting(in: newRange)
+        }
     }
     
     func updateSourceCodeHighlighting(in editedRange: NSRange) {
-        
-        let highlightingRules: [SourceCodeHighlightRule] = [
-            SimpleHighlighter(pattern: "(\\d+)", colors: [.variable]),
-            SimpleHighlighter(pattern: "(\\\\\\w*)", colors: [.keyword]),
-            SimpleHighlighter(pattern: "(%.*)$", colors: [.comment]),
-            SimpleHighlighter(pattern: "(?:\\\\documentclass|usepackage|input)(?:\\[([^\\]]*)\\])?\\{([^}]*)\\}", colors: [.variable, .variable]),
-            SimpleHighlighter(pattern: "(?:\\\\(?:begin|end))\\{([^}]*)\\}", colors: [.variable]),
-            SimpleHighlighter(pattern: "(\\$.*?\\$)", colors: [.inlineMath]),
-        ]
-        
-        let range = nsString.lineRange(for: editedRange)
-        
-        textStorage?.addAttribute(NSAttributedStringKey.foregroundColor, value: ColorSchemeHandler.default.color(forKey: .text), range: range)
-        for rule in highlightingRules {
-            rule.applyRule(to: self, range: range)
-        }
-        
+        languageDelegate?.sourceCodeView(self, updateCodeHighlightingInRange: editedRange)
+    }
+
+    override func opened(file: EditableFileSystemItem) {
+        languageDelegate = allLanguageDelegates[file.url.pathExtension]?.init()
     }
 }
 

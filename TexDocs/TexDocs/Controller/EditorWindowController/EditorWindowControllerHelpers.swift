@@ -21,4 +21,20 @@ extension EditorWindowController {
         guard let documentData = texDocsDocument.documentData else { return nil }
         return workspaceURL.appendingPathComponent(documentData.dataFolderName, isDirectory: true)
     }
+
+    func relativePath(of url: URL) -> String? {
+        return url.path(relativeTo: workspaceURL)
+    }
+
+    func relativePath(of fileSystemItem: FileSystemItem) -> String? {
+        return relativePath(of: fileSystemItem.url)
+    }
+
+    func relativePathOfOpenedFile() -> String? {
+        guard let openedFile = editorViewController.editorView.openedFile else {
+            return nil
+        }
+
+        return relativePath(of: openedFile)
+    }
 }

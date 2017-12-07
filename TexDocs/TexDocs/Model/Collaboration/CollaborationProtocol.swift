@@ -46,6 +46,7 @@ struct CollaborationCursorUpdatePackage: Codable {
     let userID: String
     let start: Int
     let length: Int
+    let relativeFilePath: String
     
     var selectionRange: NSRange {
         return NSRange(location: start, length: length)
@@ -56,6 +57,7 @@ struct CollaborationEditTextPackage: Codable {
     let start: Int
     let replaceLength: Int
     let replaceText: String
+    let relativeFilePath: String
     
     var range: NSRange {
         return NSRange(location: start, length: replaceLength)
@@ -73,8 +75,10 @@ struct UserCurserUpdatePackage: Codable {
     let status = 200
     let start: Int
     let length: Int
+    let relativeFilePath: String
     
-    init(range: NSRange) {
+    init(range: NSRange, inFile relativeFilePath: String) {
+        self.relativeFilePath = relativeFilePath
         start = range.location
         length = range.length
     }
@@ -86,11 +90,13 @@ struct UserEditTextPackage: Codable {
     let start: Int
     let replaceLength: Int
     let replaceText: String
+    let relativeFilePath: String
     
-    init(range: NSRange, replaceText: String) {
+    init(range: NSRange, replaceText: String, inFile relativeFilePath: String) {
         self.start = range.location
         self.replaceLength = range.length
         self.replaceText = replaceText
+        self.relativeFilePath = relativeFilePath
     }
 }
 

@@ -11,43 +11,6 @@ import Foundation
 class CollaborationSourceCodeView: SourceCodeView {
 
     weak var collaborationDelegate: CollaborationSourceCodeViewDelegate?
-    private weak var openedFile: EditableFileSystemItem? {
-        didSet {
-            handleFileOpen(openedFile, oldFile: oldValue)
-        }
-    }
-    
-    override func setUp() {
-        super.setUp()
-        openFile(nil)
-    }
-    
-    func openFile(_ file: EditableFileSystemItem?) {
-        openedFile = file
-    }
-    
-    private func handleFileOpen(_ newFile: EditableFileSystemItem?, oldFile: EditableFileSystemItem?) {
-        if let oldFile = oldFile {
-            saveContent(to: oldFile)
-        }
-        
-        loadContent(from: newFile)
-    }
-    
-    func loadContent(from fileItem: EditableFileSystemItem? = nil) {
-        guard let fileItem = fileItem ?? openedFile else {
-            isEditable = false
-            replaceContent(with: "")
-            return
-        }
-        
-        replaceContent(with: fileItem.text)
-        self.isEditable = true
-    }
-    
-    func saveContent(to fileItem: EditableFileSystemItem? = nil) {
-        (fileItem ?? openedFile)?.text = string
-    }
     
     func collaborationCursorsDidChange() {
         setNeedsDisplay(editorBounds)
@@ -111,9 +74,11 @@ class CollaborationSourceCodeView: SourceCodeView {
         NSRect(x: editorBounds.minX, y: minY, width: editorBounds.width, height: maxY - minY).fill()
     }
     
-    override func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool) {
-        super.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser)
-        collaborationDelegate?.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser, to: nsString.substring(with: newRange))
+    override func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, isContentReplace: Bool) {
+        super.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser, isContentReplace: isContentReplace)
+        if !isContentReplace {
+            collaborationDelegate?.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser, to: nsString.substring(with: newRange))
+        }
     }
     
     override func selectionDidChange(selection: NSRange) {

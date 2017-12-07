@@ -103,7 +103,7 @@ class EditorWindowController: NSWindowController {
                 try item.reload()
             }
             DispatchQueue.main.sync {
-                editorViewController.editorView.loadContent()
+                editorViewController.editorView.reloadContentFromDisk()
             }
         } catch {
             showErrorSheet(error)
