@@ -17,10 +17,28 @@ class SourceCodeView: ImprovedTextView {
 
     var languageDelegate: SourceCodeViewLanguageDelegate? {
         didSet {
-            updateSourceCodeHighlighting(in: NSRange(location: 0, length: string.count))
+            updateSourceCodeHighlighting(in: stringRange)
         }
     }
-    
+
+    weak var sourceCodeViewDelegate: SourceCodeViewDelegate?
+
+    private(set) var rootStructureNode: CachedProperty<DocumentStructureNode?>?
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+
+        rootStructureNode = CachedProperty(block: {
+            if self.openedFile != nil {
+                return self.languageDelegate?.sourceCodeViewDocumentStructure(self)
+            } else {
+                return nil
+            }
+        }, invalidationBlock: {
+            self.sourceCodeViewDelegate?.sourceCodeViewStructureChanged(self)
+        })
+    }
+
     // MARK: View life cycle
     
     override func viewDidMoveToSuperview() {
@@ -54,17 +72,23 @@ class SourceCodeView: ImprovedTextView {
         if !isContentReplace {
             updateSourceCodeHighlighting(in: newRange)
         }
+        rootStructureNode?.invalidateCache()
     }
     
     func updateSourceCodeHighlighting(in editedRange: NSRange) {
         languageDelegate?.sourceCodeView(self, updateCodeHighlightingInRange: editedRange)
     }
 
-    override func opened(file: EditableFileSystemItem) {
-        languageDelegate = allLanguageDelegates[file.url.pathExtension]?.init()
+    override func openedFile(_ file: EditableFileSystemItem) {
+        languageDelegate = file.createLanguageDelegate()
+        rootStructureNode?.invalidateCache()
     }
 }
 
 protocol SourceCodeHighlightRule: class {
     func applyRule(to sourceCodeView: SourceCodeView, range: NSRange)
+}
+
+protocol SourceCodeViewDelegate: class {
+    func sourceCodeViewStructureChanged(_ sourceCodeView: SourceCodeView)
 }

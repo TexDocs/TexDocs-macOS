@@ -49,7 +49,7 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
         loadContent(from: newFile)
 
         if let newFile = newFile {
-            opened(file: newFile)
+            openedFile(newFile)
         }
     }
 
@@ -72,9 +72,13 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
         (fileItem ?? openedFile)?.text = string
     }
 
-    open func opened(file: EditableFileSystemItem) {}
+    open func openedFile(_ file: EditableFileSystemItem) {}
     
     // MARK: Helper
+
+    var stringRange: NSRange {
+        return NSRange(location: 0, length: textStorage!.length)
+    }
     
     /// NSString version of string property
     var nsString: NSString {

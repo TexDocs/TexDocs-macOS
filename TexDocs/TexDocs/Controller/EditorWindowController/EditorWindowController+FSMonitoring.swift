@@ -19,7 +19,6 @@ extension EditorWindowController {
         
         fileSystemMonitor = FileSystemEventMonitor(pathsToWatch: [dataFolderURL.path]) { [weak self] events in
             for event in events {
-                print(event.path)
 
                 // Ignore any changes in .git folder
                 guard !event.path.hasPrefix(gitPath) else {

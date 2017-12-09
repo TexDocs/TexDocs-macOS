@@ -22,7 +22,7 @@ class SimpleHighlighter: SourceCodeHighlightRule {
         
         for match in regex.matches(in: textStorage.string, options: [], range: range) {
             for rangeIndex in 1..<match.numberOfRanges {
-                let color = ColorSchemeHandler.default.color(forKey: colors[rangeIndex - 1])
+                let color = ThemesHandler.default.color(for: colors[rangeIndex - 1])
                 let range = match.range(at: rangeIndex)
                 textStorage.addAttribute(NSAttributedStringKey.foregroundColor, value: color, range: range)
             }

@@ -6,12 +6,9 @@
 //  Copyright © 2017 TexDocs. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 class FileSystemItem: NSObject {
-    var numberOfChildren: Int {
-        return children.count
-    }
     let url: URL
 
     var children: [FileSystemItem] = []

@@ -12,7 +12,7 @@ extension EditorWindowController {
     func reloadOutlineView() {
         do {
             try rootDirectory?.updateChildren()
-            outlineViewController.outlineView.reloadData()
+            outlineViewController.reloadData(inTab: .directory)
         } catch {
             showErrorSheet(error)
         }
@@ -24,8 +24,18 @@ extension EditorWindowController: NavigationOutlineViewControllerDelegate {
         return rootDirectory
     }
 
-    func outlineViewController(_ outlineViewController: NavigationOutlineViewController, selectedItem: FileSystemItem) {
-        editorViewController.editorView.openFile(selectedItem as? EditableFileSystemItem)
+    func rootStructureNode(for outlineViewCOntroller: NavigationOutlineViewController) -> DocumentStructureNode? {
+        return editorViewController.editorView.rootStructureNode?.value
+    }
+
+    func outlineViewController(_ outlineViewController: NavigationOutlineViewController, selectedFileSystemItem item: FileSystemItem) {
+        editorViewController.open(item)
+    }
+
+    func outlineViewController(_ outlineViewController: NavigationOutlineViewController, selectedDocumentStructureNode item: DocumentStructureNode) {
+        editorViewController.editorView.setSelectedRange(item.definitionRange)
+        editorViewController.editorView.scrollRangeToVisible(item.effectiveRange)
+        window?.makeFirstResponder(editorViewController.editorView)
     }
 
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, createNewSchemeFor item: FileSystemItem) {

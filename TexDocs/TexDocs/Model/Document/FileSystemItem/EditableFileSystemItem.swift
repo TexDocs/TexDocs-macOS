@@ -34,6 +34,10 @@ class EditableFileSystemItem: FileSystemItem {
         text = try String(contentsOf: url)
         modified = false
     }
+
+    func createLanguageDelegate() -> SourceCodeViewLanguageDelegate? {
+        return allLanguageDelegates[url.pathExtension]?.init()
+    }
 }
 
 extension Array where Element == FileSystemItem {

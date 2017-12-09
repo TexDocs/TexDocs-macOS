@@ -70,7 +70,7 @@ class EditorWindowController: NSWindowController {
             }
 
             rootDirectory = try FileSystemItem(dataFolderURL)
-            outlineViewController.reloadData(expandAll: true)
+            outlineViewController.reloadData(inTab: .directory)
         
             startDirectoryMonitoring()
         } catch {
@@ -165,6 +165,7 @@ class EditorWindowController: NSWindowController {
     
     override func windowDidLoad() {
         editorViewController.editorView.collaborationDelegate = self
+        editorViewController.editorView.sourceCodeViewDelegate = self
         outlineViewController.delegate = self
         client.delegate = self
         shouldCascadeWindows = true

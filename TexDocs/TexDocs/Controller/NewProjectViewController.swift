@@ -8,9 +8,6 @@
 
 import Cocoa
 
-//let serverURLRegex = try! NSRegularExpression(pattern: "^wss?:\\/\\/[-a-z0-9@:%._\\+~#=\\/?&]+$", options: [.caseInsensitive])
-//let repositoryURLRegex = try! NSRegularExpression(pattern: "^\\w+@[-a-z0-9@:%._\\+~#=\\/?&]+$", options: [.caseInsensitive])
-
 class NewProjectViewController: NSViewController {
     @IBOutlet weak var joinRadioButton: NSButton!
     @IBOutlet weak var createRadioButton: NSButton!

@@ -15,6 +15,7 @@ class PDFViewController: NSViewController {
 
     override func viewDidLoad() {
         pdfView.autoScales = true
+        pdfView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     }
 
     private func destinationOfCurrentPDF() -> (pageIndex: Int, point: NSPoint, zoom: CGFloat)? {
@@ -39,5 +40,16 @@ class PDFViewController: NSViewController {
             newDestination.zoom = oldDestination.zoom
             pdfView.go(to: newDestination)
         }
+    }
+    @IBAction func enterFullScreen(_ sender: Any) {
+        pdfView.autoScales = true
+    }
+
+    @IBAction func goToPreviousPage(_ sender: Any) {
+        pdfView.goToPreviousPage(sender)
+    }
+
+    @IBAction func goToNextPage(_ sender: Any) {
+        pdfView.goToNextPage(sender)
     }
 }

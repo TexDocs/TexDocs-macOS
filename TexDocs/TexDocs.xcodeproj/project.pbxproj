@@ -42,8 +42,8 @@
 		40AA16EE1FB8881100373B07 /* CollaborationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AA16ED1FB8881100373B07 /* CollaborationClient.swift */; };
 		40AA16F01FB88A0000373B07 /* EditorWindowController+CollaborationClientDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AA16EF1FB88A0000373B07 /* EditorWindowController+CollaborationClientDelegate.swift */; };
 		40AA16F81FB88BE700373B07 /* SimpleHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AA16F71FB88BE700373B07 /* SimpleHighlighter.swift */; };
-		40AA16FC1FB88F5600373B07 /* ColorSchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AA16FB1FB88F5600373B07 /* ColorSchemeHandler.swift */; };
-		40AA16FF1FB88FCC00373B07 /* ColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AA16FE1FB88FCC00373B07 /* ColorScheme.swift */; };
+		40AA16FC1FB88F5600373B07 /* ThemesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AA16FB1FB88F5600373B07 /* ThemesHandler.swift */; };
+		40AA16FF1FB88FCC00373B07 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AA16FE1FB88FCC00373B07 /* Theme.swift */; };
 		40AB8C441FB87CE700BC6D82 /* EditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AB8C431FB87CE700BC6D82 /* EditorWindowController.swift */; };
 		40AB8C451FB8840F00BC6D82 /* CollaborationSourceCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D14D1FB7B681002FBB8B /* CollaborationSourceCodeView.swift */; };
 		40AB8C471FB8841A00BC6D82 /* ImprovedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D1451FB79984002FBB8B /* ImprovedTextView.swift */; };
@@ -63,6 +63,11 @@
 		40E1D8771FD9CD910077BA90 /* TexSourceCodeViewLanguageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E1D8761FD9CD910077BA90 /* TexSourceCodeViewLanguageDelegate.swift */; };
 		40EF5D521FBF9612003E0E40 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 40EF5D511FBF9612003E0E40 /* Localizable.strings */; };
 		40EF5D541FC05EC0003E0E40 /* EditorWindowController+Sheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EF5D531FC05EC0003E0E40 /* EditorWindowController+Sheets.swift */; };
+		40FFD8EC1FDC1B5E007BA858 /* ModernTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFD8EB1FDC1B5E007BA858 /* ModernTabBar.swift */; };
+		40FFD8EE1FDC37FD007BA858 /* NavigationOutlineViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFD8ED1FDC37FD007BA858 /* NavigationOutlineViewItem.swift */; };
+		40FFD8F01FDC3C4D007BA858 /* CachedProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFD8EF1FDC3C4D007BA858 /* CachedProperty.swift */; };
+		40FFD8F21FDC48B1007BA858 /* DocumentStructureItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFD8F11FDC48B1007BA858 /* DocumentStructureItemCell.swift */; };
+		40FFD8F41FDC53DB007BA858 /* EditorWindowController+SourceCodeViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFD8F31FDC53DB007BA858 /* EditorWindowController+SourceCodeViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,8 +176,8 @@
 		40AA16ED1FB8881100373B07 /* CollaborationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationClient.swift; sourceTree = "<group>"; };
 		40AA16EF1FB88A0000373B07 /* EditorWindowController+CollaborationClientDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+CollaborationClientDelegate.swift"; sourceTree = "<group>"; };
 		40AA16F71FB88BE700373B07 /* SimpleHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleHighlighter.swift; sourceTree = "<group>"; };
-		40AA16FB1FB88F5600373B07 /* ColorSchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeHandler.swift; sourceTree = "<group>"; };
-		40AA16FE1FB88FCC00373B07 /* ColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
+		40AA16FB1FB88F5600373B07 /* ThemesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesHandler.swift; sourceTree = "<group>"; };
+		40AA16FE1FB88FCC00373B07 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		40AB8C431FB87CE700BC6D82 /* EditorWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWindowController.swift; sourceTree = "<group>"; };
 		40AB8C4A1FB884C900BC6D82 /* CollaborationCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationCursor.swift; sourceTree = "<group>"; };
 		40AB8C4C1FB8866200BC6D82 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
@@ -188,6 +193,11 @@
 		40E1D8761FD9CD910077BA90 /* TexSourceCodeViewLanguageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TexSourceCodeViewLanguageDelegate.swift; sourceTree = "<group>"; };
 		40EF5D511FBF9612003E0E40 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		40EF5D531FC05EC0003E0E40 /* EditorWindowController+Sheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+Sheets.swift"; sourceTree = "<group>"; };
+		40FFD8EB1FDC1B5E007BA858 /* ModernTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernTabBar.swift; sourceTree = "<group>"; };
+		40FFD8ED1FDC37FD007BA858 /* NavigationOutlineViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOutlineViewItem.swift; sourceTree = "<group>"; };
+		40FFD8EF1FDC3C4D007BA858 /* CachedProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedProperty.swift; sourceTree = "<group>"; };
+		40FFD8F11FDC48B1007BA858 /* DocumentStructureItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStructureItemCell.swift; sourceTree = "<group>"; };
+		40FFD8F31FDC53DB007BA858 /* EditorWindowController+SourceCodeViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+SourceCodeViewDelegate.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +258,7 @@
 				40EF5D531FC05EC0003E0E40 /* EditorWindowController+Sheets.swift */,
 				40BD25E21FBCE2B100211743 /* EditorWindowController+UI.swift */,
 				40AB8C4E1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift */,
+				40FFD8F31FDC53DB007BA858 /* EditorWindowController+SourceCodeViewDelegate.swift */,
 				40AA16EF1FB88A0000373B07 /* EditorWindowController+CollaborationClientDelegate.swift */,
 				40322FEC1FC2232F00C75CEF /* EditorWindowController+OutlineViewControllerDelegate.swift */,
 				407302C11FBF630D00D5AB8F /* EditorWindowControllerGitHelper.swift */,
@@ -372,12 +383,13 @@
 				40AA16F41FB88B9E00373B07 /* Collaboration */,
 				4061EF321FD9CCD600339546 /* LanguageDelegate */,
 				400A34431FBA27840070E237 /* Document */,
-				40AA16FD1FB88FBD00373B07 /* ColorSchemes */,
+				40AA16FD1FB88FBD00373B07 /* Themes */,
 				4074B34F1FC1BB4A0038176A /* RegexLib.swift */,
 				40BD4C3C1FC1C9CF0048ABF6 /* FileTypeHandler.swift */,
 				40A13BE71FD720C30044E897 /* ThreadHelpers.swift */,
 				40A13BF71FD731930044E897 /* URL+RelativePath.swift */,
 				409176B01FD86ACD0086421B /* FileManager+Helpers.swift */,
+				40FFD8EF1FDC3C4D007BA858 /* CachedProperty.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -387,8 +399,10 @@
 			children = (
 				40A7D1111FB79261002FBB8B /* SourceCodeView */,
 				404819A01FB8F37300AAFBF0 /* FileSystemItemCell.swift */,
+				40FFD8F11FDC48B1007BA858 /* DocumentStructureItemCell.swift */,
 				40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */,
 				40A13BEA1FD724AC0044E897 /* NavigationOutlineView.swift */,
+				40FFD8EB1FDC1B5E007BA858 /* ModernTabBar.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -433,13 +447,13 @@
 			path = Highlighting;
 			sourceTree = "<group>";
 		};
-		40AA16FD1FB88FBD00373B07 /* ColorSchemes */ = {
+		40AA16FD1FB88FBD00373B07 /* Themes */ = {
 			isa = PBXGroup;
 			children = (
-				40AA16FB1FB88F5600373B07 /* ColorSchemeHandler.swift */,
-				40AA16FE1FB88FCC00373B07 /* ColorScheme.swift */,
+				40AA16FB1FB88F5600373B07 /* ThemesHandler.swift */,
+				40AA16FE1FB88FCC00373B07 /* Theme.swift */,
 			);
-			path = ColorSchemes;
+			path = Themes;
 			sourceTree = "<group>";
 		};
 		40AB8C421FB87CCA00BC6D82 /* Controller */ = {
@@ -448,6 +462,7 @@
 				4026AC871FBCE30400FFB18B /* EditorWindowController */,
 				40AB8C4C1FB8866200BC6D82 /* EditorViewController.swift */,
 				40C88C201FB8B659006F6BB9 /* NavigationOutlineViewController.swift */,
+				40FFD8ED1FDC37FD007BA858 /* NavigationOutlineViewItem.swift */,
 				40A13BE31FD71F9F0044E897 /* PDFViewController.swift */,
 				4048199E1FB8DD9400AAFBF0 /* NewProjectViewController.swift */,
 				40A13BDF1FD5F5610044E897 /* ConsoleViewController.swift */,
@@ -674,6 +689,7 @@
 				40AB8C4F1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift in Sources */,
 				4048199F1FB8DD9400AAFBF0 /* NewProjectViewController.swift in Sources */,
 				40BD4C3D1FC1C9CF0048ABF6 /* FileTypeHandler.swift in Sources */,
+				40FFD8F21FDC48B1007BA858 /* DocumentStructureItemCell.swift in Sources */,
 				40A7D0DE1FB78A3F002FBB8B /* AppDelegate.swift in Sources */,
 				40A13BDA1FD5ECBA0044E897 /* EditSchemeSheet.swift in Sources */,
 				404819A11FB8F37300AAFBF0 /* FileSystemItemCell.swift in Sources */,
@@ -686,11 +702,12 @@
 				40BD25E31FBCE2B100211743 /* EditorWindowController+UI.swift in Sources */,
 				40A13BE81FD720C30044E897 /* ThreadHelpers.swift in Sources */,
 				4048199D1FB8C64600AAFBF0 /* CollaborationProtocol.swift in Sources */,
-				40AA16FC1FB88F5600373B07 /* ColorSchemeHandler.swift in Sources */,
+				40AA16FC1FB88F5600373B07 /* ThemesHandler.swift in Sources */,
 				4026AC921FBE1CD000FFB18B /* CollaborationClientError.swift in Sources */,
 				40AA16EE1FB8881100373B07 /* CollaborationClient.swift in Sources */,
 				40A13BDE1FD5F4C80044E897 /* EditorWindowController+Typeset.swift in Sources */,
 				400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */,
+				40FFD8EE1FDC37FD007BA858 /* NavigationOutlineViewItem.swift in Sources */,
 				40A13BF81FD731930044E897 /* URL+RelativePath.swift in Sources */,
 				40A13BF41FD731690044E897 /* EditableFileSystemItem.swift in Sources */,
 				40BD25E11FBCDC3400211743 /* NewProjectOpenMethod.swift in Sources */,
@@ -709,11 +726,14 @@
 				40AB8C451FB8840F00BC6D82 /* CollaborationSourceCodeView.swift in Sources */,
 				4074B3501FC1BB4A0038176A /* RegexLib.swift in Sources */,
 				40AB8C481FB8841C00BC6D82 /* SourceCodeView.swift in Sources */,
+				40FFD8F01FDC3C4D007BA858 /* CachedProperty.swift in Sources */,
+				40FFD8EC1FDC1B5E007BA858 /* ModernTabBar.swift in Sources */,
 				40AB8C491FB8841E00BC6D82 /* SourceCodeRulerView.swift in Sources */,
 				4026ACC71FBF55D700FFB18B /* EditorWindowControllerHelpers.swift in Sources */,
+				40FFD8F41FDC53DB007BA858 /* EditorWindowController+SourceCodeViewDelegate.swift in Sources */,
 				40AB8C471FB8841A00BC6D82 /* ImprovedTextView.swift in Sources */,
 				40A13BD41FD5D2800044E897 /* SchemeMenuItem.swift in Sources */,
-				40AA16FF1FB88FCC00373B07 /* ColorScheme.swift in Sources */,
+				40AA16FF1FB88FCC00373B07 /* Theme.swift in Sources */,
 				40A13BE51FD71F9F0044E897 /* PDFViewController.swift in Sources */,
 				4026AC901FBCEC5000FFB18B /* SimpleSheet.swift in Sources */,
 			);

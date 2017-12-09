@@ -26,11 +26,11 @@ class NavigationOutlineView: NSOutlineView {
         return item(atRow: row) as? T
     }
 
-    func clickedItem<T>() -> T? {
+    func clickedItem() -> ItemWrapper? {
         return castedItem(at: clickedRow)
     }
 
-    func selectedItem<T>() -> T? {
+    func selectedItem() -> ItemWrapper? {
         return castedItem(at: selectedRow)
     }
 }
@@ -42,14 +42,14 @@ extension NavigationOutlineView: NSMenuDelegate {
             return
         }
 
-        if let fileSystemItem: FileSystemItem = clickedItem() {
-            contextMenuDelegate?.navigationOutlineView(self, updateContextMenu: menu, for: fileSystemItem)
+        if let wrapper: ItemWrapper = clickedItem() {
+            contextMenuDelegate?.navigationOutlineView(self, updateContextMenu: menu, for: wrapper)
         }
     }
 }
 
 
 protocol NavigationOutlineViewContextMenuDelegate: class {
-    func navigationOutlineView(_ navigationOutlineView: NavigationOutlineView, updateContextMenu menu: NSMenu, for fileSystemItem: FileSystemItem)
+    func navigationOutlineView(_ navigationOutlineView: NavigationOutlineView, updateContextMenu menu: NSMenu, for wrapper: ItemWrapper)
     func navigationOutlineView(_ navigationOutlineView: NavigationOutlineView, updateContextMenu menu: NSMenu)
 }

@@ -46,6 +46,14 @@ class Document: NSDocument {
     override func read(from data: Data, ofType typeName: String) throws {
         documentData = try JSONDecoder().decode(DocumentData.self, from: data)
     }
+
+    override func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) throws -> NSPrintOperation {
+
+        var settings = printSettings
+        settings[NSPrintInfo.AttributeKey.verticallyCentered] = NSNumber(value: false)
+
+        return NSPrintOperation(view: mainWindowController!.editorViewController.editorView, printInfo: NSPrintInfo(dictionary: settings))
+    }
 }
 
 class TexDocsDocumentController: NSDocumentController {

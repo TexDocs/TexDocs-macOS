@@ -26,15 +26,14 @@ class CollaborationSourceCodeView: SourceCodeView {
         guard let layoutManager = self.layoutManager, let textContainer = self.textContainer else {
             return
         }
-        
+
         for cursor in collaborationCursors {
-    
             let startPositionRange = NSRange(location: cursor.range.location, length: 0)
             let startPositionRect = layoutManager.boundingRect(forGlyphRange: startPositionRange, in: textContainer)
             let startPosition = startPositionRect.origin
             let cursorHeight = startPositionRect.size.height
             let cursorSize = CGSize(width: 1, height: cursorHeight)
-            
+
             if cursor.range.length == 0 {
                 // draw cursor
                 cursor.color.setFill()
@@ -44,9 +43,9 @@ class CollaborationSourceCodeView: SourceCodeView {
                 let endPositionRange = NSRange(location: NSMaxRange(cursor.range), length: 0)
                 let endPositionRect = layoutManager.boundingRect(forGlyphRange: endPositionRange, in: textContainer)
                 let endPosition = endPositionRect.origin
-                
+
                 cursor.color.withAlphaComponent(0.3).setFill()
-                
+
                 if startPosition.y == endPosition.y {
                     NSRect(x: startPosition.x, y: startPosition.y, width: endPosition.x - startPosition.x, height: cursorHeight).fill()
                 } else {
@@ -57,7 +56,7 @@ class CollaborationSourceCodeView: SourceCodeView {
             }
         }
     }
-    
+
     private var editorBounds: CGRect {
         return bounds.insetBy(dx: 5, dy: 0)
     }

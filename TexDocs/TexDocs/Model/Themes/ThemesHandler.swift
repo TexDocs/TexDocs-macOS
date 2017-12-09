@@ -1,5 +1,5 @@
 //
-//  ColorSchemeHandler.swift
+//  ThemesHandler.swift
 //  TexDocs
 //
 //  Created by Noah Peeters on 12.11.17.
@@ -8,22 +8,21 @@
 
 import Cocoa
 
-class ColorSchemeHandler {
+class ThemesHandler {
     private init() {
         current = defaultColorScheme
     }
-    
-    static let `default` = ColorSchemeHandler()
-    
-    func color(forKey key: ColorKey) -> NSColor {
-        return current.color(forKey: key)
+
+    func color(for colorKey: ColorKey) -> NSColor {
+        return current.color(forKey: colorKey) ?? defaultColorScheme.color(forKey: colorKey) ?? .black
     }
     
-    var current: ColorScheme
+    static let `default` = ThemesHandler()
+    
+    var current: Theme
 }
 
-
-enum ColorKey {
+enum ColorKey: String, CodingKey {
     case text
     case comment
     case keyword
