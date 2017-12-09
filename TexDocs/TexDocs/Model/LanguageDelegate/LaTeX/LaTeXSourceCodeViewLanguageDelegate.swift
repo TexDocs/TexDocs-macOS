@@ -43,8 +43,14 @@ class LaTeXSourceCodeViewLanguageDelegate: SourceCodeViewLanguageDelegate {
                 _ = rootNode.recursiveCanHandleMatch(match.regularExpressionMatch(in: sourceCodeView.string))
             }
         }
-
         return rootNode
+    }
+
+    private func packages(usedIn sourceCodeView: SourceCodeView) -> [String] {
+        return LaTeXSourceCodeViewLanguageDelegate.packageRegex.matches(in: sourceCodeView.string, options: [], range: sourceCodeView.stringRange).map { rawMatch in
+            let match = rawMatch.regularExpressionMatch(in: sourceCodeView.string)
+            return match.captureGroups[1].string
+        }
     }
 }
 
@@ -60,6 +66,8 @@ extension LaTeXSourceCodeViewLanguageDelegate {
         SimpleHighlighter(pattern: "(?:\\\\(?:begin|end))\\{([^}]*)\\}", colors: [.variable]),
         SimpleHighlighter(pattern: "(\\$.*?\\$)", colors: [.inlineMath]),
     ]
+
+    static let packageRegex = try! NSRegularExpression(pattern: "\\\\usepackage\\{(.*?)\\}", options: [])
 }
 
 

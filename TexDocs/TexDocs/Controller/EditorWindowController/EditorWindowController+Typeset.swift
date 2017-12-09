@@ -35,8 +35,7 @@ extension EditorWindowController {
             return
         }
 
-        let process = Process()
-        currentTypesetProcess = process
+
         consoleViewController.clearConsole()
 
         let inputFile = workspaceURL.appendingPathComponent(scheme.path, isDirectory: false)
@@ -50,31 +49,23 @@ extension EditorWindowController {
             try FileManager.default.createDirectory(at: outputDirectory, withIntermediateDirectories: true, attributes: nil)
         } catch {
             showErrorSheet(error)
-            currentTypesetProcess = nil
             return
         }
 
-        process.currentDirectoryPath = workspaceURL.path
-        process.launchPath = "/Library/TeX/texbin/pdflatex"
-        process.arguments = [
+
+        let process = Process.create("/Library/TeX/texbin/pdflatex", workingDirectory: workspaceURL, arguments: [
             "-output-directory=\(relativePath(of: outputDirectory)!)",
             relativePath(of: inputFile)!
-        ]
+        ])
+        currentTypesetProcess = process
 
-        // handle outputs
-        let pipe = Pipe()
-        process.standardOutput = pipe
-        let outHandle = pipe.fileHandleForReading
+        process.setStringOutputHandler { [weak self, weak process] string in
+            if string.hasSuffix("? ") {
+                process?.terminate()
+            }
 
-        outHandle.readabilityHandler = { [weak self, weak process] pipe in
-            if let line = String(data: pipe.availableData, encoding: .utf8) {
-                if line.hasSuffix("? ") {
-                    process?.terminate()
-                }
-
-                DispatchQueue.main.sync { [weak self] in
-                    self?.consoleViewController.addString(line)
-                }
+            DispatchQueue.main.sync { [weak self] in
+                self?.consoleViewController.addString(string)
             }
         }
 
