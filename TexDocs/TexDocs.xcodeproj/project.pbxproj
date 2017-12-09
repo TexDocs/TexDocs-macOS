@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4007C7D01FDC728300A53649 /* DocumentStructureNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7CF1FDC728300A53649 /* DocumentStructureNode.swift */; };
+		4007C7D21FDC72E300A53649 /* LatexDocumentStructureNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7D11FDC72E300A53649 /* LatexDocumentStructureNode.swift */; };
+		4007C7D51FDC730C00A53649 /* LatexRootDocumentStructureNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7D41FDC730C00A53649 /* LatexRootDocumentStructureNode.swift */; };
+		4007C7D71FDC731B00A53649 /* LatexEnvironmentDocumentStructureNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7D61FDC731B00A53649 /* LatexEnvironmentDocumentStructureNode.swift */; };
+		4007C7D91FDC733100A53649 /* LatexSectionDocumentStructureNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7D81FDC733100A53649 /* LatexSectionDocumentStructureNode.swift */; };
 		400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A34491FBA27E60070E237 /* DocumentData.swift */; };
 		400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 400D97B51FBA3E1800540207 /* Quartz.framework */; };
 		4026AC8D1FBCE91D00FFB18B /* Sheets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */; };
@@ -60,7 +65,7 @@
 		40BD4C3D1FC1C9CF0048ABF6 /* FileTypeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BD4C3C1FC1C9CF0048ABF6 /* FileTypeHandler.swift */; };
 		40C88C211FB8B659006F6BB9 /* NavigationOutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C88C201FB8B659006F6BB9 /* NavigationOutlineViewController.swift */; };
 		40E1D8711FD9CD230077BA90 /* SourceCodeViewLanguageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E1D8701FD9CD230077BA90 /* SourceCodeViewLanguageDelegate.swift */; };
-		40E1D8771FD9CD910077BA90 /* TexSourceCodeViewLanguageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E1D8761FD9CD910077BA90 /* TexSourceCodeViewLanguageDelegate.swift */; };
+		40E1D8771FD9CD910077BA90 /* LaTeXSourceCodeViewLanguageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E1D8761FD9CD910077BA90 /* LaTeXSourceCodeViewLanguageDelegate.swift */; };
 		40EF5D521FBF9612003E0E40 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 40EF5D511FBF9612003E0E40 /* Localizable.strings */; };
 		40EF5D541FC05EC0003E0E40 /* EditorWindowController+Sheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EF5D531FC05EC0003E0E40 /* EditorWindowController+Sheets.swift */; };
 		40FFD8EC1FDC1B5E007BA858 /* ModernTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFD8EB1FDC1B5E007BA858 /* ModernTabBar.swift */; };
@@ -130,6 +135,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4007C7CF1FDC728300A53649 /* DocumentStructureNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStructureNode.swift; sourceTree = "<group>"; };
+		4007C7D11FDC72E300A53649 /* LatexDocumentStructureNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatexDocumentStructureNode.swift; sourceTree = "<group>"; };
+		4007C7D41FDC730C00A53649 /* LatexRootDocumentStructureNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatexRootDocumentStructureNode.swift; sourceTree = "<group>"; };
+		4007C7D61FDC731B00A53649 /* LatexEnvironmentDocumentStructureNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatexEnvironmentDocumentStructureNode.swift; sourceTree = "<group>"; };
+		4007C7D81FDC733100A53649 /* LatexSectionDocumentStructureNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatexSectionDocumentStructureNode.swift; sourceTree = "<group>"; };
 		400A34491FBA27E60070E237 /* DocumentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentData.swift; sourceTree = "<group>"; };
 		400D97B51FBA3E1800540207 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Sheets.storyboard; sourceTree = "<group>"; };
@@ -190,7 +200,7 @@
 		40BD4C3C1FC1C9CF0048ABF6 /* FileTypeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTypeHandler.swift; sourceTree = "<group>"; };
 		40C88C201FB8B659006F6BB9 /* NavigationOutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOutlineViewController.swift; sourceTree = "<group>"; };
 		40E1D8701FD9CD230077BA90 /* SourceCodeViewLanguageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCodeViewLanguageDelegate.swift; sourceTree = "<group>"; };
-		40E1D8761FD9CD910077BA90 /* TexSourceCodeViewLanguageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TexSourceCodeViewLanguageDelegate.swift; sourceTree = "<group>"; };
+		40E1D8761FD9CD910077BA90 /* LaTeXSourceCodeViewLanguageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaTeXSourceCodeViewLanguageDelegate.swift; sourceTree = "<group>"; };
 		40EF5D511FBF9612003E0E40 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		40EF5D531FC05EC0003E0E40 /* EditorWindowController+Sheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+Sheets.swift"; sourceTree = "<group>"; };
 		40FFD8EB1FDC1B5E007BA858 /* ModernTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernTabBar.swift; sourceTree = "<group>"; };
@@ -229,6 +239,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4007C7D31FDC72E700A53649 /* LatexDocumentStructureNode */ = {
+			isa = PBXGroup;
+			children = (
+				4007C7D11FDC72E300A53649 /* LatexDocumentStructureNode.swift */,
+				4007C7D41FDC730C00A53649 /* LatexRootDocumentStructureNode.swift */,
+				4007C7D61FDC731B00A53649 /* LatexEnvironmentDocumentStructureNode.swift */,
+				4007C7D81FDC733100A53649 /* LatexSectionDocumentStructureNode.swift */,
+			);
+			path = LatexDocumentStructureNode;
+			sourceTree = "<group>";
+		};
 		400A34431FBA27840070E237 /* Document */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,8 +301,10 @@
 		4061EF321FD9CCD600339546 /* LanguageDelegate */ = {
 			isa = PBXGroup;
 			children = (
-				40AA16F51FB88BA800373B07 /* TeX */,
+				40AA16F61FB88BD700373B07 /* Highlighting */,
+				40AA16F51FB88BA800373B07 /* LaTeX */,
 				40E1D8701FD9CD230077BA90 /* SourceCodeViewLanguageDelegate.swift */,
+				4007C7CF1FDC728300A53649 /* DocumentStructureNode.swift */,
 			);
 			path = LanguageDelegate;
 			sourceTree = "<group>";
@@ -430,13 +453,13 @@
 			path = Collaboration;
 			sourceTree = "<group>";
 		};
-		40AA16F51FB88BA800373B07 /* TeX */ = {
+		40AA16F51FB88BA800373B07 /* LaTeX */ = {
 			isa = PBXGroup;
 			children = (
-				40AA16F61FB88BD700373B07 /* Highlighting */,
-				40E1D8761FD9CD910077BA90 /* TexSourceCodeViewLanguageDelegate.swift */,
+				40E1D8761FD9CD910077BA90 /* LaTeXSourceCodeViewLanguageDelegate.swift */,
+				4007C7D31FDC72E700A53649 /* LatexDocumentStructureNode */,
 			);
-			path = TeX;
+			path = LaTeX;
 			sourceTree = "<group>";
 		};
 		40AA16F61FB88BD700373B07 /* Highlighting */ = {
@@ -690,13 +713,15 @@
 				4048199F1FB8DD9400AAFBF0 /* NewProjectViewController.swift in Sources */,
 				40BD4C3D1FC1C9CF0048ABF6 /* FileTypeHandler.swift in Sources */,
 				40FFD8F21FDC48B1007BA858 /* DocumentStructureItemCell.swift in Sources */,
+				4007C7D91FDC733100A53649 /* LatexSectionDocumentStructureNode.swift in Sources */,
 				40A7D0DE1FB78A3F002FBB8B /* AppDelegate.swift in Sources */,
 				40A13BDA1FD5ECBA0044E897 /* EditSchemeSheet.swift in Sources */,
+				4007C7D21FDC72E300A53649 /* LatexDocumentStructureNode.swift in Sources */,
 				404819A11FB8F37300AAFBF0 /* FileSystemItemCell.swift in Sources */,
 				40EF5D541FC05EC0003E0E40 /* EditorWindowController+Sheets.swift in Sources */,
 				40C88C211FB8B659006F6BB9 /* NavigationOutlineViewController.swift in Sources */,
 				40AA16F81FB88BE700373B07 /* SimpleHighlighter.swift in Sources */,
-				40E1D8771FD9CD910077BA90 /* TexSourceCodeViewLanguageDelegate.swift in Sources */,
+				40E1D8771FD9CD910077BA90 /* LaTeXSourceCodeViewLanguageDelegate.swift in Sources */,
 				40E1D8711FD9CD230077BA90 /* SourceCodeViewLanguageDelegate.swift in Sources */,
 				40AB8C441FB87CE700BC6D82 /* EditorWindowController.swift in Sources */,
 				40BD25E31FBCE2B100211743 /* EditorWindowController+UI.swift in Sources */,
@@ -705,6 +730,7 @@
 				40AA16FC1FB88F5600373B07 /* ThemesHandler.swift in Sources */,
 				4026AC921FBE1CD000FFB18B /* CollaborationClientError.swift in Sources */,
 				40AA16EE1FB8881100373B07 /* CollaborationClient.swift in Sources */,
+				4007C7D51FDC730C00A53649 /* LatexRootDocumentStructureNode.swift in Sources */,
 				40A13BDE1FD5F4C80044E897 /* EditorWindowController+Typeset.swift in Sources */,
 				400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */,
 				40FFD8EE1FDC37FD007BA858 /* NavigationOutlineViewItem.swift in Sources */,
@@ -723,11 +749,13 @@
 				40A13BEB1FD724AC0044E897 /* NavigationOutlineView.swift in Sources */,
 				409176B11FD86ACD0086421B /* FileManager+Helpers.swift in Sources */,
 				40AB8C4B1FB884C900BC6D82 /* CollaborationCursor.swift in Sources */,
+				4007C7D71FDC731B00A53649 /* LatexEnvironmentDocumentStructureNode.swift in Sources */,
 				40AB8C451FB8840F00BC6D82 /* CollaborationSourceCodeView.swift in Sources */,
 				4074B3501FC1BB4A0038176A /* RegexLib.swift in Sources */,
 				40AB8C481FB8841C00BC6D82 /* SourceCodeView.swift in Sources */,
 				40FFD8F01FDC3C4D007BA858 /* CachedProperty.swift in Sources */,
 				40FFD8EC1FDC1B5E007BA858 /* ModernTabBar.swift in Sources */,
+				4007C7D01FDC728300A53649 /* DocumentStructureNode.swift in Sources */,
 				40AB8C491FB8841E00BC6D82 /* SourceCodeRulerView.swift in Sources */,
 				4026ACC71FBF55D700FFB18B /* EditorWindowControllerHelpers.swift in Sources */,
 				40FFD8F41FDC53DB007BA858 /* EditorWindowController+SourceCodeViewDelegate.swift in Sources */,

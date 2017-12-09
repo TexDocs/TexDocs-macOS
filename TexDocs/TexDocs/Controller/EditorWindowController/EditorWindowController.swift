@@ -62,7 +62,7 @@ class EditorWindowController: NSWindowController {
 
         do {
             if let collaborationServer = document.documentData?.collaboration?.server {
-                connectTo(collaborationServer: collaborationServer)
+//                connectTo(collaborationServer: collaborationServer)
             } else {
                 if !FileManager.default.fileExists(atPath: dataFolderURL.path) {
                     try FileManager.default.createDirectory(at: dataFolderURL, withIntermediateDirectories: true, attributes: nil)
