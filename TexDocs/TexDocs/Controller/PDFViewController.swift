@@ -12,10 +12,13 @@ import Quartz
 class PDFViewController: NSViewController {
 
     @IBOutlet weak var pdfView: PDFView!
+    @IBOutlet weak var backButton: NSButton!
+    @IBOutlet weak var nextButton: NSButton!
 
     override func viewDidLoad() {
         pdfView.autoScales = true
-        pdfView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        pdfView.backgroundColor = ThemesHandler.default.color(for: .pdfBackground)
+        updateNavigationButtons()
     }
 
     private func destinationOfCurrentPDF() -> (pageIndex: Int, point: NSPoint, zoom: CGFloat)? {
@@ -40,16 +43,25 @@ class PDFViewController: NSViewController {
             newDestination.zoom = oldDestination.zoom
             pdfView.go(to: newDestination)
         }
+        updateNavigationButtons()
     }
+
+    private func updateNavigationButtons() {
+        backButton.isEnabled = pdfView.canGoToPreviousPage
+        nextButton.isEnabled = pdfView.canGoToNextPage
+    }
+
     @IBAction func enterFullScreen(_ sender: Any) {
         pdfView.autoScales = true
     }
 
     @IBAction func goToPreviousPage(_ sender: Any) {
         pdfView.goToPreviousPage(sender)
+        updateNavigationButtons()
     }
 
     @IBAction func goToNextPage(_ sender: Any) {
         pdfView.goToNextPage(sender)
+        updateNavigationButtons()
     }
 }

@@ -8,17 +8,6 @@
 
 import Foundation
 
-extension EditorWindowController {
-    func reloadOutlineView() {
-        do {
-            try rootDirectory?.updateChildren()
-            outlineViewController.reloadData(inTab: .directory)
-        } catch {
-            showErrorSheet(error)
-        }
-    }
-}
-
 extension EditorWindowController: NavigationOutlineViewControllerDelegate {
     func rootDirectory(for outlineViewController: NavigationOutlineViewController) -> FileSystemItem? {
         return rootDirectory
@@ -29,7 +18,7 @@ extension EditorWindowController: NavigationOutlineViewControllerDelegate {
     }
 
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, selectedFileSystemItem item: FileSystemItem) {
-        editorViewController.open(item)
+        editorViewController.pushToOpenedFiles(item)
     }
 
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, selectedDocumentStructureNode item: DocumentStructureNode) {

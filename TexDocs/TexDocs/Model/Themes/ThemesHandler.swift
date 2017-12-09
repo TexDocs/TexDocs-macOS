@@ -29,4 +29,8 @@ enum ColorKey: String, CodingKey {
     case variable
     case escapedCharacter
     case inlineMath
+    case pdfBackground
+    case editorBackground
+    case consoleBackground
+    case consoleText
 }

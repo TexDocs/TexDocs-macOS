@@ -24,9 +24,10 @@ extension EditorWindowController {
                 guard !event.path.hasPrefix(gitPath) else {
                     return
                 }
-                
+
                 let url = URL(fileURLWithPath: event.path)
-                self?.reloadOutlineView()
+                print(url)
+                self?.srcDirectoryDidChange()
                 
                 // Ignore other changes as well
                 let syncBlock = self?.client.inSync ?? true
@@ -45,5 +46,15 @@ extension EditorWindowController {
 
     func stopDirectoryMonitoring() {
         fileSystemMonitor = nil
+    }
+
+    func srcDirectoryDidChange() {
+        do {
+            try rootDirectory?.updateChildren()
+            outlineViewController.reloadData(inTab: .directory)
+        } catch {
+            showErrorSheet(error)
+        }
+        editorViewController.srcDirectoryDidChange()
     }
 }

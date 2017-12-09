@@ -9,14 +9,56 @@
 import Cocoa
 
 class EditorViewController: NSViewController {
-    @IBOutlet var editorView: CollaborationSourceCodeView!
-    @IBOutlet weak var emptyStateImage: NSImageView!
-    @IBOutlet weak var emptyStateOpenInButton: NSButton!
+    @IBOutlet private var editorView: CollaborationSourceCodeView!
+    @IBOutlet private weak var emptyStateImage: NSImageView!
+    @IBOutlet private weak var emptyStateOpenInButton: NSButton!
+    @IBOutlet private weak var backButton: NSButton!
+    @IBOutlet private weak var nextButton: NSButton!
+    
+    private var fileHistory: [FileSystemItem] = []
+    private var openedFileIndex: Int = -1
+    private var openedFile: FileSystemItem? {
+        guard openedFileIndex > -1 else { return nil }
+        return fileHistory[openedFileIndex]
+    }
 
-    private var opendFile: FileSystemItem?
+    override func viewDidLoad() {
+        editorView.backgroundColor = ThemesHandler.default.color(for: .editorBackground)
+        updateNavigationButtons()
+    }
 
-    func open(_ item: FileSystemItem) {
-        opendFile = item
+    func pushToOpenedFiles(_ item: FileSystemItem) {
+        fileHistory.removeLast(fileHistory.count - openedFileIndex - 1)
+        fileHistory.append(item)
+        openedFileIndex += 1
+        openFileAtFileIndex()
+        updateNavigationButtons()
+    }
+
+    func srcDirectoryDidChange() {
+        var currentIndex = 0
+
+        while currentIndex < fileHistory.count {
+            if fileHistory[currentIndex].isDeleted {
+                fileHistory.remove(at: currentIndex)
+                if currentIndex < openedFileIndex {
+                    openedFileIndex -= 1
+                }
+            } else {
+                currentIndex += 1
+            }
+        }
+
+        openedFileIndex = min(openedFileIndex, fileHistory.count - 1)
+        updateNavigationButtons()
+        openFileAtFileIndex()
+    }
+
+    private func openFileAtFileIndex() {
+        open(item: openedFile)
+    }
+
+    private func open(item: FileSystemItem?) {
         if let editableFileSystemItem = item as? EditableFileSystemItem {
             editorView.openFile(editableFileSystemItem)
             updateEmptyState(withItem: nil)
@@ -46,8 +88,31 @@ class EditorViewController: NSViewController {
         emptyStateOpenInButton.sizeToFit()
     }
 
-    @IBAction func openInDefaultApplication(_ sender: Any) {
-        NSWorkspace.shared.open(opendFile!.url)
+    private func updateNavigationButtons() {
+        backButton.isEnabled = openedFileIndex > 0
+        nextButton.isEnabled = openedFileIndex < fileHistory.count - 1
     }
 
+    @IBAction func openInDefaultApplication(_ sender: Any) {
+        NSWorkspace.shared.open(openedFile!.url)
+    }
+
+    @IBAction func goToPreviousFile(_ sender: Any) {
+        openedFileIndex -= 1
+        openFileAtFileIndex()
+        updateNavigationButtons()
+    }
+
+    @IBAction func goToNextFile(_ sender: Any) {
+        openedFileIndex += 1
+        openFileAtFileIndex()
+        updateNavigationButtons()
+    }
+}
+
+
+extension FileSystemItem {
+    fileprivate var isDeleted: Bool {
+        return !FileManager.default.fileExists(atPath: url.path)
+    }
 }

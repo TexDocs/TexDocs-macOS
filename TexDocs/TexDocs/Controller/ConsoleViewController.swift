@@ -15,6 +15,10 @@ class ConsoleViewController: NSViewController {
         clearConsole()
     }
 
+    override func viewDidLoad() {
+        textView.backgroundColor = ThemesHandler.default.color(for: .consoleBackground)
+    }
+
     func clearConsole() {
         textView.string = ""
     }
@@ -22,5 +26,6 @@ class ConsoleViewController: NSViewController {
     func addString(_ string: String) {
         textView.textStorage?.append(NSAttributedString(string: string))
         textView.scrollRangeToVisible(NSRange(location: textView.string.count, length: 0))
+        textView.textColor = ThemesHandler.default.color(for: .consoleText)
     }
 }

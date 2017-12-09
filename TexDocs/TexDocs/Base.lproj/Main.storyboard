@@ -2156,25 +2156,63 @@ Gw
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="fEI-oA-co4">
                                 <rect key="frame" x="0.0" y="301" width="551" height="5"/>
                             </box>
+                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FGe-l7-Uxd">
+                                <rect key="frame" x="8" y="304" width="44" height="27"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7Gc-gR-Oem">
+                                        <rect key="frame" x="0.0" y="4" width="18" height="19"/>
+                                        <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSGoLeftTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="GFy-hs-tEl">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="cellTitle"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="goToPreviousFile:" target="w3m-v7-CMc" id="1eT-bW-2xH"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pyf-A1-ngf">
+                                        <rect key="frame" x="26" y="4" width="18" height="19"/>
+                                        <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSGoRightTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="OyV-sG-Z5U">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="cellTitle"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="goToNextFile:" target="w3m-v7-CMc" id="5gQ-2V-scy"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Oas-80-fXG" firstAttribute="leading" secondItem="nnH-rj-WVI" secondAttribute="leading" id="1OM-Nk-NFT"/>
                             <constraint firstItem="fEI-oA-co4" firstAttribute="top" secondItem="nnH-rj-WVI" secondAttribute="top" constant="27" id="60O-4N-cmo"/>
+                            <constraint firstItem="FGe-l7-Uxd" firstAttribute="top" secondItem="nnH-rj-WVI" secondAttribute="top" id="7uS-IB-Uyb"/>
                             <constraint firstItem="NBI-5T-ljh" firstAttribute="centerX" secondItem="nnH-rj-WVI" secondAttribute="centerX" id="BxY-PZ-7DB"/>
                             <constraint firstAttribute="bottom" secondItem="Oas-80-fXG" secondAttribute="bottom" id="LF4-Hg-ygk"/>
                             <constraint firstItem="Oas-80-fXG" firstAttribute="top" secondItem="fEI-oA-co4" secondAttribute="bottom" id="SNT-iT-VlT"/>
+                            <constraint firstItem="fEI-oA-co4" firstAttribute="top" secondItem="FGe-l7-Uxd" secondAttribute="bottom" id="SS5-B8-rNd"/>
                             <constraint firstAttribute="trailing" secondItem="Oas-80-fXG" secondAttribute="trailing" id="WHL-DQ-ewV"/>
                             <constraint firstItem="JtB-By-GW9" firstAttribute="top" secondItem="NBI-5T-ljh" secondAttribute="bottom" constant="20" id="aTE-mc-sMe"/>
                             <constraint firstAttribute="trailing" secondItem="fEI-oA-co4" secondAttribute="trailing" id="nVt-Qc-mt1"/>
                             <constraint firstItem="fEI-oA-co4" firstAttribute="leading" secondItem="nnH-rj-WVI" secondAttribute="leading" id="u4V-Ey-Iwh"/>
                             <constraint firstItem="JtB-By-GW9" firstAttribute="centerX" secondItem="nnH-rj-WVI" secondAttribute="centerX" id="uHC-4o-Jab"/>
+                            <constraint firstItem="FGe-l7-Uxd" firstAttribute="leading" secondItem="nnH-rj-WVI" secondAttribute="leading" constant="8" id="vbL-4L-vYg"/>
                             <constraint firstItem="NBI-5T-ljh" firstAttribute="centerY" secondItem="nnH-rj-WVI" secondAttribute="centerY" id="yrQ-ce-vLB"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="7Gc-gR-Oem" id="150-eT-a34"/>
                         <outlet property="editorView" destination="H8s-FE-kuL" id="bKM-40-YAy"/>
                         <outlet property="emptyStateImage" destination="NBI-5T-ljh" id="JaS-j9-lHc"/>
                         <outlet property="emptyStateOpenInButton" destination="JtB-By-GW9" id="tg7-RE-uHo"/>
+                        <outlet property="nextButton" destination="pyf-A1-ngf" id="M7u-RH-pUi"/>
                     </connections>
                 </viewController>
                 <customObject id="Ab1-A2-DAW" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -2284,7 +2322,7 @@ Gw
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iUr-XX-p7X">
                                         <rect key="frame" x="0.0" y="4" width="18" height="19"/>
-                                        <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSGoLeftTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="exN-AM-1c8">
+                                        <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSTouchBarGoUpTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="exN-AM-1c8">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="cellTitle"/>
                                         </buttonCell>
@@ -2294,7 +2332,7 @@ Gw
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TnG-nP-siW">
                                         <rect key="frame" x="26" y="4" width="18" height="19"/>
-                                        <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSGoRightTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="HRE-Ih-U9b">
+                                        <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSTouchBarGoDownTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="HRE-Ih-U9b">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="cellTitle"/>
                                         </buttonCell>
@@ -2351,6 +2389,8 @@ Gw
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="iUr-XX-p7X" id="OJO-JY-waa"/>
+                        <outlet property="nextButton" destination="TnG-nP-siW" id="4DW-Gi-xaU"/>
                         <outlet property="pdfView" destination="ZzK-Do-YY9" id="32H-2m-ymJ"/>
                     </connections>
                 </viewController>
@@ -2375,6 +2415,8 @@ Gw
         <image name="NSSlideshowTemplate" width="17" height="14"/>
         <image name="NSStopProgressFreestandingTemplate" width="11" height="11"/>
         <image name="NSTouchBarFolderTemplate" width="22" height="30"/>
+        <image name="NSTouchBarGoDownTemplate" width="16" height="30"/>
+        <image name="NSTouchBarGoUpTemplate" width="16" height="30"/>
         <image name="NSTouchBarTextBoxTemplate" width="20" height="30"/>
         <image name="NSTrashEmpty" width="32" height="32"/>
     </resources>
