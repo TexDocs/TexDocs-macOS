@@ -13,3 +13,9 @@ extension EditorWindowController: SourceCodeViewDelegate {
         outlineViewController.reloadData(inTab: .structure)
     }
 }
+
+extension EditorWindowController: EditorViewControllerDelegate {
+    func editorViewController(_ editorViewController: EditorViewController, opened editor: Editor) {
+        outlineViewController.reloadData(inTab: .structure)
+    }
+}

@@ -35,7 +35,6 @@ extension EditorWindowController {
             return
         }
 
-
         consoleViewController.clearConsole()
 
         let inputFile = workspaceURL.appendingPathComponent(scheme.path, isDirectory: false)
@@ -59,6 +58,7 @@ extension EditorWindowController {
         ])
         currentTypesetProcess = process
 
+        let originalFirstResponder = window?.firstResponder
         process.setStringOutputHandler { [weak self, weak process] string in
             if string.hasSuffix("? ") {
                 process?.terminate()
@@ -66,6 +66,7 @@ extension EditorWindowController {
 
             DispatchQueue.main.sync { [weak self] in
                 self?.consoleViewController.addString(string)
+                self?.window?.makeFirstResponder(originalFirstResponder)
             }
         }
 

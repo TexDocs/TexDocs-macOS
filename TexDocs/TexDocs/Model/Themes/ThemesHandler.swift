@@ -10,11 +10,11 @@ import Cocoa
 
 class ThemesHandler {
     private init() {
-        current = defaultColorScheme
+        current = defaultScheme
     }
 
     func color(for colorKey: ColorKey) -> NSColor {
-        return current.color(forKey: colorKey) ?? defaultColorScheme.color(forKey: colorKey) ?? .black
+        return current.color(forKey: colorKey) ?? defaultScheme.color(forKey: colorKey) ?? .black
     }
     
     static let `default` = ThemesHandler()

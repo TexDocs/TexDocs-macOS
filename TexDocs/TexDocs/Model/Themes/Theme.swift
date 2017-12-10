@@ -40,14 +40,14 @@ struct Theme: Decodable {
     }
 }
 
-let defaultColorScheme = Theme(colors: [
+let defaultScheme = Theme(colors: [
     .text: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1),
     .comment: #colorLiteral(red: 0, green: 0.456, blue: 0, alpha: 1),
     .keyword: #colorLiteral(red: 0.665, green: 0.052, blue: 0.569, alpha: 1),
     .variable: #colorLiteral(red: 0.11, green: 0, blue: 0.81, alpha: 1),
     .escapedCharacter: #colorLiteral(red: 0.77, green: 0.102, blue: 0.086, alpha: 1),
     .inlineMath: #colorLiteral(red: 0, green: 0.456, blue: 0, alpha: 1),
-    .pdfBackground: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0),
+    .pdfBackground: #colorLiteral(red: 0.9254901961, green: 0.9254901961, blue: 0.9254901961, alpha: 1),
     .editorBackground: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0),
     .consoleBackground: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0),
     .consoleText: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)

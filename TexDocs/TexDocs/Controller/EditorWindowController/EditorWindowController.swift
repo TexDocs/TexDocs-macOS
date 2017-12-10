@@ -178,6 +178,7 @@ class EditorWindowController: NSWindowController {
     
     override func windowDidLoad() {
         outlineViewController.delegate = self
+        editorViewController.delegate = self
         client.delegate = self
         shouldCascadeWindows = true
     }

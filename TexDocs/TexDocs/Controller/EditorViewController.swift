@@ -13,10 +13,11 @@ class EditorViewController: NSViewController {
     @IBOutlet private weak var nextButton: NSButton!
     @IBOutlet weak var editorContainerView: NSView!
 
-    
     private var fileHistory: [Editor] = []
     private var openedFileIndex: Int = -1
     private(set) var openedEditor: Editor?
+
+    weak var delegate: EditorViewControllerDelegate?
 
     var openedFile: FileSystemItem? {
         return openedEditor?.fileSystemItem
@@ -74,6 +75,8 @@ class EditorViewController: NSViewController {
         editor.view.rightAnchor.constraint(equalTo: editorContainerView.rightAnchor).isActive = true
         editor.view.topAnchor.constraint(equalTo: editorContainerView.topAnchor).isActive = true
         editor.view.bottomAnchor.constraint(equalTo: editorContainerView.bottomAnchor).isActive = true
+
+        delegate?.editorViewController(self, opened: editor)
     }
 
     private func updateNavigationButtons() {
@@ -92,6 +95,10 @@ class EditorViewController: NSViewController {
         openEditorAtFileIndex()
         updateNavigationButtons()
     }
+}
+
+protocol EditorViewControllerDelegate: class {
+    func editorViewController(_ editorViewController: EditorViewController, opened editor: Editor)
 }
 
 extension FileSystemItem {
