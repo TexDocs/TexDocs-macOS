@@ -86,9 +86,6 @@ class EditorWindowController: NSWindowController {
 
     func saveAllDocuments() {
         do {
-            DispatchQueue.ensureMain {
-                editorViewController.saveContentToFileSystemItem()
-            }
             for item in rootDirectory?.allSubItems().filterEditable() ?? [] {
                 try item.save()
             }
@@ -101,9 +98,6 @@ class EditorWindowController: NSWindowController {
         do {
             for item in rootDirectory?.allSubItems().filterEditable() ?? [] {
                 try item.reload()
-            }
-            DispatchQueue.main.sync {
-                editorViewController.reloadContentFromFileSystemItem()
             }
         } catch {
             showErrorSheet(error)

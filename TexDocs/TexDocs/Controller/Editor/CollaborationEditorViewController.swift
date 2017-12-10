@@ -21,14 +21,6 @@ class CollaborationEditorViewController: NSViewController, Editor {
         return editor.rootStructureNode?.value
     }
 
-    func saveContentToFileSystemItem() {
-        editableFileSystemItem.string = editor.string
-    }
-
-    func reloadContentFromFileSystemItem() {
-        editor.replaceContent(with: editableFileSystemItem.string)
-    }
-
     func navigate(to documentStructureNode: DocumentStructureNode) {
         editor.setSelectedRange(documentStructureNode.definitionRange)
         editor.scrollRangeToVisible(documentStructureNode.effectiveRange)
@@ -37,10 +29,6 @@ class CollaborationEditorViewController: NSViewController, Editor {
 
     func collaborationCursorsDidChange() {
         editor.collaborationCursorsDidChange()
-    }
-
-    func receivedChange(in range: NSRange, replaceWith replaceString: String) {
-        editor.replaceString(in: range, replaceWith: replaceString, byUser: false)
     }
 
     func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) -> NSPrintOperation? {
@@ -55,18 +43,15 @@ class CollaborationEditorViewController: NSViewController, Editor {
     }
 
     override func viewDidLoad() {
+        editor.layoutManager?.replaceTextStorage(editableFileSystemItem.textStorage)
+        editableFileSystemItem.textStorage.delegate = editor
         editor.languageDelegate = editableFileSystemItem.createLanguageDelegate()
         editor.collaborationDelegate = delegateModel?.collaborationDelegate
         editor.sourceCodeViewDelegate = delegateModel?.sourceCodeViewDelegate
     }
 
     override func viewWillAppear() {
-        reloadContentFromFileSystemItem()
         editor.updateSourceCodeHighlighting(in: editor.stringRange)
-    }
-
-    override func viewDidAppear() {
-        print("bla")
     }
 
     private var delegateModel: CollaborationEditorViewControllerModel?

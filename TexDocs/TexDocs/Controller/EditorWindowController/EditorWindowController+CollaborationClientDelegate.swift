@@ -15,17 +15,11 @@ extension EditorWindowController {
     }
 
     func receivedChange(in range: NSRange, replaceWith replaceString: String, inFile relativeFilePath: String) {
-        if relativePathOfOpenedFile() == relativeFilePath {
-            DispatchQueue.main.async {
-                self.editorViewController.openedEditor?.receivedChange(in: range, replaceWith: replaceString)
-            }
-        } else {
-            guard let fileSystemItem = rootDirectory?.findChild(withRelativePath: relativeFilePath, includesRootItemsName: true) as? EditableFileSystemItem else {
-                return
-            }
-            fileSystemItem.string.replaceString(in: range, replacementString: replaceString)
-            editedDocument()
+        guard let fileSystemItem = rootDirectory?.findChild(withRelativePath: relativeFilePath, includesRootItemsName: true) as? EditableFileSystemItem else {
+            return
         }
+        fileSystemItem.textStorage.replaceCharacters(in: range, with: replaceString, byUser: false)
+        editedDocument()
     }
 }
 

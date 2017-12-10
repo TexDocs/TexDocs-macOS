@@ -12,12 +12,8 @@ protocol Editor: class {
     var fileSystemItem: FileSystemItem! { get }
     var rootDocumentStructureNode: DocumentStructureNode? { get }
 
-    func saveContentToFileSystemItem()
-    func reloadContentFromFileSystemItem()
-
     func navigate(to documentStructureNode: DocumentStructureNode)
     func collaborationCursorsDidChange()
-    func receivedChange(in range: NSRange, replaceWith replaceString: String)
 
     func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) -> NSPrintOperation?
 
@@ -78,25 +74,12 @@ class EditorViewController: NSViewController {
         openEditorAtFileIndex()
     }
 
-    func saveContentToFileSystemItem() {
-        for editor in fileHistory {
-            editor.saveContentToFileSystemItem()
-        }
-    }
-
-    func reloadContentFromFileSystemItem() {
-        for editor in fileHistory {
-            editor.reloadContentFromFileSystemItem()
-        }
-    }
-
     private func openEditorAtFileIndex() {
         open(editor: fileHistory[openedFileIndex])
     }
 
     private func open(editor: Editor) {
         openedEditor?.view.removeFromSuperview()
-        openedEditor?.saveContentToFileSystemItem()
         editorContainerView.addSubview(editor.view)
         openedEditor = editor
 

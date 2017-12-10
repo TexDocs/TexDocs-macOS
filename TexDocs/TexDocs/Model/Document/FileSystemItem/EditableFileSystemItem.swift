@@ -6,33 +6,25 @@
 //  Copyright © 2017 TexDocs. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 class EditableFileSystemItem: FileSystemItem {
-    var string: String {
-        didSet {
-            modified = true
-        }
-    }
+    let textStorage = NSTextStorage()
 
     private(set) var modified = false
 
     override init(_ url: URL) throws {
-        string = try String(contentsOf: url)
-
         try super.init(url)
+        try reload()
     }
 
     func save() throws {
-        if modified {
-            try string.write(to: url, atomically: false, encoding: .utf8)
-            modified = false
-        }
+        try textStorage.string.write(to: url, atomically: false, encoding: .utf8)
     }
 
     func reload() throws {
-        string = try String(contentsOf: url)
-        modified = false
+        let newString = try String(contentsOf: url)
+        textStorage.replaceContent(with: newString)
     }
 
     func createLanguageDelegate() -> SourceCodeViewLanguageDelegate? {
