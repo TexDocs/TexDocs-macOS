@@ -115,11 +115,13 @@ class EditorWindowController: NSWindowController {
                 collaborationDelegate: self,
                 sourceCodeViewDelegate: self)
         } else {
-            return EmptyStateEditorViewController.instantiateController(withFileSystemItem: fileSystemItem)
+            if fileSystemItem.url.pathExtension == "" {
+                return EmptyStateEditorViewController.instantiateController(withFileSystemItem: fileSystemItem)
+            } else {
+                return WebViewEditorViewController.instantiateController(withFileSystemItem: fileSystemItem)
+            }
         }
     }
-
-
 
     var selectedSchemeMenuItem: SchemeMenuItem? = nil
 

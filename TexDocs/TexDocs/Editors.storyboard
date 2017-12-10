@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.WebKit2IBPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -892,6 +893,37 @@
                 <customObject id="SQU-jT-Wzo" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="119" y="458"/>
+        </scene>
+        <!--Web View Editor View Controller-->
+        <scene sceneID="7v3-Z5-0Yo">
+            <objects>
+                <viewController storyboardIdentifier="WebViewEditorViewController" id="0Ey-Yt-fZb" customClass="WebViewEditorViewController" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="XvP-re-ZTs">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <wkWebView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4UR-0t-kzg">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="4UR-0t-kzg" secondAttribute="trailing" id="aa4-oJ-BF1"/>
+                            <constraint firstItem="4UR-0t-kzg" firstAttribute="top" secondItem="XvP-re-ZTs" secondAttribute="top" id="irJ-fR-asu"/>
+                            <constraint firstAttribute="bottom" secondItem="4UR-0t-kzg" secondAttribute="bottom" id="pht-WB-hZd"/>
+                            <constraint firstItem="4UR-0t-kzg" firstAttribute="leading" secondItem="XvP-re-ZTs" secondAttribute="leading" id="yHM-Vf-tGz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="4UR-0t-kzg" id="Nb0-BQ-jl1"/>
+                    </connections>
+                </viewController>
+                <customObject id="qrc-Y3-K9T" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="119" y="830"/>
         </scene>
     </scenes>
     <resources>

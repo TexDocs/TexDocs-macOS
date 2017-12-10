@@ -38,10 +38,6 @@ class CollaborationEditorViewController: NSViewController, Editor {
         return NSPrintOperation(view: editor, printInfo: NSPrintInfo(dictionary: settings))
     }
 
-    func removeFromSuperview() {
-        view.removeFromSuperview()
-    }
-
     override func viewDidLoad() {
         editor.layoutManager?.replaceTextStorage(editableFileSystemItem.textStorage)
         editableFileSystemItem.textStorage.delegate = editor
@@ -56,7 +52,7 @@ class CollaborationEditorViewController: NSViewController, Editor {
 
     private var delegateModel: CollaborationEditorViewControllerModel?
 
-    static func instantiateController(withFileSystemItem fileSystemItem: EditableFileSystemItem, collaborationDelegate: CollaborationSourceCodeViewDelegate?, sourceCodeViewDelegate: SourceCodeViewDelegate) -> Editor {
+    static func instantiateController(withFileSystemItem fileSystemItem: EditableFileSystemItem, collaborationDelegate: CollaborationSourceCodeViewDelegate?, sourceCodeViewDelegate: SourceCodeViewDelegate) -> CollaborationEditorViewController {
         let editorController = NSStoryboard(name: NSStoryboard.Name(rawValue: "Editors"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "CollaborationEditorViewController")) as! CollaborationEditorViewController
         editorController.editableFileSystemItem = fileSystemItem
         editorController.delegateModel = CollaborationEditorViewControllerModel(collaborationDelegate: collaborationDelegate, sourceCodeViewDelegate: sourceCodeViewDelegate)

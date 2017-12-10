@@ -8,20 +8,6 @@
 
 import Cocoa
 
-protocol Editor: class {
-    var fileSystemItem: FileSystemItem! { get }
-    var rootDocumentStructureNode: DocumentStructureNode? { get }
-
-    func navigate(to documentStructureNode: DocumentStructureNode)
-    func collaborationCursorsDidChange()
-
-    func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) -> NSPrintOperation?
-
-    // MARK: NSViewController functions
-    func removeFromSuperview()
-    var view: NSView { get }
-}
-
 class EditorViewController: NSViewController {
     @IBOutlet private weak var backButton: NSButton!
     @IBOutlet private weak var nextButton: NSButton!

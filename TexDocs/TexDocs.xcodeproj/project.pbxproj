@@ -16,6 +16,8 @@
 		4007C7DD1FDC8E2B00A53649 /* Editors.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4007C7DC1FDC8E2B00A53649 /* Editors.storyboard */; };
 		4007C7E01FDCB3C900A53649 /* CollaborationEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7DF1FDCB3C900A53649 /* CollaborationEditorViewController.swift */; };
 		4007C7E21FDCB42900A53649 /* EmptyStateEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7E11FDCB42900A53649 /* EmptyStateEditorViewController.swift */; };
+		4007C7E41FDCD15A00A53649 /* WebViewEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7E31FDCD15A00A53649 /* WebViewEditorViewController.swift */; };
+		4007C7E61FDCD1B900A53649 /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7E51FDCD1B900A53649 /* Editor.swift */; };
 		400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A34491FBA27E60070E237 /* DocumentData.swift */; };
 		400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 400D97B51FBA3E1800540207 /* Quartz.framework */; };
 		4026AC8D1FBCE91D00FFB18B /* Sheets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */; };
@@ -148,6 +150,8 @@
 		4007C7DC1FDC8E2B00A53649 /* Editors.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Editors.storyboard; sourceTree = "<group>"; };
 		4007C7DF1FDCB3C900A53649 /* CollaborationEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationEditorViewController.swift; sourceTree = "<group>"; };
 		4007C7E11FDCB42900A53649 /* EmptyStateEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateEditorViewController.swift; sourceTree = "<group>"; };
+		4007C7E31FDCD15A00A53649 /* WebViewEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewEditorViewController.swift; sourceTree = "<group>"; };
+		4007C7E51FDCD1B900A53649 /* Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
 		400A34491FBA27E60070E237 /* DocumentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentData.swift; sourceTree = "<group>"; };
 		400D97B51FBA3E1800540207 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Sheets.storyboard; sourceTree = "<group>"; };
@@ -263,6 +267,8 @@
 			children = (
 				4007C7DF1FDCB3C900A53649 /* CollaborationEditorViewController.swift */,
 				4007C7E11FDCB42900A53649 /* EmptyStateEditorViewController.swift */,
+				4007C7E31FDCD15A00A53649 /* WebViewEditorViewController.swift */,
+				4007C7E51FDCD1B900A53649 /* Editor.swift */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -734,6 +740,7 @@
 				4048199F1FB8DD9400AAFBF0 /* NewProjectViewController.swift in Sources */,
 				40BD4C3D1FC1C9CF0048ABF6 /* FileTypeHandler.swift in Sources */,
 				40FFD8F21FDC48B1007BA858 /* DocumentStructureItemCell.swift in Sources */,
+				4007C7E41FDCD15A00A53649 /* WebViewEditorViewController.swift in Sources */,
 				4007C7D91FDC733100A53649 /* LatexSectionDocumentStructureNode.swift in Sources */,
 				40A7D0DE1FB78A3F002FBB8B /* AppDelegate.swift in Sources */,
 				40A13BDA1FD5ECBA0044E897 /* EditSchemeSheet.swift in Sources */,
@@ -763,6 +770,7 @@
 				40BD25E11FBCDC3400211743 /* NewProjectOpenMethod.swift in Sources */,
 				40A13BF21FD731410044E897 /* FileSystemItem.swift in Sources */,
 				40AB8C4D1FB8866200BC6D82 /* EditorViewController.swift in Sources */,
+				4007C7E61FDCD1B900A53649 /* Editor.swift in Sources */,
 				40322FEF1FC2238600C75CEF /* EditorWindowController+FSMonitoring.swift in Sources */,
 				407302C21FBF630D00D5AB8F /* EditorWindowControllerGitHelper.swift in Sources */,
 				40322FED1FC2232F00C75CEF /* EditorWindowController+OutlineViewControllerDelegate.swift in Sources */,

@@ -12,7 +12,6 @@ class EmptyStateEditorViewController: NSViewController, Editor {
     @IBOutlet weak var imageView: NSImageView!
     @IBOutlet weak var openInButton: NSButton!
 
-
     var fileSystemItem: FileSystemItem!
 
     var rootDocumentStructureNode: DocumentStructureNode?
@@ -29,10 +28,6 @@ class EmptyStateEditorViewController: NSViewController, Editor {
 
     func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) -> NSPrintOperation? {
         return nil
-    }
-
-    func removeFromSuperview() {
-        view.removeFromSuperview()
     }
 
     override func viewDidLoad() {
@@ -52,7 +47,7 @@ class EmptyStateEditorViewController: NSViewController, Editor {
         NSWorkspace.shared.open(fileSystemItem.url)
     }
 
-    static func instantiateController(withFileSystemItem fileSystemItem: FileSystemItem) -> Editor {
+    static func instantiateController(withFileSystemItem fileSystemItem: FileSystemItem) -> EmptyStateEditorViewController {
         let editorController = NSStoryboard(name: NSStoryboard.Name(rawValue: "Editors"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "EmptyStateEditorViewController")) as! EmptyStateEditorViewController
         editorController.fileSystemItem = fileSystemItem
         return editorController
