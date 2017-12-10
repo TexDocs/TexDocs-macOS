@@ -36,7 +36,7 @@ extension EditorWindowController {
         }
     }
     
-    private func showUserNotificationSheet(text: String, action: (() -> Void)? = nil) {
+    func showUserNotificationSheet(text: String, action: (() -> Void)? = nil) {
         DispatchQueue.main.async { [weak self] in
             self?.showSheetIfRequired()
             self?.notificationSheet.updateLabel(text: text)

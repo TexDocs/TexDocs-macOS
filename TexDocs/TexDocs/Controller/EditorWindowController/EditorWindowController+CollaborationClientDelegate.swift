@@ -25,11 +25,13 @@ extension EditorWindowController {
 
 extension EditorWindowController: CollaborationClientDelegate {
     func collaborationClient(_ client: CollaborationClient, didDisconnectedBecause reason: String) {
-        showErrorSheet(withCustomMessage: reason)
+        showUserNotificationSheet(text: reason)
+        updateConnectionState(newState: false)
     }
 
     func collaborationClient(_ client: CollaborationClient, encounteredError error: Error) {
-        showErrorSheet(error)
+        showUserNotificationSheet(text: error.localizedDescription)
+        updateConnectionState(newState: false)
     }
 
     func collaborationClient(_ client: CollaborationClient, didReceivedChangeIn range: NSRange, replacedWith replaceString: String, inFile relativeFilePath: String) {
@@ -43,6 +45,7 @@ extension EditorWindowController: CollaborationClientDelegate {
     }
 
     func collaborationClient(_ client: CollaborationClient, didConnectedAndReceivedRepositoryURL repositoryURL: URL) {
+        updateConnectionState(newState: true)
         do {
             guard let oldRepositoryURL = texDocsDocument.documentData?.collaboration?.repository?.url else {
                 repository = try self.clone(repositoryURL: repositoryURL) {
@@ -167,6 +170,12 @@ extension EditorWindowController: CollaborationClientDelegate {
             reloadAllDocuments()
         } catch {
             showErrorSheet(error)
+        }
+    }
+
+    func updateConnectionState(newState: Bool) {
+        DispatchQueue.main.async {
+            self.reconnectButton.isEnabled = !newState
         }
     }
 }

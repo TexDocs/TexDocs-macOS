@@ -35,6 +35,27 @@ extension DocumentStructureNode {
         cell.structureNode = self
         return cell
     }
+
+    func path(toPosition position: Int) -> [DocumentStructureNode] {
+        var resultPath: [DocumentStructureNode] = []
+        path(toPosition: position, resultPath: &resultPath)
+        return resultPath
+    }
+
+    func path(toPosition position: Int, resultPath: inout [DocumentStructureNode])  {
+        resultPath.append(self)
+
+        guard let newPathElement = subNodes.first(where: { $0.effectiveRange.contains(position) }) else {
+            return
+        }
+
+        newPathElement.path(toPosition: position, resultPath: &resultPath)
+    }
+}
+
+protocol ClosableDocumentStructureNode {
+    var closed: Bool { get }
+    var closeString: String { get }
 }
 
 enum DocumentStructureNodeNodeType {
@@ -42,8 +63,6 @@ enum DocumentStructureNodeNodeType {
     case sectioning
     case environment
 }
-
-
 
 struct RegularExpressionMatch {
     let captureGroups: [CaptureGroup]

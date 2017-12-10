@@ -20,7 +20,7 @@ struct LatexEnvironmentDocumentStructureNode: AutoHandlingLatexDocumentStructure
 
     init(match: RegularExpressionMatch) {
         self.definitionRange = match.captureGroups[0].range
-        self.effectiveRange = match.captureGroups[0].range
+        self.effectiveRange = NSRange(location: match.captureGroups[0].range.location, length: Int.max)
         self.displayName = match.captureGroups[2].string
     }
 
@@ -29,7 +29,7 @@ struct LatexEnvironmentDocumentStructureNode: AutoHandlingLatexDocumentStructure
             return false
         }
 
-        guard match.captureGroups[1].string == "end" else {
+        guard match.captureGroups[1].string == "end", match.captureGroups[2].string == displayName else {
             guard let newNode = newNode(for: match) else {
                 return false
             }
@@ -42,4 +42,16 @@ struct LatexEnvironmentDocumentStructureNode: AutoHandlingLatexDocumentStructure
         completed = true
         return true
     }
+}
+
+extension LatexEnvironmentDocumentStructureNode: ClosableDocumentStructureNode {
+    var closed: Bool {
+        return completed
+    }
+
+    var closeString: String {
+        return "\\end{\(displayName)}"
+    }
+
+
 }

@@ -21,7 +21,7 @@ struct LatexSectionDocumentStructureNode: AutoHandlingLatexDocumentStructureNode
 
     init(match: RegularExpressionMatch) {
         self.definitionRange = match.captureGroups[0].range
-        self.effectiveRange = match.captureGroups[0].range
+        self.effectiveRange = NSRange(location: match.captureGroups[0].range.location, length: Int.max)
         self.displayName = match.captureGroups[2].string
         self.sectionLevel = LatexSectionDocumentStructureNode.levelOfSection(withType: match.captureGroups[1].string)
     }
@@ -31,8 +31,9 @@ struct LatexSectionDocumentStructureNode: AutoHandlingLatexDocumentStructureNode
             return false
         }
 
-        let potentialSectionlevel = LatexSectionDocumentStructureNode.levelOfSection(withType: match.captureGroups[1].string)
-        guard potentialSectionlevel > 0, potentialSectionlevel <= sectionLevel else {
+        let command = match.captureGroups[1].string
+        let potentialSectionlevel = LatexSectionDocumentStructureNode.levelOfSection(withType: command)
+        guard (command == "end") || (potentialSectionlevel > 0 && potentialSectionlevel <= sectionLevel) else {
             guard let newNode = newNode(for: match) else {
                 return false
             }

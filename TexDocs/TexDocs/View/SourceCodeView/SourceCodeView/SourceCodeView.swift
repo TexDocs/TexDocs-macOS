@@ -41,7 +41,21 @@ class SourceCodeView: ImprovedTextView {
         super.viewDidMoveToSuperview()
         setUpLineNumberRuler()
     }
-    
+
+    override func insertNewline(_ sender: Any?) {
+        super.insertNewline(sender)
+
+        if let path = rootStructureNode?.value?.path(toPosition: selectedRange().location - 1) {
+            insertText(String(repeating: " ", count: (path.count - 1) * 4))
+
+            if let closableDocumentStructureNode = path.last as? ClosableDocumentStructureNode, !closableDocumentStructureNode.closed {
+                let selection = selectedRange()
+                insertText("\n" + String(repeating: " ", count: (path.count - 2) * 4) + closableDocumentStructureNode.closeString)
+                setSelectedRange(selection)
+            }
+        }
+    }
+
     // MARK: Line Number
 
     override func updateRuler() {

@@ -741,12 +741,30 @@ Gw
                                     </button>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="C0b-MK-Tna"/>
+                                <toolbarItem implicitItemIdentifier="E7C79CC6-E9FB-4C52-B291-F26E2EA98E13" label="Reconnect" paletteLabel="Reconnect" image="NSRefreshTemplate" id="wde-9J-aUH">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="82" height="32"/>
+                                    <size key="maxSize" width="82" height="32"/>
+                                    <button key="view" verticalHuggingPriority="750" id="zrz-bz-YNZ">
+                                        <rect key="frame" x="0.0" y="14" width="82" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSRefreshTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="BBF-vv-qep">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="reconnectButtonClicked:" target="jGA-0Y-lOj" id="S8k-gS-pmi"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="NqJ-Qa-hh6"/>
                                 <toolbarItem reference="xab-RK-WiN"/>
                                 <toolbarItem reference="SQ4-WP-4Zb"/>
                                 <toolbarItem reference="1lE-0l-ejD"/>
+                                <toolbarItem reference="2Bc-3Z-sQY"/>
+                                <toolbarItem reference="wde-9J-aUH"/>
                                 <toolbarItem reference="2Bc-3Z-sQY"/>
                                 <toolbarItem reference="C0b-MK-Tna"/>
                                 <toolbarItem reference="AAR-pa-u7A"/>
@@ -761,8 +779,9 @@ Gw
                     </window>
                     <connections>
                         <outlet property="autoTypesetToggle" destination="p9s-i2-SLO" id="Vjv-aC-n4B"/>
+                        <outlet property="reconnectButton" destination="zrz-bz-YNZ" id="zLN-RB-GX5"/>
                         <outlet property="schemeSelector" destination="Pno-Lv-Lpd" id="JoH-9N-Uhh"/>
-                        <outlet property="stopProcessButton" destination="4mE-9q-EWj" id="ys3-rA-AyT"/>
+                        <outlet property="stopProcessButton" destination="4mE-9q-EWj" id="2ar-rn-65M"/>
                         <outlet property="typesetButton" destination="Mak-y3-QJk" id="Txf-8J-TyQ"/>
                         <segue destination="YHY-yB-G6S" kind="relationship" relationship="window.shadowedContentViewController" id="9NU-Vf-HJS"/>
                     </connections>
@@ -1295,6 +1314,7 @@ Gw
         <image name="NSGoRightTemplate" width="9" height="12"/>
         <image name="NSListViewTemplate" width="14" height="10"/>
         <image name="NSPathTemplate" width="16" height="10"/>
+        <image name="NSRefreshTemplate" width="11" height="15"/>
         <image name="NSSlideshowTemplate" width="17" height="14"/>
         <image name="NSStopProgressFreestandingTemplate" width="11" height="11"/>
         <image name="NSTouchBarFolderTemplate" width="22" height="30"/>

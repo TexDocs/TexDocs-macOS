@@ -25,11 +25,15 @@ class CollaborationClient {
         return syncStatus != .notSyncing
     }
     
-    func connect(to url: URL) {
+    func connect(to url: URL? = nil) {
         ignoreClosingReason = false
         syncStatus = .notSyncing
         editsInSyncMode = []
-        webSocket.open(nsurl: url)
+        if let url = url {
+            webSocket.open(nsurl: url)
+        } else {
+            webSocket.open()
+        }
         webSocket.delegate = self
     }
     

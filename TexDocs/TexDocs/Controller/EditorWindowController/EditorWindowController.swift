@@ -61,8 +61,9 @@ class EditorWindowController: NSWindowController {
         reloadSchemeSelector()
 
         do {
+            updateConnectionState(newState: false)
             if let collaborationServer = document.documentData?.collaboration?.server {
-//                connectTo(collaborationServer: collaborationServer)
+                connectTo(collaborationServer: collaborationServer)
             } else {
                 if !FileManager.default.fileExists(atPath: dataFolderURL.path) {
                     try FileManager.default.createDirectory(at: dataFolderURL, withIntermediateDirectories: true, attributes: nil)
@@ -95,12 +96,14 @@ class EditorWindowController: NSWindowController {
     }
 
     func reloadAllDocuments() {
-        do {
-            for item in rootDirectory?.allSubItems().filterEditable() ?? [] {
-                try item.reload()
+        DispatchQueue.main.async { [weak self] in
+            do {
+                for item in self?.rootDirectory?.allSubItems().filterEditable() ?? [] {
+                    try item.reload()
+                }
+            } catch {
+                self?.showErrorSheet(error)
             }
-        } catch {
-            showErrorSheet(error)
         }
     }
 
@@ -186,6 +189,7 @@ class EditorWindowController: NSWindowController {
     @IBOutlet weak var typesetButton: NSButton!
     @IBOutlet weak var stopProcessButton: NSButton!
     @IBOutlet weak var autoTypesetToggle: NSButton!
+    @IBOutlet weak var reconnectButton: NSButton!
 
     // MARK: Actions
     
@@ -224,6 +228,10 @@ class EditorWindowController: NSWindowController {
             return
         }
         selectedSchemeMenuItem = newSelection
+    }
+
+    @IBAction func reconnectButtonClicked(_ sender: Any) {
+        client.connect()
     }
 }
 

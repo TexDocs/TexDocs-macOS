@@ -67,6 +67,91 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
         }
         return totalCharactersAdded
     }
+
+    override func insertText(_ insertString: Any) {
+        insertText(insertString, replacementRange: selectedRange())
+    }
+
+    override func insertText(_ string: Any, replacementRange: NSRange) {
+        super.insertText(string, replacementRange: replacementRange)
+
+        if let string = string as? String, let autocloseString = EditorAutoClose[string] {
+            super.insertText(autocloseString, replacementRange: NSRange(location: NSMaxRange(replacementRange) + 1, length: 0))
+            moveBackward(nil)
+        }
+    }
+
+    override func deleteBackward(_ sender: Any?) {
+        let leftStringStart = max(selectedRange().length > 0 ? selectedRange().location : (selectedRange().location - 1), 0)
+
+        let leftString = nsString.substring(with: NSRange(location: leftStringStart, length: 1))
+
+        super.deleteBackward(sender)
+
+        if let closingString = EditorAutoClose[leftString], NSMaxRange(selectedRange()) < string.count {
+            let rightString = nsString.substring(with: NSRange(location: NSMaxRange(selectedRange()), length: 1))
+            if closingString == rightString {
+                super.deleteForward(sender)
+            }
+        }
+    }
+
+    override func moveToLeftEndOfLine(_ sender: Any?) {
+        guard let match = ImprovedTextView.lineBeginningSpaces.firstMatch(in: string, options: .anchored, range: currentLineRange),
+            NSMaxRange(match.range) < selectedRange().location else {
+                super.moveToLeftEndOfLine(sender)
+                return
+        }
+        self.setSelectedRange(NSRange(location: NSMaxRange(match.range), length: 0))
+    }
+
+    override func keyDown(with event: NSEvent) {
+        let string = event.charactersIgnoringModifiers
+        let commandModifier = event.modifierFlags.contains(NSEvent.ModifierFlags.command)
+
+        if commandModifier && string == "]" {
+            incraseIndent()
+        } else if commandModifier && string == "[" {
+            decreaseIndent()
+        } else {
+            super.keyDown(with: event)
+        }
+    }
+
+    open func incraseIndent() {
+        updateIndent() {
+            return (($0 / 4 + 1) * 4)
+        }
+    }
+
+    open func decreaseIndent() {
+        updateIndent() {
+            return max((Int(ceil((Double($0) / Double(4))) - 1) * 4), 0)
+        }
+    }
+
+    private func updateIndent(newIndentBlock: (Int) -> Int) {
+        let initialSelection = selectedRange()
+
+        var firstLineCharactersAdded = 0
+
+        let totalCharactersAdded = lines(inRange: currentLineRange) { (_, lineRange) in
+            let spaceMatch = ImprovedTextView.lineBeginningSpaces.firstMatch(in: string, options: [], range: lineRange)!
+            let currentIndent = spaceMatch.range.length
+            let targetIndent = newIndentBlock(currentIndent)
+            insertText(String(repeating: " ", count: targetIndent), replacementRange: spaceMatch.range)
+
+            let deltaCharacters = targetIndent - currentIndent
+            if firstLineCharactersAdded == 0 {
+                firstLineCharactersAdded = deltaCharacters
+            }
+            return targetIndent - currentIndent
+        }
+
+        setSelectedRange(NSRange(location: initialSelection.location + firstLineCharactersAdded, length: initialSelection.length + totalCharactersAdded - firstLineCharactersAdded))
+    }
+
+    private static let lineBeginningSpaces = try! NSRegularExpression(pattern: "^(\\s*)", options: .caseInsensitive)
     
     // MARK: Text did change
 
@@ -117,3 +202,13 @@ extension NSTextStorage {
         textViewDelegate?.userInitiated = true
     }
 }
+
+private let EditorAutoClose = [
+    "[": "]",
+    "{": "}",
+    "<": ">",
+    "(": ")",
+    "$": "$",
+    "\"": "\"",
+    "'": "'"
+]

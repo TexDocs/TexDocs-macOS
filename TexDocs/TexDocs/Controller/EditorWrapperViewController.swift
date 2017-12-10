@@ -35,7 +35,7 @@ class EditorWrapperViewController: NSViewController {
         editorControllerHistory.removeLast(editorControllerHistory.count - openedEditorControllerIndex - 1)
         editorControllerHistory.append(editorController)
         openedEditorControllerIndex += 1
-        openEditorAtFileIndex()
+        openEditorControllerAtCurrentIndex()
         updateNavigationButtons()
     }
 
@@ -58,10 +58,13 @@ class EditorWrapperViewController: NSViewController {
 
         openedEditorControllerIndex = min(openedEditorControllerIndex, editorControllerHistory.count - 1)
         updateNavigationButtons()
-        openEditorAtFileIndex()
+        openEditorControllerAtCurrentIndex()
     }
 
-    private func openEditorAtFileIndex() {
+    private func openEditorControllerAtCurrentIndex() {
+        guard openedEditorControllerIndex >= 0 else {
+            return
+        }
         open(editor: editorControllerHistory[openedEditorControllerIndex])
     }
 
@@ -86,13 +89,13 @@ class EditorWrapperViewController: NSViewController {
 
     @IBAction func goToPreviousFile(_ sender: Any) {
         openedEditorControllerIndex -= 1
-        openEditorAtFileIndex()
+        openEditorControllerAtCurrentIndex()
         updateNavigationButtons()
     }
 
     @IBAction func goToNextFile(_ sender: Any) {
         openedEditorControllerIndex += 1
-        openEditorAtFileIndex()
+        openEditorControllerAtCurrentIndex()
         updateNavigationButtons()
     }
 }
