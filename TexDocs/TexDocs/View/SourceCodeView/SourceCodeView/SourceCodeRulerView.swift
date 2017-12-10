@@ -38,16 +38,21 @@ class SourceCodeRulerView: NSRulerView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func drawLineNumber(_ lineNumber: Int, atY y: CGFloat) -> CGFloat {
-        let text = NSAttributedString(
+    private func drawLineNumber(text: NSAttributedString, atY y: CGFloat) {
+//        let text = NSAttributedString(
+//            string: String(lineNumber),
+//            attributes: [NSAttributedStringKey.foregroundColor: lineNumberColor]
+//        )
+
+        let drawWidth = text.size().width
+        text.draw(at: NSPoint(x: ruleThickness - drawWidth - padding, y: y))
+    }
+
+    private func prepareDrawLineNumber(_ lineNumber: Int) -> NSAttributedString {
+        return NSAttributedString(
             string: String(lineNumber),
             attributes: [NSAttributedStringKey.foregroundColor: lineNumberColor]
         )
-        
-        let drawWidth = text.size().width
-        text.draw(at: NSPoint(x: ruleThickness - drawWidth - padding, y: y))
-        
-        return drawWidth
     }
     
     override func drawHashMarksAndLabels(in rect: NSRect) {
@@ -68,22 +73,32 @@ class SourceCodeRulerView: NSRulerView {
         // count line numbers in invisible range
         let invisibleRange = NSRange(location: 0, length: firstVisibleCharacterIndex)
         var lineNumber = NewLineRegex.numberOfMatches(in: textView.string, options: [], range: invisibleRange)
-        var maxWith: CGFloat = 0
+
+        var lineNumberTexts: [(NSAttributedString, CGFloat)] = []
         
         textView.lines(inRange: visibleGlyphRange) { (_, lineRange) in
             lineNumber += 1
             var effectiveRange = NSRange(location: 0, length: 0)
             let lineYPosition = layoutManager.lineFragmentRect(forGlyphAt: lineRange.location, effectiveRange: &effectiveRange, withoutAdditionalLayout: true).origin.y
-            maxWith = max(drawLineNumber(lineNumber, atY: lineYPosition + relativeYTranslation), maxWith)
+            lineNumberTexts.append((prepareDrawLineNumber(lineNumber), lineYPosition + relativeYTranslation))
+//            maxWith = max(drawLineNumber(lineNumber, atY: lineYPosition + relativeYTranslation), maxWith)
             return 0
         }
 
         if layoutManager.extraLineFragmentRect.height != 0 {
-            lineNumber += 1
-            maxWith = max(drawLineNumber(lineNumber, atY: layoutManager.extraLineFragmentRect.origin.y + relativeYTranslation), maxWith)
+            lineNumberTexts.append((prepareDrawLineNumber(lineNumber + 1), layoutManager.extraLineFragmentRect.origin.y + relativeYTranslation))
+//            maxWith = max(drawLineNumber(lineNumber + 1, atY: layoutManager.extraLineFragmentRect.origin.y + relativeYTranslation), maxWith)
         }
 
-        self.ruleThickness = max(maxWith, 20) + 2 * padding
+        let maxWidth = lineNumberTexts.reduce(0) { (oldMaxWidth, lineNumberText) in
+            return max(oldMaxWidth, lineNumberText.0.size().width)
+        }
+        ruleThickness = max(maxWidth, 20) + 2 * padding
+
+        lineNumberTexts.forEach {
+            drawLineNumber(text: $0.0, atY: $0.1)
+        }
+
     }
     
     func redrawLineNumbers() {

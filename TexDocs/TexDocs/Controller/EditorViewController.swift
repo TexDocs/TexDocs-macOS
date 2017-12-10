@@ -8,30 +8,51 @@
 
 import Cocoa
 
+protocol Editor: class {
+    var fileSystemItem: FileSystemItem! { get }
+    var rootDocumentStructureNode: DocumentStructureNode? { get }
+
+    func saveContentToFileSystemItem()
+    func reloadContentFromFileSystemItem()
+
+    func navigate(to documentStructureNode: DocumentStructureNode)
+    func collaborationCursorsDidChange()
+    func receivedChange(in range: NSRange, replaceWith replaceString: String)
+
+    func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) -> NSPrintOperation?
+
+    // MARK: NSViewController functions
+    func removeFromSuperview()
+    var view: NSView { get }
+}
+
 class EditorViewController: NSViewController {
-    @IBOutlet private var editorView: CollaborationSourceCodeView!
-    @IBOutlet private weak var emptyStateImage: NSImageView!
-    @IBOutlet private weak var emptyStateOpenInButton: NSButton!
     @IBOutlet private weak var backButton: NSButton!
     @IBOutlet private weak var nextButton: NSButton!
+    @IBOutlet weak var editorContainerView: NSView!
+
     
-    private var fileHistory: [FileSystemItem] = []
+    private var fileHistory: [Editor] = []
     private var openedFileIndex: Int = -1
-    private var openedFile: FileSystemItem? {
-        guard openedFileIndex > -1 else { return nil }
-        return fileHistory[openedFileIndex]
+    private(set) var openedEditor: Editor?
+
+    var openedFile: FileSystemItem? {
+        return openedEditor?.fileSystemItem
+    }
+
+    func navigate(to documentStructureNode: DocumentStructureNode) {
+        fileHistory[openedFileIndex].navigate(to: documentStructureNode)
     }
 
     override func viewDidLoad() {
-        editorView.backgroundColor = ThemesHandler.default.color(for: .editorBackground)
         updateNavigationButtons()
     }
 
-    func pushToOpenedFiles(_ item: FileSystemItem) {
+    func pushToOpenedFiles(_ editor: Editor) {
         fileHistory.removeLast(fileHistory.count - openedFileIndex - 1)
-        fileHistory.append(item)
+        fileHistory.append(editor)
         openedFileIndex += 1
-        openFileAtFileIndex()
+        openEditorAtFileIndex()
         updateNavigationButtons()
     }
 
@@ -39,10 +60,13 @@ class EditorViewController: NSViewController {
         var currentIndex = 0
 
         while currentIndex < fileHistory.count {
-            if fileHistory[currentIndex].isDeleted {
-                fileHistory.remove(at: currentIndex)
+            if fileHistory[currentIndex].fileSystemItem.isDeleted {
+                let editorContainerViewController = fileHistory.remove(at: currentIndex)
+
                 if currentIndex < openedFileIndex {
                     openedFileIndex -= 1
+                } else if currentIndex == openedFileIndex {
+                    editorContainerViewController.view.removeFromSuperview()
                 }
             } else {
                 currentIndex += 1
@@ -51,41 +75,36 @@ class EditorViewController: NSViewController {
 
         openedFileIndex = min(openedFileIndex, fileHistory.count - 1)
         updateNavigationButtons()
-        openFileAtFileIndex()
+        openEditorAtFileIndex()
     }
 
-    private func openFileAtFileIndex() {
-        open(item: openedFile)
-    }
-
-    private func open(item: FileSystemItem?) {
-        if let editableFileSystemItem = item as? EditableFileSystemItem {
-            editorView.openFile(editableFileSystemItem)
-            updateEmptyState(withItem: nil)
-        } else {
-            editorView.openFile(nil)
-            updateEmptyState(withItem: item)
+    func saveContentToFileSystemItem() {
+        for editor in fileHistory {
+            editor.saveContentToFileSystemItem()
         }
     }
 
-    private func updateEmptyState(withItem item: FileSystemItem?) {
-        guard let item = item else {
-            emptyStateImage.isHidden = true
-            emptyStateOpenInButton.isHidden = true
-            return
+    func reloadContentFromFileSystemItem() {
+        for editor in fileHistory {
+            editor.reloadContentFromFileSystemItem()
         }
+    }
 
-        emptyStateImage.isHidden = false
-        emptyStateImage.image = NSWorkspace.shared.icon(forFile: item.url.path)
+    private func openEditorAtFileIndex() {
+        open(editor: fileHistory[openedFileIndex])
+    }
 
-        guard let defaultApplicationName = NSWorkspace.shared.urlForApplication(toOpen: item.url)?.lastPathComponent else {
-            emptyStateOpenInButton.isHidden = true
-            return
-        }
+    private func open(editor: Editor) {
+        openedEditor?.view.removeFromSuperview()
+        openedEditor?.saveContentToFileSystemItem()
+        editorContainerView.addSubview(editor.view)
+        openedEditor = editor
 
-        emptyStateOpenInButton.isHidden = false
-        emptyStateOpenInButton.title = "Open in \(defaultApplicationName)"
-        emptyStateOpenInButton.sizeToFit()
+        editor.view.translatesAutoresizingMaskIntoConstraints = false
+        editor.view.leftAnchor.constraint(equalTo: editorContainerView.leftAnchor).isActive = true
+        editor.view.rightAnchor.constraint(equalTo: editorContainerView.rightAnchor).isActive = true
+        editor.view.topAnchor.constraint(equalTo: editorContainerView.topAnchor).isActive = true
+        editor.view.bottomAnchor.constraint(equalTo: editorContainerView.bottomAnchor).isActive = true
     }
 
     private func updateNavigationButtons() {
@@ -93,23 +112,18 @@ class EditorViewController: NSViewController {
         nextButton.isEnabled = openedFileIndex < fileHistory.count - 1
     }
 
-    @IBAction func openInDefaultApplication(_ sender: Any) {
-        NSWorkspace.shared.open(openedFile!.url)
-    }
-
     @IBAction func goToPreviousFile(_ sender: Any) {
         openedFileIndex -= 1
-        openFileAtFileIndex()
+        openEditorAtFileIndex()
         updateNavigationButtons()
     }
 
     @IBAction func goToNextFile(_ sender: Any) {
         openedFileIndex += 1
-        openFileAtFileIndex()
+        openEditorAtFileIndex()
         updateNavigationButtons()
     }
 }
-
 
 extension FileSystemItem {
     fileprivate var isDeleted: Bool {

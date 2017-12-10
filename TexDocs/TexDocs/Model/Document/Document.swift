@@ -48,12 +48,21 @@ class Document: NSDocument {
     }
 
     override func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) throws -> NSPrintOperation {
+        guard let editor = mainWindowController?.editorViewController.openedEditor else {
+            throw DocumentError.noEditorOpened
+        }
 
-        var settings = printSettings
-        settings[NSPrintInfo.AttributeKey.verticallyCentered] = NSNumber(value: false)
+        guard let printOperation = editor.printOperation(withSettings: printSettings) else {
+            throw DocumentError.notPrintable
+        }
 
-        return NSPrintOperation(view: mainWindowController!.editorViewController.editorView, printInfo: NSPrintInfo(dictionary: settings))
+        return printOperation
     }
+}
+
+enum DocumentError: Error {
+    case noEditorOpened
+    case notPrintable
 }
 
 class TexDocsDocumentController: NSDocumentController {

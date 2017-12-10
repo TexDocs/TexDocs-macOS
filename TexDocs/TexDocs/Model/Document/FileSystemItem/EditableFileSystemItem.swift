@@ -9,7 +9,7 @@
 import Foundation
 
 class EditableFileSystemItem: FileSystemItem {
-    var text: String {
+    var string: String {
         didSet {
             modified = true
         }
@@ -18,20 +18,20 @@ class EditableFileSystemItem: FileSystemItem {
     private(set) var modified = false
 
     override init(_ url: URL) throws {
-        text = try String(contentsOf: url)
+        string = try String(contentsOf: url)
 
         try super.init(url)
     }
 
     func save() throws {
         if modified {
-            try text.write(to: url, atomically: false, encoding: .utf8)
+            try string.write(to: url, atomically: false, encoding: .utf8)
             modified = false
         }
     }
 
     func reload() throws {
-        text = try String(contentsOf: url)
+        string = try String(contentsOf: url)
         modified = false
     }
 

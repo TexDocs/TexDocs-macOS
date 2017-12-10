@@ -14,17 +14,15 @@ extension EditorWindowController: NavigationOutlineViewControllerDelegate {
     }
 
     func rootStructureNode(for outlineViewCOntroller: NavigationOutlineViewController) -> DocumentStructureNode? {
-        return editorViewController.editorView.rootStructureNode?.value
+        return editorViewController.openedEditor?.rootDocumentStructureNode
     }
 
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, selectedFileSystemItem item: FileSystemItem) {
-        editorViewController.pushToOpenedFiles(item)
+        open(fileSystemItem: item)
     }
 
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, selectedDocumentStructureNode item: DocumentStructureNode) {
-        editorViewController.editorView.setSelectedRange(item.definitionRange)
-        editorViewController.editorView.scrollRangeToVisible(item.effectiveRange)
-        window?.makeFirstResponder(editorViewController.editorView)
+            editorViewController.navigate(to: item)
     }
 
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, createNewSchemeFor item: FileSystemItem) {

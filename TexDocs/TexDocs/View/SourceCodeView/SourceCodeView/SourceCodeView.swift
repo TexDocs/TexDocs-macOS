@@ -13,7 +13,7 @@ class SourceCodeView: ImprovedTextView {
     // MARK: Variables
     
     /// The line number view on the left side.
-    private var lineNumberRuler: SourceCodeRulerView!
+    private var lineNumberRuler: SourceCodeRulerView?
 
     var languageDelegate: SourceCodeViewLanguageDelegate? {
         didSet {
@@ -25,15 +25,11 @@ class SourceCodeView: ImprovedTextView {
 
     private(set) var rootStructureNode: CachedProperty<DocumentStructureNode?>?
 
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    override func setUp() {
+        super.setUp()
 
         rootStructureNode = CachedProperty(block: {
-            if self.openedFile != nil {
-                return self.languageDelegate?.sourceCodeViewDocumentStructure(self)
-            } else {
-                return nil
-            }
+            return self.languageDelegate?.sourceCodeViewDocumentStructure(self)
         }, invalidationBlock: {
             self.sourceCodeViewDelegate?.sourceCodeViewStructureChanged(self)
         })
@@ -46,12 +42,11 @@ class SourceCodeView: ImprovedTextView {
         setUpLineNumberRuler()
     }
     
-    override func viewDidEndLiveResize() {
-        super.viewDidEndLiveResize()
-        lineNumberRuler.redrawLineNumbers()
-    }
-    
     // MARK: Line Number
+
+    override func updateRuler() {
+        lineNumberRuler?.redrawLineNumbers()
+    }
     
     private func setUpLineNumberRuler() {
         guard let enclosingScrollView = enclosingScrollView else {
@@ -68,7 +63,6 @@ class SourceCodeView: ImprovedTextView {
     
     override func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, isContentReplace: Bool) {
         super.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser, isContentReplace: isContentReplace)
-        lineNumberRuler?.redrawLineNumbers()
         if !isContentReplace {
             updateSourceCodeHighlighting(in: newRange)
         }
@@ -77,11 +71,6 @@ class SourceCodeView: ImprovedTextView {
     
     func updateSourceCodeHighlighting(in editedRange: NSRange) {
         languageDelegate?.sourceCodeView(self, updateCodeHighlightingInRange: editedRange)
-    }
-
-    override func openedFile(_ file: EditableFileSystemItem) {
-        languageDelegate = file.createLanguageDelegate()
-        rootStructureNode?.invalidateCache()
     }
 }
 

@@ -17,14 +17,13 @@ extension EditorWindowController {
     func receivedChange(in range: NSRange, replaceWith replaceString: String, inFile relativeFilePath: String) {
         if relativePathOfOpenedFile() == relativeFilePath {
             DispatchQueue.main.async {
-                self.editorViewController.editorView.replaceString(in: range, replacementString: replaceString)
-                self.editedDocument()
+                self.editorViewController.openedEditor?.receivedChange(in: range, replaceWith: replaceString)
             }
         } else {
             guard let fileSystemItem = rootDirectory?.findChild(withRelativePath: relativeFilePath, includesRootItemsName: true) as? EditableFileSystemItem else {
                 return
             }
-            fileSystemItem.text.replaceString(in: range, replacementString: replaceString)
+            fileSystemItem.string.replaceString(in: range, replacementString: replaceString)
             editedDocument()
         }
     }
@@ -34,21 +33,21 @@ extension EditorWindowController: CollaborationClientDelegate {
     func collaborationClient(_ client: CollaborationClient, didDisconnectedBecause reason: String) {
         showErrorSheet(withCustomMessage: reason)
     }
-    
+
     func collaborationClient(_ client: CollaborationClient, encounteredError error: Error) {
         showErrorSheet(error)
     }
-    
+
     func collaborationClient(_ client: CollaborationClient, didReceivedChangeIn range: NSRange, replacedWith replaceString: String, inFile relativeFilePath: String) {
         receivedChange(in: range, replaceWith: replaceString, inFile: relativeFilePath)
     }
-    
+
     func collaborationCursorsChanged(_ client: CollaborationClient) {
         DispatchQueue.main.async {
-            self.editorViewController.editorView.collaborationCursorsDidChange()
+            self.editorViewController.openedEditor?.collaborationCursorsDidChange()
         }
     }
-    
+
     func collaborationClient(_ client: CollaborationClient, didConnectedAndReceivedRepositoryURL repositoryURL: URL) {
         do {
             guard let oldRepositoryURL = texDocsDocument.documentData?.collaboration?.repository?.url else {

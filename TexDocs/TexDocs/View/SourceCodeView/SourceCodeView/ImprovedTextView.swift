@@ -26,54 +26,53 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
     open func setUp() {
         self.delegate = self
         self.textStorage?.delegate = self
-        openFile(nil)
     }
+//
+//    // MARK: Opened file
+//
+//    private(set) weak var openedFile: EditableFileSystemItem? {
+//        didSet {
+//            handleFileOpen(openedFile, oldFile: oldValue)
+//        }
+//    }
+//
+//    func openFile(_ file: EditableFileSystemItem?) {
+//        openedFile = file
+//    }
+//
+//    private func handleFileOpen(_ newFile: EditableFileSystemItem?, oldFile: EditableFileSystemItem?) {
+//        if let oldFile = oldFile {
+//            saveContent(to: oldFile)
+//        }
+//
+//        loadContent(from: newFile)
+//
+//        if let newFile = newFile {
+//            openedFile(newFile)
+//        }
+//    }
+//
+//    private func loadContent(from fileItem: EditableFileSystemItem?) {
+//        guard let fileItem = fileItem else {
+//            isEditable = false
+//            replaceContent(with: "")
+//            return
+//        }
+//
+//        replaceContent(with: fileItem.string)
+//        self.isEditable = true
+//    }
+//
+//    func reloadContentFromDisk() {
+//        loadContent(from: openedFile)
+//    }
+//
+//    func saveContent(to fileItem: EditableFileSystemItem? = nil) {
+//        (fileItem ?? openedFile)?.string = string
+//    }
+//
+//    open func openedFile(_ file: EditableFileSystemItem) {}
 
-    // MARK: Opened file
-
-    private(set) weak var openedFile: EditableFileSystemItem? {
-        didSet {
-            handleFileOpen(openedFile, oldFile: oldValue)
-        }
-    }
-
-    func openFile(_ file: EditableFileSystemItem?) {
-        openedFile = file
-    }
-
-    private func handleFileOpen(_ newFile: EditableFileSystemItem?, oldFile: EditableFileSystemItem?) {
-        if let oldFile = oldFile {
-            saveContent(to: oldFile)
-        }
-
-        loadContent(from: newFile)
-
-        if let newFile = newFile {
-            openedFile(newFile)
-        }
-    }
-
-    private func loadContent(from fileItem: EditableFileSystemItem? = nil) {
-        guard let fileItem = fileItem ?? openedFile else {
-            isEditable = false
-            replaceContent(with: "")
-            return
-        }
-
-        replaceContent(with: fileItem.text)
-        self.isEditable = true
-    }
-
-    func reloadContentFromDisk() {
-        loadContent()
-    }
-
-    func saveContent(to fileItem: EditableFileSystemItem? = nil) {
-        (fileItem ?? openedFile)?.text = string
-    }
-
-    open func openedFile(_ file: EditableFileSystemItem) {}
-    
     // MARK: Helper
 
     var stringRange: NSRange {
@@ -127,9 +126,9 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
         }
     }
     
-    func replaceString(in range: NSRange, replacementString: String, byUser: Bool = false) {
+    func replaceString(in range: NSRange, replaceWith: String, byUser: Bool) {
         userInitiated = byUser
-        textStorage?.replaceCharacters(in: range, with: replacementString)
+        textStorage?.replaceCharacters(in: range, with: replaceWith)
         userInitiated = true
     }
     

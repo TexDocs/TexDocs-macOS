@@ -87,7 +87,7 @@ class EditorWindowController: NSWindowController {
     func saveAllDocuments() {
         do {
             DispatchQueue.ensureMain {
-                editorViewController.editorView.saveContent()
+                editorViewController.saveContentToFileSystemItem()
             }
             for item in rootDirectory?.allSubItems().filterEditable() ?? [] {
                 try item.save()
@@ -103,12 +103,29 @@ class EditorWindowController: NSWindowController {
                 try item.reload()
             }
             DispatchQueue.main.sync {
-                editorViewController.editorView.reloadContentFromDisk()
+                editorViewController.reloadContentFromFileSystemItem()
             }
         } catch {
             showErrorSheet(error)
         }
     }
+
+    func open(fileSystemItem: FileSystemItem) {
+        editorViewController.pushToOpenedFiles(editor(for: fileSystemItem))
+    }
+
+    private func editor(for fileSystemItem: FileSystemItem) -> Editor {
+        if let editableFileSystemItem = fileSystemItem as? EditableFileSystemItem {
+            return CollaborationEditorViewController.instantiateController(
+                withFileSystemItem: editableFileSystemItem,
+                collaborationDelegate: self,
+                sourceCodeViewDelegate: self)
+        } else {
+            return EmptyStateEditorViewController.instantiateController(withFileSystemItem: fileSystemItem)
+        }
+    }
+
+
 
     var selectedSchemeMenuItem: SchemeMenuItem? = nil
 
@@ -164,8 +181,6 @@ class EditorWindowController: NSWindowController {
     // MARK: Life cycle
     
     override func windowDidLoad() {
-        editorViewController.editorView.collaborationDelegate = self
-        editorViewController.editorView.sourceCodeViewDelegate = self
         outlineViewController.delegate = self
         client.delegate = self
         shouldCascadeWindows = true
