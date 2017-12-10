@@ -20,6 +20,13 @@ struct FileTypeHandler {
     private static var supportEditing: Set = [
         "tex"
     ]
+
+    private static var imageExtensions: Set = [
+        "png",
+        "jpg",
+        "jpeg",
+        "gif"
+    ]
     
     private init() {}
     
@@ -33,5 +40,9 @@ struct FileTypeHandler {
     
     static func supportEditing(of path: URL) -> Bool {
         return supportEditing.contains(path.pathExtension)
+    }
+
+    static func isImageURL(_ url: URL) -> Bool {
+        return imageExtensions.contains(url.pathExtension)
     }
 }

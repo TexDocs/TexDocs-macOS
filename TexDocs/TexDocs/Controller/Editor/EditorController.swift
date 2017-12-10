@@ -18,6 +18,10 @@ protocol EditorController: class {
     func navigate(to documentStructureNode: DocumentStructureNode)
     func collaborationCursorsDidChange()
 
+    func reloadFromFileSystemItem()
+    func saveToFileSystemItem()
+    func editorControllerWillOpen()
+
     func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) -> NSPrintOperation?
 
     // MARK: NSViewController functions
@@ -25,8 +29,24 @@ protocol EditorController: class {
     var view: NSView { get }
 }
 
-extension NSViewController {
+extension EditorController {
+    func reloadFromFileSystemItem() {}
+    func saveToFileSystemItem() {}
+}
+
+class BaseEditorViewController: NSViewController {
     func removeFromSuperview() {
         view.removeFromSuperview()
     }
+
+    override func viewDidLoad() {
+        willOpen()
+    }
+
+
+    func editorControllerWillOpen() {
+        willOpen()
+    }
+
+    open func willOpen() {}
 }

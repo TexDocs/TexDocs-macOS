@@ -23,18 +23,14 @@ class EditableFileSystemItem: FileSystemItem {
         try reload()
     }
 
-    func save() throws {
+    override func save() throws {
+        try super.save()
         try textStorage.string.write(to: url, atomically: false, encoding: .utf8)
     }
 
-    func reload() throws {
+    override func reload() throws {
+        try super.reload()
         let newString = try String(contentsOf: url)
         textStorage.replaceContent(with: newString)
-    }
-}
-
-extension Array where Element == FileSystemItem {
-    func filterEditable() -> [EditableFileSystemItem] {
-        return map { $0 as? EditableFileSystemItem }.flatMap { $0 }
     }
 }

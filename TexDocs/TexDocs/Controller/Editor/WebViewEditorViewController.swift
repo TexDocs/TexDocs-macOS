@@ -9,17 +9,13 @@
 import Cocoa
 import WebKit
 
-class WebViewEditorViewController: NSViewController, EditorController {
+class WebViewEditorViewController: BaseEditorViewController, EditorController {
     @IBOutlet weak var webView: WKWebView!
     
     var fileSystemItem: FileSystemItem!
 
     var rootDocumentStructureNode: DocumentStructureNode?
-
-    func saveContentToFileSystemItem() {}
-
-    func reloadContentFromFileSystemItem() {}
-
+    
     func navigate(to documentStructureNode: DocumentStructureNode) {}
 
     func collaborationCursorsDidChange() {}
@@ -30,7 +26,11 @@ class WebViewEditorViewController: NSViewController, EditorController {
         return nil
     }
 
-    override func viewDidLoad() {
+    override func willOpen() {
+        reloadFromFileSystemItem()
+    }
+
+    func reloadFromFileSystemItem() {
         webView.loadFileURL(fileSystemItem.url, allowingReadAccessTo: fileSystemItem.url)
     }
 

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class CollaborationEditorViewController: NSViewController, EditorController {
+class CollaborationEditorViewController: BaseEditorViewController, EditorController {
 
     @IBOutlet weak var editor: CollaborationSourceCodeView!
 
@@ -47,7 +47,7 @@ class CollaborationEditorViewController: NSViewController, EditorController {
         editor.sourceCodeViewDelegate = delegateModel?.sourceCodeViewDelegate
     }
 
-    override func viewWillAppear() {
+    override func willOpen() {
         editor.updateSourceCodeHighlighting(in: editor.stringRange)
     }
 

@@ -94,6 +94,9 @@ class FileSystemItem: NSObject {
     func allSubItems() -> [FileSystemItem] {
         return children.map({ [[$0], $0.allSubItems()].flatMap({ $0 }) }).flatMap({ $0 })
     }
+
+    func save() throws {}
+    func reload() throws {}
 }
 
 extension Array where Element == URL {
@@ -101,6 +104,8 @@ extension Array where Element == URL {
         return try map {
             if FileTypeHandler.supportEditing(of: $0) {
                 return try EditableFileSystemItem($0)
+            } else if FileTypeHandler.isImageURL($0) {
+                return try ImageFileSystemItem($0)
             } else {
                 return try FileSystemItem($0)
             }

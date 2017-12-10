@@ -21,6 +21,8 @@
 		4007C7E81FDD63FF00A53649 /* ClosureMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7E71FDD63FF00A53649 /* ClosureMenuItem.swift */; };
 		4007C8161FDD736600A53649 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40A7D0E51FB78A3F002FBB8B /* Main.storyboard */; };
 		4007C81B1FDD73DE00A53649 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4007C8191FDD73DE00A53649 /* Localizable.strings */; };
+		4007C8351FDDA44B00A53649 /* ImageFileSystemItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C8341FDDA44B00A53649 /* ImageFileSystemItem.swift */; };
+		4007C8371FDDA82E00A53649 /* ImageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C8361FDDA82E00A53649 /* ImageEditorViewController.swift */; };
 		400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A34491FBA27E60070E237 /* DocumentData.swift */; };
 		400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 400D97B51FBA3E1800540207 /* Quartz.framework */; };
 		4026AC8D1FBCE91D00FFB18B /* Sheets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */; };
@@ -157,6 +159,8 @@
 		4007C81A1FDD73DE00A53649 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4007C81C1FDD73E400A53649 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4007C81D1FDD73E700A53649 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4007C8341FDDA44B00A53649 /* ImageFileSystemItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFileSystemItem.swift; sourceTree = "<group>"; };
+		4007C8361FDDA82E00A53649 /* ImageEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditorViewController.swift; sourceTree = "<group>"; };
 		400A34491FBA27E60070E237 /* DocumentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentData.swift; sourceTree = "<group>"; };
 		400D97B51FBA3E1800540207 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Sheets.storyboard; sourceTree = "<group>"; };
@@ -272,6 +276,7 @@
 				4007C7DF1FDCB3C900A53649 /* CollaborationEditorViewController.swift */,
 				4007C7E11FDCB42900A53649 /* EmptyStateEditorViewController.swift */,
 				4007C7E31FDCD15A00A53649 /* WebViewEditorViewController.swift */,
+				4007C8361FDDA82E00A53649 /* ImageEditorViewController.swift */,
 				4007C7E51FDCD1B900A53649 /* EditorController.swift */,
 			);
 			path = Editor;
@@ -341,6 +346,7 @@
 			children = (
 				40A13BF11FD731410044E897 /* FileSystemItem.swift */,
 				40A13BF31FD731690044E897 /* EditableFileSystemItem.swift */,
+				4007C8341FDDA44B00A53649 /* ImageFileSystemItem.swift */,
 			);
 			path = FileSystemItem;
 			sourceTree = "<group>";
@@ -761,12 +767,14 @@
 				40AB8C4F1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift in Sources */,
 				4048199F1FB8DD9400AAFBF0 /* NewProjectViewController.swift in Sources */,
 				40BD4C3D1FC1C9CF0048ABF6 /* FileTypeHandler.swift in Sources */,
+				4007C8371FDDA82E00A53649 /* ImageEditorViewController.swift in Sources */,
 				40FFD8F21FDC48B1007BA858 /* DocumentStructureItemCell.swift in Sources */,
 				4007C7E41FDCD15A00A53649 /* WebViewEditorViewController.swift in Sources */,
 				4007C7D91FDC733100A53649 /* LatexSectionDocumentStructureNode.swift in Sources */,
 				40A7D0DE1FB78A3F002FBB8B /* AppDelegate.swift in Sources */,
 				40A13BDA1FD5ECBA0044E897 /* EditSchemeSheet.swift in Sources */,
 				4007C7D21FDC72E300A53649 /* LatexDocumentStructureNode.swift in Sources */,
+				4007C8351FDDA44B00A53649 /* ImageFileSystemItem.swift in Sources */,
 				404819A11FB8F37300AAFBF0 /* FileSystemItemCell.swift in Sources */,
 				40EF5D541FC05EC0003E0E40 /* EditorWindowController+Sheets.swift in Sources */,
 				40C88C211FB8B659006F6BB9 /* NavigationOutlineViewController.swift in Sources */,

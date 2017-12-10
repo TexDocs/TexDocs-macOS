@@ -925,6 +925,35 @@
             </objects>
             <point key="canvasLocation" x="119" y="830"/>
         </scene>
+        <!--Image Editor View Controller-->
+        <scene sceneID="3bc-Kv-vsf">
+            <objects>
+                <viewController storyboardIdentifier="ImageEditorViewController" id="Ypk-iW-lsn" customClass="ImageEditorViewController" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="KPG-p9-Cme">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="573-rD-jh6">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="t8Q-XG-MG0"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="573-rD-jh6" firstAttribute="top" secondItem="KPG-p9-Cme" secondAttribute="top" id="Qc3-ia-mvt"/>
+                            <constraint firstItem="573-rD-jh6" firstAttribute="leading" secondItem="KPG-p9-Cme" secondAttribute="leading" id="bmu-0r-pRP"/>
+                            <constraint firstAttribute="trailing" secondItem="573-rD-jh6" secondAttribute="trailing" id="hzf-Jr-4P3"/>
+                            <constraint firstAttribute="bottom" secondItem="573-rD-jh6" secondAttribute="bottom" id="vrC-Us-FjC"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="iamgeView" destination="573-rD-jh6" id="XKB-Ip-czs"/>
+                        <outlet property="imageView" destination="573-rD-jh6" id="WI2-hK-FQD"/>
+                    </connections>
+                </viewController>
+                <customObject id="76f-Qf-mYF" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="121" y="1194"/>
+        </scene>
     </scenes>
     <resources>
         <image name="NSQuickLookTemplate" width="19" height="12"/>

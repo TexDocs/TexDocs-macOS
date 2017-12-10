@@ -46,6 +46,9 @@
 /* Error message if a received message is corrupted. */
 "TD_ERROR_UNEXPECTED_STATUS_CODE" = "The received data is corrupted.";
 
+/* Name of the image editor */
+"TD_IMAGE_EDITOR_NAME" = "Image Viewer";
+
 /* Error message if the received repository url is invalid. */
 "TD_INVALID_REPOSITORY_URL" = "The received repository is invalid.";
 

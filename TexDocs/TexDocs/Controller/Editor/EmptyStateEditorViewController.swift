@@ -8,17 +8,13 @@
 
 import Cocoa
 
-class EmptyStateEditorViewController: NSViewController, EditorController {
+class EmptyStateEditorViewController: BaseEditorViewController, EditorController {
     @IBOutlet weak var imageView: NSImageView!
     @IBOutlet weak var openInButton: NSButton!
 
     var fileSystemItem: FileSystemItem!
 
     var rootDocumentStructureNode: DocumentStructureNode?
-
-    func saveContentToFileSystemItem() {}
-
-    func reloadContentFromFileSystemItem() {}
 
     func navigate(to documentStructureNode: DocumentStructureNode) {}
 
@@ -30,7 +26,11 @@ class EmptyStateEditorViewController: NSViewController, EditorController {
         return nil
     }
 
-    override func viewDidLoad() {
+    override func willOpen() {
+        reloadFromFileSystemItem()
+    }
+
+    func reloadFromFileSystemItem() {
         let workspace = NSWorkspace.shared
 
         imageView.image = workspace.icon(forFile: fileSystemItem.url.path)
