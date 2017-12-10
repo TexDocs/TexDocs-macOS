@@ -9,6 +9,8 @@
 import Foundation
 
 class LaTeXSourceCodeViewLanguageDelegate: SourceCodeViewLanguageDelegate {
+    private var cachedPackages: [String: [String]] = [:]
+
     func sourceCodeView(_ sourceCodeView: SourceCodeView, updateCodeHighlightingInRange editedRange: NSRange) {
         let range = sourceCodeView.nsString.lineRange(for: editedRange)
 
@@ -21,6 +23,81 @@ class LaTeXSourceCodeViewLanguageDelegate: SourceCodeViewLanguageDelegate {
 
     func sourceCodeViewDocumentStructure(_ sourceCodeView: SourceCodeView) -> DocumentStructureNode {
         return documentStructure(of: sourceCodeView)
+    }
+
+    func sourceCodeView(_ sourceCodeView: SourceCodeView, completionsForLocation location: Int, completionBlock: @escaping (LanguageCompletions?) -> Void) {
+        let latexSource = sourceCodeView.string
+        let nslatexSource = NSString(string: latexSource)
+
+        guard let inspectionResult = self.inspectCompletionLocation(location, inString: nslatexSource) else {
+            completionBlock(nil)
+            return
+        }
+
+        let commandString = nslatexSource.substring(with: inspectionResult.commandRange)
+
+        if let argumentRange = inspectionResult.argumentRange {
+            let argumentString = nslatexSource.substring(with: argumentRange)
+
+            guard let completions = LaTeXSourceCodeViewLanguageDelegate.knownArguments[commandString] else {
+                completionBlock(nil)
+                return
+            }
+
+            completionBlock(LanguageCompletions(words: completions.map {
+                return LanguageCompletion(string: $0)
+            }, range: argumentRange).filteredAndSortedBy(searchTerm: argumentString))
+            return
+        }
+
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.scanPackages(in: latexSource)
+
+            guard var commands = self?.cachedPackages.flatMap({ $0.value }) else {
+                completionBlock(nil)
+                return
+            }
+
+            commands.append(contentsOf: LaTeXSourceCodeViewLanguageDelegate.knownCommands)
+
+            DispatchQueue.main.async {
+                completionBlock(LanguageCompletions(words: commands.map {
+                    return LanguageCompletion(displayString: $0, completionString: "\($0){}")
+                }, range: inspectionResult.commandRange).filteredAndSortedBy(searchTerm: commandString))
+            }
+        }
+    }
+
+    private func inspectCompletionLocation(_ location: Int, inString string: NSString) -> InspectionResult? {
+        var scannerHead = location
+        var scannerTail = location
+        var result = InspectionResult(commandRange: NSRange(), argumentRange: nil)
+
+        while true {
+            scannerHead -= 1
+
+            guard scannerHead >= 0 else {
+                return nil
+            }
+
+            let char = Character(UnicodeScalar(string.character(at: scannerHead))!)
+            if [" ", "\n"].index(of: char) != nil {
+                return nil
+            }
+
+            if char == "\\" {
+                result.commandRange = NSRange(location: scannerHead, length: scannerTail - scannerHead)
+                return result
+            } else if char == "{" {
+                result.argumentRange = NSRange(location: scannerHead + 1, length: scannerTail - scannerHead - 1)
+                scannerTail = scannerHead
+            }
+        }
+    }
+
+    private struct InspectionResult {
+        var commandRange: NSRange
+        var argumentRange: NSRange?
     }
 
     required init() {}
@@ -46,10 +123,28 @@ class LaTeXSourceCodeViewLanguageDelegate: SourceCodeViewLanguageDelegate {
         return rootNode
     }
 
-    private func packages(usedIn sourceCodeView: SourceCodeView) -> [String] {
-        return LaTeXSourceCodeViewLanguageDelegate.packageRegex.matches(in: sourceCodeView.string, options: [], range: sourceCodeView.stringRange).map { rawMatch in
-            let match = rawMatch.regularExpressionMatch(in: sourceCodeView.string)
+    private func packages(usedIn latexCode: String) -> [String] {
+        return LaTeXSourceCodeViewLanguageDelegate.packageRegex.matches(in: latexCode, options: [], range: NSRange(location: 0, length: latexCode.count)).map { rawMatch in
+            let match = rawMatch.regularExpressionMatch(in: latexCode)
             return match.captureGroups[1].string
+        }
+    }
+
+    private func scanPackages(in latexCode: String) {
+        packages(usedIn: latexCode).forEach { packageName in
+            if cachedPackages[packageName] == nil {
+                cachedPackages[packageName] = scanCommands(in: packageName)
+            }
+        }
+    }
+
+    private func scanCommands(in packageName: String) -> [String] {
+        let process = Process.create("/Library/TeX/texbin/latexdef", arguments: ["-lp", packageName], additionalEnvironmentPaths: ["/Library/TeX/texbin"])
+
+        let output = process.launchAndGetOutput()
+        let matches = LaTeXSourceCodeViewLanguageDelegate.latexDefOutputRegex.matches(in: output, options: [], range: NSRange(location: 0, length: output.count))
+        return matches.map {
+            $0.regularExpressionMatch(in: output).captureGroups[0].string
         }
     }
 }
@@ -68,6 +163,13 @@ extension LaTeXSourceCodeViewLanguageDelegate {
     ]
 
     static let packageRegex = try! NSRegularExpression(pattern: "\\\\usepackage\\{(.*?)\\}", options: [])
+    static let latexDefOutputRegex = try! NSRegularExpression(pattern: "^\\\\.*", options: NSRegularExpression.Options.anchorsMatchLines)
+
+    static let knownArguments = [
+        "\\begin": ["enumerate", "equation", "itemize", "list", "center"]
+    ]
+
+    static let knownCommands = ["\\begin", "\\def", "\\usepackage"]
 }
 
 

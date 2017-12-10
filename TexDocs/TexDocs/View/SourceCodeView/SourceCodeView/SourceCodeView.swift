@@ -86,6 +86,72 @@ class SourceCodeView: ImprovedTextView {
     func updateSourceCodeHighlighting(in editedRange: NSRange) {
         languageDelegate?.sourceCodeView(self, updateCodeHighlightingInRange: editedRange)
     }
+
+    //MARK: Completion
+
+
+    private var completionOpened = false
+    private var languageCompletions: LanguageCompletions?
+
+    override func keyDown(with event: NSEvent) {
+        if event.characters?.first?.isControllCharacter ?? true {
+            completionOpened = false
+        }
+
+        let string = event.charactersIgnoringModifiers
+
+        let controlModifier = event.modifierFlags.contains(NSEvent.ModifierFlags.control)
+
+        if controlModifier && string == " " {
+            completionOpened = true
+        } else if string == "\\" {
+            super.keyDown(with: event)
+            completionOpened = true
+        } else {
+            super.keyDown(with: event)
+        }
+
+        if completionOpened {
+            complete(self)
+        }
+    }
+
+    override func complete(_ sender: Any?) {
+        languageDelegate?.sourceCodeView(self, completionsForLocation: selectedRange().location) {
+            self.languageCompletions = $0
+            super.complete(sender)
+        }
+    }
+
+    override var rangeForUserCompletion: NSRange {
+        return languageCompletions?.rangeForUserCompletion ?? super.rangeForUserCompletion
+    }
+
+    func textView(_ textView: NSTextView, completions words: [String], forPartialWordRange charRange: NSRange, indexOfSelectedItem index: UnsafeMutablePointer<Int>?) -> [String] {
+        return languageCompletions?.completionProposals ?? words
+    }
+
+    override func insertCompletion(_ identifier: String, forPartialWordRange charRange: NSRange, movement: Int, isFinal flag: Bool) {
+        let identifierComponents = identifier.components(separatedBy: ":")
+
+        guard let languageCompletion = languageCompletions, identifierComponents.count > 1, let index = Int(identifierComponents[0]) else {
+            super.insertCompletion(identifier, forPartialWordRange: charRange, movement: movement, isFinal: flag)
+            return
+        }
+
+        let completion = languageCompletion.words[index]
+
+        switch movement {
+        case NSReturnTextMovement, NSTabTextMovement:
+            completionOpened = false
+            let insertString = completion.completionString
+            super.insertCompletion(insertString, forPartialWordRange: charRange, movement: movement, isFinal: flag)
+        case NSRightTextMovement, NSLeftTextMovement, NSCancelTextMovement:
+            completionOpened = false
+        default:
+            break
+        }
+    }
 }
 
 protocol SourceCodeHighlightRule: class {
@@ -94,4 +160,14 @@ protocol SourceCodeHighlightRule: class {
 
 protocol SourceCodeViewDelegate: class {
     func sourceCodeViewStructureChanged(_ sourceCodeView: SourceCodeView)
+}
+
+extension Character {
+    fileprivate var isControllCharacter: Bool {
+        guard let code = String(self).utf16.first else {
+            return false
+        }
+
+        return code <= 31 || [127, 63272, 63232, 63233, 63234, 63235].index(of: code) != nil
+    }
 }

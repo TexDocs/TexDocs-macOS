@@ -60,7 +60,7 @@ extension EditorWindowController {
 
         let originalFirstResponder = window?.firstResponder
         process.setStringOutputHandler { [weak self, weak process] string in
-            if string.hasSuffix("? ") {
+            if string.hasSuffix("? ") || string.hasSuffix("Enter file name: ") {
                 process?.terminate()
             }
 

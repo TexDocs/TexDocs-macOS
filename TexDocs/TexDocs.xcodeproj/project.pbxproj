@@ -23,6 +23,7 @@
 		4007C81B1FDD73DE00A53649 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4007C8191FDD73DE00A53649 /* Localizable.strings */; };
 		4007C8351FDDA44B00A53649 /* ImageFileSystemItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C8341FDDA44B00A53649 /* ImageFileSystemItem.swift */; };
 		4007C8371FDDA82E00A53649 /* ImageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C8361FDDA82E00A53649 /* ImageEditorViewController.swift */; };
+		4007C8391FDDAC7300A53649 /* LanguageCompletions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C8381FDDAC7300A53649 /* LanguageCompletions.swift */; };
 		400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A34491FBA27E60070E237 /* DocumentData.swift */; };
 		400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 400D97B51FBA3E1800540207 /* Quartz.framework */; };
 		4026AC8D1FBCE91D00FFB18B /* Sheets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */; };
@@ -161,6 +162,7 @@
 		4007C81D1FDD73E700A53649 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4007C8341FDDA44B00A53649 /* ImageFileSystemItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFileSystemItem.swift; sourceTree = "<group>"; };
 		4007C8361FDDA82E00A53649 /* ImageEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditorViewController.swift; sourceTree = "<group>"; };
+		4007C8381FDDAC7300A53649 /* LanguageCompletions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageCompletions.swift; sourceTree = "<group>"; };
 		400A34491FBA27E60070E237 /* DocumentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentData.swift; sourceTree = "<group>"; };
 		400D97B51FBA3E1800540207 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Sheets.storyboard; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				40AA16F51FB88BA800373B07 /* LaTeX */,
 				40E1D8701FD9CD230077BA90 /* SourceCodeViewLanguageDelegate.swift */,
 				4007C7CF1FDC728300A53649 /* DocumentStructureNode.swift */,
+				4007C8381FDDAC7300A53649 /* LanguageCompletions.swift */,
 			);
 			path = LanguageDelegate;
 			sourceTree = "<group>";
@@ -801,6 +804,7 @@
 				40BD25E11FBCDC3400211743 /* NewProjectOpenMethod.swift in Sources */,
 				40A13BF21FD731410044E897 /* FileSystemItem.swift in Sources */,
 				40AB8C4D1FB8866200BC6D82 /* EditorWrapperViewController.swift in Sources */,
+				4007C8391FDDAC7300A53649 /* LanguageCompletions.swift in Sources */,
 				4007C7E61FDCD1B900A53649 /* EditorController.swift in Sources */,
 				40322FEF1FC2238600C75CEF /* EditorWindowController+FSMonitoring.swift in Sources */,
 				407302C21FBF630D00D5AB8F /* EditorWindowControllerGitHelper.swift in Sources */,

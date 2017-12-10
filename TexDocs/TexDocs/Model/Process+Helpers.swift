@@ -9,11 +9,17 @@
 import Foundation
 
 extension Process {
-    static func create(_ launchPath: String, workingDirectory: URL, arguments: [String]? = nil) -> Process {
+    static func create(_ launchPath: String, workingDirectory: URL? = nil, arguments: [String], additionalEnvironmentPaths: [String]? = nil) -> Process {
         let process = Process()
         process.launchPath = launchPath
-        process.currentDirectoryURL = workingDirectory
+        process.currentDirectoryURL = workingDirectory ?? URL(fileURLWithPath: "/tmp")
         process.arguments = arguments
+
+        var env = ProcessInfo.processInfo.environment
+        if let additionalEnvironmentPaths = additionalEnvironmentPaths {
+            env["PATH", default: ""] += ":" + additionalEnvironmentPaths.joined(separator: ":")
+        }
+        process.environment = env
 
         return process
     }
