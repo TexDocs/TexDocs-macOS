@@ -626,6 +626,15 @@ Gw
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="gGk-55-kLM"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="2Bc-3Z-sQY"/>
+                                <toolbarItem implicitItemIdentifier="3DB43BD7-18FA-4A4B-AA0E-6FD8DA6082C2" label="" paletteLabel="Seperator" tag="-1" id="AAR-pa-u7A">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="5" height="28"/>
+                                    <size key="maxSize" width="5" height="96"/>
+                                    <box key="view" horizontalHuggingPriority="750" boxType="separator" id="Ugo-6e-1Dg">
+                                        <rect key="frame" x="27" y="14" width="5" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </box>
+                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="0DD630CE-89BE-4893-8314-C724F1DC8D62" label="Mode" paletteLabel="Mode" id="ihT-jl-5TQ">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="102" height="23"/>
@@ -669,14 +678,18 @@ Gw
                                         </connections>
                                     </segmentedControl>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="2B46B15B-0B2C-4B13-A516-021D64222345" label="" paletteLabel="Seperator" tag="-1" id="AAR-pa-u7A">
+                                <toolbarItem implicitItemIdentifier="3E658222-5893-49C4-A996-1B790860707E" label="Auto" paletteLabel="Auto Typeset" image="NSSlideshowTemplate" id="NqJ-Qa-hh6">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="5" height="28"/>
-                                    <size key="maxSize" width="5" height="96"/>
-                                    <box key="view" horizontalHuggingPriority="750" boxType="separator" id="Ugo-6e-1Dg">
-                                        <rect key="frame" x="27" y="14" width="5" height="28"/>
+                                    <size key="minSize" width="39" height="25"/>
+                                    <size key="maxSize" width="39" height="25"/>
+                                    <button key="view" verticalHuggingPriority="750" id="p9s-i2-SLO">
+                                        <rect key="frame" x="19" y="14" width="39" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    </box>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSSlideshowTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qpK-fs-bOe">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="FD9BF738-50D5-4FDE-96D2-B02366301F23" label="Typeset" paletteLabel="Typeset" image="NSActionTemplate" id="xab-RK-WiN">
                                     <nil key="toolTip"/>
@@ -691,6 +704,22 @@ Gw
                                         </buttonCell>
                                         <connections>
                                             <action selector="typesetButtonClicked:" target="jGA-0Y-lOj" id="76V-ag-0co"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="5738464F-FBFB-4AFD-9DB0-1CB90CBA7D4F" label="Stop" paletteLabel="Stop" image="NSStopProgressFreestandingTemplate" id="SQ4-WP-4Zb">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="39" height="25"/>
+                                    <size key="maxSize" width="39" height="25"/>
+                                    <button key="view" verticalHuggingPriority="750" id="4mE-9q-EWj">
+                                        <rect key="frame" x="0.0" y="14" width="39" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSStopProgressFreestandingTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5dv-Kb-GDN">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="stopProcessButtonClicked:" target="jGA-0Y-lOj" id="hO2-yZ-fwh"/>
                                         </connections>
                                     </button>
                                 </toolbarItem>
@@ -710,35 +739,6 @@ Gw
                                             <action selector="schemeSelectorSelectionDidChange:" target="jGA-0Y-lOj" id="Tdw-53-Wt6"/>
                                         </connections>
                                     </popUpButton>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="A66D84B2-B30E-4A8E-AC44-ADB2F6772340" label="Stop" paletteLabel="Stop" image="NSStopProgressFreestandingTemplate" id="SQ4-WP-4Zb">
-                                    <nil key="toolTip"/>
-                                    <size key="minSize" width="39" height="25"/>
-                                    <size key="maxSize" width="39" height="25"/>
-                                    <button key="view" verticalHuggingPriority="750" id="4mE-9q-EWj">
-                                        <rect key="frame" x="0.0" y="14" width="39" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSStopProgressFreestandingTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5dv-Kb-GDN">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="stopProcessButtonClicked:" target="jGA-0Y-lOj" id="hO2-yZ-fwh"/>
-                                        </connections>
-                                    </button>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="B0709F43-131B-41F7-8F21-6B037C230F70" label="Auto" paletteLabel="Auto Typeset" image="NSSlideshowTemplate" id="NqJ-Qa-hh6">
-                                    <nil key="toolTip"/>
-                                    <size key="minSize" width="39" height="25"/>
-                                    <size key="maxSize" width="39" height="25"/>
-                                    <button key="view" verticalHuggingPriority="750" id="p9s-i2-SLO">
-                                        <rect key="frame" x="19" y="14" width="39" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSSlideshowTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qpK-fs-bOe">
-                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                    </button>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="C0b-MK-Tna"/>
                                 <toolbarItem implicitItemIdentifier="E7C79CC6-E9FB-4C52-B291-F26E2EA98E13" label="Reconnect" paletteLabel="Reconnect" image="NSRefreshTemplate" id="wde-9J-aUH">
@@ -769,7 +769,6 @@ Gw
                                 <toolbarItem reference="C0b-MK-Tna"/>
                                 <toolbarItem reference="AAR-pa-u7A"/>
                                 <toolbarItem reference="ihT-jl-5TQ"/>
-                                <toolbarItem reference="AAR-pa-u7A"/>
                                 <toolbarItem reference="Crh-5c-Ikz"/>
                             </defaultToolbarItems>
                         </toolbar>
