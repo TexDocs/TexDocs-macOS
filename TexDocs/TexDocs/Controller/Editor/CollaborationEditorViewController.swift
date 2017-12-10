@@ -8,7 +8,8 @@
 
 import Cocoa
 
-class CollaborationEditorViewController: NSViewController, Editor {
+class CollaborationEditorViewController: NSViewController, EditorController {
+
     @IBOutlet weak var editor: CollaborationSourceCodeView!
 
     var fileSystemItem: FileSystemItem! {
@@ -41,7 +42,7 @@ class CollaborationEditorViewController: NSViewController, Editor {
     override func viewDidLoad() {
         editor.layoutManager?.replaceTextStorage(editableFileSystemItem.textStorage)
         editableFileSystemItem.textStorage.delegate = editor
-        editor.languageDelegate = editableFileSystemItem.createLanguageDelegate()
+        editor.languageDelegate = editableFileSystemItem.languageDelegate
         editor.collaborationDelegate = delegateModel?.collaborationDelegate
         editor.sourceCodeViewDelegate = delegateModel?.sourceCodeViewDelegate
     }
@@ -52,10 +53,15 @@ class CollaborationEditorViewController: NSViewController, Editor {
 
     private var delegateModel: CollaborationEditorViewControllerModel?
 
-    static func instantiateController(withFileSystemItem fileSystemItem: EditableFileSystemItem, collaborationDelegate: CollaborationSourceCodeViewDelegate?, sourceCodeViewDelegate: SourceCodeViewDelegate) -> CollaborationEditorViewController {
+    static let displayName: String = "Collaboration Editor"
+
+    static func instantiateController(withFileSystemItem fileSystemItem: FileSystemItem, windowController: EditorWindowController) -> EditorController? {
+        guard let editableFileSystemItem = fileSystemItem as? EditableFileSystemItem else {
+            return nil
+        }
         let editorController = NSStoryboard(name: NSStoryboard.Name(rawValue: "Editors"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "CollaborationEditorViewController")) as! CollaborationEditorViewController
-        editorController.editableFileSystemItem = fileSystemItem
-        editorController.delegateModel = CollaborationEditorViewControllerModel(collaborationDelegate: collaborationDelegate, sourceCodeViewDelegate: sourceCodeViewDelegate)
+        editorController.editableFileSystemItem = editableFileSystemItem
+        editorController.delegateModel = CollaborationEditorViewControllerModel(collaborationDelegate: windowController, sourceCodeViewDelegate: windowController)
         return editorController
     }
 }

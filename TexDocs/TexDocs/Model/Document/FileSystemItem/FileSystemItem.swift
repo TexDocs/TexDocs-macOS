@@ -21,6 +21,14 @@ class FileSystemItem: NSObject {
         return url.hasDirectoryPath
     }
 
+    var editorControllerTypes: [EditorController.Type] {
+        if isDirectory {
+            return [EmptyStateEditorViewController.self]
+        } else {
+            return [WebViewEditorViewController.self, EmptyStateEditorViewController.self]
+        }
+    }
+
     init(_ url: URL) throws {
         self.url = url
         super.init()
@@ -70,7 +78,7 @@ class FileSystemItem: NSObject {
         }
     }
 
-    func findChild(withRelativePathComponents relativePath: ArraySlice<String>) -> FileSystemItem? {
+    private func findChild(withRelativePathComponents relativePath: ArraySlice<String>) -> FileSystemItem? {
         if relativePath.count == 0 {
             return self
         }

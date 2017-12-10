@@ -12,9 +12,7 @@ class SimpleSheet: NSViewController {
     @IBOutlet weak var progressBar: NSProgressIndicator? { didSet { updateProgressBar(value: progressValue) }}
     @IBOutlet weak var statusLabel: NSTextField? { didSet { updateLabel(text: labelText) }}
     @IBOutlet weak var button: NSButton? { didSet { updateButton(title: buttonTitle) }}
-    
-    weak var editorWindowController: EditorViewController!
-    
+
     @IBAction func buttonPressed(_ sender: NSButton) {
         action?()
     }

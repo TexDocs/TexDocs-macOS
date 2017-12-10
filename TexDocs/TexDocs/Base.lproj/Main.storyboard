@@ -1242,6 +1242,17 @@ Gw
                 <customObject id="ePl-V0-Okl" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu autoenablesItems="NO" id="nOG-oj-vgx">
                     <items>
+                        <menuItem title="Open" id="UPW-cd-Pup">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="openFile:" target="7G5-ZZ-tBV" id="GWL-db-gT6"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Open as" id="OhF-ge-0iF">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="Open as" id="UQ0-RG-cgj"/>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="e72-xE-iCu"/>
                         <menuItem title="Show in Finder" id="lo4-su-rak">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
@@ -1304,10 +1315,10 @@ Gw
             </objects>
             <point key="canvasLocation" x="739" y="532"/>
         </scene>
-        <!--Editor View Controller-->
+        <!--Editor Wrapper View Controller-->
         <scene sceneID="ys6-DR-FwR">
             <objects>
-                <viewController id="w3m-v7-CMc" customClass="EditorViewController" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="w3m-v7-CMc" customClass="EditorWrapperViewController" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="nnH-rj-WVI">
                         <rect key="frame" x="0.0" y="0.0" width="551" height="331"/>
                         <autoresizingMask key="autoresizingMask"/>

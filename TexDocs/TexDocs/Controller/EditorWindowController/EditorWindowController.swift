@@ -104,23 +104,16 @@ class EditorWindowController: NSWindowController {
         }
     }
 
-    func open(fileSystemItem: FileSystemItem) {
-        editorViewController.pushToOpenedFiles(editor(for: fileSystemItem))
+    func open(fileSystemItem: FileSystemItem, withEditorControllerType editorControllerType: EditorController.Type?) {
+        guard let editorController = instantiateEditorController(for: fileSystemItem, withEditorControllerType: editorControllerType) else {
+            showErrorSheet(withCustomMessage: "Cannot open file")
+            return
+        }
+        editorWrapperViewController.pushToOpenedFiles(editorController)
     }
 
-    private func editor(for fileSystemItem: FileSystemItem) -> Editor {
-        if let editableFileSystemItem = fileSystemItem as? EditableFileSystemItem {
-            return CollaborationEditorViewController.instantiateController(
-                withFileSystemItem: editableFileSystemItem,
-                collaborationDelegate: self,
-                sourceCodeViewDelegate: self)
-        } else {
-            if fileSystemItem.url.pathExtension == "" {
-                return EmptyStateEditorViewController.instantiateController(withFileSystemItem: fileSystemItem)
-            } else {
-                return WebViewEditorViewController.instantiateController(withFileSystemItem: fileSystemItem)
-            }
-        }
+    private func instantiateEditorController(for fileSystemItem: FileSystemItem, withEditorControllerType editorControllerType: EditorController.Type?) -> EditorController? {
+        return (editorControllerType ?? fileSystemItem.editorControllerTypes.first)?.instantiateController(withFileSystemItem: fileSystemItem, windowController: self)
     }
 
     var selectedSchemeMenuItem: SchemeMenuItem? = nil
@@ -178,7 +171,7 @@ class EditorWindowController: NSWindowController {
     
     override func windowDidLoad() {
         outlineViewController.delegate = self
-        editorViewController.delegate = self
+        editorWrapperViewController.delegate = self
         client.delegate = self
         shouldCascadeWindows = true
     }

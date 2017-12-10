@@ -11,9 +11,14 @@ import Cocoa
 class EditableFileSystemItem: FileSystemItem {
     let textStorage = NSTextStorage()
 
-    private(set) var modified = false
+    let languageDelegate: SourceCodeViewLanguageDelegate?
+
+    override var editorControllerTypes: [EditorController.Type] {
+        return [[CollaborationEditorViewController.self], super.editorControllerTypes].flatMap { $0}
+    }
 
     override init(_ url: URL) throws {
+        languageDelegate = allLanguageDelegates[url.pathExtension]?.init()
         try super.init(url)
         try reload()
     }
@@ -25,10 +30,6 @@ class EditableFileSystemItem: FileSystemItem {
     func reload() throws {
         let newString = try String(contentsOf: url)
         textStorage.replaceContent(with: newString)
-    }
-
-    func createLanguageDelegate() -> SourceCodeViewLanguageDelegate? {
-        return allLanguageDelegates[url.pathExtension]?.init()
     }
 }
 

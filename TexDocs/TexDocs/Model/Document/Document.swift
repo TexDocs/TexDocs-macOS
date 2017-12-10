@@ -48,7 +48,7 @@ class Document: NSDocument {
     }
 
     override func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) throws -> NSPrintOperation {
-        guard let editor = mainWindowController?.editorViewController.openedEditor else {
+        guard let editor = mainWindowController?.editorWrapperViewController.openedEditorController else {
             throw DocumentError.noEditorOpened
         }
 

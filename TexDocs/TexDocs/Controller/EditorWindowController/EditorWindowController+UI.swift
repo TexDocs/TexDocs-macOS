@@ -37,8 +37,8 @@ extension EditorWindowController {
         return centerSplitViewController.splitViewItems[0]
     }
     
-    var editorViewController: EditorViewController {
-        return editorPanel.viewController as! EditorViewController
+    var editorWrapperViewController: EditorWrapperViewController {
+        return editorPanel.viewController as! EditorWrapperViewController
     }
     
     var consolePanel: NSSplitViewItem {

@@ -17,7 +17,8 @@
 		4007C7E01FDCB3C900A53649 /* CollaborationEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7DF1FDCB3C900A53649 /* CollaborationEditorViewController.swift */; };
 		4007C7E21FDCB42900A53649 /* EmptyStateEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7E11FDCB42900A53649 /* EmptyStateEditorViewController.swift */; };
 		4007C7E41FDCD15A00A53649 /* WebViewEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7E31FDCD15A00A53649 /* WebViewEditorViewController.swift */; };
-		4007C7E61FDCD1B900A53649 /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7E51FDCD1B900A53649 /* Editor.swift */; };
+		4007C7E61FDCD1B900A53649 /* EditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7E51FDCD1B900A53649 /* EditorController.swift */; };
+		4007C7E81FDD63FF00A53649 /* ClosureMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7E71FDD63FF00A53649 /* ClosureMenuItem.swift */; };
 		400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A34491FBA27E60070E237 /* DocumentData.swift */; };
 		400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 400D97B51FBA3E1800540207 /* Quartz.framework */; };
 		4026AC8D1FBCE91D00FFB18B /* Sheets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */; };
@@ -61,7 +62,7 @@
 		40AB8C481FB8841C00BC6D82 /* SourceCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D11D1FB79296002FBB8B /* SourceCodeView.swift */; };
 		40AB8C491FB8841E00BC6D82 /* SourceCodeRulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D11F1FB7936B002FBB8B /* SourceCodeRulerView.swift */; };
 		40AB8C4B1FB884C900BC6D82 /* CollaborationCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AB8C4A1FB884C900BC6D82 /* CollaborationCursor.swift */; };
-		40AB8C4D1FB8866200BC6D82 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AB8C4C1FB8866200BC6D82 /* EditorViewController.swift */; };
+		40AB8C4D1FB8866200BC6D82 /* EditorWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AB8C4C1FB8866200BC6D82 /* EditorWrapperViewController.swift */; };
 		40AB8C4F1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AB8C4E1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift */; };
 		40BD25DC1FBCB7B900211743 /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BD25DB1FBCB7B900211743 /* WebSocket.swift */; };
 		40BD25DE1FBCB90C00211743 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BD25DD1FBCB90C00211743 /* libz.tbd */; };
@@ -151,7 +152,8 @@
 		4007C7DF1FDCB3C900A53649 /* CollaborationEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationEditorViewController.swift; sourceTree = "<group>"; };
 		4007C7E11FDCB42900A53649 /* EmptyStateEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateEditorViewController.swift; sourceTree = "<group>"; };
 		4007C7E31FDCD15A00A53649 /* WebViewEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewEditorViewController.swift; sourceTree = "<group>"; };
-		4007C7E51FDCD1B900A53649 /* Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
+		4007C7E51FDCD1B900A53649 /* EditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorController.swift; sourceTree = "<group>"; };
+		4007C7E71FDD63FF00A53649 /* ClosureMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureMenuItem.swift; sourceTree = "<group>"; };
 		400A34491FBA27E60070E237 /* DocumentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentData.swift; sourceTree = "<group>"; };
 		400D97B51FBA3E1800540207 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Sheets.storyboard; sourceTree = "<group>"; };
@@ -202,7 +204,7 @@
 		40AA16FE1FB88FCC00373B07 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		40AB8C431FB87CE700BC6D82 /* EditorWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWindowController.swift; sourceTree = "<group>"; };
 		40AB8C4A1FB884C900BC6D82 /* CollaborationCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationCursor.swift; sourceTree = "<group>"; };
-		40AB8C4C1FB8866200BC6D82 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
+		40AB8C4C1FB8866200BC6D82 /* EditorWrapperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWrapperViewController.swift; sourceTree = "<group>"; };
 		40AB8C4E1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+CollaborationSourceCodeViewDelegate.swift"; sourceTree = "<group>"; };
 		40BD25DB1FBCB7B900211743 /* WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
 		40BD25DD1FBCB90C00211743 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -268,7 +270,7 @@
 				4007C7DF1FDCB3C900A53649 /* CollaborationEditorViewController.swift */,
 				4007C7E11FDCB42900A53649 /* EmptyStateEditorViewController.swift */,
 				4007C7E31FDCD15A00A53649 /* WebViewEditorViewController.swift */,
-				4007C7E51FDCD1B900A53649 /* Editor.swift */,
+				4007C7E51FDCD1B900A53649 /* EditorController.swift */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -451,6 +453,7 @@
 				40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */,
 				40A13BEA1FD724AC0044E897 /* NavigationOutlineView.swift */,
 				40FFD8EB1FDC1B5E007BA858 /* ModernTabBar.swift */,
+				4007C7E71FDD63FF00A53649 /* ClosureMenuItem.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -508,7 +511,7 @@
 			isa = PBXGroup;
 			children = (
 				4026AC871FBCE30400FFB18B /* EditorWindowController */,
-				40AB8C4C1FB8866200BC6D82 /* EditorViewController.swift */,
+				40AB8C4C1FB8866200BC6D82 /* EditorWrapperViewController.swift */,
 				40C88C201FB8B659006F6BB9 /* NavigationOutlineViewController.swift */,
 				40FFD8ED1FDC37FD007BA858 /* NavigationOutlineViewItem.swift */,
 				40A13BE31FD71F9F0044E897 /* PDFViewController.swift */,
@@ -762,6 +765,7 @@
 				40AA16EE1FB8881100373B07 /* CollaborationClient.swift in Sources */,
 				4007C7DB1FDC79E900A53649 /* Process+Helpers.swift in Sources */,
 				4007C7D51FDC730C00A53649 /* LatexRootDocumentStructureNode.swift in Sources */,
+				4007C7E81FDD63FF00A53649 /* ClosureMenuItem.swift in Sources */,
 				40A13BDE1FD5F4C80044E897 /* EditorWindowController+Typeset.swift in Sources */,
 				400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */,
 				40FFD8EE1FDC37FD007BA858 /* NavigationOutlineViewItem.swift in Sources */,
@@ -769,8 +773,8 @@
 				40A13BF41FD731690044E897 /* EditableFileSystemItem.swift in Sources */,
 				40BD25E11FBCDC3400211743 /* NewProjectOpenMethod.swift in Sources */,
 				40A13BF21FD731410044E897 /* FileSystemItem.swift in Sources */,
-				40AB8C4D1FB8866200BC6D82 /* EditorViewController.swift in Sources */,
-				4007C7E61FDCD1B900A53649 /* Editor.swift in Sources */,
+				40AB8C4D1FB8866200BC6D82 /* EditorWrapperViewController.swift in Sources */,
+				4007C7E61FDCD1B900A53649 /* EditorController.swift in Sources */,
 				40322FEF1FC2238600C75CEF /* EditorWindowController+FSMonitoring.swift in Sources */,
 				407302C21FBF630D00D5AB8F /* EditorWindowControllerGitHelper.swift in Sources */,
 				40322FED1FC2232F00C75CEF /* EditorWindowController+OutlineViewControllerDelegate.swift in Sources */,

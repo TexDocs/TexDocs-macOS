@@ -38,7 +38,7 @@ extension EditorWindowController: CollaborationClientDelegate {
 
     func collaborationCursorsChanged(_ client: CollaborationClient) {
         DispatchQueue.main.async {
-            self.editorViewController.openedEditor?.collaborationCursorsDidChange()
+            self.editorWrapperViewController.openedEditorController?.collaborationCursorsDidChange()
         }
     }
 

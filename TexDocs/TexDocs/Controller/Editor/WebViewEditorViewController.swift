@@ -9,7 +9,7 @@
 import Cocoa
 import WebKit
 
-class WebViewEditorViewController: NSViewController, Editor {
+class WebViewEditorViewController: NSViewController, EditorController {
     @IBOutlet weak var webView: WKWebView!
     
     var fileSystemItem: FileSystemItem!
@@ -34,7 +34,9 @@ class WebViewEditorViewController: NSViewController, Editor {
         webView.loadFileURL(fileSystemItem.url, allowingReadAccessTo: fileSystemItem.url)
     }
 
-    static func instantiateController(withFileSystemItem fileSystemItem: FileSystemItem) -> WebViewEditorViewController {
+    static let displayName: String = "Web View"
+
+    static func instantiateController(withFileSystemItem fileSystemItem: FileSystemItem, windowController: EditorWindowController) -> EditorController? {
         let editorController = NSStoryboard(name: NSStoryboard.Name(rawValue: "Editors"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "WebViewEditorViewController")) as! WebViewEditorViewController
         editorController.fileSystemItem = fileSystemItem
         return editorController

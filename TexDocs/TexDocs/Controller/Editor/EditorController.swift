@@ -8,7 +8,10 @@
 
 import Cocoa
 
-protocol Editor: class {
+protocol EditorController: class {
+    static var displayName: String { get }
+    static func instantiateController(withFileSystemItem fileSystemItem: FileSystemItem, windowController: EditorWindowController) -> EditorController?
+
     var fileSystemItem: FileSystemItem! { get }
     var rootDocumentStructureNode: DocumentStructureNode? { get }
 

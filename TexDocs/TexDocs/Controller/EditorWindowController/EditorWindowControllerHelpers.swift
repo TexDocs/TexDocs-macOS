@@ -31,7 +31,7 @@ extension EditorWindowController {
     }
 
     func relativePathOfOpenedFile() -> String? {
-        guard let openedFile = editorViewController.openedFile else {
+        guard let openedFile = editorWrapperViewController.openedFile else {
             return nil
         }
 

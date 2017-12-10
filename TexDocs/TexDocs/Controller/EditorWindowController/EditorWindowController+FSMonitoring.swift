@@ -26,7 +26,6 @@ extension EditorWindowController {
                 }
 
                 let url = URL(fileURLWithPath: event.path)
-                print(url)
                 self?.srcDirectoryDidChange()
                 
                 // Ignore other changes as well
@@ -55,6 +54,6 @@ extension EditorWindowController {
         } catch {
             showErrorSheet(error)
         }
-        editorViewController.srcDirectoryDidChange()
+        editorWrapperViewController.srcDirectoryDidChange()
     }
 }

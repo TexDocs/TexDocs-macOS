@@ -14,8 +14,8 @@ extension EditorWindowController: SourceCodeViewDelegate {
     }
 }
 
-extension EditorWindowController: EditorViewControllerDelegate {
-    func editorViewController(_ editorViewController: EditorViewController, opened editor: Editor) {
+extension EditorWindowController: EditorWrapperViewControllerDelegate {
+    func editorWrapperViewController(_ editorWrapperViewController: EditorWrapperViewController, opened editor: EditorController) {
         outlineViewController.reloadData(inTab: .structure)
     }
 }

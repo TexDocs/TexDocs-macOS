@@ -48,6 +48,10 @@ class NavigationOutlineViewController: NSViewController {
         FileManager.default.createFile(atPath: newFileURL.path, contents: nil, attributes: nil)
     }
 
+    @IBAction func openFile(_ sender: Any) {
+        openWrapper(outlineView.clickedItem())
+    }
+
     @IBAction func newFolder(_ sender: Any) {
         guard let item: FileSystemItem = outlineView.clickedItem()?.casted() else { return }
 
@@ -66,7 +70,7 @@ class NavigationOutlineViewController: NSViewController {
 
     // MARK: Event Handler
 
-    func deleteItem(fileSystemItem: FileSystemItem?) {
+    private func deleteItem(fileSystemItem: FileSystemItem?) {
         guard let fileSystemItem = fileSystemItem else { return }
 
         do {
@@ -76,13 +80,23 @@ class NavigationOutlineViewController: NSViewController {
         }
     }
 
-    func rootItem() -> NavigationOutlineViewItem? {
+    private func rootItem() -> NavigationOutlineViewItem? {
         guard let tab = NavigationOutlineViewControllerTabs(rawValue: tabBar.selectedButton) else { return nil }
         switch tab {
         case .directory:
             return delegate?.rootDirectory(for: self)
         case .structure:
             return delegate?.rootStructureNode(for: self)
+        }
+    }
+
+    private func openWrapper(_ wrapper: ItemWrapper?) {
+        guard let wrapper = wrapper else { return }
+
+        if let fileSystemItem: FileSystemItem = wrapper.casted() {
+            delegate?.outlineViewController(self, openFileSystemItem: fileSystemItem, withEditorControllerType: nil)
+        } else if let documentStructureNode: DocumentStructureNode = wrapper.casted() {
+            delegate?.outlineViewController(self, selectedDocumentStructureNode: documentStructureNode)
         }
     }
 
@@ -159,13 +173,7 @@ class ItemWrapper {
 
 extension NavigationOutlineViewController: NSOutlineViewDelegate {
     func outlineViewSelectionDidChange(_ notification: Notification) {
-        guard let wrapper = outlineView.selectedItem() else { return }
-
-        if let fileSystemItem: FileSystemItem = wrapper.casted() {
-            delegate?.outlineViewController(self, selectedFileSystemItem: fileSystemItem)
-        } else if let documentStructureNode: DocumentStructureNode = wrapper.casted() {
-            delegate?.outlineViewController(self, selectedDocumentStructureNode: documentStructureNode)
-        }
+        openWrapper(outlineView.selectedItem())
     }
 }
 
@@ -175,8 +183,19 @@ extension NavigationOutlineViewController: NavigationOutlineViewContextMenuDeleg
         if let fileSystemItem: FileSystemItem = wrapper.casted() {
             menu.setItemsEnabled(true)
 
+            if let openAsSubmenu = menu.item(at: 1)?.submenu {
+                openAsSubmenu.removeAllItems()
+                for editor in fileSystemItem.editorControllerTypes {
+                    openAsSubmenu.addItem(ClosureMenuItem(title: editor.displayName) { [weak self] in
+                        if let unwrappedSelf = self {
+                            unwrappedSelf.delegate?.outlineViewController(unwrappedSelf, openFileSystemItem: fileSystemItem, withEditorControllerType: editor)
+                        }
+                    })
+                }
+            }
+
             if fileSystemItem.isDirectory {
-                menu.item(at: 1)?.isEnabled = false
+                menu.item(at: 4)?.isEnabled = false
             }
         } else {
             menu.setItemsEnabled(false)
@@ -212,7 +231,7 @@ extension NavigationOutlineViewController: FileSystemItemCellDelegate {
 protocol NavigationOutlineViewControllerDelegate: class {
     func rootDirectory(for outlineViewController: NavigationOutlineViewController) -> FileSystemItem?
     func rootStructureNode(for outlineViewCOntroller: NavigationOutlineViewController) -> DocumentStructureNode?
-    func outlineViewController(_ outlineViewController: NavigationOutlineViewController, selectedFileSystemItem item: FileSystemItem)
+    func outlineViewController(_ outlineViewController: NavigationOutlineViewController, openFileSystemItem item: FileSystemItem, withEditorControllerType editorControllerType: EditorController.Type?)
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, selectedDocumentStructureNode item: DocumentStructureNode)
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, createNewSchemeFor item: FileSystemItem)
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, encounterdError error: Error)

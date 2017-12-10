@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class EmptyStateEditorViewController: NSViewController, Editor {
+class EmptyStateEditorViewController: NSViewController, EditorController {
     @IBOutlet weak var imageView: NSImageView!
     @IBOutlet weak var openInButton: NSButton!
 
@@ -47,7 +47,9 @@ class EmptyStateEditorViewController: NSViewController, Editor {
         NSWorkspace.shared.open(fileSystemItem.url)
     }
 
-    static func instantiateController(withFileSystemItem fileSystemItem: FileSystemItem) -> EmptyStateEditorViewController {
+    static let displayName: String = "Empty State"
+
+    static func instantiateController(withFileSystemItem fileSystemItem: FileSystemItem, windowController: EditorWindowController) -> EditorController? {
         let editorController = NSStoryboard(name: NSStoryboard.Name(rawValue: "Editors"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "EmptyStateEditorViewController")) as! EmptyStateEditorViewController
         editorController.fileSystemItem = fileSystemItem
         return editorController
