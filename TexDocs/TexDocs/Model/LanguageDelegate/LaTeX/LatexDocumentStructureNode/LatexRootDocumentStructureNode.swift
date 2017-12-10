@@ -9,7 +9,7 @@
 import Foundation
 
 struct LatexRootDocumentStructureNode: AutoHandlingLatexDocumentStructureNode {
-    let displayName = "Document"
+    let displayName = NSLocalizedString("TD_LATEX_ROOT_STRUCTURE_NODE", comment: "Name of the latex root document structure node")
     let type: DocumentStructureNodeNodeType = .root
     let range: NSRange
     var latexSubNodes: [LatexDocumentStructureNode] = []

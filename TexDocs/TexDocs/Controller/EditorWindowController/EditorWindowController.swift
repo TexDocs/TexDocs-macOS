@@ -106,7 +106,7 @@ class EditorWindowController: NSWindowController {
 
     func open(fileSystemItem: FileSystemItem, withEditorControllerType editorControllerType: EditorController.Type?) {
         guard let editorController = instantiateEditorController(for: fileSystemItem, withEditorControllerType: editorControllerType) else {
-            showErrorSheet(withCustomMessage: "Cannot open file")
+            showErrorSheet(withCustomMessage: NSLocalizedString("TD_ERROR_INVALID_EDITOR_CONTROLLER", comment: "Error message if the requested editor controller cannot be created"))
             return
         }
         editorWrapperViewController.pushToOpenedFiles(editorController)
@@ -140,8 +140,8 @@ class EditorWindowController: NSWindowController {
             schemeSelectorSelectionDidChange(self)
 
             schemeSelector.menu?.addItem(NSMenuItem.separator())
-            schemeSelector.menu?.addItem(withTitle: "Edit Scheme...", action: #selector(editScheme), keyEquivalent: "")
-            schemeSelector.menu?.addItem(withTitle: "Delete Scheme", action: #selector(deleteScheme), keyEquivalent: "")
+            schemeSelector.menu?.addItem(withTitle: NSLocalizedString("TD_CONTEXTMENU_ITEM_EDIT_SCHEME", comment: "Menu item to edit the selected scheme"), action: #selector(editScheme), keyEquivalent: "")
+            schemeSelector.menu?.addItem(withTitle: NSLocalizedString("TD_CONTEXTMENU_ITEM_DELETE_SCHEME", comment: "Menu item to delete the selected scheme"), action: #selector(deleteScheme), keyEquivalent: "")
             typesetButton.isEnabled = true
         } else {
             selectedSchemeMenuItem = nil

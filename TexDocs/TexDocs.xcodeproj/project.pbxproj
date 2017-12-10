@@ -19,6 +19,8 @@
 		4007C7E41FDCD15A00A53649 /* WebViewEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7E31FDCD15A00A53649 /* WebViewEditorViewController.swift */; };
 		4007C7E61FDCD1B900A53649 /* EditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7E51FDCD1B900A53649 /* EditorController.swift */; };
 		4007C7E81FDD63FF00A53649 /* ClosureMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C7E71FDD63FF00A53649 /* ClosureMenuItem.swift */; };
+		4007C8161FDD736600A53649 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40A7D0E51FB78A3F002FBB8B /* Main.storyboard */; };
+		4007C81B1FDD73DE00A53649 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4007C8191FDD73DE00A53649 /* Localizable.strings */; };
 		400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A34491FBA27E60070E237 /* DocumentData.swift */; };
 		400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 400D97B51FBA3E1800540207 /* Quartz.framework */; };
 		4026AC8D1FBCE91D00FFB18B /* Sheets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */; };
@@ -48,7 +50,6 @@
 		40A7D0DE1FB78A3F002FBB8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D0DD1FB78A3F002FBB8B /* AppDelegate.swift */; };
 		40A7D0E21FB78A3F002FBB8B /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D0E11FB78A3F002FBB8B /* Document.swift */; };
 		40A7D0E41FB78A3F002FBB8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40A7D0E31FB78A3F002FBB8B /* Assets.xcassets */; };
-		40A7D0E71FB78A3F002FBB8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40A7D0E51FB78A3F002FBB8B /* Main.storyboard */; };
 		40A7D0F31FB78A3F002FBB8B /* TexDocsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D0F21FB78A3F002FBB8B /* TexDocsTests.swift */; };
 		40A7D0FE1FB78A3F002FBB8B /* TexDocsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A7D0FD1FB78A3F002FBB8B /* TexDocsUITests.swift */; };
 		40AA16EE1FB8881100373B07 /* CollaborationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AA16ED1FB8881100373B07 /* CollaborationClient.swift */; };
@@ -73,7 +74,6 @@
 		40C88C211FB8B659006F6BB9 /* NavigationOutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C88C201FB8B659006F6BB9 /* NavigationOutlineViewController.swift */; };
 		40E1D8711FD9CD230077BA90 /* SourceCodeViewLanguageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E1D8701FD9CD230077BA90 /* SourceCodeViewLanguageDelegate.swift */; };
 		40E1D8771FD9CD910077BA90 /* LaTeXSourceCodeViewLanguageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E1D8761FD9CD910077BA90 /* LaTeXSourceCodeViewLanguageDelegate.swift */; };
-		40EF5D521FBF9612003E0E40 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 40EF5D511FBF9612003E0E40 /* Localizable.strings */; };
 		40EF5D541FC05EC0003E0E40 /* EditorWindowController+Sheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EF5D531FC05EC0003E0E40 /* EditorWindowController+Sheets.swift */; };
 		40FFD8EC1FDC1B5E007BA858 /* ModernTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFD8EB1FDC1B5E007BA858 /* ModernTabBar.swift */; };
 		40FFD8EE1FDC37FD007BA858 /* NavigationOutlineViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFD8ED1FDC37FD007BA858 /* NavigationOutlineViewItem.swift */; };
@@ -154,6 +154,9 @@
 		4007C7E31FDCD15A00A53649 /* WebViewEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewEditorViewController.swift; sourceTree = "<group>"; };
 		4007C7E51FDCD1B900A53649 /* EditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorController.swift; sourceTree = "<group>"; };
 		4007C7E71FDD63FF00A53649 /* ClosureMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureMenuItem.swift; sourceTree = "<group>"; };
+		4007C81A1FDD73DE00A53649 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4007C81C1FDD73E400A53649 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4007C81D1FDD73E700A53649 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		400A34491FBA27E60070E237 /* DocumentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentData.swift; sourceTree = "<group>"; };
 		400D97B51FBA3E1800540207 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Sheets.storyboard; sourceTree = "<group>"; };
@@ -215,7 +218,6 @@
 		40C88C201FB8B659006F6BB9 /* NavigationOutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOutlineViewController.swift; sourceTree = "<group>"; };
 		40E1D8701FD9CD230077BA90 /* SourceCodeViewLanguageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCodeViewLanguageDelegate.swift; sourceTree = "<group>"; };
 		40E1D8761FD9CD910077BA90 /* LaTeXSourceCodeViewLanguageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaTeXSourceCodeViewLanguageDelegate.swift; sourceTree = "<group>"; };
-		40EF5D511FBF9612003E0E40 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		40EF5D531FC05EC0003E0E40 /* EditorWindowController+Sheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+Sheets.swift"; sourceTree = "<group>"; };
 		40FFD8EB1FDC1B5E007BA858 /* ModernTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernTabBar.swift; sourceTree = "<group>"; };
 		40FFD8ED1FDC37FD007BA858 /* NavigationOutlineViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOutlineViewItem.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 				40A7D0E51FB78A3F002FBB8B /* Main.storyboard */,
 				4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */,
 				4007C7DC1FDC8E2B00A53649 /* Editors.storyboard */,
+				4007C8191FDD73DE00A53649 /* Localizable.strings */,
 			);
 			path = TexDocs;
 			sourceTree = "<group>";
@@ -466,7 +469,6 @@
 				40A7D0E81FB78A3F002FBB8B /* Info.plist */,
 				40A7D0E91FB78A3F002FBB8B /* TexDocs.entitlements */,
 				4026ACC51FBF549600FFB18B /* Bridging-Header.h */,
-				40EF5D511FBF9612003E0E40 /* Localizable.strings */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -553,7 +555,8 @@
 				40A7D0D71FB78A3F002FBB8B /* Frameworks */,
 				40A7D0D81FB78A3F002FBB8B /* Resources */,
 				40A7D11C1FB79261002FBB8B /* Embed Frameworks */,
-				4026ACC31FBF530700FFB18B /* ShellScript */,
+				4007C82A1FDD899800A53649 /* Carthage */,
+				4007C81E1FDD748500A53649 /* Localize */,
 			);
 			buildRules = (
 			);
@@ -638,6 +641,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = 40A7D0D11FB78A3F002FBB8B;
 			productRefGroup = 40A7D0DB1FB78A3F002FBB8B /* Products */;
@@ -693,11 +697,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4007C81B1FDD73DE00A53649 /* Localizable.strings in Resources */,
+				4007C8161FDD736600A53649 /* Main.storyboard in Resources */,
 				4007C7DD1FDC8E2B00A53649 /* Editors.storyboard in Resources */,
 				4026AC8D1FBCE91D00FFB18B /* Sheets.storyboard in Resources */,
-				40EF5D521FBF9612003E0E40 /* Localizable.strings in Resources */,
 				40A7D0E41FB78A3F002FBB8B /* Assets.xcassets in Resources */,
-				40A7D0E71FB78A3F002FBB8B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -718,7 +722,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4026ACC31FBF530700FFB18B /* ShellScript */ = {
+		4007C81E1FDD748500A53649 /* Localize */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Localize;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./mergegenstrings.py TexDocs";
+		};
+		4007C82A1FDD899800A53649 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -726,6 +744,7 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/Mac/ObjectiveGit.framework",
 			);
+			name = Carthage;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -835,6 +854,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		4007C8191FDD73DE00A53649 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4007C81A1FDD73DE00A53649 /* Base */,
+				4007C81C1FDD73E400A53649 /* en */,
+				4007C81D1FDD73E700A53649 /* de */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		40A7D0E51FB78A3F002FBB8B /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -850,6 +879,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -907,6 +937,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

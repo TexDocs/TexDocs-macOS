@@ -34,7 +34,7 @@ class WebViewEditorViewController: NSViewController, EditorController {
         webView.loadFileURL(fileSystemItem.url, allowingReadAccessTo: fileSystemItem.url)
     }
 
-    static let displayName: String = "Web View"
+    static let displayName: String = NSLocalizedString("TD_WEB_VIEW_EDITOR_NAME", comment: "Name of the web view editor")
 
     static func instantiateController(withFileSystemItem fileSystemItem: FileSystemItem, windowController: EditorWindowController) -> EditorController? {
         let editorController = NSStoryboard(name: NSStoryboard.Name(rawValue: "Editors"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "WebViewEditorViewController")) as! WebViewEditorViewController

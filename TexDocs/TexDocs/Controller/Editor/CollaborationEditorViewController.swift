@@ -53,7 +53,7 @@ class CollaborationEditorViewController: NSViewController, EditorController {
 
     private var delegateModel: CollaborationEditorViewControllerModel?
 
-    static let displayName: String = "Collaboration Editor"
+    static let displayName: String = NSLocalizedString("TD_COLLABORATION_EDITOR_NAME", comment: "The display name of the collaboration editor")
 
     static func instantiateController(withFileSystemItem fileSystemItem: FileSystemItem, windowController: EditorWindowController) -> EditorController? {
         guard let editableFileSystemItem = fileSystemItem as? EditableFileSystemItem else {

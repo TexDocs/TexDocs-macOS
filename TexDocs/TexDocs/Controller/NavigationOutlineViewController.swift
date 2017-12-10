@@ -44,7 +44,7 @@ class NavigationOutlineViewController: NSViewController {
         guard let item: FileSystemItem = outlineView.clickedItem()?.casted() else { return }
 
         let parentUrl = item.isDirectory ? item.url : item.url.deletingLastPathComponent()
-        let newFileURL = parentUrl.appendingPathComponent("Untitled")
+        let newFileURL = parentUrl.appendingPathComponent(NSLocalizedString("TD_CONSTANT_UNTITLED_FILE", comment: "Default name for a new file"))
         FileManager.default.createFile(atPath: newFileURL.path, contents: nil, attributes: nil)
     }
 
@@ -56,7 +56,7 @@ class NavigationOutlineViewController: NSViewController {
         guard let item: FileSystemItem = outlineView.clickedItem()?.casted() else { return }
 
         let parentUrl = item.isDirectory ? item.url : item.url.deletingLastPathComponent()
-        let newDirectoryURL = parentUrl.appendingPathComponent("Untitled")
+        let newDirectoryURL = parentUrl.appendingPathComponent(NSLocalizedString("TD_CONSTANT_UNTITLED_DIRECTORY", comment: "Default name for a new directory"))
         do {
             try FileManager.default.createDirectory(at: newDirectoryURL, withIntermediateDirectories: false, attributes: nil)
         } catch {

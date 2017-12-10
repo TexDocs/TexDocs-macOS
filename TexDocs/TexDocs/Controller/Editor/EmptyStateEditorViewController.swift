@@ -40,14 +40,14 @@ class EmptyStateEditorViewController: NSViewController, EditorController {
             return
         }
         openInButton.isHidden = false
-        openInButton.title = "Open in \(applicationPath.lastPathComponent)"
+        openInButton.title = "\(NSLocalizedString("TD_OPEN_IN", comment: "Open in <Application name>")) \(applicationPath.lastPathComponent)"
     }
 
     @IBAction func openInButtonClicked(_ sender: Any) {
         NSWorkspace.shared.open(fileSystemItem.url)
     }
 
-    static let displayName: String = "Empty State"
+    static let displayName: String = NSLocalizedString("TD_EMPTY_STATE_EDITOR_NAME", comment: "Name of the empty state editor")
 
     static func instantiateController(withFileSystemItem fileSystemItem: FileSystemItem, windowController: EditorWindowController) -> EditorController? {
         let editorController = NSStoryboard(name: NSStoryboard.Name(rawValue: "Editors"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "EmptyStateEditorViewController")) as! EmptyStateEditorViewController

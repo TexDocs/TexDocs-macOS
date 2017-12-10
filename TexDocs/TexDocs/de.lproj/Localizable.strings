@@ -1,0 +1,99 @@
+/* Button title of notification sheets. */
+"TD_BUTTON_CLOSE" = "Schließen";
+
+/* Button title of error sheets. */
+"TD_BUTTON_CLOSE_PROJECT" = "Project schließen";
+
+/* Button to create a new project. */
+"TD_BUTTON_CREATE" = "Erstellen";
+
+/* Button to create a new offline project. */
+"TD_BUTTON_CREATE_OFFLINE" = "Erstellen";
+
+/* Button to join an existing project. */
+"TD_BUTTON_JOIN" = "Beitreten";
+
+/* The display name of the collaboration editor */
+"TD_COLLABORATION_EDITOR_NAME" = "Kollaberations Editor";
+
+/* Default name for a new directory */
+"TD_CONSTANT_UNTITLED_DIRECTORY" = "Unbenannter Ordner";
+
+/* Default name for a new file */
+"TD_CONSTANT_UNTITLED_FILE" = "Unbenannte Datei";
+
+/* Menu item to delete the selected scheme */
+"TD_CONTEXTMENU_ITEM_DELETE_SCHEME" = "Scheme Löschen";
+
+/* Menu item to edit the selected scheme */
+"TD_CONTEXTMENU_ITEM_EDIT_SCHEME" = "Scheme editieren...";
+
+/* Name of the empty state editor */
+"TD_EMPTY_STATE_EDITOR_NAME" = "Leerer Editor";
+
+/* Error message after unexpected connection drop. */
+"TD_ERROR_CONNECTION_LOST" = "Verbindung verloren.";
+
+/* Message shown to the user if an internal error occures. */
+"TD_ERROR_INTERNAL_ERROR" = "Interner Fehler.";
+
+/* Error message if the requested editor controller cannot be created */
+"TD_ERROR_INVALID_EDITOR_CONTROLLER" = "Der Editor konnte nicht erstellt werden.";
+
+/* Message shown to the user if the saved and the received repository url don't match. */
+"TD_ERROR_MISSMATCHED_REPOSITORY_URL" = "Die empfangene Repository URL entspricht nicht der gespeicherten.";
+
+/* Error message if a received message is corrupted. */
+"TD_ERROR_UNEXPECTED_STATUS_CODE" = "Die empfangenen Daetn konnten nicht gelesen werden.";
+
+/* Error message if the received repository url is invalid. */
+"TD_INVALID_REPOSITORY_URL" = "Die empfangene Repository URL ist ungültig.";
+
+/* Error description if the signature is invalid. */
+"TD_INVALID_SIGNATURE" = "Die git signatur ist ungültig.";
+
+/* Name of the latex root document structure node */
+"TD_LATEX_ROOT_STRUCTURE_NODE" = "Tex Dokument";
+
+/* Message shown to the user while starting the cloning. */
+"TD_NOTIFICATION_CLONING_REPOSITORY" = "Repository clonen...";
+
+/* Message shown to the user while connecting to the server. */
+"TD_NOTIFICATION_CONNECTING_TO_SERVER" = "Verbindeung zum Server wird hergestellt...";
+
+/* Shown while fetching from git remote. */
+"TD_NOTIFICATION_FETCH_PROGRESS" = "Fetching ...";
+
+/* Shown while pulling from git remote. */
+"TD_NOTIFICATION_PULLING_PROGRESS" = "Pulling ...";
+
+/* Shown while pushing to git remote. */
+"TD_NOTIFICATION_PUSHING_PROGRESS" = "Pushing ...";
+
+/* Shown while receiving objects from git remote. */
+"TD_NOTIFICATION_RECEIVING_OBJECTS" = "Empfange Objeckte...";
+
+/* Notification for the user after a successfull clone. */
+"TD_NOTIFICATION_REPOSITORY_CLONED" = "Das Clonen war erfolgreich.";
+
+/* Notification for the user while waiting for a sync start package. */
+"TD_NOTIFICATION_REQUESTED_SYNC" = "Syncronisation angefragt...";
+
+/* Notification for the user after pull started. */
+"TD_NOTIFICATION_STARTED_PULLING" = "Fetching...";
+
+/* Notification for the user after a successfull sync. */
+"TD_NOTIFICATION_SYNC_COMPLETED" = "Syncronisation abgeschlossen.";
+
+/* Notification for the user while waiting for the sync to complete. */
+"TD_NOTIFICATION_WAITING_FOR_SYNC_TO_COMPLETE" = "Warte auf Syncronisation...";
+
+/* Notification for the user while waiting for the own sync to start. */
+"TD_NOTIFICATION_WAITING_FOR_SYNC_TO_START" = "Warte auf Syncronisation...";
+
+/* Open in <Application name> */
+"TD_OPEN_IN" = "Öffnen mit";
+
+/* Name of the web view editor */
+"TD_WEB_VIEW_EDITOR_NAME" = "Web Editor";
+

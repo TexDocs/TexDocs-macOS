@@ -113,7 +113,7 @@ extension CollaborationClient: WebSocketDelegate {
     func webSocketOpen() {
         print("Web socket opened")
     }
-    
+
     func webSocketClose(_ code: Int, reason: String, wasClean: Bool) {
         guard !ignoreClosingReason else { return }
         
