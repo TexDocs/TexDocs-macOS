@@ -26,6 +26,7 @@
 		4007C8391FDDAC7300A53649 /* LanguageCompletions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4007C8381FDDAC7300A53649 /* LanguageCompletions.swift */; };
 		400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A34491FBA27E60070E237 /* DocumentData.swift */; };
 		400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 400D97B51FBA3E1800540207 /* Quartz.framework */; };
+		401CD53D1FDEFC1F00396A7E /* MultiDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401CD53C1FDEFC1F00396A7E /* MultiDelegate.swift */; };
 		4026AC8D1FBCE91D00FFB18B /* Sheets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */; };
 		4026AC901FBCEC5000FFB18B /* SimpleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026AC8F1FBCEC5000FFB18B /* SimpleSheet.swift */; };
 		4026AC921FBE1CD000FFB18B /* CollaborationClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026AC911FBE1CD000FFB18B /* CollaborationClientError.swift */; };
@@ -165,6 +166,7 @@
 		4007C8381FDDAC7300A53649 /* LanguageCompletions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageCompletions.swift; sourceTree = "<group>"; };
 		400A34491FBA27E60070E237 /* DocumentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentData.swift; sourceTree = "<group>"; };
 		400D97B51FBA3E1800540207 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		401CD53C1FDEFC1F00396A7E /* MultiDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiDelegate.swift; sourceTree = "<group>"; };
 		4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Sheets.storyboard; sourceTree = "<group>"; };
 		4026AC8F1FBCEC5000FFB18B /* SimpleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSheet.swift; sourceTree = "<group>"; };
 		4026AC911FBE1CD000FFB18B /* CollaborationClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationClientError.swift; sourceTree = "<group>"; };
@@ -452,6 +454,7 @@
 				409176B01FD86ACD0086421B /* FileManager+Helpers.swift */,
 				40FFD8EF1FDC3C4D007BA858 /* CachedProperty.swift */,
 				4007C7DA1FDC79E900A53649 /* Process+Helpers.swift */,
+				401CD53C1FDEFC1F00396A7E /* MultiDelegate.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -790,6 +793,7 @@
 				4048199D1FB8C64600AAFBF0 /* CollaborationProtocol.swift in Sources */,
 				40AA16FC1FB88F5600373B07 /* ThemesHandler.swift in Sources */,
 				4026AC921FBE1CD000FFB18B /* CollaborationClientError.swift in Sources */,
+				401CD53D1FDEFC1F00396A7E /* MultiDelegate.swift in Sources */,
 				4007C7E01FDCB3C900A53649 /* CollaborationEditorViewController.swift in Sources */,
 				4007C7E21FDCB42900A53649 /* EmptyStateEditorViewController.swift in Sources */,
 				40AA16EE1FB8881100373B07 /* CollaborationClient.swift in Sources */,

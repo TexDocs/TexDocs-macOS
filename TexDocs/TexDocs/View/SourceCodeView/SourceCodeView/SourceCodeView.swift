@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SourceCodeView: ImprovedTextView {
+class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate {
     
     // MARK: Variables
     
@@ -75,8 +75,7 @@ class SourceCodeView: ImprovedTextView {
         enclosingScrollView.verticalRulerView = ruler
     }
     
-    override func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, isContentReplace: Bool) {
-        super.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser, isContentReplace: isContentReplace)
+    func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, isContentReplace: Bool) {
         if !isContentReplace {
             updateSourceCodeHighlighting(in: newRange)
         }

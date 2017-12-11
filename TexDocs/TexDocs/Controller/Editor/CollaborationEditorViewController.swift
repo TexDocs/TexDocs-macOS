@@ -41,7 +41,8 @@ class CollaborationEditorViewController: BaseEditorViewController, EditorControl
 
     override func viewDidLoad() {
         editor.layoutManager?.replaceTextStorage(editableFileSystemItem.textStorage)
-        editableFileSystemItem.textStorage.delegate = editor
+        editableFileSystemItem.delegates.add(delegate: editor)
+
         editor.languageDelegate = editableFileSystemItem.languageDelegate
         editor.collaborationDelegate = delegateModel?.collaborationDelegate
         editor.sourceCodeViewDelegate = delegateModel?.sourceCodeViewDelegate

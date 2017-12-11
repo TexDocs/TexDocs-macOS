@@ -156,10 +156,10 @@ extension LaTeXSourceCodeViewLanguageDelegate {
     static let highlightingRules: [SourceCodeHighlightRule] = [
         SimpleHighlighter(pattern: "(\\d+)", colors: [.variable]),
         SimpleHighlighter(pattern: "(\\\\\\w*)", colors: [.keyword]),
-        SimpleHighlighter(pattern: "(%.*)$", colors: [.comment]),
         SimpleHighlighter(pattern: "(?:\\\\documentclass|usepackage|input)(?:\\[([^\\]]*)\\])?\\{([^}]*)\\}", colors: [.variable, .variable]),
         SimpleHighlighter(pattern: "(?:\\\\(?:begin|end))\\{([^}]*)\\}", colors: [.variable]),
         SimpleHighlighter(pattern: "(\\$.*?\\$)", colors: [.inlineMath]),
+        SimpleHighlighter(pattern: "(%.*)$", colors: [.comment]),
     ]
 
     static let packageRegex = try! NSRegularExpression(pattern: "\\\\usepackage\\{(.*?)\\}", options: [])

@@ -9,7 +9,7 @@
 import Cocoa
 
 /// Impoved Text view with helpfull helpers
-class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
+class ImprovedTextView: NSTextView, NSTextViewDelegate {
     
     // MARK: Init
     override init(frame frameRect: NSRect) {
@@ -152,24 +152,11 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
     }
 
     private static let lineBeginningSpaces = try! NSRegularExpression(pattern: "^(\\s*)", options: .caseInsensitive)
-    
-    // MARK: Text did change
-
-    fileprivate var userInitiated = true
-    fileprivate var isContentReplace = false
-    
-    func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorageEditActions, range editedRange: NSRange, changeInLength delta: Int) {
-        if editedMask.contains(NSTextStorageEditActions.editedCharacters) {
-            let oldRange = NSRange(location: editedRange.location, length: editedRange.length - delta)
-            textDidChange(oldRange: oldRange, newRange: editedRange, changeInLength: delta, byUser: userInitiated, isContentReplace: isContentReplace)
-        }
-    }
 
     func textViewDidChangeSelection(_ notification: Notification) {
         selectionDidChange(selection: selectedRange())
     }
     
-    open func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, isContentReplace: Bool) {}
     open func selectionDidChange(selection: NSRange) {}
     
     // MARK: Remove format
@@ -183,24 +170,6 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate, NSTextStorageDelegate {
     override func alignCenter(_ sender: Any?) {}
     override func alignRight(_ sender: Any?) {}
     override func underline(_ sender: Any?) {}
-}
-
-extension NSTextStorage {
-    func replaceCharacters(in range: NSRange, with str: String, byUser: Bool) {
-        let textViewDelegate = delegate as? ImprovedTextView
-        textViewDelegate?.userInitiated = byUser
-        replaceCharacters(in: range, with: str)
-        textViewDelegate?.userInitiated = true
-    }
-
-    func replaceContent(with str: String) {
-        let textViewDelegate = delegate as? ImprovedTextView
-        textViewDelegate?.userInitiated = false
-        textViewDelegate?.isContentReplace = true
-        replaceCharacters(in: NSRange(location: 0, length: length), with: str)
-        textViewDelegate?.isContentReplace = false
-        textViewDelegate?.userInitiated = true
-    }
 }
 
 private let EditorAutoClose = [
