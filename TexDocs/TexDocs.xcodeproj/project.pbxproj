@@ -27,6 +27,17 @@
 		400A344A1FBA27E60070E237 /* DocumentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A34491FBA27E60070E237 /* DocumentData.swift */; };
 		400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 400D97B51FBA3E1800540207 /* Quartz.framework */; };
 		401CD53D1FDEFC1F00396A7E /* MultiDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401CD53C1FDEFC1F00396A7E /* MultiDelegate.swift */; };
+		401CD5431FDF13DA00396A7E /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 401CD5421FDF13DA00396A7E /* Cartfile */; };
+		401CD5481FDF14FA00396A7E /* CCNPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 401CD5451FDF14FA00396A7E /* CCNPreferencesWindowController.m */; };
+		401CD54C1FDF15F200396A7E /* GitPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401CD54A1FDF15F200396A7E /* GitPreferencesViewController.swift */; };
+		401CD54D1FDF15F200396A7E /* GitPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 401CD54B1FDF15F200396A7E /* GitPreferencesViewController.xib */; };
+		401CD55B1FDF1DA400396A7E /* LabeledTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 401CD5591FDF1DA400396A7E /* LabeledTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		401CD55E1FDF1DA400396A7E /* LabeledTextField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 401CD5571FDF1DA400396A7E /* LabeledTextField.framework */; };
+		401CD55F1FDF1DA400396A7E /* LabeledTextField.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 401CD5571FDF1DA400396A7E /* LabeledTextField.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		401CD5641FDF1DB400396A7E /* LabeledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401CD5631FDF1DB400396A7E /* LabeledTextField.swift */; };
+		401CD5691FDF211F00396A7E /* GeneralPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401CD5671FDF211F00396A7E /* GeneralPreferencesViewController.swift */; };
+		401CD56A1FDF211F00396A7E /* GeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 401CD5681FDF211F00396A7E /* GeneralPreferencesViewController.xib */; };
+		401CD56C1FDF233B00396A7E /* UserDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401CD56B1FDF233B00396A7E /* UserDefaultSettings.swift */; };
 		4026AC8D1FBCE91D00FFB18B /* Sheets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */; };
 		4026AC901FBCEC5000FFB18B /* SimpleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026AC8F1FBCEC5000FFB18B /* SimpleSheet.swift */; };
 		4026AC921FBE1CD000FFB18B /* CollaborationClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026AC911FBE1CD000FFB18B /* CollaborationClientError.swift */; };
@@ -87,6 +98,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		401CD55C1FDF1DA400396A7E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40A7D0D21FB78A3F002FBB8B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 401CD5561FDF1DA400396A7E;
+			remoteInfo = LabeledTextField;
+		};
 		40A7D0EF1FB78A3F002FBB8B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 40A7D0D21FB78A3F002FBB8B /* Project object */;
@@ -138,6 +156,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				401CD55F1FDF1DA400396A7E /* LabeledTextField.framework in Embed Frameworks */,
 				409176C51FD8917A0086421B /* EonilFileSystemEvents.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -167,6 +186,19 @@
 		400A34491FBA27E60070E237 /* DocumentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentData.swift; sourceTree = "<group>"; };
 		400D97B51FBA3E1800540207 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		401CD53C1FDEFC1F00396A7E /* MultiDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiDelegate.swift; sourceTree = "<group>"; };
+		401CD5421FDF13DA00396A7E /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
+		401CD5451FDF14FA00396A7E /* CCNPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCNPreferencesWindowController.m; sourceTree = "<group>"; };
+		401CD5461FDF14FA00396A7E /* CCNPreferencesWindowControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNPreferencesWindowControllerProtocol.h; sourceTree = "<group>"; };
+		401CD5471FDF14FA00396A7E /* CCNPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNPreferencesWindowController.h; sourceTree = "<group>"; };
+		401CD54A1FDF15F200396A7E /* GitPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitPreferencesViewController.swift; sourceTree = "<group>"; };
+		401CD54B1FDF15F200396A7E /* GitPreferencesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GitPreferencesViewController.xib; sourceTree = "<group>"; };
+		401CD5571FDF1DA400396A7E /* LabeledTextField.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LabeledTextField.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		401CD5591FDF1DA400396A7E /* LabeledTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabeledTextField.h; sourceTree = "<group>"; };
+		401CD55A1FDF1DA400396A7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		401CD5631FDF1DB400396A7E /* LabeledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledTextField.swift; sourceTree = "<group>"; };
+		401CD5671FDF211F00396A7E /* GeneralPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferencesViewController.swift; sourceTree = "<group>"; };
+		401CD5681FDF211F00396A7E /* GeneralPreferencesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralPreferencesViewController.xib; sourceTree = "<group>"; };
+		401CD56B1FDF233B00396A7E /* UserDefaultSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultSettings.swift; sourceTree = "<group>"; };
 		4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Sheets.storyboard; sourceTree = "<group>"; };
 		4026AC8F1FBCEC5000FFB18B /* SimpleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSheet.swift; sourceTree = "<group>"; };
 		4026AC911FBE1CD000FFB18B /* CollaborationClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationClientError.swift; sourceTree = "<group>"; };
@@ -235,6 +267,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		401CD5531FDF1DA400396A7E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		40A7D0D71FB78A3F002FBB8B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -243,6 +282,7 @@
 				4026ACC01FBF525C00FFB18B /* ObjectiveGit.framework in Frameworks */,
 				400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */,
 				40BD25DE1FBCB90C00211743 /* libz.tbd in Frameworks */,
+				401CD55E1FDF1DA400396A7E /* LabeledTextField.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +347,37 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		401CD5441FDF14FA00396A7E /* CCNPreferencesWindowController */ = {
+			isa = PBXGroup;
+			children = (
+				401CD5451FDF14FA00396A7E /* CCNPreferencesWindowController.m */,
+				401CD5461FDF14FA00396A7E /* CCNPreferencesWindowControllerProtocol.h */,
+				401CD5471FDF14FA00396A7E /* CCNPreferencesWindowController.h */,
+			);
+			path = CCNPreferencesWindowController;
+			sourceTree = "<group>";
+		};
+		401CD5491FDF15C500396A7E /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				401CD54A1FDF15F200396A7E /* GitPreferencesViewController.swift */,
+				401CD54B1FDF15F200396A7E /* GitPreferencesViewController.xib */,
+				401CD5671FDF211F00396A7E /* GeneralPreferencesViewController.swift */,
+				401CD5681FDF211F00396A7E /* GeneralPreferencesViewController.xib */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		401CD5581FDF1DA400396A7E /* LabeledTextField */ = {
+			isa = PBXGroup;
+			children = (
+				401CD5591FDF1DA400396A7E /* LabeledTextField.h */,
+				401CD5631FDF1DB400396A7E /* LabeledTextField.swift */,
+				401CD55A1FDF1DA400396A7E /* Info.plist */,
+			);
+			path = LabeledTextField;
+			sourceTree = "<group>";
+		};
 		4026AC871FBCE30400FFB18B /* EditorWindowController */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,11 +430,13 @@
 		40A7D0D11FB78A3F002FBB8B = {
 			isa = PBXGroup;
 			children = (
+				401CD5421FDF13DA00396A7E /* Cartfile */,
 				40BD4C2C1FC1C7220048ABF6 /* EonilFileSystemEvents.xcodeproj */,
 				40BD25D81FBCB5BC00211743 /* External Libraries */,
 				40A7D0DC1FB78A3F002FBB8B /* TexDocs */,
 				40A7D0F11FB78A3F002FBB8B /* TexDocsTests */,
 				40A7D0FC1FB78A3F002FBB8B /* TexDocsUITests */,
+				401CD5581FDF1DA400396A7E /* LabeledTextField */,
 				40A7D0DB1FB78A3F002FBB8B /* Products */,
 				400D97AF1FBA3E1800540207 /* Frameworks */,
 			);
@@ -375,6 +448,7 @@
 				40A7D0DA1FB78A3F002FBB8B /* TexDocs.app */,
 				40A7D0EE1FB78A3F002FBB8B /* TexDocsTests.xctest */,
 				40A7D0F91FB78A3F002FBB8B /* TexDocsUITests.xctest */,
+				401CD5571FDF1DA400396A7E /* LabeledTextField.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -455,6 +529,7 @@
 				40FFD8EF1FDC3C4D007BA858 /* CachedProperty.swift */,
 				4007C7DA1FDC79E900A53649 /* Process+Helpers.swift */,
 				401CD53C1FDEFC1F00396A7E /* MultiDelegate.swift */,
+				401CD56B1FDF233B00396A7E /* UserDefaultSettings.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -531,6 +606,7 @@
 				40A13BE31FD71F9F0044E897 /* PDFViewController.swift */,
 				4048199E1FB8DD9400AAFBF0 /* NewProjectViewController.swift */,
 				40A13BDF1FD5F5610044E897 /* ConsoleViewController.swift */,
+				401CD5491FDF15C500396A7E /* Settings */,
 				4007C7DE1FDCB37900A53649 /* Editor */,
 				4026AC8E1FBCEC4200FFB18B /* Sheets */,
 			);
@@ -540,6 +616,7 @@
 		40BD25D81FBCB5BC00211743 /* External Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				401CD5441FDF14FA00396A7E /* CCNPreferencesWindowController */,
 				40BD25DB1FBCB7B900211743 /* WebSocket.swift */,
 			);
 			path = "External Libraries";
@@ -558,7 +635,36 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		401CD5541FDF1DA400396A7E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				401CD55B1FDF1DA400396A7E /* LabeledTextField.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		401CD5561FDF1DA400396A7E /* LabeledTextField */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 401CD5601FDF1DA400396A7E /* Build configuration list for PBXNativeTarget "LabeledTextField" */;
+			buildPhases = (
+				401CD5521FDF1DA400396A7E /* Sources */,
+				401CD5531FDF1DA400396A7E /* Frameworks */,
+				401CD5541FDF1DA400396A7E /* Headers */,
+				401CD5551FDF1DA400396A7E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LabeledTextField;
+			productName = LabeledTextField;
+			productReference = 401CD5571FDF1DA400396A7E /* LabeledTextField.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		40A7D0D91FB78A3F002FBB8B /* TexDocs */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 40A7D1021FB78A3F002FBB8B /* Build configuration list for PBXNativeTarget "TexDocs" */;
@@ -573,6 +679,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				401CD55D1FDF1DA400396A7E /* PBXTargetDependency */,
 			);
 			name = TexDocs;
 			productName = TexDocs;
@@ -625,6 +732,11 @@
 				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = TexDocs;
 				TargetAttributes = {
+					401CD5561FDF1DA400396A7E = {
+						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
+						ProvisioningStyle = Automatic;
+					};
 					40A7D0D91FB78A3F002FBB8B = {
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
@@ -669,6 +781,7 @@
 				40A7D0D91FB78A3F002FBB8B /* TexDocs */,
 				40A7D0ED1FB78A3F002FBB8B /* TexDocsTests */,
 				40A7D0F81FB78A3F002FBB8B /* TexDocsUITests */,
+				401CD5561FDF1DA400396A7E /* LabeledTextField */,
 			);
 		};
 /* End PBXProject section */
@@ -705,15 +818,25 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		401CD5551FDF1DA400396A7E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		40A7D0D81FB78A3F002FBB8B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				401CD5431FDF13DA00396A7E /* Cartfile in Resources */,
 				4007C81B1FDD73DE00A53649 /* Localizable.strings in Resources */,
 				4007C8161FDD736600A53649 /* Main.storyboard in Resources */,
+				401CD56A1FDF211F00396A7E /* GeneralPreferencesViewController.xib in Resources */,
 				4007C7DD1FDC8E2B00A53649 /* Editors.storyboard in Resources */,
 				4026AC8D1FBCE91D00FFB18B /* Sheets.storyboard in Resources */,
 				40A7D0E41FB78A3F002FBB8B /* Assets.xcassets in Resources */,
+				401CD54D1FDF15F200396A7E /* GitPreferencesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -766,6 +889,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		401CD5521FDF1DA400396A7E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				401CD5641FDF1DB400396A7E /* LabeledTextField.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		40A7D0D61FB78A3F002FBB8B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -785,11 +916,14 @@
 				40EF5D541FC05EC0003E0E40 /* EditorWindowController+Sheets.swift in Sources */,
 				40C88C211FB8B659006F6BB9 /* NavigationOutlineViewController.swift in Sources */,
 				40AA16F81FB88BE700373B07 /* SimpleHighlighter.swift in Sources */,
+				401CD54C1FDF15F200396A7E /* GitPreferencesViewController.swift in Sources */,
 				40E1D8771FD9CD910077BA90 /* LaTeXSourceCodeViewLanguageDelegate.swift in Sources */,
 				40E1D8711FD9CD230077BA90 /* SourceCodeViewLanguageDelegate.swift in Sources */,
+				401CD56C1FDF233B00396A7E /* UserDefaultSettings.swift in Sources */,
 				40AB8C441FB87CE700BC6D82 /* EditorWindowController.swift in Sources */,
 				40BD25E31FBCE2B100211743 /* EditorWindowController+UI.swift in Sources */,
 				40A13BE81FD720C30044E897 /* ThreadHelpers.swift in Sources */,
+				401CD5481FDF14FA00396A7E /* CCNPreferencesWindowController.m in Sources */,
 				4048199D1FB8C64600AAFBF0 /* CollaborationProtocol.swift in Sources */,
 				40AA16FC1FB88F5600373B07 /* ThemesHandler.swift in Sources */,
 				4026AC921FBE1CD000FFB18B /* CollaborationClientError.swift in Sources */,
@@ -827,6 +961,7 @@
 				40FFD8F01FDC3C4D007BA858 /* CachedProperty.swift in Sources */,
 				40FFD8EC1FDC1B5E007BA858 /* ModernTabBar.swift in Sources */,
 				4007C7D01FDC728300A53649 /* DocumentStructureNode.swift in Sources */,
+				401CD5691FDF211F00396A7E /* GeneralPreferencesViewController.swift in Sources */,
 				40AB8C491FB8841E00BC6D82 /* SourceCodeRulerView.swift in Sources */,
 				4026ACC71FBF55D700FFB18B /* EditorWindowControllerHelpers.swift in Sources */,
 				40FFD8F41FDC53DB007BA858 /* EditorWindowController+SourceCodeViewDelegate.swift in Sources */,
@@ -857,6 +992,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		401CD55D1FDF1DA400396A7E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 401CD5561FDF1DA400396A7E /* LabeledTextField */;
+			targetProxy = 401CD55C1FDF1DA400396A7E /* PBXContainerItemProxy */;
+		};
 		40A7D0F01FB78A3F002FBB8B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 40A7D0D91FB78A3F002FBB8B /* TexDocs */;
@@ -891,6 +1031,59 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		401CD5611FDF1DA400396A7E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 52A793VRAY;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = LabeledTextField/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = to.us.peeters.LabeledTextField;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		401CD5621FDF1DA400396A7E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 52A793VRAY;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = LabeledTextField/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = to.us.peeters.LabeledTextField;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		40A7D1001FB78A3F002FBB8B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1002,6 +1195,7 @@
 		40A7D1031FB78A3F002FBB8B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1025,6 +1219,7 @@
 		40A7D1041FB78A3F002FBB8B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1110,6 +1305,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		401CD5601FDF1DA400396A7E /* Build configuration list for PBXNativeTarget "LabeledTextField" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				401CD5611FDF1DA400396A7E /* Debug */,
+				401CD5621FDF1DA400396A7E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		40A7D0D51FB78A3F002FBB8B /* Build configuration list for PBXProject "TexDocs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

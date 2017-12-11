@@ -10,7 +10,22 @@ import Cocoa
 
 class ThemesHandler {
     private init() {
-        current = defaultScheme
+        let applicationSupportPath = FileManager.default
+                .urls(for: .applicationSupportDirectory, in: .userDomainMask)
+                .first?
+                .appendingPathComponent(Bundle.main.bundleIdentifier!)
+        let themePath = applicationSupportPath?.appendingPathComponent("themes", isDirectory: true)
+
+        print("Searching for themes at \(themePath?.path ?? "<Error>")")
+        if let themePath = themePath,
+            let themePaths = try? FileManager.default.contentsOfDirectory(atPath: themePath.path) {
+
+            for url in themePaths.map({ themePath.appendingPathComponent($0) }) {
+                if let theme = try? Theme.load(from: url) {
+                    themes[url.lastPathComponent] = theme
+                }
+            }
+        }
     }
 
     func color(for colorKey: ColorKey) -> NSColor {
@@ -19,7 +34,17 @@ class ThemesHandler {
     
     static let `default` = ThemesHandler()
     
-    var current: Theme
+    var current: Theme {
+        return themes[UserDefaults.themeName.value] ?? defaultScheme
+    }
+
+    private(set) var themes: [String: Theme] = [
+        "Default": defaultScheme
+    ]
+
+    var themeNames: [String] {
+        return Array(themes.keys)
+    }
 }
 
 enum ColorKey: String, CodingKey {

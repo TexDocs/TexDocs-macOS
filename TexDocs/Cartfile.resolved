@@ -1,1 +1,2 @@
 github "libgit2/objective-git" "0.13.0"
+github "thbonk/CCNPreferencesWindowController" "1.4.3"

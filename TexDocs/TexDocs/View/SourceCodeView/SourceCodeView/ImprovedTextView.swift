@@ -25,6 +25,27 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
     /// Some basic setups
     open func setUp() {
         self.delegate = self
+
+        updateTextViewSettings()
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateTextViewSettings),
+            name: UserDefaults.showInvisibleCharacters.notificationKey,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateTextViewSettings),
+            name: UserDefaults.showControlCharacters.notificationKey,
+            object: nil)
+    }
+
+    @objc func updateTextViewSettings() {
+        layoutManager?.showsInvisibleCharacters = UserDefaults.showInvisibleCharacters.value
+        layoutManager?.showsControlCharacters = UserDefaults.showControlCharacters.value
+        if let textContainer = textContainer {
+            layoutManager?.ensureLayout(for: textContainer)
+        }
     }
 
     // MARK: Helper

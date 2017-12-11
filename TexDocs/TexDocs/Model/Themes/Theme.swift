@@ -18,6 +18,11 @@ struct Theme: Decodable {
         self.colors = Colors.init(colors: colors)
     }
 
+    static func load(from url: URL) throws -> Theme {
+        let data = try Data(contentsOf: url)
+        return try JSONDecoder().decode(Theme.self, from: data)
+    }
+
     struct Colors: Decodable {
         private var colors: [ColorKey: NSColor]
 

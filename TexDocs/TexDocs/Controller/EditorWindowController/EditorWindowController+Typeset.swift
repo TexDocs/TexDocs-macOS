@@ -52,7 +52,7 @@ extension EditorWindowController {
         }
 
 
-        let process = Process.create("/Library/TeX/texbin/pdflatex", workingDirectory: workspaceURL, arguments: [
+        let process = Process.create(UserDefaults.latexPath.value, workingDirectory: workspaceURL, arguments: [
             "-output-directory=\(relativePath(of: outputDirectory)!)",
             relativePath(of: inputFile)!
         ])

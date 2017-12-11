@@ -22,7 +22,26 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
         languageDelegate = allLanguageDelegates[url.pathExtension]?.init()
         try super.init(url)
         textStorage.delegate = self
+
         try reload()
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateFont),
+            name: UserDefaults.editorFontName.notificationKey,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateFont),
+            name: UserDefaults.editorFontSize.notificationKey,
+            object: nil)
+    }
+
+    @objc func updateFont() {
+        guard let font = NSFont(name: UserDefaults.editorFontName.value, size: UserDefaults.editorFontSize.value) else {
+            return
+        }
+        textStorage.font = font
     }
 
     override func save() throws {
@@ -34,6 +53,7 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
         try super.reload()
         let newString = try String(contentsOf: url)
         textStorage.replaceContent(with: newString)
+        updateFont()
     }
 
     // MARK: Text did change

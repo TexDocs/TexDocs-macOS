@@ -11,16 +11,22 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-
+    let preferences = CCNPreferencesWindowController()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        preferences.centerToolbarItems = false
+        preferences.setPreferencesViewControllers([
+            GeneralPreferencesViewController(),
+            GitPreferencesViewController()
+        ])
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
 
-
+    @IBAction func showPreferencesWindow(_ sender: Any) {
+        preferences.showPreferencesWindow()
+    }
 }
 

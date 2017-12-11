@@ -33,6 +33,12 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate {
         }, invalidationBlock: {
             self.sourceCodeViewDelegate?.sourceCodeViewStructureChanged(self)
         })
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateTheme),
+            name: UserDefaults.themeName.notificationKey,
+            object: nil)
     }
 
     // MARK: View life cycle
@@ -54,6 +60,10 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate {
                 setSelectedRange(selection)
             }
         }
+    }
+
+    @objc func updateTheme() {
+        updateSourceCodeHighlighting(in: stringRange)
     }
 
     // MARK: Line Number

@@ -192,6 +192,10 @@ class EditorWindowController: NSWindowController {
     @IBOutlet weak var reconnectButton: NSButton!
 
     // MARK: Actions
+
+    override func changeFont(_ sender: Any?) {
+        UserDefaults.updateFontFromFontPanel()
+    }
     
     @IBAction func panelsDidChange(_ sender: NSSegmentedControl) {
         outlinePanel.isCollapsed = !sender.isSelected(forSegment: 0)

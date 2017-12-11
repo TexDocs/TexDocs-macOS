@@ -13,16 +13,16 @@ extension EditorWindowController {
         return GTCredentialProvider() { (type, url, userName) in
             return try? GTCredential(
                 userName: userName,
-                publicKeyURL: URL(fileURLWithPath: "/Users/noahpeeters/.ssh/id_rsa.pub"),
-                privateKeyURL: URL(fileURLWithPath: "/Users/noahpeeters/.ssh/id_rsa"),
+                publicKeyURL: URL(fileURLWithPath: NSString(string: UserDefaults.publicKeyPath.value).expandingTildeInPath),
+                privateKeyURL: URL(fileURLWithPath: NSString(string: UserDefaults.privateKeyPath.value).expandingTildeInPath),
                 passphrase: nil)
         }
     }
     
     private var signature: GTSignature? {
         return GTSignature(
-            name: "NoahPeeters",
-            email: "noah.peeters@icloud.com",
+            name: UserDefaults.gitName.value,
+            email: UserDefaults.gitEMail.value,
             time: Date())
     }
     

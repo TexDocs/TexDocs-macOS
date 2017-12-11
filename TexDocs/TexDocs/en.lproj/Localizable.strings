@@ -97,6 +97,12 @@
 /* Open in <Application name> */
 "TD_OPEN_IN" = "Open in";
 
+/* General preferences title */
+"TD_PREFERENCS_TITLE_GENERAL" = "General";
+
+/* Git preferences title */
+"TD_PREFERENCS_TITLE_GIT" = "GIT";
+
 /* Name of the web view editor */
 "TD_WEB_VIEW_EDITOR_NAME" = "Web View";
 

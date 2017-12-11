@@ -139,7 +139,10 @@ class LaTeXSourceCodeViewLanguageDelegate: SourceCodeViewLanguageDelegate {
     }
 
     private func scanCommands(in packageName: String) -> [String] {
-        let process = Process.create("/Library/TeX/texbin/latexdef", arguments: ["-lp", packageName], additionalEnvironmentPaths: ["/Library/TeX/texbin"])
+        let process = Process.create(
+                UserDefaults.latexdefPath.value,
+                arguments: ["-lp", packageName],
+                additionalEnvironmentPaths: [URL(fileURLWithPath: UserDefaults.latexPath.value).deletingLastPathComponent().path])
 
         let output = process.launchAndGetOutput()
         let matches = LaTeXSourceCodeViewLanguageDelegate.latexDefOutputRegex.matches(in: output, options: [], range: NSRange(location: 0, length: output.count))
