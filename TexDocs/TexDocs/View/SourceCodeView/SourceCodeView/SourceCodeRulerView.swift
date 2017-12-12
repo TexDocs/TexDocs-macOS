@@ -39,11 +39,6 @@ class SourceCodeRulerView: NSRulerView {
     }
     
     private func drawLineNumber(text: NSAttributedString, atY y: CGFloat) {
-//        let text = NSAttributedString(
-//            string: String(lineNumber),
-//            attributes: [NSAttributedStringKey.foregroundColor: lineNumberColor]
-//        )
-
         let drawWidth = text.size().width
         text.draw(at: NSPoint(x: ruleThickness - drawWidth - padding, y: y))
     }
@@ -81,13 +76,11 @@ class SourceCodeRulerView: NSRulerView {
             var effectiveRange = NSRange(location: 0, length: 0)
             let lineYPosition = layoutManager.lineFragmentRect(forGlyphAt: lineRange.location, effectiveRange: &effectiveRange, withoutAdditionalLayout: true).origin.y
             lineNumberTexts.append((prepareDrawLineNumber(lineNumber), lineYPosition + relativeYTranslation))
-//            maxWith = max(drawLineNumber(lineNumber, atY: lineYPosition + relativeYTranslation), maxWith)
             return 0
         }
 
         if layoutManager.extraLineFragmentRect.height != 0 {
             lineNumberTexts.append((prepareDrawLineNumber(lineNumber + 1), layoutManager.extraLineFragmentRect.origin.y + relativeYTranslation))
-//            maxWith = max(drawLineNumber(lineNumber + 1, atY: layoutManager.extraLineFragmentRect.origin.y + relativeYTranslation), maxWith)
         }
 
         let maxWidth = lineNumberTexts.reduce(0) { (oldMaxWidth, lineNumberText) in
@@ -98,7 +91,6 @@ class SourceCodeRulerView: NSRulerView {
         lineNumberTexts.forEach {
             drawLineNumber(text: $0.0, atY: $0.1)
         }
-
     }
     
     func redrawLineNumbers() {

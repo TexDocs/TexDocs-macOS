@@ -58,7 +58,6 @@ extension EditorWindowController {
         ])
         currentTypesetProcess = process
 
-        let originalFirstResponder = window?.firstResponder
         process.setStringOutputHandler { [weak self, weak process] string in
             if string.hasSuffix("? ") || string.hasSuffix("Enter file name: ") {
                 process?.terminate()
@@ -66,7 +65,6 @@ extension EditorWindowController {
 
             DispatchQueue.main.sync { [weak self] in
                 self?.consoleViewController.addString(string)
-                self?.window?.makeFirstResponder(originalFirstResponder)
             }
         }
 

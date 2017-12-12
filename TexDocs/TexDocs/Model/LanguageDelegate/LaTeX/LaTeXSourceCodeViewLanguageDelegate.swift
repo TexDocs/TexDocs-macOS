@@ -45,25 +45,30 @@ class LaTeXSourceCodeViewLanguageDelegate: SourceCodeViewLanguageDelegate {
             }
 
             completionBlock(LanguageCompletions(words: completions.map {
-                return LanguageCompletion(string: $0)
-            }, range: argumentRange).filteredAndSortedBy(searchTerm: argumentString))
+                return LanguageCompletion(completionString: $0, image: #imageLiteral(resourceName: "ParameterInternal"))
+            }, range: argumentRange, filteredAndSortedBy: argumentString))
             return
         }
 
         DispatchQueue.global(qos: .background).async { [weak self] in
             self?.scanPackages(in: latexSource)
 
-            guard var commands = self?.cachedPackages.flatMap({ $0.value }) else {
+            guard var commands = self?.cachedPackages.flatMap({ $0.value }).map({
+                return LanguageCompletion(displayString: $0, completionString: "\($0){}", image: #imageLiteral(resourceName: "CommandExternal"))
+            }) else {
                 completionBlock(nil)
                 return
             }
 
-            commands.append(contentsOf: LaTeXSourceCodeViewLanguageDelegate.knownCommands)
+            commands.append(contentsOf: LaTeXSourceCodeViewLanguageDelegate.knownCommands.map {
+                return LanguageCompletion(displayString: $0, completionString: "\($0){}", image: #imageLiteral(resourceName: "CommandInternal"))
+            })
 
             DispatchQueue.main.async {
-                completionBlock(LanguageCompletions(words: commands.map {
-                    return LanguageCompletion(displayString: $0, completionString: "\($0){}")
-                }, range: inspectionResult.commandRange).filteredAndSortedBy(searchTerm: commandString))
+                completionBlock(LanguageCompletions(
+                    words: commands,
+                    range: inspectionResult.commandRange,
+                    filteredAndSortedBy: commandString))
             }
         }
     }

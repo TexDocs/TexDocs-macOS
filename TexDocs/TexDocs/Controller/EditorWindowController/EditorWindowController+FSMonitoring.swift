@@ -50,7 +50,7 @@ extension EditorWindowController {
     func srcDirectoryDidChange() {
         do {
             try rootDirectory?.updateChildren()
-            outlineViewController.reloadData(inTab: .directory)
+//            outlineViewController.reloadData(inTab: .directory)
         } catch {
             showErrorSheet(error)
         }

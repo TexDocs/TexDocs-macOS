@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate {
+class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, CompletionViewControllerDelegate {
     
     // MARK: Variables
     
@@ -99,66 +99,139 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate {
     //MARK: Completion
 
 
-    private var completionOpened = false
     private var languageCompletions: LanguageCompletions?
 
+    private lazy var completionViewController: CompletionViewController = {
+        let completionViewController = CompletionViewController()
+        completionViewController.delegateAndDataSource = self
+        return completionViewController
+    }()
+
+    private lazy var completionPopover: NSPopover = {
+        let popover = NSPopover()
+        popover.animates = true
+        popover.contentViewController = completionViewController
+        popover.appearance = NSAppearance(named: .vibrantDark)
+
+        return popover
+    }()
+
+    func selectCompletion(at index: Int) {
+        let newIndex = min(max(index, 0), languageCompletions?.count ?? 0)
+        completionViewController.tableView.selectRowIndexes(IndexSet(integer: newIndex), byExtendingSelection: false) //TODO: replace with actuall count
+    }
+
+    func insertCompletion(at index: Int) {
+        closeCompletionPopover()
+        guard let languageCompletions = languageCompletions else {
+            return
+        }
+        textStorage?.replaceCharacters(in: languageCompletions.rangeForUserCompletion, with: languageCompletions.words[index].completionString, byUser: true)
+    }
+
     override func keyDown(with event: NSEvent) {
-        if event.characters?.first?.isControllCharacter ?? true {
-            completionOpened = false
-        }
+        let char = event.characters?.utf16.first
 
-        let string = event.charactersIgnoringModifiers
-
-        let controlModifier = event.modifierFlags.contains(NSEvent.ModifierFlags.control)
-
-        if controlModifier && string == " " {
-            completionOpened = true
-        } else if string == "\\" {
-            super.keyDown(with: event)
-            completionOpened = true
+        if completionPopover.isShown, let char = char {
+            switch char {
+            case 13: // return
+                insertCompletion(at: completionViewController.tableView.selectedRow)
+            case 63232: // up
+                selectCompletion(at: completionViewController.tableView.selectedRow - 1)
+            case 63233: // down
+                selectCompletion(at: completionViewController.tableView.selectedRow + 1)
+            case ...31, 63234, 63235: // controll characters, left, right
+                closeCompletionPopover()
+                super.keyDown(with: event)
+            default:
+                super.keyDown(with: event)
+                complete(self)
+            }
         } else {
-            super.keyDown(with: event)
+            let typedString = event.charactersIgnoringModifiers
+            let controlModifier = event.modifierFlags.contains(NSEvent.ModifierFlags.control)
+
+            if controlModifier && typedString == " " {
+                complete(self)
+            } else if typedString == "\\" {
+                super.keyDown(with: event)
+                complete(self)
+            } else {
+                super.keyDown(with: event)
+            }
+        }
+    }
+
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return languageCompletions?.count ?? 0
+    }
+
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        guard let languageCompletions = languageCompletions else {
+            return nil
         }
 
-        if completionOpened {
-            complete(self)
+        guard let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "completionTableCell"), owner: nil) as? NSTableCellView else {
+            return nil
         }
+
+        if row < languageCompletions.count {
+            cell.textField?.stringValue = languageCompletions.words[row].displayString
+            cell.imageView?.image = languageCompletions.words[row].image
+        }
+
+        return cell
+    }
+
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        return CompletionTableRowView()
+    }
+
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        completionViewController.tableView.scrollRowToVisible(completionViewController.tableView.selectedRow)
+    }
+
+    func completionTableView(_ tableView: NSTableView, doubleClicked row: Int) {
+        insertCompletion(at: row)
+    }
+
+    func closeCompletionPopover() {
+        completionPopover.close()
+    }
+
+    override func resignFirstResponder() -> Bool {
+        closeCompletionPopover()
+        return super.resignFirstResponder()
+    }
+
+    override func mouseDown(with event: NSEvent) {
+        closeCompletionPopover()
+        super.mouseDown(with: event)
     }
 
     override func complete(_ sender: Any?) {
-        languageDelegate?.sourceCodeView(self, completionsForLocation: selectedRange().location) {
-            self.languageCompletions = $0
-            super.complete(sender)
-        }
-    }
-
-    override var rangeForUserCompletion: NSRange {
-        return languageCompletions?.rangeForUserCompletion ?? super.rangeForUserCompletion
-    }
-
-    func textView(_ textView: NSTextView, completions words: [String], forPartialWordRange charRange: NSRange, indexOfSelectedItem index: UnsafeMutablePointer<Int>?) -> [String] {
-        return languageCompletions?.completionProposals ?? words
-    }
-
-    override func insertCompletion(_ identifier: String, forPartialWordRange charRange: NSRange, movement: Int, isFinal flag: Bool) {
-        let identifierComponents = identifier.components(separatedBy: ":")
-
-        guard let languageCompletion = languageCompletions, identifierComponents.count > 1, let index = Int(identifierComponents[0]) else {
-            super.insertCompletion(identifier, forPartialWordRange: charRange, movement: movement, isFinal: flag)
+        guard let layoutManager = layoutManager, let textContainer = textContainer else {
             return
         }
 
-        let completion = languageCompletion.words[index]
+        languageDelegate?.sourceCodeView(self, completionsForLocation: selectedRange().location) {
+            self.languageCompletions = $0
+            let count = $0?.count ?? 0
+            if count > 0 {
+                let size = NSSize(width: 250, height: 19 * min(count, 10))
+                self.completionViewController.view.setFrameSize(size)
+                self.completionPopover.contentSize = size
 
-        switch movement {
-        case NSReturnTextMovement, NSTabTextMovement:
-            completionOpened = false
-            let insertString = completion.completionString
-            super.insertCompletion(insertString, forPartialWordRange: charRange, movement: movement, isFinal: flag)
-        case NSRightTextMovement, NSLeftTextMovement, NSCancelTextMovement:
-            completionOpened = false
-        default:
-            break
+                let glyphRange = NSRange(location: self.selectedRange().location, length: 0)
+                let characterRect = layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
+                let newRect = NSRect(x: characterRect.minX, y: characterRect.maxY, width: 1, height: 1)
+
+                self.completionPopover.show(relativeTo: newRect, of: self, preferredEdge: .maxY)
+                self.completionViewController.tableView.reloadData()
+                self.selectCompletion(at: 0)
+            } else {
+                self.closeCompletionPopover()
+            }
         }
     }
 }
@@ -171,12 +244,24 @@ protocol SourceCodeViewDelegate: class {
     func sourceCodeViewStructureChanged(_ sourceCodeView: SourceCodeView)
 }
 
-extension Character {
-    fileprivate var isControllCharacter: Bool {
-        guard let code = String(self).utf16.first else {
-            return false
-        }
+private class CompletionTableRowView: NSTableRowView {
+    override func drawSelection(in dirtyRect: NSRect) {
+        NSColor.selectedMenuItemColor.set()
+        let path = NSBezierPath(rect: bounds)
+        path.stroke()
+        path.fill()
+    }
 
-        return code <= 31 || [127, 63272, 63232, 63233, 63234, 63235].index(of: code) != nil
+    override var interiorBackgroundStyle: NSView.BackgroundStyle {
+        if isSelected {
+            return .dark
+        } else {
+            return .light
+        }
     }
 }
+
+
+
+
+

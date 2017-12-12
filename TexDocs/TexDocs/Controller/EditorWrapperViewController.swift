@@ -69,6 +69,10 @@ class EditorWrapperViewController: NSViewController {
     }
 
     private func open(editor: EditorController) {
+        guard openedEditorController !== editor else {
+            return
+        }
+
         openedEditorController?.view.removeFromSuperview()
         editorContainerView.addSubview(editor.view)
         openedEditorController = editor

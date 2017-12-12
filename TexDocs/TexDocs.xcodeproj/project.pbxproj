@@ -38,6 +38,8 @@
 		401CD5691FDF211F00396A7E /* GeneralPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401CD5671FDF211F00396A7E /* GeneralPreferencesViewController.swift */; };
 		401CD56A1FDF211F00396A7E /* GeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 401CD5681FDF211F00396A7E /* GeneralPreferencesViewController.xib */; };
 		401CD56C1FDF233B00396A7E /* UserDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401CD56B1FDF233B00396A7E /* UserDefaultSettings.swift */; };
+		401CD56F1FE0845900396A7E /* CompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401CD56D1FE0845900396A7E /* CompletionViewController.swift */; };
+		401CD5701FE0845900396A7E /* CompletionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 401CD56E1FE0845900396A7E /* CompletionViewController.xib */; };
 		4026AC8D1FBCE91D00FFB18B /* Sheets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */; };
 		4026AC901FBCEC5000FFB18B /* SimpleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026AC8F1FBCEC5000FFB18B /* SimpleSheet.swift */; };
 		4026AC921FBE1CD000FFB18B /* CollaborationClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026AC911FBE1CD000FFB18B /* CollaborationClientError.swift */; };
@@ -199,6 +201,8 @@
 		401CD5671FDF211F00396A7E /* GeneralPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferencesViewController.swift; sourceTree = "<group>"; };
 		401CD5681FDF211F00396A7E /* GeneralPreferencesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralPreferencesViewController.xib; sourceTree = "<group>"; };
 		401CD56B1FDF233B00396A7E /* UserDefaultSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultSettings.swift; sourceTree = "<group>"; };
+		401CD56D1FE0845900396A7E /* CompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewController.swift; sourceTree = "<group>"; };
+		401CD56E1FE0845900396A7E /* CompletionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletionViewController.xib; sourceTree = "<group>"; };
 		4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Sheets.storyboard; sourceTree = "<group>"; };
 		4026AC8F1FBCEC5000FFB18B /* SimpleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSheet.swift; sourceTree = "<group>"; };
 		4026AC911FBE1CD000FFB18B /* CollaborationClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationClientError.swift; sourceTree = "<group>"; };
@@ -501,6 +505,8 @@
 				40A7D1451FB79984002FBB8B /* ImprovedTextView.swift */,
 				40A7D11D1FB79296002FBB8B /* SourceCodeView.swift */,
 				40A7D11F1FB7936B002FBB8B /* SourceCodeRulerView.swift */,
+				401CD56D1FE0845900396A7E /* CompletionViewController.swift */,
+				401CD56E1FE0845900396A7E /* CompletionViewController.xib */,
 			);
 			path = SourceCodeView;
 			sourceTree = "<group>";
@@ -834,6 +840,7 @@
 				4007C8161FDD736600A53649 /* Main.storyboard in Resources */,
 				401CD56A1FDF211F00396A7E /* GeneralPreferencesViewController.xib in Resources */,
 				4007C7DD1FDC8E2B00A53649 /* Editors.storyboard in Resources */,
+				401CD5701FE0845900396A7E /* CompletionViewController.xib in Resources */,
 				4026AC8D1FBCE91D00FFB18B /* Sheets.storyboard in Resources */,
 				40A7D0E41FB78A3F002FBB8B /* Assets.xcassets in Resources */,
 				401CD54D1FDF15F200396A7E /* GitPreferencesViewController.xib in Resources */,
@@ -903,6 +910,7 @@
 			files = (
 				40AB8C4F1FB886D800BC6D82 /* EditorWindowController+CollaborationSourceCodeViewDelegate.swift in Sources */,
 				4048199F1FB8DD9400AAFBF0 /* NewProjectViewController.swift in Sources */,
+				401CD56F1FE0845900396A7E /* CompletionViewController.swift in Sources */,
 				40BD4C3D1FC1C9CF0048ABF6 /* FileTypeHandler.swift in Sources */,
 				4007C8371FDDA82E00A53649 /* ImageEditorViewController.swift in Sources */,
 				40FFD8F21FDC48B1007BA858 /* DocumentStructureItemCell.swift in Sources */,

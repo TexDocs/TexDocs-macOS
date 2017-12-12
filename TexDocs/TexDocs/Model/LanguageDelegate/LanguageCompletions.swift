@@ -12,16 +12,13 @@ struct LanguageCompletions {
     let words: [LanguageCompletion]
     let rangeForUserCompletion: NSRange
 
-    init(words: [LanguageCompletion], range: NSRange) {
-        self.words = words
+    var count: Int {
+        return words.count
+    }
+
+    init(words: [LanguageCompletion], range: NSRange, filteredAndSortedBy searchTerm: String) {
         self.rangeForUserCompletion = range
-    }
 
-    var completionProposals: [String] {
-        return words.enumerated().map({ "\($0): \($1.displayString)" })
-    }
-
-    func filteredAndSortedBy(searchTerm: String) -> LanguageCompletions {
         let rankedWords: [(LanguageCompletion, Int)] = words.flatMap { word in
             guard let score = word.displayString.score(forSearchTerm: searchTerm) else {
                 return nil
@@ -29,11 +26,9 @@ struct LanguageCompletions {
             return (word, score)
         }
 
-        let newWords = rankedWords.sorted {
+        self.words = rankedWords.sorted {
             return $0.1 > $1.1
-        }
-
-        return LanguageCompletions(words: newWords.map { $0.0 }, range: rangeForUserCompletion)
+        }.map { $0.0 }
     }
 }
 
@@ -41,19 +36,21 @@ struct LanguageCompletions {
 struct LanguageCompletion {
     let displayString: String
     let completionString: String
+    let image: NSImage
 
-    init(displayString: String, completionString: String) {
-        self.displayString = displayString
+    init(displayString: String? = nil, completionString: String, image: NSImage) {
+        self.displayString = displayString ?? completionString
         self.completionString = completionString
-    }
-
-    init(string: String) {
-        self.init(displayString: string, completionString: string)
+        self.image = image
     }
 }
 
 extension String {
     func score(forSearchTerm searchTerm: String) -> Int? {
+        guard searchTerm.count > 0, self.count > 0 else {
+            return 0
+        }
+
         var prefixMatchingCharacters = 0
         var onlyFoundMatchingCharacters = true
         var searchTermHead = searchTerm.startIndex
