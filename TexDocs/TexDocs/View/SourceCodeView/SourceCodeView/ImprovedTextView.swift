@@ -103,8 +103,12 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
     }
 
     override func deleteBackward(_ sender: Any?) {
-        let leftStringStart = max(selectedRange().length > 0 ? selectedRange().location : (selectedRange().location - 1), 0)
+        guard selectedRange().length == 0 else {
+            super.deleteBackward(sender)
+            return
+        }
 
+        let leftStringStart = max(selectedRange().length > 0 ? selectedRange().location : (selectedRange().location - 1), 0)
         let leftString = nsString.substring(with: NSRange(location: leftStringStart, length: 1))
 
         super.deleteBackward(sender)

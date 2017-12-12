@@ -54,14 +54,14 @@ class LaTeXSourceCodeViewLanguageDelegate: SourceCodeViewLanguageDelegate {
             self?.scanPackages(in: latexSource)
 
             guard var commands = self?.cachedPackages.flatMap({ $0.value }).map({
-                return LanguageCompletion(displayString: $0, completionString: "\($0){}", image: #imageLiteral(resourceName: "CommandExternal"))
+                return LanguageCompletion(displayString: $0, completionString: "\($0){\(EditorParameterPlaceholder)}", image: #imageLiteral(resourceName: "CommandExternal"))
             }) else {
                 completionBlock(nil)
                 return
             }
 
             commands.append(contentsOf: LaTeXSourceCodeViewLanguageDelegate.knownCommands.map {
-                return LanguageCompletion(displayString: $0, completionString: "\($0){}", image: #imageLiteral(resourceName: "CommandInternal"))
+                return LanguageCompletion(displayString: $0, completionString: "\($0){\(EditorParameterPlaceholder)}", image: #imageLiteral(resourceName: "CommandInternal"))
             })
 
             DispatchQueue.main.async {

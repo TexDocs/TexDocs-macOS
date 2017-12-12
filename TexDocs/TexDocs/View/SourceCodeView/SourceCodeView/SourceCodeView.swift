@@ -126,7 +126,10 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
         guard let languageCompletions = languageCompletions else {
             return
         }
+
+        let completion = languageCompletions.words[index].completionString
         textStorage?.replaceCharacters(in: languageCompletions.rangeForUserCompletion, with: languageCompletions.words[index].completionString, byUser: true)
+        goToFirstPlaceholder(inRange: NSRange(location: languageCompletions.rangeForUserCompletion.location, length: completion.count))
     }
 
     override func keyDown(with event: NSEvent) {
