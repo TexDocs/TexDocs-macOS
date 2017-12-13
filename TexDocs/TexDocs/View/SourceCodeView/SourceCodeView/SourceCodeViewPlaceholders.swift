@@ -14,7 +14,7 @@ extension SourceCodeView {
     }
 
     @discardableResult func goToNextPlaceholder(from location: Int) -> Bool {
-        let range = NSRange(location: location, length: string.characters.count - location)
+        let range = NSRange(location: location, length: string.count - location)
 
         return goToFirstPlaceholder(inRange: range)
     }

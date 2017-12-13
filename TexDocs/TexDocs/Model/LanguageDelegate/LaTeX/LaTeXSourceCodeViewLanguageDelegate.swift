@@ -11,6 +11,13 @@ import Foundation
 class LaTeXSourceCodeViewLanguageDelegate: SourceCodeViewLanguageDelegate {
     private var cachedPackages: [String: [String]] = [:]
 
+    func prepareForSourceCodeView(_ sourceCodeView: SourceCodeView) {
+        let latexSource = sourceCodeView.string
+        DispatchQueue.main.async { [weak self] in
+            self?.scanPackages(in: latexSource)
+        }
+    }
+
     func sourceCodeView(_ sourceCodeView: SourceCodeView, updateCodeHighlightingInRange editedRange: NSRange) {
         let range = sourceCodeView.nsString.lineRange(for: editedRange)
 
@@ -177,7 +184,7 @@ extension LaTeXSourceCodeViewLanguageDelegate {
         "\\begin": ["enumerate", "equation", "itemize", "list", "center"]
     ]
 
-    static let knownCommands = ["\\begin", "\\def", "\\usepackage"]
+    static let knownCommands = ["\\begin", "\\def", "\\usepackage", "\\part", "\\chapter", "\\section", "\\subsection", "\\subsubsection", "\\paragraph", "\\subparagraph"]
 }
 
 

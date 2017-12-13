@@ -17,6 +17,7 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
 
     var languageDelegate: SourceCodeViewLanguageDelegate? {
         didSet {
+            languageDelegate?.prepareForSourceCodeView(self)
             updateSourceCodeHighlighting(in: stringRange)
         }
     }
