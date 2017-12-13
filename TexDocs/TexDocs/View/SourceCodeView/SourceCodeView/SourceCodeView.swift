@@ -23,6 +23,7 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
     }
 
     weak var sourceCodeViewDelegate: SourceCodeViewDelegate?
+    weak var interactionDelegate: SourceCodeViewInteractionDelegate?
 
     private(set) var rootStructureNode: CachedProperty<DocumentStructureNode?>?
 
@@ -99,7 +100,6 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
 
     //MARK: Completion
 
-
     private var languageCompletions: LanguageCompletions?
 
     private lazy var completionViewController: CompletionViewController = {
@@ -129,10 +129,7 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
         }
 
         let completion = languageCompletions.words[index].completionString
-        textStorage?.replaceCharacters(in: languageCompletions.rangeForUserCompletion, with: languageCompletions.words[index].completionString, byUser: true)
-        goToFirstPlaceholder(inRange: NSRange(
-            location: languageCompletions.rangeForUserCompletion.location,
-            length: nsString.length))
+        textStorage?.replaceCharacters(in: languageCompletions.rangeForUserCompletion, with: completion, byUser: true)
     }
 
     override func keyDown(with event: NSEvent) {
@@ -212,7 +209,31 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
 
     override func mouseDown(with event: NSEvent) {
         closeCompletionPopover()
+        interactionDelegate?.sourceCodeViewDeselectTokens(self)
         super.mouseDown(with: event)
+    }
+
+    func textView(_ textView: NSTextView, willChangeSelectionFromCharacterRange oldSelectedCharRange: NSRange, toCharacterRange newSelectedCharRange: NSRange) -> NSRange {
+
+        interactionDelegate?.sourceCodeViewDeselectTokens(self)
+
+        let deltaMovement = newSelectedCharRange.location - oldSelectedCharRange.location
+        guard oldSelectedCharRange.length == 0, abs(deltaMovement) == 1 else {
+            return newSelectedCharRange
+        }
+
+        let movedForward = deltaMovement > 0
+        let checkPositon = movedForward ? oldSelectedCharRange.location : newSelectedCharRange.location
+
+        guard let attachment = textStorage?.attribute(.attachment, at: checkPositon, effectiveRange: nil) as? NSTextAttachment else {
+            return newSelectedCharRange
+        }
+
+        if let token = attachment.attachmentCell as? TokenCell {
+            token.selected = true
+        }
+
+        return NSRange(location: checkPositon, length: 1)
     }
 
     override func complete(_ sender: Any?) {
@@ -240,6 +261,10 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
             }
         }
     }
+
+    func textView(_ textView: NSTextView, clickedOn cell: NSTextAttachmentCellProtocol, in cellFrame: NSRect, at charIndex: Int) {
+        setSelectedRange(NSRange(location: charIndex, length: 1))
+    }
 }
 
 protocol SourceCodeHighlightRule: class {
@@ -248,6 +273,10 @@ protocol SourceCodeHighlightRule: class {
 
 protocol SourceCodeViewDelegate: class {
     func sourceCodeViewStructureChanged(_ sourceCodeView: SourceCodeView)
+}
+
+protocol SourceCodeViewInteractionDelegate: class {
+    func sourceCodeViewDeselectTokens(_ sourceCodeView: SourceCodeView)
 }
 
 private class CompletionTableRowView: NSTableRowView {

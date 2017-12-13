@@ -25,6 +25,7 @@ class GeneralPreferencesViewController: NSViewController, CCNPreferencesWindowCo
     @IBOutlet weak var showInvisibleCharactersButton: NSButton!
     @IBOutlet weak var showControlleCharactersButton: NSButton!
     @IBOutlet weak var themeSelector: NSPopUpButton!
+    @IBOutlet weak var fontSelectButton: NSButton!
     @IBOutlet weak var latexPathTextField: LabeledTextField!
     @IBOutlet weak var latexdefPathTextField: LabeledTextField!
 
@@ -36,6 +37,21 @@ class GeneralPreferencesViewController: NSViewController, CCNPreferencesWindowCo
         themeSelector.removeAllItems()
         themeSelector.addItems(withTitles: ThemesHandler.default.themeNames)
         themeSelector.selectItem(withTitle: UserDefaults.themeName.value)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateFontButtonText),
+            name: UserDefaults.editorFontName.notificationKey,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateFontButtonText),
+            name: UserDefaults.editorFontSize.notificationKey,
+            object: nil)
+        updateFontButtonText()
+    }
+
+    @objc func updateFontButtonText() {
+        fontSelectButton.title = "\(UserDefaults.editorFontName.value), \(UserDefaults.editorFontSize.value)"
     }
 
     @IBAction func selectTheme(_ sender: Any) {
@@ -55,6 +71,7 @@ class GeneralPreferencesViewController: NSViewController, CCNPreferencesWindowCo
 
     override func changeFont(_ sender: Any?) {
         UserDefaults.updateFontFromFontPanel()
+        updateFontButtonText()
     }
 
     @IBAction func pdflatexPathChanged(_ sender: Any) {

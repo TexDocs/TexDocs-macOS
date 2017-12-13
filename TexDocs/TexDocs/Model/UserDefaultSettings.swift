@@ -46,6 +46,10 @@ extension UserDefaults {
     static let gitName = UserDefaultSettings<String>(key: "gitName", default: "Anonymous")
     static let gitEMail = UserDefaultSettings<String>(key: "gitEMail", default: "Anonymous@example.com")
 
+    static var editorFont: NSFont? {
+        return NSFont(name: UserDefaults.editorFontName.value, size: UserDefaults.editorFontSize.value)
+    }
+
     static func updateFontFromFontPanel() {
         let font = NSFontPanel.shared.convert(NSFont.systemFont(ofSize: NSFont.systemFontSize))
         UserDefaults.editorFontName.value = font.fontName

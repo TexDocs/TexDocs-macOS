@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GeneralPreferencesViewController" customModule="TexDocs" customModuleProvider="target">
             <connections>
+                <outlet property="fontSelectButton" destination="xFr-ib-Phk" id="wNg-3f-8zx"/>
                 <outlet property="latexPathTextField" destination="mkQ-qR-snc" id="0B1-76-gxH"/>
                 <outlet property="latexdefPathTextField" destination="opO-qc-uke" id="z0d-uS-wv8"/>
                 <outlet property="showControlleCharactersButton" destination="EzU-ni-GZM" id="gJo-4u-zeB"/>

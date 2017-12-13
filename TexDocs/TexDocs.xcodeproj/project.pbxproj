@@ -46,6 +46,7 @@
 		4026ACC01FBF525C00FFB18B /* ObjectiveGit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4026ACBF1FBF525C00FFB18B /* ObjectiveGit.framework */; };
 		4026ACC71FBF55D700FFB18B /* EditorWindowControllerHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026ACC61FBF55D700FFB18B /* EditorWindowControllerHelpers.swift */; };
 		402F52041FE095C4000F7AEA /* SourceCodeViewPlaceholders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402F52031FE095C4000F7AEA /* SourceCodeViewPlaceholders.swift */; };
+		402F520A1FE1E632000F7AEA /* TokenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402F52091FE1E632000F7AEA /* TokenCell.swift */; };
 		40322FED1FC2232F00C75CEF /* EditorWindowController+OutlineViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40322FEC1FC2232F00C75CEF /* EditorWindowController+OutlineViewControllerDelegate.swift */; };
 		40322FEF1FC2238600C75CEF /* EditorWindowController+FSMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40322FEE1FC2238600C75CEF /* EditorWindowController+FSMonitoring.swift */; };
 		4048199D1FB8C64600AAFBF0 /* CollaborationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4048199C1FB8C64600AAFBF0 /* CollaborationProtocol.swift */; };
@@ -211,6 +212,7 @@
 		4026ACC51FBF549600FFB18B /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		4026ACC61FBF55D700FFB18B /* EditorWindowControllerHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWindowControllerHelpers.swift; sourceTree = "<group>"; };
 		402F52031FE095C4000F7AEA /* SourceCodeViewPlaceholders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCodeViewPlaceholders.swift; sourceTree = "<group>"; };
+		402F52091FE1E632000F7AEA /* TokenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCell.swift; sourceTree = "<group>"; };
 		40322FEC1FC2232F00C75CEF /* EditorWindowController+OutlineViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+OutlineViewControllerDelegate.swift"; sourceTree = "<group>"; };
 		40322FEE1FC2238600C75CEF /* EditorWindowController+FSMonitoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+FSMonitoring.swift"; sourceTree = "<group>"; };
 		4048199C1FB8C64600AAFBF0 /* CollaborationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationProtocol.swift; sourceTree = "<group>"; };
@@ -553,6 +555,7 @@
 				40A13BEA1FD724AC0044E897 /* NavigationOutlineView.swift */,
 				40FFD8EB1FDC1B5E007BA858 /* ModernTabBar.swift */,
 				4007C7E71FDD63FF00A53649 /* ClosureMenuItem.swift */,
+				402F52091FE1E632000F7AEA /* TokenCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -962,6 +965,7 @@
 				40AA16F01FB88A0000373B07 /* EditorWindowController+CollaborationClientDelegate.swift in Sources */,
 				40BD25DC1FBCB7B900211743 /* WebSocket.swift in Sources */,
 				40A7D0E21FB78A3F002FBB8B /* Document.swift in Sources */,
+				402F520A1FE1E632000F7AEA /* TokenCell.swift in Sources */,
 				40A13BEB1FD724AC0044E897 /* NavigationOutlineView.swift in Sources */,
 				409176B11FD86ACD0086421B /* FileManager+Helpers.swift in Sources */,
 				40AB8C4B1FB884C900BC6D82 /* CollaborationCursor.swift in Sources */,
