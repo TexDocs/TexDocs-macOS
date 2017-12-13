@@ -136,9 +136,12 @@ class LaTeXSourceCodeViewLanguageDelegate: SourceCodeViewLanguageDelegate {
     }
 
     private func packages(usedIn latexCode: String) -> [String] {
-        return LaTeXSourceCodeViewLanguageDelegate.packageRegex.matches(in: latexCode, options: [], range: NSRange(location: 0, length: latexCode.count)).map { rawMatch in
-            let match = rawMatch.regularExpressionMatch(in: latexCode)
-            return match.captureGroups[1].string
+        return LaTeXSourceCodeViewLanguageDelegate.packageRegex.matches(
+            in: latexCode,
+            options: [],
+            range: NSRange(latexCode.startIndex..<latexCode.endIndex, in: latexCode)).map { rawMatch in
+                let match = rawMatch.regularExpressionMatch(in: latexCode)
+                return match.captureGroups[1].string
         }
     }
 
@@ -157,7 +160,7 @@ class LaTeXSourceCodeViewLanguageDelegate: SourceCodeViewLanguageDelegate {
                 additionalEnvironmentPaths: [URL(fileURLWithPath: UserDefaults.latexPath.value).deletingLastPathComponent().path])
 
         let output = process.launchAndGetOutput()
-        let matches = LaTeXSourceCodeViewLanguageDelegate.latexDefOutputRegex.matches(in: output, options: [], range: NSRange(location: 0, length: output.count))
+        let matches = LaTeXSourceCodeViewLanguageDelegate.latexDefOutputRegex.matches(in: output, options: [], range: NSRange(output.startIndex..<output.endIndex, in: output))
         return matches.map {
             $0.regularExpressionMatch(in: output).captureGroups[0].string
         }

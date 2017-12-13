@@ -73,7 +73,7 @@ class SourceCodeRulerView: NSRulerView {
         
         textView.lines(inRange: visibleGlyphRange) { (_, lineRange) in
             lineNumber += 1
-            var effectiveRange = NSRange(location: 0, length: 0)
+            var effectiveRange = NSRange()
             let lineYPosition = layoutManager.lineFragmentRect(forGlyphAt: lineRange.location, effectiveRange: &effectiveRange, withoutAdditionalLayout: true).origin.y
             lineNumberTexts.append((prepareDrawLineNumber(lineNumber), lineYPosition + relativeYTranslation))
             return 0

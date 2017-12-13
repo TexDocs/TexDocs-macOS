@@ -14,7 +14,7 @@ extension SourceCodeView {
     }
 
     @discardableResult func goToNextPlaceholder(from location: Int) -> Bool {
-        let range = NSRange(location: location, length: string.count - location)
+        let range = NSRange(location: location, length: nsString.length - location)
 
         return goToFirstPlaceholder(inRange: range)
     }
@@ -41,7 +41,6 @@ extension SourceCodeView {
     }
 
     @discardableResult func goToLastPlaceholder(inRange range: NSRange) -> Bool {
-
         guard let match = EditorPlaceHolderRegex.matches(in: string, options: [], range: range).last else {
             return false
         }
@@ -71,7 +70,6 @@ extension SourceCodeView {
     }
 
     override func selectionRange(forProposedRange proposedCharRange: NSRange, granularity: NSSelectionGranularity) -> NSRange {
-
         guard let placeholder = placeholder(atPosition: proposedCharRange) else {
             return super.selectionRange(forProposedRange: proposedCharRange, granularity: granularity)
         }

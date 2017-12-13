@@ -51,7 +51,7 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
     // MARK: Helper
 
     var stringRange: NSRange {
-        return NSRange(location: 0, length: textStorage!.length)
+        return NSRange(string.startIndex..<string.endIndex, in: string)
     }
     
     /// NSString version of string property
