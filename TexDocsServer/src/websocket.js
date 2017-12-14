@@ -11,7 +11,7 @@ const NOT_FOUND = {
 
 const projects = {
     "110ec58a-a0f2-4ac4-8393-c866d813b8d1": {
-        repoURL: "ssh://git@gitlab.com:TheMegaTB/testLatex.git",
+        repoURL: "ssh://git@gitlab.com/TheMegaTB/testLatex.git",
         gitLog: [],
         users: {},
         activeSyncClient: undefined,
@@ -234,7 +234,7 @@ export function setupWebsocket(server) {
     const wss = new WebSocket.Server({server});
     wss.on('connection', (ws, req) => {
         ws.userID = uuidv4();
-        ws.isAlice = true
+        ws.isAlive = true
 
         ws.on('message', (message) => {
             console.log('received: %s', message);

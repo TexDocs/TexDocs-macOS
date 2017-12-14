@@ -36,6 +36,10 @@ class CollaborationClient {
         }
         webSocket.delegate = self
     }
+
+    func willStartCloning() {
+        syncStatus = .cloning
+    }
     
     init() {
         webSocket = WebSocket()
@@ -201,11 +205,12 @@ extension CollaborationClient {
     
     func scheduleSync() {
         switch syncStatus {
-        case .notSyncing:
+        case .notSyncing, .cloning:
             syncStatus = .waitingForSync
             syncRequired = false
             send(package: InitiateSyncPackage())
         case .userSync, .waitingForSyncToComplete:
+            // something changed while/after we synced. Let's start a new one later.
             syncRequired = true
         case .waitingForSync:
             // Sync is already running. No need to start a new one.
@@ -272,6 +277,7 @@ extension CollaborationClient {
 
 enum SyncStatus {
     case notSyncing
+    case cloning
     case waitingForSync
     case userSync
     case waitingForSyncToComplete

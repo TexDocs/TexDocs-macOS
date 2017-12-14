@@ -71,7 +71,7 @@ class EditorWindowController: NSWindowController {
             }
 
             rootDirectory = try FileSystemItem(dataFolderURL)
-            outlineViewController.reloadData(inTab: .directory)
+            srcDirectoryDidChange()
         
             startDirectoryMonitoring()
         } catch {

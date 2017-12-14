@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
@@ -11,16 +11,16 @@
             <objects>
                 <viewController storyboardIdentifier="SimpleSheet" id="MXl-if-Q0B" customClass="SimpleSheet" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="OkP-AK-U4y">
-                        <rect key="frame" x="0.0" y="0.0" width="340" height="163"/>
+                        <rect key="frame" x="0.0" y="0.0" width="340" height="115"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BB4-rY-9GK">
-                                <rect key="frame" x="18" y="75" width="304" height="68"/>
+                                <rect key="frame" x="18" y="75" width="304" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="Eq6-en-2FK"/>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="vw5-Qo-vEK"/>
                                 </constraints>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Failed to clone repository from git@gitlab.com:TheMegaTB/testLatex.git to file:///Users/noahpeeters/Desktop/Untitled/Untitled/" id="KST-pd-Ey5">
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="&lt;Error message&gt;" id="KST-pd-Ey5">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -97,7 +97,7 @@
                                         <rect key="frame" x="0.0" y="60" width="428" height="25"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JyG-3g-ODO">
-                                                <rect key="frame" x="-2" y="0.0" width="119" height="25"/>
+                                                <rect key="frame" x="-2" y="0.0" width="115" height="25"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Edit Scheme" id="Cqb-ls-ebK">
                                                     <font key="font" metaFont="system" size="21"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>

@@ -12,7 +12,7 @@ class TokenCell: NSTextAttachmentCell {
     let text: NSMutableAttributedString
     let xSpacing: CGFloat = 3
     let ySpacing: CGFloat = 0
-    var selected = false
+    var isSelected = false
 
     init(text: String) {
         self.text = NSMutableAttributedString(string: text, attributes: [
@@ -60,7 +60,7 @@ class TokenCell: NSTextAttachmentCell {
     }
 
     override func draw(withFrame cellFrame: NSRect, in controlView: NSView?) {
-        if selected {
+        if isSelected {
             NSColor.selectedMenuItemColor.set()
         } else {
             NSColor.lightGray.set()
@@ -71,9 +71,55 @@ class TokenCell: NSTextAttachmentCell {
 
     override func trackMouse(with theEvent: NSEvent, in cellFrame: NSRect, of controlView: NSView?, untilMouseUp flag: Bool) -> Bool {
         _ = super.trackMouse(with: theEvent, in: cellFrame, of: controlView, untilMouseUp: flag)
-        selected = true
+        isSelected = true
         controlView?.setNeedsDisplay(cellFrame)
         return false
     }
 }
 
+
+extension NSTextStorage {
+    func enumerateTokens(in range: NSRange, reverse: Bool = false, block: (TokenCell, NSRange) -> Bool) {
+        let options = reverse ? NSAttributedString.EnumerationOptions.reverse : []
+
+        enumerateAttribute(
+            .attachment,
+            in: range,
+            options: options) { attachment, range, stop in
+                if let attachment = attachment as? NSTextAttachment,
+                    let token = attachment.attachmentCell as? TokenCell {
+                    stop.pointee = ObjCBool(!block(token, range))
+                }
+        }
+    }
+
+    func deselectAllTokens() {
+        enumerateTokens(in: NSRange(location: 0, length: length)) { token, _ in
+            token.isSelected = false
+            return true
+        }
+    }
+
+    func removeAllTokens() {
+        enumerateTokens(in: NSRange(location: 0, length: length)) { token, range in
+            replaceCharacters(in: range, with: "{#\(token.text.string)#}", byUser: false)
+            return true
+        }
+    }
+
+    func createAllTokens() {
+        createTokens(in: NSRange(string.startIndex..<string.endIndex, in: string))
+    }
+
+    func createTokens(in range: NSRange) {
+        let matches = EditorPlaceHolderRegex.matches(in: string, options: [], range: range)
+
+        for match in matches {
+            let regexMatch = match.regularExpressionMatch(in: string)
+            let tokenCell = TokenCell(text: regexMatch.captureGroups[1].string)
+            let attachment = NSTextAttachment(data: nil, ofType: nil)
+            attachment.attachmentCell  = tokenCell
+            replaceCharacters(in: match.range, with: NSAttributedString(attachment: attachment))
+        }
+    }
+}

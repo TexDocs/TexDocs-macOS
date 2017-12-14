@@ -103,7 +103,7 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
     }
 
     override func deleteBackward(_ sender: Any?) {
-        guard selectedRange().length == 0 else {
+        guard selectedRange().length == 0, selectedRange().location < nsString.length else {
             super.deleteBackward(sender)
             return
         }

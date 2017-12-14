@@ -15,7 +15,7 @@ extension EditorWindowController {
     }
 
     func receivedChange(in range: NSRange, replaceWith replaceString: String, inFile relativeFilePath: String) {
-        guard let fileSystemItem = rootDirectory?.findChild(withRelativePath: relativeFilePath, includesRootItemsName: true) as? EditableFileSystemItem else {
+        guard let fileSystemItem = rootDirectory?.findChild(withRelativePath: relativeFilePath) as? EditableFileSystemItem else {
             return
         }
         fileSystemItem.textStorage.replaceCharacters(in: range, with: replaceString, byUser: false)
@@ -35,7 +35,9 @@ extension EditorWindowController: CollaborationClientDelegate {
     }
 
     func collaborationClient(_ client: CollaborationClient, didReceivedChangeIn range: NSRange, replacedWith replaceString: String, inFile relativeFilePath: String) {
-        receivedChange(in: range, replaceWith: replaceString, inFile: relativeFilePath)
+        DispatchQueue.main.async {
+            self.receivedChange(in: range, replaceWith: replaceString, inFile: relativeFilePath)
+        }
     }
 
     func collaborationCursorsChanged(_ client: CollaborationClient) {

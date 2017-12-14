@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class CollaborationEditorViewController: BaseEditorViewController, EditorController, SourceCodeViewInteractionDelegate {
+class CollaborationEditorViewController: BaseEditorViewController, EditorController {
 
     @IBOutlet weak var editor: CollaborationSourceCodeView!
 
@@ -46,16 +46,11 @@ class CollaborationEditorViewController: BaseEditorViewController, EditorControl
         editor.languageDelegate = editableFileSystemItem.languageDelegate
         editor.collaborationDelegate = delegateModel?.collaborationDelegate
         editor.sourceCodeViewDelegate = delegateModel?.sourceCodeViewDelegate
-        editor.interactionDelegate = self
     }
 
     override func willOpen() {
-        editableFileSystemItem.deselectAllTokens()
+        editableFileSystemItem.textStorage.deselectAllTokens()
         editor.updateSourceCodeHighlighting(in: editor.stringRange)
-    }
-
-    func sourceCodeViewDeselectTokens(_ sourceCodeView: SourceCodeView) {
-        editableFileSystemItem.deselectAllTokens()
     }
 
     private var delegateModel: CollaborationEditorViewControllerModel?

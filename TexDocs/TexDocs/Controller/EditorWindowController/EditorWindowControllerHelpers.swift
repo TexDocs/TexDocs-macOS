@@ -23,7 +23,7 @@ extension EditorWindowController {
     }
 
     func relativePath(of url: URL) -> String? {
-        return url.path(relativeTo: workspaceURL)
+        return url.path(relativeTo: dataFolderURL)
     }
 
     func relativePath(of fileSystemItem: FileSystemItem) -> String? {

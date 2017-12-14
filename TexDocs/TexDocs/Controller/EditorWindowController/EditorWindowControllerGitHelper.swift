@@ -18,21 +18,22 @@ extension EditorWindowController {
                 passphrase: nil)
         }
     }
-    
+
     private var signature: GTSignature? {
         return GTSignature(
             name: UserDefaults.gitName.value,
             email: UserDefaults.gitEMail.value,
             time: Date())
     }
-    
+
     func clone(repositoryURL: URL, action: (() -> Void)? = nil) throws -> GTRepository? {
         guard let localRepositoryURL = dataFolderURL else {
             showInternalErrorSheet()
             return nil
         }
         showCloningSheet()
-        
+
+        client.willStartCloning()
         let repository = try GTRepository.clone(
             from: repositoryURL,
             toWorkingDirectory: localRepositoryURL,
@@ -45,24 +46,27 @@ extension EditorWindowController {
 
                 self?.showCloningProgressSheet(total: totalObjects, completed: receivedObjects)
         }
-        
+
         texDocsDocument.documentData?.collaboration?.repository = DocumentData.Collaboration.Repository(url: repositoryURL)
         editedDocument()
+        DispatchQueue.main.async {
+            self.srcDirectoryDidChange()
+        }
         showCloningCompletedSheet(action: action)
         return repository
     }
-    
+
     func openLocalRepository() throws -> GTRepository? {
         guard let localRepositoryURL = dataFolderURL else {
             showInternalErrorSheet()
             return nil
         }
-        
+
         let repository = try GTRepository(url: localRepositoryURL)
-        
+
         return repository
     }
-    
+
     func pull(_ repository: GTRepository, branch: GTBranch, from remote: GTRemote) throws {
         try repository.pull(
             branch,
@@ -70,13 +74,13 @@ extension EditorWindowController {
             withOptions: [
                 GTRepositoryRemoteOptionsCredentialProvider: credentialsProvider,
                 GTPullMergeConflictedFiles: true
-            ]) { [weak self] (transferProgress, _) in
-                let receivedObjects = transferProgress.pointee.received_objects
-                let totalObjects = transferProgress.pointee.total_objects
-                self?.showPullingProgressSheet(total: totalObjects, completed: receivedObjects)
+        ]) { [weak self] (transferProgress, _) in
+            let receivedObjects = transferProgress.pointee.received_objects
+            let totalObjects = transferProgress.pointee.total_objects
+            self?.showPullingProgressSheet(total: totalObjects, completed: receivedObjects)
         }
     }
-    
+
     func fetch(_ repository: GTRepository, from remote: GTRemote) throws {
         try repository.fetch(
             remote, withOptions: [
@@ -87,39 +91,39 @@ extension EditorWindowController {
             self?.showFetchProgressSheet(total: totalObjects, completed: receivedObjects)
         }
     }
-    
+
     func push(_ repository: GTRepository, branch: GTBranch, to remote: GTRemote) throws {
         try repository.push(
             branch,
             to: remote,
             withOptions: [
                 GTRepositoryRemoteOptionsCredentialProvider: credentialsProvider
-            ]) { [weak self] (pushed, total, _, _) in
-                self?.showPushingProgressSheet(total: total, completed: pushed)
+        ]) { [weak self] (pushed, total, _, _) in
+            self?.showPushingProgressSheet(total: total, completed: pushed)
         }
     }
-    
+
     func commit(_ repository: GTRepository, tree: GTTree, parents: [GTCommit], message: String, updatingReferenceNamed referenceName: String) throws ->
         GTCommit {
-        guard let signature = signature else {
-            throw EditorWindowControllerError.invalidSignature
-        }
-            
-        return try repository.createCommit(
-            with: tree,
-            message: message,
-            author: signature,
-            committer: signature,
-            parents: parents,
-            updatingReferenceNamed: referenceName
-        )
+            guard let signature = signature else {
+                throw EditorWindowControllerError.invalidSignature
+            }
+
+            return try repository.createCommit(
+                with: tree,
+                message: message,
+                author: signature,
+                committer: signature,
+                parents: parents,
+                updatingReferenceNamed: referenceName
+            )
     }
-    
+
     func scheduleSync() {
         client.scheduleSync()
         showScheduledSyncSheet()
     }
-    
+
     func completedUserSync() {
         showCompletedUserSyncSheet()
         client.completedUserSync()
@@ -128,7 +132,7 @@ extension EditorWindowController {
 
 enum EditorWindowControllerError: Error {
     case invalidSignature
-    
+
     var localizedDescription: String {
         switch self {
         case .invalidSignature:
@@ -140,3 +144,4 @@ enum EditorWindowControllerError: Error {
 extension GTRepositoryStashApplyProgress {
     static let totalSteps = 7
 }
+
