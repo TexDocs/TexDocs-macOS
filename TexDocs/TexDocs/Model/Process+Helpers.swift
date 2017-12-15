@@ -9,7 +9,11 @@
 import Foundation
 
 extension Process {
-    static func create(_ launchPath: String, workingDirectory: URL? = nil, arguments: [String], additionalEnvironmentPaths: [String]? = nil) -> Process {
+    static func create(_ launchPath: String, workingDirectory: URL? = nil, arguments: [String], additionalEnvironmentPaths: [String]? = nil) -> Process? {
+        guard FileManager.default.isExecutableFile(atPath: launchPath) else {
+            return nil
+        }
+
         let process = Process()
         process.launchPath = launchPath
         process.currentDirectoryURL = workingDirectory ?? URL(fileURLWithPath: "/tmp")

@@ -52,10 +52,13 @@ extension EditorWindowController {
         }
 
 
-        let process = Process.create(UserDefaults.latexPath.value, workingDirectory: workspaceURL, arguments: [
-            "-output-directory=\(relativePath(of: outputDirectory)!)",
-            relativePath(of: inputFile)!
-        ])
+        guard let process = Process.create(UserDefaults.latexPath.value, workingDirectory: workspaceURL, arguments: [
+                "-output-directory=\(relativePathInWorkspace(of: outputDirectory)!)",
+                relativePathInWorkspace(of: inputFile)!
+            ]) else {
+                showUserNotificationSheet(text: NSLocalizedString("TD_ERROR_INVALID_LATEX_PATH", comment: "Shown to the user of the latex path is not executable"))
+                return
+        }
         currentTypesetProcess = process
 
         process.setStringOutputHandler { [weak self, weak process] string in

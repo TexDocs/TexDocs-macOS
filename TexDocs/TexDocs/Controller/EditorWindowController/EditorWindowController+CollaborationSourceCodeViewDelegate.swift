@@ -10,7 +10,7 @@ import Foundation
 
 extension EditorWindowController: CollaborationSourceCodeViewDelegate {
     func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, to newString: String) {
-        client.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser, to: newString, inFile: relativePathOfOpenedFile()!)
+        client.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser, to: newString, inFile: relativePathOfOpenedFileInDataFolder()!)
         editedDocument()
         if byUser {
             resetAutoTypesetTimer()
@@ -18,12 +18,12 @@ extension EditorWindowController: CollaborationSourceCodeViewDelegate {
     }
     
     func userSelectionDidChange(_ newSelection: NSRange) {
-        guard let relativeFilePath = relativePathOfOpenedFile() else { return }
+        guard let relativeFilePath = relativePathOfOpenedFileInDataFolder() else { return }
         client.userSelectionDidChange(newSelection, inFile: relativeFilePath)
     }
     
     func collaborationCursors(for editor: CollaborationSourceCodeView) -> [CollaborationCursor] {
-        let relativeFilePath = relativePathOfOpenedFile()
+        let relativeFilePath = relativePathOfOpenedFileInDataFolder()
         return client.collaborationCursors
             .map { return $1 }
             .filter { $0.relativeFilePath == relativeFilePath }

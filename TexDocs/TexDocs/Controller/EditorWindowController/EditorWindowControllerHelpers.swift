@@ -22,19 +22,23 @@ extension EditorWindowController {
         return workspaceURL.appendingPathComponent(documentData.dataFolderName, isDirectory: true)
     }
 
-    func relativePath(of url: URL) -> String? {
+    func relativePathInDataFolder(of url: URL) -> String? {
         return url.path(relativeTo: dataFolderURL)
     }
 
-    func relativePath(of fileSystemItem: FileSystemItem) -> String? {
-        return relativePath(of: fileSystemItem.url)
+    func relativePathInWorkspace(of url: URL) -> String? {
+        return url.path(relativeTo: workspaceURL)
     }
 
-    func relativePathOfOpenedFile() -> String? {
+    func relativePathInDataFolder(of fileSystemItem: FileSystemItem) -> String? {
+        return relativePathInDataFolder(of: fileSystemItem.url)
+    }
+
+    func relativePathOfOpenedFileInDataFolder() -> String? {
         guard let openedFile = editorWrapperViewController.openedFile else {
             return nil
         }
 
-        return relativePath(of: openedFile)
+        return relativePathInDataFolder(of: openedFile)
     }
 }

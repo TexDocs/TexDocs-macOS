@@ -153,11 +153,13 @@ class LaTeXSourceCodeViewLanguageDelegate: SourceCodeViewLanguageDelegate {
         }
     }
 
-    private func scanCommands(in packageName: String) -> [String] {
-        let process = Process.create(
+    private func scanCommands(in packageName: String) -> [String]? {
+        guard let process = Process.create(
                 UserDefaults.latexdefPath.value,
                 arguments: ["-lp", packageName],
-                additionalEnvironmentPaths: [URL(fileURLWithPath: UserDefaults.latexPath.value).deletingLastPathComponent().path])
+                additionalEnvironmentPaths: [URL(fileURLWithPath: UserDefaults.latexPath.value).deletingLastPathComponent().path]) else {
+                    return nil
+        }
 
         let output = process.launchAndGetOutput()
         let matches = LaTeXSourceCodeViewLanguageDelegate.latexDefOutputRegex.matches(in: output, options: [], range: NSRange(output.startIndex..<output.endIndex, in: output))

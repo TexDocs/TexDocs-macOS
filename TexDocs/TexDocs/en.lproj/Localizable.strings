@@ -40,6 +40,9 @@
 /* Error message if the requested editor controller cannot be created */
 "TD_ERROR_INVALID_EDITOR_CONTROLLER" = "Cannot create editor controller";
 
+/* Shown to the user of the latex path is not executable */
+"TD_ERROR_INVALID_LATEX_PATH" = "TD_ERROR_INVALID_LATEX_PATH";
+
 /* Message shown to the user if the saved and the received repository url don't match. */
 "TD_ERROR_MISSMATCHED_REPOSITORY_URL" = "The received repository url does not match the local one.";
 

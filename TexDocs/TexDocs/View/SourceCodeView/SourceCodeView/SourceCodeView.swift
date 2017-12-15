@@ -87,9 +87,7 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
     }
     
     func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, isContentReplace: Bool) {
-        if !isContentReplace {
-            updateSourceCodeHighlighting(in: newRange)
-        }
+        updateSourceCodeHighlighting(in: newRange)
         rootStructureNode?.invalidateCache()
     }
     
