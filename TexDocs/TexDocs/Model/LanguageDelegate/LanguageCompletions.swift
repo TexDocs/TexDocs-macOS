@@ -43,6 +43,11 @@ struct LanguageCompletion {
         self.completionString = completionString
         self.image = image
     }
+
+    static let internalCommandImage = #imageLiteral(resourceName: "CommandInternal")
+    static let internalParameter    = #imageLiteral(resourceName: "ParameterInternal")
+    static let externalCommandImage = #imageLiteral(resourceName: "CommandExternal")
+    static let templateImage = #imageLiteral(resourceName: "ParameterInternal")
 }
 
 extension String {

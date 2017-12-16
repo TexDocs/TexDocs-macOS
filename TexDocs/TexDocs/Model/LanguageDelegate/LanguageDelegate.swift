@@ -1,5 +1,5 @@
 //
-//  SourceCodeViewLanguageDelegate.swift
+//  LanguageDelegate.swift
 //  TexDocs
 //
 //  Created by Noah Peeters on 07.12.17.
@@ -8,16 +8,14 @@
 
 import Foundation
 
-protocol SourceCodeViewLanguageDelegate {
+protocol LanguageDelegate {
     init()
-    func prepareForSourceCodeView(_ sourceCodeView: SourceCodeView)
+    func prepareForTextStorage(_ textStorage: NSTextStorage)
+    func textStorageDocumentStructure(_ textStorage: NSTextStorage) -> DocumentStructureNode
     func sourceCodeView(_ sourceCodeView: SourceCodeView, updateCodeHighlightingInRange editedRange: NSRange)
-    func sourceCodeViewDocumentStructure(_ sourceCodeView: SourceCodeView) -> DocumentStructureNode
     func sourceCodeView(_ sourceCodeView: SourceCodeView, completionsForLocation location: Int, completionBlock: @escaping (LanguageCompletions?) -> Void)
 }
 
 let allLanguageDelegates = [
-    "tex": LaTeXSourceCodeViewLanguageDelegate.self
+    "tex": LaTeXLanguageDelegate.self
 ]
-
-

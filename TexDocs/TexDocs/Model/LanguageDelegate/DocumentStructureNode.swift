@@ -72,8 +72,7 @@ struct RegularExpressionMatch {
         let range: NSRange
 
         lazy var string: String = {
-            let swiftRange = Range(range, in: completeString)!
-            return String(completeString[swiftRange])
+            return completeString[range]
         }()
 
         init(range: NSRange, completeString: String) {

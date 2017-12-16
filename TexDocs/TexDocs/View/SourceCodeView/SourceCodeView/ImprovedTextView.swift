@@ -10,18 +10,18 @@ import Cocoa
 
 /// Impoved Text view with helpfull helpers
 class ImprovedTextView: NSTextView, NSTextViewDelegate {
-    
+
     // MARK: Init
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         setUp()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUp()
     }
-    
+
     /// Some basic setups
     open func setUp() {
         self.delegate = self
@@ -53,17 +53,17 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
     var stringRange: NSRange {
         return NSRange(string.startIndex..<string.endIndex, in: string)
     }
-    
+
     /// NSString version of string property
     var nsString: NSString {
         return NSString(string: string)
     }
-    
+
     /// The Range of the current line.
     var currentLineRange: NSRange {
         return nsString.lineRange(for: selectedRange())
     }
-    
+
     /// The string of the current line
     var currentLine: String {
         return nsString.substring(with: currentLineRange)
@@ -93,14 +93,14 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
         insertText(insertString, replacementRange: selectedRange())
     }
 
-    override func insertText(_ string: Any, replacementRange: NSRange) {
-        super.insertText(string, replacementRange: replacementRange)
-
-        if let string = string as? String, let autocloseString = EditorAutoClose[string] {
-            super.insertText(autocloseString, replacementRange: NSRange(location: NSMaxRange(replacementRange) + 1, length: 0))
-            moveBackward(nil)
-        }
-    }
+//    override func insertText(_ string: Any, replacementRange: NSRange) {
+//        super.insertText(string, replacementRange: replacementRange)
+//
+//        if let string = string as? String, let autocloseString = EditorAutoClose[string] {
+//            super.insertText(autocloseString, replacementRange: NSRange(location: NSMaxRange(replacementRange) + 1, length: 0))
+//            moveBackward(nil)
+//        }
+//    }
 
     override func deleteBackward(_ sender: Any?) {
         guard selectedRange().length == 0, selectedRange().location < nsString.length else {
@@ -130,18 +130,18 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
         self.setSelectedRange(NSRange(location: NSMaxRange(match.range), length: 0))
     }
 
-    override func keyDown(with event: NSEvent) {
-        let string = event.charactersIgnoringModifiers
-        let commandModifier = event.modifierFlags.contains(NSEvent.ModifierFlags.command)
-
-        if commandModifier && string == "]" {
-            incraseIndent()
-        } else if commandModifier && string == "[" {
-            decreaseIndent()
-        } else {
-            super.keyDown(with: event)
-        }
-    }
+//    override func keyDown(with event: NSEvent) {
+//        let string = event.charactersIgnoringModifiers
+//        let commandModifier = event.modifierFlags.contains(NSEvent.ModifierFlags.command)
+//
+//        if commandModifier && string == "]" {
+//            incraseIndent()
+//        } else if commandModifier && string == "[" {
+//            decreaseIndent()
+//        } else {
+//            super.keyDown(with: event)
+//        }
+//    }
 
     open func incraseIndent() {
         updateIndent() {
@@ -181,9 +181,9 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
     func textViewDidChangeSelection(_ notification: Notification) {
         selectionDidChange(selection: selectedRange())
     }
-    
+
     open func selectionDidChange(selection: NSRange) {}
-    
+
     // MARK: Remove format
     override func changeFont(_ sender: Any?) {}
     override func setFont(_ font: NSFont, range: NSRange) {}

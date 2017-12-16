@@ -8,32 +8,21 @@
 
 import Cocoa
 
-class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, CompletionViewControllerDelegate {
-    
+class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, CompletionViewControllerDelegate {    
     // MARK: Variables
     
     /// The line number view on the left side.
     private var lineNumberRuler: SourceCodeRulerView?
 
-    var languageDelegate: SourceCodeViewLanguageDelegate? {
+    weak var sourceCodeViewDelegate: SourceCodeViewDelegate?
+    weak var editableFileSystemItem: EditableFileSystemItem? {
         didSet {
-            languageDelegate?.prepareForSourceCodeView(self)
             updateSourceCodeHighlighting(in: stringRange)
         }
     }
 
-    weak var sourceCodeViewDelegate: SourceCodeViewDelegate?
-
-    private(set) var rootStructureNode: CachedProperty<DocumentStructureNode?>?
-
     override func setUp() {
         super.setUp()
-
-        rootStructureNode = CachedProperty(block: {
-            return self.languageDelegate?.sourceCodeViewDocumentStructure(self)
-        }, invalidationBlock: {
-            self.sourceCodeViewDelegate?.sourceCodeViewStructureChanged(self)
-        })
 
         NotificationCenter.default.addObserver(
             self,
@@ -52,7 +41,7 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
     override func insertNewline(_ sender: Any?) {
         super.insertNewline(sender)
 
-        if let path = rootStructureNode?.value?.path(toPosition: selectedRange().location - 1) {
+        if let path = editableFileSystemItem?.rootStructureNode?.value?.path(toPosition: selectedRange().location - 1) {
             insertText(String(repeating: " ", count: (path.count - 1) * 4))
 
             if let closableDocumentStructureNode = path.last as? ClosableDocumentStructureNode, !closableDocumentStructureNode.closed {
@@ -88,11 +77,15 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
     
     func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, isContentReplace: Bool) {
         updateSourceCodeHighlighting(in: newRange)
-        rootStructureNode?.invalidateCache()
+        editableFileSystemItem?.rootStructureNode?.invalidateCache()
     }
     
     func updateSourceCodeHighlighting(in editedRange: NSRange) {
-        languageDelegate?.sourceCodeView(self, updateCodeHighlightingInRange: editedRange)
+        editableFileSystemItem?.languageDelegate?.sourceCodeView(self, updateCodeHighlightingInRange: editedRange)
+    }
+
+    func editableFileSystemItemDocumentStructureChanged(_ editableFileSystemItem: EditableFileSystemItem) {
+        sourceCodeViewDelegate?.sourceCodeViewStructureChanged(self)
     }
 
     //MARK: Completion
@@ -243,7 +236,7 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
             return
         }
 
-        languageDelegate?.sourceCodeView(self, completionsForLocation: selectedRange().location) {
+        editableFileSystemItem?.languageDelegate?.sourceCodeView(self, completionsForLocation: selectedRange().location) {
             self.languageCompletions = $0
             let count = $0?.count ?? 0
             if count > 0 {

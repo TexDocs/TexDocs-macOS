@@ -19,7 +19,7 @@ class CollaborationEditorViewController: BaseEditorViewController, EditorControl
     var editableFileSystemItem: EditableFileSystemItem!
     
     var rootDocumentStructureNode: DocumentStructureNode? {
-        return editor.rootStructureNode?.value
+        return editableFileSystemItem.rootStructureNode?.value
     }
 
     func navigate(to documentStructureNode: DocumentStructureNode) {
@@ -43,7 +43,7 @@ class CollaborationEditorViewController: BaseEditorViewController, EditorControl
         editor.layoutManager?.replaceTextStorage(editableFileSystemItem.textStorage)
         editableFileSystemItem.delegates.add(delegate: editor)
 
-        editor.languageDelegate = editableFileSystemItem.languageDelegate
+        editor.editableFileSystemItem = editableFileSystemItem
         editor.collaborationDelegate = delegateModel?.collaborationDelegate
         editor.sourceCodeViewDelegate = delegateModel?.sourceCodeViewDelegate
     }

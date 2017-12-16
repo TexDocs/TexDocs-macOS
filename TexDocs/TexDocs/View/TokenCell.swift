@@ -113,13 +113,22 @@ extension NSTextStorage {
 
     func createTokens(in range: NSRange) {
         let matches = EditorPlaceHolderRegex.matches(in: string, options: [], range: range)
+        var shift = 0
 
         for match in matches {
-            let regexMatch = match.regularExpressionMatch(in: string)
-            let tokenCell = TokenCell(text: regexMatch.captureGroups[1].string)
+            let range = match.range.shifted(by: -shift)
+            let nameRange = match.range(at: 1).shifted(by: -shift)
+            shift += match.range.length - 1
+            let tokenCell = TokenCell(text: string[nameRange])
             let attachment = NSTextAttachment(data: nil, ofType: nil)
             attachment.attachmentCell  = tokenCell
-            replaceCharacters(in: match.range, with: NSAttributedString(attachment: attachment))
+            replaceCharacters(in: range, with: NSAttributedString(attachment: attachment))
         }
+    }
+}
+
+extension NSRange {
+    func shifted(by shift: Int) -> NSRange {
+        return NSRange(location: location + shift, length: length)
     }
 }

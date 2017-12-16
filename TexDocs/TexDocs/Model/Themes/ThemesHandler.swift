@@ -10,20 +10,9 @@ import Cocoa
 
 class ThemesHandler {
     private init() {
-        let applicationSupportPath = FileManager.default
-                .urls(for: .applicationSupportDirectory, in: .userDomainMask)
-                .first?
-                .appendingPathComponent(Bundle.main.bundleIdentifier!)
-        let themePath = applicationSupportPath?.appendingPathComponent("themes", isDirectory: true)
-
-        print("Searching for themes at \(themePath?.path ?? "<Error>")")
-        if let themePath = themePath,
-            let themePaths = try? FileManager.default.contentsOfDirectory(atPath: themePath.path) {
-
-            for url in themePaths.map({ themePath.appendingPathComponent($0) }) {
-                if let theme = try? Theme.load(from: url) {
-                    themes[url.lastPathComponent] = theme
-                }
+        for url in FileManager.default.applicationSupportDirectoryContent(withPath: "themes") {
+            if let theme = try? Theme.load(from: url) {
+                themes[url.lastPathComponent] = theme
             }
         }
     }

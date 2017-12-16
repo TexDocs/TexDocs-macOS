@@ -12,7 +12,8 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
     let textStorage = NSTextStorage()
 
     let delegates = MultiDelegate<EditableFileSystemItemDelegate>()
-    let languageDelegate: SourceCodeViewLanguageDelegate?
+    let languageDelegate: LanguageDelegate?
+    private(set) var rootStructureNode: CachedProperty<DocumentStructureNode?>?
 
     override var editorControllerTypes: [EditorController.Type] {
         return [[CollaborationEditorViewController.self], super.editorControllerTypes].flatMap { $0}
@@ -20,6 +21,8 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
 
     override init(_ url: URL) throws {
         languageDelegate = allLanguageDelegates[url.pathExtension]?.init()
+        languageDelegate?.prepareForTextStorage(textStorage)
+
         try super.init(url)
         textStorage.delegate = self
 
@@ -35,6 +38,16 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
             selector: #selector(updateFont),
             name: UserDefaults.editorFontSize.notificationKey,
             object: nil)
+
+        rootStructureNode = CachedProperty(block: { [weak self] in
+            guard let unwrappedSelf = self else { return nil }
+            return unwrappedSelf.languageDelegate?.textStorageDocumentStructure(unwrappedSelf.textStorage)
+        }, invalidationBlock: { [weak self] in
+            guard let unwrappedSelf = self else { return }
+            unwrappedSelf.delegates.forEach {
+                $0.editableFileSystemItemDocumentStructureChanged(unwrappedSelf)
+            }
+        })
     }
 
     @objc func updateFont() {
@@ -81,6 +94,7 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
 
 @objc protocol EditableFileSystemItemDelegate: class {
     func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, isContentReplace: Bool)
+    func editableFileSystemItemDocumentStructureChanged(_ editableFileSystemItem: EditableFileSystemItem)
 }
 
 extension NSTextStorage {
