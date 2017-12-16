@@ -11,8 +11,13 @@ import Foundation
 class TokenCell: NSTextAttachmentCell {
     let text: NSMutableAttributedString
     let xSpacing: CGFloat = 3
-    let ySpacing: CGFloat = 0
-    var isSelected = false
+    var isSelected = false {
+        didSet {
+            if let controlView = controlView {
+                controlView.setNeedsDisplay(controlView.bounds)
+            }
+        }
+    }
 
     init(text: String) {
         self.text = NSMutableAttributedString(string: text, attributes: [
@@ -52,13 +57,11 @@ class TokenCell: NSTextAttachmentCell {
     }
 
     override func cellSize() -> NSSize {
-        print(text.size())
-        print(UserDefaults.editorFontSize.value)
         return NSSize(width: text.size().width + 2 * xSpacing, height: UserDefaults.editorFontSize.value)
     }
 
     override func cellBaselineOffset() -> NSPoint {
-        return NSPoint(x: 0, y: UserDefaults.editorFont!.descender - ySpacing)
+        return NSPoint(x: 0, y: UserDefaults.editorFont!.descender + deltaHeight / 2)
     }
 
     override func draw(withFrame cellFrame: NSRect, in controlView: NSView?) {
@@ -68,11 +71,9 @@ class TokenCell: NSTextAttachmentCell {
             NSColor.lightGray.set()
         }
 
-        let deltaHeight = text.size().height - cellFrame.size.height
-        let drawFrame = NSRect(x: cellFrame.origin.x, y: cellFrame.origin.y - deltaHeight / 2, width: cellFrame.size.width, height: text.size().height)
-
-        NSBezierPath(roundedRect: drawFrame, xRadius: 5, yRadius: 5).fill()
-        text.draw(at: NSPoint(x: drawFrame.minX + xSpacing, y: drawFrame.minY + ySpacing))
+        let drawRect = NSRect.init(x: cellFrame.minX, y: cellFrame.minY, width: cellFrame.width, height: cellFrame.height + deltaHeight / 2)
+        NSBezierPath(roundedRect: drawRect, xRadius: 5, yRadius: 5).fill()
+        text.draw(at: NSPoint(x: cellFrame.minX + xSpacing, y: cellFrame.minY - deltaHeight / 2))
     }
 
     override func trackMouse(with theEvent: NSEvent, in cellFrame: NSRect, of controlView: NSView?, untilMouseUp flag: Bool) -> Bool {
@@ -80,6 +81,10 @@ class TokenCell: NSTextAttachmentCell {
         isSelected = true
         controlView?.setNeedsDisplay(cellFrame)
         return false
+    }
+
+    private var deltaHeight: CGFloat {
+        return text.size().height - cellSize().height
     }
 }
 
