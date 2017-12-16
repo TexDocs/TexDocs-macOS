@@ -130,18 +130,18 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
         self.setSelectedRange(NSRange(location: NSMaxRange(match.range), length: 0))
     }
 
-//    override func keyDown(with event: NSEvent) {
-//        let string = event.charactersIgnoringModifiers
-//        let commandModifier = event.modifierFlags.contains(NSEvent.ModifierFlags.command)
-//
-//        if commandModifier && string == "]" {
-//            incraseIndent()
-//        } else if commandModifier && string == "[" {
-//            decreaseIndent()
-//        } else {
-//            super.keyDown(with: event)
-//        }
-//    }
+    override func keyDown(with event: NSEvent) {
+        let string = event.charactersIgnoringModifiers
+        let commandModifier = event.modifierFlags.contains(NSEvent.ModifierFlags.command)
+
+        if commandModifier && string == "]" {
+            incraseIndent()
+        } else if commandModifier && string == "[" {
+            decreaseIndent()
+        } else {
+            super.keyDown(with: event)
+        }
+    }
 
     open func incraseIndent() {
         updateIndent() {

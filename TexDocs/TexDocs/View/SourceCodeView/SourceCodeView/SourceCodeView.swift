@@ -18,6 +18,7 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
     weak var editableFileSystemItem: EditableFileSystemItem? {
         didSet {
             updateSourceCodeHighlighting(in: stringRange)
+            updateFont()
         }
     }
 
@@ -28,6 +29,16 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
             self,
             selector: #selector(updateTheme),
             name: UserDefaults.themeName.notificationKey,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateFont),
+            name: UserDefaults.editorFontName.notificationKey,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateFont),
+            name: UserDefaults.editorFontSize.notificationKey,
             object: nil)
     }
 
@@ -86,6 +97,17 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
 
     func editableFileSystemItemDocumentStructureChanged(_ editableFileSystemItem: EditableFileSystemItem) {
         sourceCodeViewDelegate?.sourceCodeViewStructureChanged(self)
+    }
+
+    func editableFileSystemItemReloaded(_ editableFileSystemItem: EditableFileSystemItem) {
+        updateFont()
+    }
+
+    @objc func updateFont() {
+        guard let font = UserDefaults.editorFont else {
+            return
+        }
+        textStorage?.font = font
     }
 
     //MARK: Completion
@@ -286,8 +308,3 @@ private class CompletionTableRowView: NSTableRowView {
         }
     }
 }
-
-
-
-
-

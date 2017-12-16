@@ -27,34 +27,6 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
         textStorage.delegate = self
 
         try reload()
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(updateFont),
-            name: UserDefaults.editorFontName.notificationKey,
-            object: nil)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(updateFont),
-            name: UserDefaults.editorFontSize.notificationKey,
-            object: nil)
-
-        rootStructureNode = CachedProperty(block: { [weak self] in
-            guard let unwrappedSelf = self else { return nil }
-            return unwrappedSelf.languageDelegate?.textStorageDocumentStructure(unwrappedSelf.textStorage)
-        }, invalidationBlock: { [weak self] in
-            guard let unwrappedSelf = self else { return }
-            unwrappedSelf.delegates.forEach {
-                $0.editableFileSystemItemDocumentStructureChanged(unwrappedSelf)
-            }
-        })
-    }
-
-    @objc func updateFont() {
-        guard let font = UserDefaults.editorFont else {
-            return
-        }
-        textStorage.font = font
     }
 
     override func save() throws {
@@ -69,8 +41,10 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
         try super.reload()
         let newString = try String(contentsOf: url)
         textStorage.replaceContent(with: newString)
-        updateFont()
         textStorage.createAllTokens()
+        delegates.forEach {
+            $0.editableFileSystemItemReloaded(self)
+        }
     }
 
     // MARK: Text did change
@@ -87,7 +61,6 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
 
             let lineRange = NSString(string: textStorage.string).lineRange(for: editedRange)
             textStorage.createTokens(in: lineRange)
-            updateFont()
         }
     }
 }
@@ -95,6 +68,7 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
 @objc protocol EditableFileSystemItemDelegate: class {
     func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, isContentReplace: Bool)
     func editableFileSystemItemDocumentStructureChanged(_ editableFileSystemItem: EditableFileSystemItem)
+    func editableFileSystemItemReloaded(_ editableFileSystemItem: EditableFileSystemItem)
 }
 
 extension NSTextStorage {

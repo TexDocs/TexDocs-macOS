@@ -51,7 +51,6 @@ extension EditorWindowController {
             return
         }
 
-
         guard let process = Process.create(UserDefaults.latexPath.value, workingDirectory: workspaceURL, arguments: [
                 "-output-directory=\(relativePathInWorkspace(of: outputDirectory)!)",
                 relativePathInWorkspace(of: inputFile)!
