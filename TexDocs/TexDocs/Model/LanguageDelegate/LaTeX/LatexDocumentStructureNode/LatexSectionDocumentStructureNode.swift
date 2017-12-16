@@ -16,6 +16,10 @@ struct LatexSectionDocumentStructureNode: AutoHandlingLatexDocumentStructureNode
     var definitionRange: NSRange
     var effectiveRange: NSRange
 
+    var indentRange: NSRange {
+        return NSRange(location: NSMaxRange(definitionRange), length: effectiveRange.length - definitionRange.length)
+    }
+
     var latexSubNodes: [LatexDocumentStructureNode] = []
     private var completed: Bool = false
 

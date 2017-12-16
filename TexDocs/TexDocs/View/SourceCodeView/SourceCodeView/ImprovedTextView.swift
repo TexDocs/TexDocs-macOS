@@ -93,14 +93,14 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
         insertText(insertString, replacementRange: selectedRange())
     }
 
-//    override func insertText(_ string: Any, replacementRange: NSRange) {
-//        super.insertText(string, replacementRange: replacementRange)
-//
-//        if let string = string as? String, let autocloseString = EditorAutoClose[string] {
-//            super.insertText(autocloseString, replacementRange: NSRange(location: NSMaxRange(replacementRange) + 1, length: 0))
-//            moveBackward(nil)
-//        }
-//    }
+    override func insertText(_ string: Any, replacementRange: NSRange) {
+        super.insertText(string, replacementRange: replacementRange)
+
+        if let string = string as? String, let autocloseString = EditorAutoClose[string] {
+            super.insertText(autocloseString, replacementRange: NSRange(location: NSMaxRange(replacementRange) + 1, length: 0))
+            moveBackward(nil)
+        }
+    }
 
     override func deleteBackward(_ sender: Any?) {
         guard selectedRange().length == 0, selectedRange().location < nsString.length else {
@@ -122,12 +122,15 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
     }
 
     override func moveToLeftEndOfLine(_ sender: Any?) {
-        guard let match = ImprovedTextView.lineBeginningSpaces.firstMatch(in: string, options: .anchored, range: currentLineRange),
-            NSMaxRange(match.range) < selectedRange().location else {
-                super.moveToLeftEndOfLine(sender)
-                return
+        let inset = currentLine.leadingSpaces
+        let leftLocationWithoutSpaces = currentLineRange.location + inset
+
+        guard selectedRange().location > leftLocationWithoutSpaces else {
+            super.moveToLeftEndOfLine(sender)
+            return
         }
-        self.setSelectedRange(NSRange(location: NSMaxRange(match.range), length: 0))
+
+        setSelectedRange(NSRange.init(location: leftLocationWithoutSpaces, length: 0))
     }
 
     override func keyDown(with event: NSEvent) {
@@ -161,10 +164,12 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
         var firstLineCharactersAdded = 0
 
         let totalCharactersAdded = lines(inRange: currentLineRange) { (_, lineRange) in
-            let spaceMatch = ImprovedTextView.lineBeginningSpaces.firstMatch(in: string, options: [], range: lineRange)!
-            let currentIndent = spaceMatch.range.length
+            let currentIndent = string[lineRange].leadingSpaces
             let targetIndent = newIndentBlock(currentIndent)
-            insertText(String(repeating: " ", count: targetIndent), replacementRange: spaceMatch.range)
+
+            insertText(
+                String(repeating: " ", count: targetIndent),
+                replacementRange: NSRange(location: lineRange.location, length: currentIndent))
 
             let deltaCharacters = targetIndent - currentIndent
             if firstLineCharactersAdded == 0 {
@@ -175,8 +180,6 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
 
         setSelectedRange(NSRange(location: initialSelection.location + firstLineCharactersAdded, length: initialSelection.length + totalCharactersAdded - firstLineCharactersAdded))
     }
-
-    static let lineBeginningSpaces = try! NSRegularExpression(pattern: "^ *", options: .caseInsensitive)
 
     func textViewDidChangeSelection(_ notification: Notification) {
         selectionDidChange(selection: selectedRange())

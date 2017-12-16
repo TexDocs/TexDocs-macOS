@@ -14,6 +14,7 @@ struct LatexEnvironmentDocumentStructureNode: AutoHandlingLatexDocumentStructure
 
     let definitionRange: NSRange
     private(set) var effectiveRange: NSRange
+    private(set) var indentRange: NSRange
 
     var latexSubNodes: [LatexDocumentStructureNode] = []
     private var completed: Bool = false
@@ -21,6 +22,7 @@ struct LatexEnvironmentDocumentStructureNode: AutoHandlingLatexDocumentStructure
     init(match: RegularExpressionMatch) {
         self.definitionRange = match.captureGroups[0].range
         self.effectiveRange = NSRange(location: match.captureGroups[0].range.location, length: Int.max)
+        self.indentRange = NSRange(location: NSMaxRange(match.captureGroups[0].range), length: Int.max)
         self.displayName = match.captureGroups[2].string
     }
 
@@ -37,8 +39,13 @@ struct LatexEnvironmentDocumentStructureNode: AutoHandlingLatexDocumentStructure
             return true
         }
 
-        let newLenght = NSMaxRange(match.captureGroups[0].range) - effectiveRange.location
-        effectiveRange = NSRange(location: effectiveRange.location, length: newLenght)
+        effectiveRange = NSRange(
+            location: effectiveRange.location,
+            length: NSMaxRange(match.captureGroups[0].range) - effectiveRange.location)
+        indentRange = NSRange(
+            location: indentRange.location,
+            length: match.captureGroups[0].range.location - indentRange.location)
+
         completed = true
         return true
     }

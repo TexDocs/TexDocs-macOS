@@ -13,4 +13,13 @@ extension String {
         let swiftRange = Range(range, in: self)!
         return String(self[swiftRange])
     }
+
+    var leadingSpaces: Int {
+        for (count, character) in self.enumerated() {
+            if character != " " {
+                return count
+            }
+        }
+        return count
+    }
 }

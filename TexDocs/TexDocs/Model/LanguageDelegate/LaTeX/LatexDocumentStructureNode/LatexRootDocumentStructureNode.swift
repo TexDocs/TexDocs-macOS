@@ -22,6 +22,10 @@ struct LatexRootDocumentStructureNode: AutoHandlingLatexDocumentStructureNode {
         return range
     }
 
+    var indentRange: NSRange {
+        return range
+    }
+
     mutating func handleMatch(_ match: RegularExpressionMatch) -> Bool {
         guard let newNode = newNode(for: match) else {
             return false

@@ -12,6 +12,7 @@ protocol DocumentStructureNode: NavigationOutlineViewItem {
     var displayName: String { get }
     var type: DocumentStructureNodeNodeType { get }
     var definitionRange: NSRange { get }
+    var indentRange: NSRange { get }
     var effectiveRange: NSRange { get }
     var subNodes: [DocumentStructureNode] { get }
 }
@@ -36,20 +37,20 @@ extension DocumentStructureNode {
         return cell
     }
 
-    func path(toPosition position: Int) -> [DocumentStructureNode] {
+    func path(toPosition position: Int, range: KeyPath<DocumentStructureNode, NSRange> = \.effectiveRange) -> [DocumentStructureNode] {
         var resultPath: [DocumentStructureNode] = []
-        path(toPosition: position, resultPath: &resultPath)
+        path(toPosition: position, resultPath: &resultPath, range: range)
         return resultPath
     }
 
-    func path(toPosition position: Int, resultPath: inout [DocumentStructureNode])  {
+    private func path(toPosition position: Int, resultPath: inout [DocumentStructureNode], range: KeyPath<DocumentStructureNode, NSRange>)  {
         resultPath.append(self)
 
-        guard let newPathElement = subNodes.first(where: { $0.effectiveRange.contains(position) }) else {
+        guard let newPathElement = subNodes.first(where: { $0[keyPath: range].contains(position) }) else {
             return
         }
 
-        newPathElement.path(toPosition: position, resultPath: &resultPath)
+        newPathElement.path(toPosition: position, resultPath: &resultPath, range: range)
     }
 }
 

@@ -52,7 +52,8 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
     override func insertNewline(_ sender: Any?) {
         super.insertNewline(sender)
 
-        if let path = editableFileSystemItem?.rootStructureNode?.value?.path(toPosition: selectedRange().location - 1) {
+        // -2: -1 (\n newline) + -1 (arrays start with 0)
+        if let path = editableFileSystemItem?.rootStructureNode?.value?.path(toPosition: currentLineRange.upperBound - 2, range: \.indentRange) {
             insertText(String(repeating: " ", count: (path.count - 1) * 4))
 
             if let closableDocumentStructureNode = path.last as? ClosableDocumentStructureNode, !closableDocumentStructureNode.closed {
@@ -61,6 +62,28 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
                 setSelectedRange(selection)
             }
         }
+    }
+
+    override func paste(_ sender: Any?) {
+        if let string = NSPasteboard.general.string(forType: .string) {
+            textStorage?.replaceCharacters(in: selectedRange(), with: string, byUser: true, updateIndent: true)
+        }
+    }
+
+    override func deleteBackward(_ sender: Any?) {
+        let lineRange = currentLineRange
+        guard selectedRange().length == 0 else {
+            super.deleteBackward(sender)
+            return
+        }
+        let relativeLocation = selectedRange().location - lineRange.location
+
+        guard relativeLocation > 0, string[lineRange].leadingSpaces >= relativeLocation else {
+            super.deleteBackward(sender)
+            return
+        }
+
+        decreaseIndent()
     }
 
     @objc func updateTheme() {
@@ -88,7 +111,6 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
     
     func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, isContentReplace: Bool) {
         updateSourceCodeHighlighting(in: newRange)
-        editableFileSystemItem?.rootStructureNode?.invalidateCache()
     }
     
     func updateSourceCodeHighlighting(in editedRange: NSRange) {
