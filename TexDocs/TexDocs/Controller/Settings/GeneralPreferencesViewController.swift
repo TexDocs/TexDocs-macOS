@@ -63,6 +63,9 @@ class GeneralPreferencesViewController: NSViewController, CCNPreferencesWindowCo
     @IBAction func selectEditorFont(_ sender: Any) {
         NSFontManager.shared.target = self
         NSFontManager.shared.orderFrontFontPanel(sender)
+        if let font = UserDefaults.editorFont {
+            NSFontPanel.shared.setPanelFont(font, isMultiple: false)
+        }
     }
 
     @IBAction func toggleShowInvisibleCharacters(_ sender: Any) {
