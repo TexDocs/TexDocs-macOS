@@ -27,6 +27,16 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
         textStorage.delegate = self
 
         try reload()
+
+        rootStructureNode = CachedProperty(block: { [weak self] in
+            guard let unwrappedSelf = self else { return nil }
+            return unwrappedSelf.languageDelegate?.textStorageDocumentStructure(unwrappedSelf.textStorage)
+        }, invalidationBlock: { [weak self] in
+            guard let unwrappedSelf = self else { return }
+            unwrappedSelf.delegates.forEach {
+                $0.editableFileSystemItemDocumentStructureChanged(unwrappedSelf)
+            }
+        })
     }
 
     override func save() throws {

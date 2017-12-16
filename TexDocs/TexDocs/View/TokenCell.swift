@@ -52,7 +52,9 @@ class TokenCell: NSTextAttachmentCell {
     }
 
     override func cellSize() -> NSSize {
-        return NSSize(width: text.size().width + 2 * xSpacing, height: text.size().height + 2 * ySpacing)
+        print(text.size())
+        print(UserDefaults.editorFontSize.value)
+        return NSSize(width: text.size().width + 2 * xSpacing, height: UserDefaults.editorFontSize.value)
     }
 
     override func cellBaselineOffset() -> NSPoint {
@@ -65,8 +67,12 @@ class TokenCell: NSTextAttachmentCell {
         } else {
             NSColor.lightGray.set()
         }
-        NSBezierPath(roundedRect: cellFrame, xRadius: 5, yRadius: 5).fill()
-        text.draw(at: NSPoint(x: cellFrame.minX + xSpacing, y: cellFrame.minY + ySpacing))
+
+        let deltaHeight = text.size().height - cellFrame.size.height
+        let drawFrame = NSRect(x: cellFrame.origin.x, y: cellFrame.origin.y - deltaHeight / 2, width: cellFrame.size.width, height: text.size().height)
+
+        NSBezierPath(roundedRect: drawFrame, xRadius: 5, yRadius: 5).fill()
+        text.draw(at: NSPoint(x: drawFrame.minX + xSpacing, y: drawFrame.minY + ySpacing))
     }
 
     override func trackMouse(with theEvent: NSEvent, in cellFrame: NSRect, of controlView: NSView?, untilMouseUp flag: Bool) -> Bool {

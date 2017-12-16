@@ -176,7 +176,7 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
         setSelectedRange(NSRange(location: initialSelection.location + firstLineCharactersAdded, length: initialSelection.length + totalCharactersAdded - firstLineCharactersAdded))
     }
 
-    private static let lineBeginningSpaces = try! NSRegularExpression(pattern: "^(\\s*)", options: .caseInsensitive)
+    static let lineBeginningSpaces = try! NSRegularExpression(pattern: "^ *", options: .caseInsensitive)
 
     func textViewDidChangeSelection(_ notification: Notification) {
         selectionDidChange(selection: selectedRange())
