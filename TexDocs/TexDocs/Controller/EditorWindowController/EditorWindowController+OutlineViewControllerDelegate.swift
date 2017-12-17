@@ -26,7 +26,7 @@ extension EditorWindowController: NavigationOutlineViewControllerDelegate {
     }
 
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, createNewSchemeFor item: FileSystemItem) {
-        guard let path = item.url.path(relativeTo: workspaceURL) else {
+        guard let path = item.url.path(relativeTo: dataFolderURL) else {
             return
         }
 

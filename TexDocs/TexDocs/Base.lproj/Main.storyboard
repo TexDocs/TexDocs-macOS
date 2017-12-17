@@ -1101,12 +1101,23 @@ Gw
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="fxr-FM-xJf"/>
                                 </constraints>
                             </containerView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="Txa-bT-OGh">
+                                <rect key="frame" x="58" y="309" width="99" height="17"/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingHead" sendsActionOnEndEditing="YES" title="No file selected" usesSingleLineMode="YES" id="JMD-7E-HEf">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="fEI-oA-co4" firstAttribute="top" secondItem="nnH-rj-WVI" secondAttribute="top" constant="27" id="60O-4N-cmo"/>
                             <constraint firstItem="FGe-l7-Uxd" firstAttribute="top" secondItem="nnH-rj-WVI" secondAttribute="top" id="7uS-IB-Uyb"/>
                             <constraint firstItem="nbe-mH-AW9" firstAttribute="leading" secondItem="nnH-rj-WVI" secondAttribute="leading" id="JDY-D2-9vy"/>
+                            <constraint firstItem="Txa-bT-OGh" firstAttribute="leading" secondItem="FGe-l7-Uxd" secondAttribute="trailing" constant="8" id="KO5-0G-A0L"/>
+                            <constraint firstItem="Txa-bT-OGh" firstAttribute="centerY" secondItem="FGe-l7-Uxd" secondAttribute="centerY" id="Otv-3l-pXr"/>
                             <constraint firstItem="fEI-oA-co4" firstAttribute="top" secondItem="FGe-l7-Uxd" secondAttribute="bottom" id="SS5-B8-rNd"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Txa-bT-OGh" secondAttribute="trailing" constant="8" id="UfY-4i-mIO"/>
                             <constraint firstAttribute="bottom" secondItem="nbe-mH-AW9" secondAttribute="bottom" id="fyl-r5-02V"/>
                             <constraint firstAttribute="trailing" secondItem="fEI-oA-co4" secondAttribute="trailing" id="nVt-Qc-mt1"/>
                             <constraint firstItem="nbe-mH-AW9" firstAttribute="top" secondItem="fEI-oA-co4" secondAttribute="bottom" id="t2y-ht-X94"/>
@@ -1117,8 +1128,9 @@ Gw
                     </view>
                     <connections>
                         <outlet property="backButton" destination="7Gc-gR-Oem" id="150-eT-a34"/>
-                        <outlet property="editorContainerView" destination="nbe-mH-AW9" id="U56-Lt-h5F"/>
+                        <outlet property="editorContainerView" destination="nbe-mH-AW9" id="m21-C6-7CQ"/>
                         <outlet property="nextButton" destination="pyf-A1-ngf" id="M7u-RH-pUi"/>
+                        <outlet property="pathLabel" destination="Txa-bT-OGh" id="9cw-Ff-zOD"/>
                     </connections>
                 </viewController>
                 <customObject id="Ab1-A2-DAW" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

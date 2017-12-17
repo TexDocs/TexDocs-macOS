@@ -12,6 +12,15 @@ extension EditorWindowController: SourceCodeViewDelegate {
     func sourceCodeViewStructureChanged(_ sourceCodeView: SourceCodeView) {
         outlineViewController.reloadData(inTab: .structure)
     }
+
+    func sourceCodeView(_ sourceCodeView: SourceCodeView, annotationClicked annotation: RulerAnnotation) {
+        switch annotation.type {
+        case .file(let relativePath):
+            if let fileSystemItem = rootDirectory?.findChild(withRelativePath: relativePath) {
+                open(fileSystemItem: fileSystemItem, withEditorControllerType: nil)
+            }
+        }
+    }
 }
 
 extension EditorWindowController: EditorWrapperViewControllerDelegate {

@@ -13,7 +13,8 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
 
     let delegates = MultiDelegate<EditableFileSystemItemDelegate>()
     let languageDelegate: LanguageDelegate?
-    private(set) var rootStructureNode: CachedProperty<DocumentStructureNode?>?
+    private(set) var rootStructureNode: CachedProperty<DocumentStructureNode?>!
+    private(set) var annotations: CachedProperty<[RulerAnnotation]>!
 
     override var editorControllerTypes: [EditorController.Type] {
         return [[CollaborationEditorViewController.self], super.editorControllerTypes].flatMap { $0}
@@ -24,19 +25,19 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
         languageDelegate?.prepareForTextStorage(textStorage)
 
         try super.init(url)
-        textStorage.delegate = self
-
-        try reload()
 
         rootStructureNode = CachedProperty(block: { [weak self] in
             guard let unwrappedSelf = self else { return nil }
             return unwrappedSelf.languageDelegate?.textStorageDocumentStructure(unwrappedSelf.textStorage)
-        }, invalidationBlock: { [weak self] in
-            guard let unwrappedSelf = self else { return }
-            unwrappedSelf.delegates.forEach {
-                $0.editableFileSystemItemDocumentStructureChanged(unwrappedSelf)
-            }
         })
+
+        annotations = CachedProperty(block: { [weak self] in
+            guard let unwrappedSelf = self else { return [] }
+            return unwrappedSelf.languageDelegate?.textStorageRulerAnnotations(unwrappedSelf.textStorage) ?? []
+        })
+
+        textStorage.delegate = self
+        try reload()
     }
 
     override func save() throws {
@@ -66,24 +67,26 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
     func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorageEditActions, range editedRange: NSRange, changeInLength delta: Int) {
         if editedMask.contains(NSTextStorageEditActions.editedCharacters) {
             let oldRange = NSRange(location: editedRange.location, length: editedRange.length - delta)
+            rootStructureNode.invalidateCache()
+            annotations.invalidateCache()
             delegates.forEach {
                 $0.textDidChange(oldRange: oldRange, newRange: editedRange, changeInLength: delta, byUser: userInitiated, isContentReplace: isContentReplace)
+                $0.editableFileSystemItemDocumentStructureChanged(self)
             }
-            rootStructureNode?.invalidateCache()
             let lineRange = NSString(string: textStorage.string).lineRange(for: editedRange)
             insertedTextShift = textStorage.createTokens(in: lineRange)
         }
     }
 
     fileprivate func updateIndent(in range: NSRange) {
-        guard let structureNode = rootStructureNode?.value else {
+        guard let structureNode = rootStructureNode.value else {
             return
         }
 
         let newLineRegex = try! NSRegularExpression(pattern: ".*?\n", options: [])
         var totalShift = 0
         let string = textStorage.string
-        for match in newLineRegex.matches(in: string, options: [], range: range) {
+        for match in newLineRegex.matches(in: string, options: [], range: NSString(string: string).lineRange(for: range)) {
             let lineRange = match.range
             let lineString = string[lineRange]
             let currentIndent = lineString.leadingSpaces
@@ -97,7 +100,6 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
                 totalShift += targetIndent - currentIndent
             }
         }
-
     }
 }
 

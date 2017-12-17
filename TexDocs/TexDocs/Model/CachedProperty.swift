@@ -31,5 +31,4 @@ class CachedProperty<Value> {
         self.block = block
         self.invalidationBlock = invalidationBlock
     }
-
 }

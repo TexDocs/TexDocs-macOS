@@ -12,6 +12,7 @@ class EditorWrapperViewController: NSViewController {
     @IBOutlet private weak var backButton: NSButton!
     @IBOutlet private weak var nextButton: NSButton!
     @IBOutlet weak var editorContainerView: NSView!
+    @IBOutlet weak var pathLabel: NSTextField!
 
     private var editorControllerHistory: [EditorController] = []
     private var openedEditorControllerIndex: Int = -1
@@ -76,6 +77,7 @@ class EditorWrapperViewController: NSViewController {
         openedEditorController?.view.removeFromSuperview()
         editorContainerView.addSubview(editor.view)
         openedEditorController = editor
+        pathLabel.stringValue = editor.fileSystemItem.url.path
 
         editor.view.translatesAutoresizingMaskIntoConstraints = false
         editor.view.leftAnchor.constraint(equalTo: editorContainerView.leftAnchor).isActive = true

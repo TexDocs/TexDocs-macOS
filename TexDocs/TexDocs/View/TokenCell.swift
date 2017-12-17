@@ -119,7 +119,7 @@ extension NSTextStorage {
     }
 
     func createAllTokens() {
-        createTokens(in: NSRange(string.startIndex..<string.endIndex, in: string))
+        _ = createTokens(in: NSRange(string.startIndex..<string.endIndex, in: string))
     }
 
     func createTokens(in range: NSRange) -> Int {
@@ -137,7 +137,7 @@ extension NSTextStorage {
             attributedString.addAttribute(.font, value: UserDefaults.editorFont!, range: NSRange(location: 0, length: 1))
             replaceCharacters(in: range, with: attributedString)
         }
-        return shift
+        return -shift
     }
 }
 

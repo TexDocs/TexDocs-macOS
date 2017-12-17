@@ -21,6 +21,16 @@ class LaTeXLanguageDelegate: LanguageDelegate {
         return documentStructure(of: textStorage)
     }
 
+    func textStorageRulerAnnotations(_ textStorage: NSTextStorage) -> [RulerAnnotation] {
+        let string = textStorage.string
+        let range = NSRange(string.startIndex..<string.endIndex, in: string)
+
+        return LaTeXLanguageDelegate.includeRegex.matches(in: string, options: [], range: range).map {
+            let match = $0.regularExpressionMatch(in: string)
+            return RulerAnnotation(lineNumber: match.captureGroups[0].range.location, type: .file(relativePath: match.captureGroups[1].string))
+        }
+    }
+
     func sourceCodeView(_ sourceCodeView: SourceCodeView, updateCodeHighlightingInRange editedRange: NSRange) {
         let range = sourceCodeView.nsString.lineRange(for: editedRange)
 
@@ -190,6 +200,7 @@ extension LaTeXLanguageDelegate {
 
     private static let packageRegex = try! NSRegularExpression(pattern: "\\\\usepackage\\{(.*?)\\}", options: [])
     private static let latexDefOutputRegex = try! NSRegularExpression(pattern: "^\\\\(.*)", options: NSRegularExpression.Options.anchorsMatchLines)
+    private static let includeRegex = try! NSRegularExpression(pattern: "\\\\(?:includegraphics|input)(?:\\[.*?\\])?\\{(.*?)\\}", options: [])
 
     private static let templates: [LanguageCompletion] = {
         return FileManager.default.applicationSupportDirectoryFileContent(withPath: "latex/templates")

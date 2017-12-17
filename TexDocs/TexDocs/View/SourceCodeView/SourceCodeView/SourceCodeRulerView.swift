@@ -43,11 +43,26 @@ class SourceCodeRulerView: NSRulerView {
         text.draw(at: NSPoint(x: ruleThickness - drawWidth - padding, y: y))
     }
 
-    private func prepareDrawLineNumber(_ lineNumber: Int) -> NSAttributedString {
+    private func prepareDrawLineNumber(_ lineNumber: Int, attributes: [NSAttributedStringKey: Any]) -> NSAttributedString {
         return NSAttributedString(
             string: String(lineNumber),
-            attributes: [NSAttributedStringKey.foregroundColor: lineNumberColor]
+            attributes: attributes
         )
+    }
+
+    private var visibleAnnotations: [(NSRect, RulerAnnotation)] = []
+
+    private func draw(annotaion: RulerAnnotation, at lineFragmentRect: CGRect, relativeYTranslation: CGFloat) {
+        let diameter = lineFragmentRect.height / 3 * 2
+        let rect = NSRect(
+            x: ruleThickness - diameter - padding,
+            y: lineFragmentRect.minY + (lineFragmentRect.height - diameter) / 2 + relativeYTranslation,
+            width: diameter,
+            height: diameter)
+        visibleAnnotations.append((rect, annotaion))
+        let bezierPath = NSBezierPath(ovalIn: rect)
+        #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1).setFill()
+        bezierPath.fill()
     }
     
     override func drawHashMarksAndLabels(in rect: NSRect) {
@@ -55,7 +70,15 @@ class SourceCodeRulerView: NSRulerView {
               let layoutManager = textView.layoutManager else {
             return
         }
-        
+
+        let annotations = textView.editableFileSystemItem?.annotations.value ?? []
+        visibleAnnotations.removeAll(keepingCapacity: true)
+
+        var attributes: [NSAttributedStringKey : Any] = [
+            NSAttributedStringKey.foregroundColor: lineNumberColor
+        ]
+        attributes[NSAttributedStringKey.font] = UserDefaults.editorFont
+
         NSColor.white.setFill()
         rect.fill()
         
@@ -73,14 +96,19 @@ class SourceCodeRulerView: NSRulerView {
         
         textView.lines(inRange: visibleGlyphRange) { (_, lineRange) in
             lineNumber += 1
-            var effectiveRange = NSRange()
-            let lineYPosition = layoutManager.lineFragmentRect(forGlyphAt: lineRange.location, effectiveRange: &effectiveRange, withoutAdditionalLayout: true).origin.y
-            lineNumberTexts.append((prepareDrawLineNumber(lineNumber), lineYPosition + relativeYTranslation))
+            let lineFragmentRect = layoutManager.lineFragmentRect(forGlyphAt: lineRange.location, effectiveRange: nil, withoutAdditionalLayout: true)
+            if let annotation = annotations.first(where: {lineRange.contains($0.lineNumber)}) {
+                draw(annotaion: annotation, at: lineFragmentRect, relativeYTranslation: relativeYTranslation)
+                return 0
+            }
+            lineNumberTexts.append((prepareDrawLineNumber(lineNumber, attributes: attributes), lineFragmentRect.origin.y + relativeYTranslation))
             return 0
         }
 
         if layoutManager.extraLineFragmentRect.height != 0 {
-            lineNumberTexts.append((prepareDrawLineNumber(lineNumber + 1), layoutManager.extraLineFragmentRect.origin.y + relativeYTranslation))
+            lineNumber += 1
+            let lineFragmentRect = layoutManager.extraLineFragmentRect
+            lineNumberTexts.append((prepareDrawLineNumber(lineNumber + 1, attributes: attributes), lineFragmentRect.origin.y + relativeYTranslation))
         }
 
         let maxWidth = lineNumberTexts.reduce(0) { (oldMaxWidth, lineNumberText) in
@@ -88,8 +116,16 @@ class SourceCodeRulerView: NSRulerView {
         }
         ruleThickness = max(maxWidth, 20) + 2 * padding
 
-        lineNumberTexts.forEach {
-            drawLineNumber(text: $0.0, atY: $0.1)
+        lineNumberTexts.forEach { (string, y) in
+            drawLineNumber(text: string, atY: y)
+        }
+    }
+
+    override func mouseDown(with event: NSEvent) {
+        let convertedPoint = self.convert(event.locationInWindow, from: event.window?.contentView)
+
+        if let data = visibleAnnotations.first(where: { $0.0.contains(convertedPoint) }) {
+            textView?.rulerViewAnnotationClicked(annotation: data.1)
         }
     }
     
