@@ -202,7 +202,15 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
                 complete(self)
             } else if typedString == "\t" {
                 if !goToNextPlaceholder() {
-                    incraseIndent()
+                    let currentLineRange = self.currentLineRange
+                    let currentLine = string[currentLineRange]
+                    let positionInLine = selectedRange().location - currentLineRange.location
+
+                    if selectedRange().length > 0 || currentLine.leadingSpaces >= positionInLine {
+                        incraseIndent()
+                    } else {
+                        super.keyDown(with: event)
+                    }
                 }
             } else if typedString == "\u{19}" { // shift-tab
                 if !goToPreviousPlaceholder() {
