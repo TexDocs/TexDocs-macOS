@@ -104,19 +104,21 @@ extension NSTextStorage {
         let editableFileSystemItem = delegate as? EditableFileSystemItem
         editableFileSystemItem?.userInitiated = byUser
         replaceCharacters(in: range, with: str)
+        editableFileSystemItem?.userInitiated = true
 
-        if let textViewDelegate = editableFileSystemItem, updateIndent {
-            let lineRange = NSString(string: string)
-                .lineRange(for: NSRange(
-                    location: range.location,
-                    length: NSString(string: str).length))
-            let insertedTextShift = createTokens(in: lineRange)
+        let lineRange = NSString(string: string)
+            .lineRange(for: NSRange(
+                location: range.location,
+                length: NSString(string: str).length))
+        editableFileSystemItem?.userInitiated = false
+        let insertedTextShift = createTokens(in: lineRange)
+        editableFileSystemItem?.userInitiated = true
 
+        if let textViewDelegate = editableFileSystemItem, updateIndent, byUser {
             textViewDelegate.updateIndent(in: NSRange(
                 location: range.location,
                 length: NSString(string: str).length + insertedTextShift))
         }
-        editableFileSystemItem?.userInitiated = true
     }
 
     func replaceContent(with str: String) {
