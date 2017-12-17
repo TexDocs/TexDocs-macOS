@@ -26,6 +26,7 @@ class CollaborationClient {
     }
     
     func connect(to url: URL) {
+        print(url)
         ignoreClosingReason = false
         syncStatus = .notSyncing
         editsInSyncMode = []
