@@ -55,7 +55,7 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
         super.insertNewline(sender)
 
         // -2: -1 (\n newline) + -1 (arrays start with 0)
-        if let path = editableFileSystemItem?.rootStructureNode.value?.path(toPosition: currentLineRange.upperBound - 2, range: \.indentRange) {
+        if let path = editableFileSystemItem?.rootStructureNode?.path(toPosition: currentLineRange.upperBound - 2, range: \.indentRange) {
             insertText(String(repeating: " ", count: (path.count - 1) * 4))
 
             if let closableDocumentStructureNode = path.last as? ClosableDocumentStructureNode, !closableDocumentStructureNode.closed {
@@ -111,8 +111,8 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
         enclosingScrollView.verticalRulerView = ruler
     }
 
-    func rulerViewAnnotationClicked(annotation: RulerAnnotation) {
-        sourceCodeViewDelegate?.sourceCodeView(self, annotationClicked: annotation)
+    func rulerViewAnnotationClicked(annotation: RulerAnnotation, inRuler ruler: NSRulerView, rect: NSRect) {
+        sourceCodeViewDelegate?.sourceCodeView(self, annotationClicked: annotation, inRuler: ruler, rect: rect)
     }
     
     func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, isContentReplace: Bool) {
@@ -318,7 +318,7 @@ protocol SourceCodeHighlightRule: class {
 
 protocol SourceCodeViewDelegate: class {
     func sourceCodeViewStructureChanged(_ sourceCodeView: SourceCodeView)
-    func sourceCodeView(_ sourceCodeView: SourceCodeView, annotationClicked annotation: RulerAnnotation)
+    func sourceCodeView(_ sourceCodeView: SourceCodeView, annotationClicked annotation: RulerAnnotation, inRuler ruler: NSRulerView, rect: NSRect)
 }
 
 private class CompletionTableRowView: NSTableRowView {

@@ -61,7 +61,7 @@ class SourceCodeRulerView: NSRulerView {
             height: diameter)
         visibleAnnotations.append((rect, annotaion))
         let bezierPath = NSBezierPath(ovalIn: rect)
-        #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1).setFill()
+        annotaion.type.color.setFill()
         bezierPath.fill()
     }
     
@@ -71,7 +71,7 @@ class SourceCodeRulerView: NSRulerView {
             return
         }
 
-        let annotations = textView.editableFileSystemItem?.annotations.value ?? []
+        let annotations = textView.editableFileSystemItem?.annotations ?? []
         visibleAnnotations.removeAll(keepingCapacity: true)
 
         var attributes: [NSAttributedStringKey : Any] = [
@@ -125,7 +125,7 @@ class SourceCodeRulerView: NSRulerView {
         let convertedPoint = self.convert(event.locationInWindow, from: event.window?.contentView)
 
         if let data = visibleAnnotations.first(where: { $0.0.contains(convertedPoint) }) {
-            textView?.rulerViewAnnotationClicked(annotation: data.1)
+            textView?.rulerViewAnnotationClicked(annotation: data.1, inRuler: self, rect: data.0)
         }
     }
     

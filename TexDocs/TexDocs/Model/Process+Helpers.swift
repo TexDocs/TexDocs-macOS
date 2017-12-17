@@ -9,7 +9,7 @@
 import Foundation
 
 extension Process {
-    static func create(_ launchPath: String, workingDirectory: URL? = nil, arguments: [String], additionalEnvironmentPaths: [String]? = nil) -> Process? {
+    static func create(_ launchPath: String, workingDirectory: URL? = nil, arguments: [String], additionalEnvironmentPaths: [String]? = nil, local: String? = nil) -> Process? {
         guard FileManager.default.isExecutableFile(atPath: launchPath) else {
             return nil
         }
@@ -22,6 +22,9 @@ extension Process {
         var env = ProcessInfo.processInfo.environment
         if let additionalEnvironmentPaths = additionalEnvironmentPaths {
             env["PATH", default: ""] += ":" + additionalEnvironmentPaths.joined(separator: ":")
+        }
+        if let local = local {
+            env["LANG"] = local
         }
         process.environment = env
 

@@ -9,26 +9,31 @@
 import Foundation
 
 class LaTeXLanguageDelegate: LanguageDelegate {
-    private var cachedPackages: [String: [LanguageCompletion]] = [:]
+    private static var cachedPackages: [String: PackageInfo] = [:]
+    private static let updateQueue = DispatchQueue(label: "LaTeXLanguageDelegate")
+    private var rootStructureNode: DocumentStructureNode?
+    private var annotations: [RulerAnnotation]?
 
-    func prepareForTextStorage(_ textStorage: NSTextStorage) {
-        DispatchQueue.main.async { [weak self] in
-            self?.scanPackages(in: textStorage.string)
+    required init() {}
+
+    func textStorageUpdated(_ textStorage: NSTextStorage) {
+        let string = textStorage.string
+        LaTeXLanguageDelegate.updateQueue.async { [weak self] in
+            self?.scanPackages(in: string)
         }
     }
 
     func textStorageDocumentStructure(_ textStorage: NSTextStorage) -> DocumentStructureNode {
-        return documentStructure(of: textStorage)
+        if let rootStructureNode = rootStructureNode {
+            return rootStructureNode
+        }
+        let newRootStructureNode = documentStructure(of: textStorage)
+        self.rootStructureNode = newRootStructureNode
+        return newRootStructureNode
     }
 
     func textStorageRulerAnnotations(_ textStorage: NSTextStorage) -> [RulerAnnotation] {
-        let string = textStorage.string
-        let range = NSRange(string.startIndex..<string.endIndex, in: string)
-
-        return LaTeXLanguageDelegate.includeRegex.matches(in: string, options: [], range: range).map {
-            let match = $0.regularExpressionMatch(in: string)
-            return RulerAnnotation(lineNumber: match.captureGroups[0].range.location, type: .file(relativePath: match.captureGroups[1].string))
-        }
+        return annotations(for: textStorage)
     }
 
     func sourceCodeView(_ sourceCodeView: SourceCodeView, updateCodeHighlightingInRange editedRange: NSRange) {
@@ -64,13 +69,10 @@ class LaTeXLanguageDelegate: LanguageDelegate {
             return
         }
 
-        DispatchQueue.global(qos: .background).async { [weak self] in
+        LaTeXLanguageDelegate.updateQueue.async { [weak self] in
             self?.scanPackages(in: latexSource)
 
-            guard var commands = self?.cachedPackages.flatMap({ $0.value }) else {
-                completionBlock(nil)
-                return
-            }
+            var commands = LaTeXLanguageDelegate.cachedPackages.flatMap { $0.value.completions }
 
             commands.append(contentsOf: LaTeXLanguageDelegate.knownCommands)
             commands.append(contentsOf: LaTeXLanguageDelegate.templates)
@@ -111,18 +113,6 @@ class LaTeXLanguageDelegate: LanguageDelegate {
         }
     }
 
-    private struct InspectionResult {
-        var commandRange: NSRange
-
-        var commandRangeWithoutBackslash: NSRange {
-            return NSRange(location: commandRange.location + 1, length: commandRange.length - 1)
-        }
-
-        var argumentRange: NSRange?
-    }
-
-    required init() {}
-
     private func documentClass(of sourceCodeView: SourceCodeView) -> String? {
         let firstMatch = LaTeXLanguageDelegate.documentClassRegex.firstMatch(in: sourceCodeView.string, options: [], range: sourceCodeView.stringRange)
 
@@ -146,6 +136,33 @@ class LaTeXLanguageDelegate: LanguageDelegate {
         return rootNode
     }
 
+    private func annotations(for textStorage: NSTextStorage) -> [RulerAnnotation] {
+        let string = textStorage.string
+        let range = NSRange(string.startIndex..<string.endIndex, in: string)
+
+        let files: [RulerAnnotation] = LaTeXLanguageDelegate.includeFilesRegex.matches(in: string, options: [], range: range).map {
+            let match = $0.regularExpressionMatch(in: string)
+            return RulerAnnotation(
+                lineNumber: match.captureGroups[0].range.location,
+                type: .file(relativePath: match.captureGroups[1].string))
+        }
+
+        let packageUses: [RulerAnnotation] = LaTeXLanguageDelegate.includePackageRegex.matches(in: string, options: [], range: range).flatMap {
+            let match = $0.regularExpressionMatch(in: string)
+            let packageName = match.captureGroups[1].string
+
+            guard let packageInfo = LaTeXLanguageDelegate.cachedPackages[packageName] else {
+                return nil
+            }
+
+            return RulerAnnotation(
+                lineNumber: match.captureGroups[0].range.location,
+                type: .helpFiles(packageInfo.helpFiles))
+        }
+
+        return files + packageUses
+    }
+
     private func packages(usedIn latexCode: String) -> [String] {
         return LaTeXLanguageDelegate.packageRegex.matches(
             in: latexCode,
@@ -158,29 +175,75 @@ class LaTeXLanguageDelegate: LanguageDelegate {
 
     private func scanPackages(in latexCode: String) {
         packages(usedIn: latexCode).forEach { packageName in
-            if cachedPackages[packageName] == nil, let commands = scanCommands(in: packageName) {
-                cachedPackages[packageName] = commands.map {
+            if LaTeXLanguageDelegate.cachedPackages[packageName] == nil {
+                let commands = scanCommands(in: packageName)
+                let helpFiles = scanHelpfiles(for: packageName)
+
+                let completions = commands.map {
                     return LanguageCompletion(
                         displayString: $0,
                         completionString: $0.commandCompletionString,
                         image: LanguageCompletion.externalCommandImage)
                 }
+
+                LaTeXLanguageDelegate.cachedPackages[packageName] = PackageInfo(completions: completions, helpFiles: helpFiles)
             }
         }
     }
 
-    private func scanCommands(in packageName: String) -> [String]? {
+    private func scanCommands(in packageName: String) -> [String] {
         guard let process = Process.create(
                 UserDefaults.latexdefPath.value,
                 arguments: ["-lp", packageName],
                 additionalEnvironmentPaths: [URL(fileURLWithPath: UserDefaults.latexPath.value).deletingLastPathComponent().path]) else {
-                    return nil
+                    return []
         }
 
         let output = process.launchAndGetOutput()
         let matches = LaTeXLanguageDelegate.latexDefOutputRegex.matches(in: output, options: [], range: NSRange(output.startIndex..<output.endIndex, in: output))
         return matches.map {
             $0.regularExpressionMatch(in: output).captureGroups[1].string
+        }
+    }
+
+    private func scanHelpfiles(for packageName: String) -> [HelpFile] {
+        guard let process = Process.create(
+            "/Library/TeX/texbin/texdoc",
+            arguments: ["-l", "-M", packageName],
+            additionalEnvironmentPaths: [URL(fileURLWithPath: UserDefaults.latexPath.value).deletingLastPathComponent().path],
+            local: "en_US.UTF-8") else {
+                return []
+        }
+
+        let output = process.launchAndGetOutput()
+        return output.nonEmptyLines.flatMap {
+            let components = $0.components(separatedBy: "\t")
+
+            guard components.count == 5 else {
+                return nil
+            }
+
+            let url = URL(fileURLWithPath: components[2])
+            let lang = components[3]
+            let description = components[4]
+
+            let fullDescription: String?
+
+            if description.count > 0 {
+                if lang.count > 0 {
+                    fullDescription = "\(description) + (\(lang)"
+                } else {
+                    fullDescription = description
+                }
+            } else {
+                if lang.count > 0 {
+                    fullDescription = lang
+                } else {
+                    fullDescription = nil
+                }
+            }
+
+            return HelpFile(url: url, description: fullDescription)
         }
     }
 }
@@ -200,7 +263,8 @@ extension LaTeXLanguageDelegate {
 
     private static let packageRegex = try! NSRegularExpression(pattern: "\\\\usepackage\\{(.*?)\\}", options: [])
     private static let latexDefOutputRegex = try! NSRegularExpression(pattern: "^\\\\(.*)", options: NSRegularExpression.Options.anchorsMatchLines)
-    private static let includeRegex = try! NSRegularExpression(pattern: "\\\\(?:includegraphics|input)(?:\\[.*?\\])?\\{(.*?)\\}", options: [])
+    private static let includeFilesRegex = try! NSRegularExpression(pattern: "\\\\(?:includegraphics|input)(?:\\[.*?\\])?\\{(.*?)\\}", options: [])
+    private static let includePackageRegex = try! NSRegularExpression(pattern: "\\\\usepackage(?:\\[.*?\\])?\\{(.*?)\\}", options: [])
 
     private static let templates: [LanguageCompletion] = {
         return FileManager.default.applicationSupportDirectoryFileContent(withPath: "latex/templates")
@@ -237,6 +301,20 @@ extension LaTeXLanguageDelegate {
     }()
 }
 
+private struct PackageInfo {
+    let completions: [LanguageCompletion]
+    let helpFiles: [HelpFile]
+}
+
+private struct InspectionResult {
+    var commandRange: NSRange
+
+    var commandRangeWithoutBackslash: NSRange {
+        return NSRange(location: commandRange.location + 1, length: commandRange.length - 1)
+    }
+
+    var argumentRange: NSRange?
+}
 
 extension String {
     fileprivate var commandCompletionString: String {

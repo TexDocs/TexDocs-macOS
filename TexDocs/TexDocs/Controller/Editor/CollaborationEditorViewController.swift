@@ -19,7 +19,7 @@ class CollaborationEditorViewController: BaseEditorViewController, EditorControl
     var editableFileSystemItem: EditableFileSystemItem!
     
     var rootDocumentStructureNode: DocumentStructureNode? {
-        return editableFileSystemItem.rootStructureNode.value
+        return editableFileSystemItem.rootStructureNode
     }
 
     func navigate(to documentStructureNode: DocumentStructureNode) {
