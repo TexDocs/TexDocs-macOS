@@ -1,12 +1,12 @@
 FROM python:3
 
 # Install the dependencies
-COPY requirements.txt .
+COPY Server/requirements.txt .
 RUN pip3 install -r requirements.txt
 
 # Copy the source files
 WORKDIR /usr/src/app
-COPY ./src/ .
+COPY Server/src/ .
 
 # Expose the ports
 EXPOSE 8080
