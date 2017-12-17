@@ -180,13 +180,6 @@ extension EditorWindowController {
             progressBarValue: .indeterminate)
     }
     
-    func showSyncCompletedSheet() {
-        showUserNotificationSheet(
-            text: NSLocalizedString(
-                "TD_NOTIFICATION_SYNC_COMPLETED",
-                comment: "Notification for the user after a successfull sync."))
-    }
-    
     func showPullingStartedSheet() {
         showSheetStep(
             text: NSLocalizedString(

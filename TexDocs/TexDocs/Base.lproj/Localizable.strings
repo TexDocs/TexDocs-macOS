@@ -88,9 +88,6 @@
 /* Notification for the user after pull started. */
 "TD_NOTIFICATION_STARTED_PULLING" = "TD_NOTIFICATION_STARTED_PULLING";
 
-/* Notification for the user after a successfull sync. */
-"TD_NOTIFICATION_SYNC_COMPLETED" = "TD_NOTIFICATION_SYNC_COMPLETED";
-
 /* Notification for the user while waiting for the sync to complete. */
 "TD_NOTIFICATION_WAITING_FOR_SYNC_TO_COMPLETE" = "TD_NOTIFICATION_WAITING_FOR_SYNC_TO_COMPLETE";
 
