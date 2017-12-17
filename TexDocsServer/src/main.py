@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import sys
 import asyncio
 import websockets
 import uuid
@@ -67,7 +68,7 @@ class Project:
 
 
 projects = {}
-filename = 'projects.json'
+filename = sys.argv[3]
 
 if os.path.isfile(filename):
     f = open(filename)
@@ -154,7 +155,10 @@ async def handler(websocket, path: str):
     finally:
         await project.remove_client(websocket, user_id)
 
-start_server = websockets.serve(handler, 'localhost', 8080)
+start_server = websockets.serve(handler, sys.argv[1], sys.argv[2])
+
+print("Started server on " + sys.argv[1] + ":" + sys.argv[2])
+print("Projects file: " + sys.argv[3])
 
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
