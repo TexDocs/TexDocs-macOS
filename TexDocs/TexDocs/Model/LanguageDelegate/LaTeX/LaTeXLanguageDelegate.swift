@@ -151,7 +151,7 @@ class LaTeXLanguageDelegate: LanguageDelegate {
                 type: .file(relativePath: match.captureGroups[1].string))
         }
 
-        let packageUses: [RulerAnnotation] = LaTeXLanguageDelegate.includePackageRegex.matches(in: string, options: [], range: range).flatMap {
+        let packageUses: [RulerAnnotation] = LaTeXLanguageDelegate.packageRegex.matches(in: string, options: [], range: range).flatMap {
             let match = $0.regularExpressionMatch(in: string)
             let packageName = match.captureGroups[1].string
 
@@ -167,7 +167,7 @@ class LaTeXLanguageDelegate: LanguageDelegate {
         return files + packageUses
     }
 
-    private func packages(usedIn latexCode: String) -> [String] {
+    private func listPackages(usedIn latexCode: String) -> [String] {
         return LaTeXLanguageDelegate.packageRegex.matches(
             in: latexCode,
             options: [],
@@ -178,7 +178,7 @@ class LaTeXLanguageDelegate: LanguageDelegate {
     }
 
     private func scanPackages(in latexCode: String) {
-        packages(usedIn: latexCode).forEach { packageName in
+        listPackages(usedIn: latexCode).forEach { packageName in
             if LaTeXLanguageDelegate.cachedPackages[packageName] == nil {
                 let commands = scanCommands(in: packageName)
                 let helpFiles = scanHelpfiles(for: packageName)
@@ -265,10 +265,9 @@ extension LaTeXLanguageDelegate {
         SimpleHighlighter(pattern: "(%.*)$", colors: [.comment]),
     ]
 
-    private static let packageRegex = try! NSRegularExpression(pattern: "\\\\usepackage\\{(.*?)\\}", options: [])
     private static let latexDefOutputRegex = try! NSRegularExpression(pattern: "^\\\\(.*)", options: NSRegularExpression.Options.anchorsMatchLines)
     private static let includeFilesRegex = try! NSRegularExpression(pattern: "\\\\(?:includegraphics|input)(?:\\[.*?\\])?\\{(.*?)\\}", options: [])
-    private static let includePackageRegex = try! NSRegularExpression(pattern: "\\\\usepackage(?:\\[.*?\\])?\\{(.*?)\\}", options: [])
+    private static let packageRegex = try! NSRegularExpression(pattern: "\\\\usepackage(?:\\[.*?\\])?\\{(.*?)\\}", options: [])
 
     private static let templates: [LanguageCompletion] = {
         return FileManager.default.applicationSupportDirectoryFileContent(withPath: "latex/templates")
