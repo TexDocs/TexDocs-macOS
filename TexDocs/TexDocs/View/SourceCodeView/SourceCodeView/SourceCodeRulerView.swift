@@ -108,7 +108,7 @@ class SourceCodeRulerView: NSRulerView {
         if layoutManager.extraLineFragmentRect.height != 0 {
             lineNumber += 1
             let lineFragmentRect = layoutManager.extraLineFragmentRect
-            lineNumberTexts.append((prepareDrawLineNumber(lineNumber + 1, attributes: attributes), lineFragmentRect.origin.y + relativeYTranslation))
+            lineNumberTexts.append((prepareDrawLineNumber(lineNumber, attributes: attributes), lineFragmentRect.origin.y + relativeYTranslation))
         }
 
         let maxWidth = lineNumberTexts.reduce(0) { (oldMaxWidth, lineNumberText) in
