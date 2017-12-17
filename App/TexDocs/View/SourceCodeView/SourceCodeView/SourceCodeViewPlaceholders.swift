@@ -55,4 +55,4 @@ let EditorPlaceHolderClose = "#}"
 let EditorPlaceHolderOpenRegex = NSRegularExpression.escapedPattern(for: EditorPlaceHolderOpen)
 let EditorPlaceHolderCloseRegex = NSRegularExpression.escapedPattern(for: EditorPlaceHolderClose)
 let EditorPlaceHolderRegex = try! NSRegularExpression(pattern: "\(EditorPlaceHolderOpenRegex)(.*?)\(EditorPlaceHolderCloseRegex)", options: .caseInsensitive)
-let EditorParameterPlaceholder = "\(EditorPlaceHolderOpen)paramters\(EditorPlaceHolderClose)"
+let EditorParameterPlaceholder = "\(EditorPlaceHolderOpen)parameters\(EditorPlaceHolderClose)"
