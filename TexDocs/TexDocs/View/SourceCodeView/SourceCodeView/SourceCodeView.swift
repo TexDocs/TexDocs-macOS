@@ -201,9 +201,13 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
                 super.keyDown(with: event)
                 complete(self)
             } else if typedString == "\t" {
-                goToNextPlaceholder()
+                if !goToNextPlaceholder() {
+                    incraseIndent()
+                }
             } else if typedString == "\u{19}" { // shift-tab
-                goToPreviousPlaceholder()
+                if !goToPreviousPlaceholder() {
+                    decreaseIndent()
+                }
             } else {
                 super.keyDown(with: event)
             }
