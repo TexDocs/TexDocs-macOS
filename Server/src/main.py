@@ -77,11 +77,6 @@ if os.path.isfile(filename):
 
     for pid in l_projects:
         projects[pid] = Project(l_projects[pid])
-#
-#
-# projects = {
-#     '110ec58a-a0f2-4ac4-8393-c866d813b8d1': Project('ssh://git@gitlab.com/TheMegaTB/testLatex.git')
-# }
 
 
 def save_projects():
@@ -146,7 +141,8 @@ async def handler(websocket, path: str):
             message_type = message['type']
 
             if message_type == 'cursor' or message_type == 'edit':
-                await project.broadcast(raw_message, websocket)
+                message['userID'] = user_id
+                await project.broadcast(json.dumps(message), websocket)
             elif message_type == 'startSync':
                 await project.start_sync()
             elif message_type == 'completedUserSync':
