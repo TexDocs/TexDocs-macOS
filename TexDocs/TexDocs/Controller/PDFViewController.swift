@@ -14,6 +14,15 @@ class PDFViewController: NSViewController {
     @IBOutlet weak var pdfView: PDFView!
     @IBOutlet weak var backButton: NSButton!
     @IBOutlet weak var nextButton: NSButton!
+    @IBOutlet weak var shareButton: NSButton!
+    @IBOutlet weak var pathLabel: NSTextField!
+
+    var url: URL? {
+        didSet {
+            shareButton.isEnabled = url != nil
+            pathLabel.stringValue = url?.path ?? "No file selected"
+        }
+    }
 
     override func viewDidLoad() {
         pdfView.autoScales = true
@@ -32,6 +41,7 @@ class PDFViewController: NSViewController {
     }
 
     func showPDF(withURL url: URL) {
+        self.url = url
         let oldDestination = destinationOfCurrentPDF()
 
         let pdf = PDFDocument(url: url)
@@ -63,5 +73,11 @@ class PDFViewController: NSViewController {
     @IBAction func goToNextPage(_ sender: Any) {
         pdfView.goToNextPage(sender)
         updateNavigationButtons()
+    }
+
+    @IBAction func openButtonPressed(_ sender: Any) {
+        if let url = url {
+            NSWorkspace.shared.open(url)
+        }
     }
 }
