@@ -56,7 +56,6 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
 
     fileprivate var userInitiated = true
     fileprivate var isContentReplace = false
-    fileprivate var insertedTextShift = 0
 
     func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorageEditActions, range editedRange: NSRange, changeInLength delta: Int) {
         if editedMask.contains(NSTextStorageEditActions.editedCharacters) {
@@ -66,8 +65,6 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
                 $0.textDidChange(oldRange: oldRange, newRange: editedRange, changeInLength: delta, byUser: userInitiated, isContentReplace: isContentReplace)
                 $0.editableFileSystemItemDocumentStructureChanged(self)
             }
-            let lineRange = NSString(string: textStorage.string).lineRange(for: editedRange)
-            insertedTextShift = textStorage.createTokens(in: lineRange)
         }
     }
 
@@ -104,24 +101,30 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
 
 extension NSTextStorage {
     func replaceCharacters(in range: NSRange, with str: String, byUser: Bool, updateIndent: Bool = true) {
-        let textViewDelegate = delegate as? EditableFileSystemItem
-        textViewDelegate?.userInitiated = byUser
+        let editableFileSystemItem = delegate as? EditableFileSystemItem
+        editableFileSystemItem?.userInitiated = byUser
         replaceCharacters(in: range, with: str)
 
-        if let textViewDelegate = textViewDelegate {
+        if let textViewDelegate = editableFileSystemItem, updateIndent {
+            let lineRange = NSString(string: string)
+                .lineRange(for: NSRange(
+                    location: range.location,
+                    length: NSString(string: str).length))
+            let insertedTextShift = createTokens(in: lineRange)
+
             textViewDelegate.updateIndent(in: NSRange(
                 location: range.location,
-                length: NSString(string: str).length + textViewDelegate.insertedTextShift))
+                length: NSString(string: str).length + insertedTextShift))
         }
-        textViewDelegate?.userInitiated = true
+        editableFileSystemItem?.userInitiated = true
     }
 
     func replaceContent(with str: String) {
-        let textViewDelegate = delegate as? EditableFileSystemItem
-        textViewDelegate?.userInitiated = false
-        textViewDelegate?.isContentReplace = true
+        let editableFileSystemItem = delegate as? EditableFileSystemItem
+        editableFileSystemItem?.userInitiated = false
+        editableFileSystemItem?.isContentReplace = true
         replaceCharacters(in: NSRange(location: 0, length: length), with: str)
-        textViewDelegate?.isContentReplace = false
-        textViewDelegate?.userInitiated = true
+        editableFileSystemItem?.isContentReplace = false
+        editableFileSystemItem?.userInitiated = true
     }
 }

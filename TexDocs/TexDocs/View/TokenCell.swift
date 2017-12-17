@@ -113,7 +113,7 @@ extension NSTextStorage {
 
     func removeAllTokens() {
         enumerateTokens(in: NSRange(location: 0, length: length)) { token, range in
-            replaceCharacters(in: range, with: "{#\(token.text.string)#}", byUser: false)
+            replaceCharacters(in: range, with: "{#\(token.text.string)#}", byUser: false, updateIndent: false)
             return true
         }
     }

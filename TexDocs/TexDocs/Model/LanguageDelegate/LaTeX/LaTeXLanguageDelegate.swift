@@ -17,6 +17,10 @@ class LaTeXLanguageDelegate: LanguageDelegate {
     required init() {}
 
     func textStorageUpdated(_ textStorage: NSTextStorage) {
+        //clear cache
+        rootStructureNode = nil
+        annotations = nil
+
         let string = textStorage.string
         LaTeXLanguageDelegate.updateQueue.async { [weak self] in
             self?.scanPackages(in: string)
@@ -250,7 +254,7 @@ class LaTeXLanguageDelegate: LanguageDelegate {
 
 extension LaTeXLanguageDelegate {
     private static let documentClassRegex = try! NSRegularExpression(pattern: "\\\\documentclass.*?\\{(\\w+)\\}", options: [])
-    private static let documentStructureRegex = try! NSRegularExpression(pattern: "\\\\(begin|end|(?:part|section|subsection|subsubsection|paragraph|subparagraph)\\*?)\\{(.+?)\\}", options: [])
+    private static let documentStructureRegex = try! NSRegularExpression(pattern: "\\\\(begin|end|(?:part|section|subsection|subsubsection|paragraph|subparagraph)\\*?)\\{(.+?)\\}(:?\\{.*\\})*", options: [])
 
     private static let highlightingRules: [SourceCodeHighlightRule] = [
         SimpleHighlighter(pattern: "(\\d+)", colors: [.variable]),
