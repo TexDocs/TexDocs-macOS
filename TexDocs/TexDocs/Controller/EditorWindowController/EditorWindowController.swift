@@ -59,9 +59,9 @@ class EditorWindowController: NSWindowController {
     
     func loaded(document: Document) {
         reloadSchemeSelector()
+        updateConnectionState(newState: .disconnected)
 
         do {
-            updateConnectionState(newState: false)
             if let collaborationServer = document.documentData?.collaboration {
                 connectTo(collaborationServer: collaborationServer)
             } else {
@@ -189,7 +189,7 @@ class EditorWindowController: NSWindowController {
     @IBOutlet weak var typesetButton: NSButton!
     @IBOutlet weak var stopProcessButton: NSButton!
     @IBOutlet weak var autoTypesetToggle: NSButton!
-    @IBOutlet weak var reconnectButton: NSButton!
+    @IBOutlet weak var connectionStatusToolbarItem: NSImageView!
 
     // MARK: Actions
 

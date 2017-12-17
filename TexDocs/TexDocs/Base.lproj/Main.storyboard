@@ -761,6 +761,16 @@ Gw
                                         </connections>
                                     </button>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="33DD1348-C892-4D0A-ABDB-02A51E07676F" label="Status" paletteLabel="Connection Status" image="NSStatusNone" autovalidates="NO" id="giw-D3-9cM">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="16" height="16"/>
+                                    <size key="maxSize" width="48" height="48"/>
+                                    <imageView key="view" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="5hf-Ua-xMf">
+                                        <rect key="frame" x="44" y="14" width="16" height="16"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSStatusNone" id="bff-av-HSd"/>
+                                    </imageView>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="NqJ-Qa-hh6"/>
@@ -768,6 +778,7 @@ Gw
                                 <toolbarItem reference="SQ4-WP-4Zb"/>
                                 <toolbarItem reference="1lE-0l-ejD"/>
                                 <toolbarItem reference="2Bc-3Z-sQY"/>
+                                <toolbarItem reference="giw-D3-9cM"/>
                                 <toolbarItem reference="wde-9J-aUH"/>
                                 <toolbarItem reference="2Bc-3Z-sQY"/>
                                 <toolbarItem reference="C0b-MK-Tna"/>
@@ -782,7 +793,7 @@ Gw
                     </window>
                     <connections>
                         <outlet property="autoTypesetToggle" destination="p9s-i2-SLO" id="Vjv-aC-n4B"/>
-                        <outlet property="reconnectButton" destination="zrz-bz-YNZ" id="zLN-RB-GX5"/>
+                        <outlet property="connectionStatusToolbarItem" destination="5hf-Ua-xMf" id="VH7-eW-3qj"/>
                         <outlet property="schemeSelector" destination="Pno-Lv-Lpd" id="JoH-9N-Uhh"/>
                         <outlet property="stopProcessButton" destination="4mE-9q-EWj" id="2ar-rn-65M"/>
                         <outlet property="typesetButton" destination="Mak-y3-QJk" id="Txf-8J-TyQ"/>
@@ -1363,6 +1374,7 @@ Gw
         <image name="NSRefreshTemplate" width="11" height="15"/>
         <image name="NSShareTemplate" width="11" height="16"/>
         <image name="NSSlideshowTemplate" width="17" height="14"/>
+        <image name="NSStatusNone" width="16" height="16"/>
         <image name="NSStopProgressFreestandingTemplate" width="11" height="11"/>
         <image name="NSTouchBarFolderTemplate" width="22" height="30"/>
         <image name="NSTouchBarGoDownTemplate" width="16" height="30"/>

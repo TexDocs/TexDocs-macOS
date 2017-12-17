@@ -30,12 +30,12 @@ extension EditorWindowController {
 extension EditorWindowController: CollaborationClientDelegate {
     func collaborationClient(_ client: CollaborationClient, didDisconnectedBecause reason: String) {
         showUserNotificationSheet(text: reason)
-        updateConnectionState(newState: false)
+        updateConnectionState(newState: .disconnected)
     }
 
     func collaborationClient(_ client: CollaborationClient, encounteredError error: Error) {
         showUserNotificationSheet(text: error.localizedDescription)
-        updateConnectionState(newState: false)
+        updateConnectionState(newState: .disconnected)
     }
 
     func collaborationClient(_ client: CollaborationClient, didReceivedChangeIn range: NSRange, replacedWith replaceString: String, inFile relativeFilePath: String) {
@@ -51,7 +51,7 @@ extension EditorWindowController: CollaborationClientDelegate {
     }
 
     func collaborationClient(_ client: CollaborationClient, didConnectedAndReceivedRepositoryURL repositoryURL: URL, andProjectID projectID: String) {
-        updateConnectionState(newState: true)
+        updateConnectionState(newState: .connected)
         do {
             texDocsDocument.documentData?.collaboration?.server.projectID = projectID
             editedDocument()
@@ -78,6 +78,7 @@ extension EditorWindowController: CollaborationClientDelegate {
     
     func collaborationClientDidStartSync(_ client: CollaborationClient) {
         showSyncStartedSheet()
+        updateConnectionState(newState: .sync)
     }
     
     func collaborationClientDidStartUserSync(_ client: CollaborationClient) {
@@ -178,16 +179,31 @@ extension EditorWindowController: CollaborationClientDelegate {
             closeSheet()
             client.completedSync()
             reloadAllDocuments()
+            updateConnectionState(newState: .connected)
         } catch {
             showErrorSheet(error)
+            updateConnectionState(newState: .disconnected)
         }
     }
 
-    func updateConnectionState(newState: Bool) {
+    func updateConnectionState(newState: ConnectionState) {
         DispatchQueue.main.async {
-            self.reconnectButton.isEnabled = !newState
+            switch newState {
+            case .connected:
+                self.connectionStatusToolbarItem.image = NSImage(named: NSImage.Name(rawValue: "NSStatusAvailable"))
+            case .disconnected:
+                self.connectionStatusToolbarItem.image = NSImage(named: NSImage.Name(rawValue: "NSStatusUnavailable"))
+            case .sync:
+                self.connectionStatusToolbarItem.image = NSImage(named: NSImage.Name(rawValue: "NSStatusPartiallyAvailable"))
+            }
         }
     }
+}
+
+enum ConnectionState {
+    case connected
+    case disconnected
+    case sync
 }
 
 extension GTIndex {

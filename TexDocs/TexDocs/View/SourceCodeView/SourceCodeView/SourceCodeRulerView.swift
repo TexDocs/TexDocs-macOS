@@ -51,13 +51,11 @@ class SourceCodeRulerView: NSRulerView {
         )
     }
 
-    private func drawLineNumber(_ lineNumber: Int, atY y: CGFloat) -> CGFloat {
+    private func drawLineNumber(_ lineNumber: Int, atY y: CGFloat) {
         let text = lineNumberText(forLineNumber: lineNumber)
 
         let drawWidth = text.size().width
         text.draw(at: NSPoint(x: ruleThickness - drawWidth - padding, y: y))
-
-        return drawWidth
     }
 
     private var visibleAnnotations: [(NSRect, RulerAnnotation)] = []
