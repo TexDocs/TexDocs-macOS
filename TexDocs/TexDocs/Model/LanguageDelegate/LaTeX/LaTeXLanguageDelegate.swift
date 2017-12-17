@@ -262,7 +262,7 @@ extension LaTeXLanguageDelegate {
         SimpleHighlighter(pattern: "(?:\\\\documentclass|usepackage|input)(?:\\[([^\\]]*)\\])?\\{([^}]*)\\}", colors: [.variable, .variable]),
         SimpleHighlighter(pattern: "(?:\\\\(?:begin|end))\\{([^}]*)\\}", colors: [.variable]),
         SimpleHighlighter(pattern: "(\\$.*?\\$)", colors: [.inlineMath]),
-        SimpleHighlighter(pattern: "(%.*)$", colors: [.comment]),
+        SimpleHighlighter(pattern: "(%.*)", colors: [.comment]),
     ]
 
     private static let latexDefOutputRegex = try! NSRegularExpression(pattern: "^\\\\(.*)", options: NSRegularExpression.Options.anchorsMatchLines)
