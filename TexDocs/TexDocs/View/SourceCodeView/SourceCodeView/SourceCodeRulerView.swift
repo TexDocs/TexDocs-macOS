@@ -25,7 +25,13 @@ class SourceCodeRulerView: NSRulerView {
     // MARK: Config
     
     var padding: CGFloat = 5
-    var lineNumberColor: NSColor = .gray
+    var attributes = CachedProperty<[NSAttributedStringKey: Any]>(block: {
+        var attributes: [NSAttributedStringKey : Any] = [
+            NSAttributedStringKey.foregroundColor: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        ]
+        attributes[NSAttributedStringKey.font] = UserDefaults.editorFont
+        return attributes
+    })
     
     // MARK: Init
     
@@ -37,17 +43,21 @@ class SourceCodeRulerView: NSRulerView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private func drawLineNumber(text: NSAttributedString, atY y: CGFloat) {
-        let drawWidth = text.size().width
-        text.draw(at: NSPoint(x: ruleThickness - drawWidth - padding, y: y))
-    }
 
-    private func prepareDrawLineNumber(_ lineNumber: Int, attributes: [NSAttributedStringKey: Any]) -> NSAttributedString {
+    private func lineNumberText(forLineNumber lineNumber: Int) -> NSAttributedString {
         return NSAttributedString(
             string: String(lineNumber),
-            attributes: attributes
+            attributes: attributes.value
         )
+    }
+
+    private func drawLineNumber(_ lineNumber: Int, atY y: CGFloat) -> CGFloat {
+        let text = lineNumberText(forLineNumber: lineNumber)
+
+        let drawWidth = text.size().width
+        text.draw(at: NSPoint(x: ruleThickness - drawWidth - padding, y: y))
+
+        return drawWidth
     }
 
     private var visibleAnnotations: [(NSRect, RulerAnnotation)] = []
@@ -71,29 +81,30 @@ class SourceCodeRulerView: NSRulerView {
             return
         }
 
+        attributes.invalidateCache()
+
+        let highestLineNumber = NewLineRegex.numberOfMatches(
+            in: textView.string,
+            options: [],
+            range: NSRange(textView.string.startIndex..<textView.string.endIndex, in: textView.string))
+        ruleThickness = lineNumberText(forLineNumber: highestLineNumber).size().width + 2 * padding
+
         let annotations = textView.editableFileSystemItem?.annotations ?? []
         visibleAnnotations.removeAll(keepingCapacity: true)
 
-        var attributes: [NSAttributedStringKey : Any] = [
-            NSAttributedStringKey.foregroundColor: lineNumberColor
-        ]
-        attributes[NSAttributedStringKey.font] = UserDefaults.editorFont
-
         NSColor.white.setFill()
         rect.fill()
-        
+
         let relativeYTranslation = convert(NSPoint.zero, from: textView).y
-        
+
         // get visible range
         let visibleGlyphRange = layoutManager.glyphRange(forBoundingRect: textView.visibleRect, in: textView.textContainer!)
         let firstVisibleCharacterIndex = layoutManager.characterIndexForGlyph(at: visibleGlyphRange.location)
-        
+
         // count line numbers in invisible range
         let invisibleRange = NSRange(location: 0, length: firstVisibleCharacterIndex)
         var lineNumber = NewLineRegex.numberOfMatches(in: textView.string, options: [], range: invisibleRange)
 
-        var lineNumberTexts: [(NSAttributedString, CGFloat)] = []
-        
         textView.lines(inRange: visibleGlyphRange) { (_, lineRange) in
             lineNumber += 1
             let lineFragmentRect = layoutManager.lineFragmentRect(forGlyphAt: lineRange.location, effectiveRange: nil, withoutAdditionalLayout: true)
@@ -101,23 +112,14 @@ class SourceCodeRulerView: NSRulerView {
                 draw(annotaion: annotation, at: lineFragmentRect, relativeYTranslation: relativeYTranslation)
                 return 0
             }
-            lineNumberTexts.append((prepareDrawLineNumber(lineNumber, attributes: attributes), lineFragmentRect.origin.y + relativeYTranslation))
+            drawLineNumber(lineNumber, atY: lineFragmentRect.origin.y + relativeYTranslation)
             return 0
         }
 
         if layoutManager.extraLineFragmentRect.height != 0 {
             lineNumber += 1
             let lineFragmentRect = layoutManager.extraLineFragmentRect
-            lineNumberTexts.append((prepareDrawLineNumber(lineNumber, attributes: attributes), lineFragmentRect.origin.y + relativeYTranslation))
-        }
-
-        let maxWidth = lineNumberTexts.reduce(0) { (oldMaxWidth, lineNumberText) in
-            return max(oldMaxWidth, lineNumberText.0.size().width)
-        }
-        ruleThickness = max(maxWidth, 20) + 2 * padding
-
-        lineNumberTexts.forEach { (string, y) in
-            drawLineNumber(text: string, atY: y)
+            drawLineNumber(lineNumber, atY: lineFragmentRect.origin.y + relativeYTranslation)
         }
     }
 
@@ -128,7 +130,7 @@ class SourceCodeRulerView: NSRulerView {
             textView?.rulerViewAnnotationClicked(annotation: data.1, inRuler: self, rect: data.0)
         }
     }
-    
+
     func redrawLineNumbers() {
         needsDisplay = true
     }
