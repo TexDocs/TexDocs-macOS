@@ -104,7 +104,6 @@
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="title" value="latex Path:"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="value" value="latexdef Path:"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="pdflatexPathChanged:" target="-2" id="LSj-tn-gjw"/>
@@ -115,6 +114,9 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="dHa-RF-nT8"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="title" value="latexdef Path:"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="latexdefPathChanged:" target="-2" id="Vdu-Lc-SRa"/>
                             </connections>
@@ -124,6 +126,9 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="iCa-J9-ZUd"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="title" value="texdoc Path:"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="texdocPathChanged:" target="-2" id="MLG-TI-LfS"/>
                             </connections>
@@ -133,7 +138,9 @@
                         <constraint firstItem="4mn-Mz-ecY" firstAttribute="leading" secondItem="9wT-71-P1k" secondAttribute="leading" id="4Rs-x1-JP6"/>
                         <constraint firstItem="mkQ-qR-snc" firstAttribute="leading" secondItem="9wT-71-P1k" secondAttribute="leading" id="NkE-J7-1rW"/>
                         <constraint firstAttribute="trailing" secondItem="opO-qc-uke" secondAttribute="trailing" id="PEO-8d-Brm"/>
+                        <constraint firstItem="IRN-hn-JIG" firstAttribute="leading" secondItem="9wT-71-P1k" secondAttribute="leading" id="QT5-jc-Lxr"/>
                         <constraint firstItem="opO-qc-uke" firstAttribute="leading" secondItem="9wT-71-P1k" secondAttribute="leading" id="RHx-LG-jS4"/>
+                        <constraint firstAttribute="trailing" secondItem="IRN-hn-JIG" secondAttribute="trailing" id="uZK-ar-Szr"/>
                         <constraint firstItem="IfC-U5-pkD" firstAttribute="leading" secondItem="9wT-71-P1k" secondAttribute="leading" id="vZ0-Iv-ukv"/>
                         <constraint firstAttribute="trailing" secondItem="mkQ-qR-snc" secondAttribute="trailing" id="yLU-1f-TLR"/>
                         <constraint firstItem="EzU-ni-GZM" firstAttribute="leading" secondItem="9wT-71-P1k" secondAttribute="leading" id="ylP-6z-YNg"/>
