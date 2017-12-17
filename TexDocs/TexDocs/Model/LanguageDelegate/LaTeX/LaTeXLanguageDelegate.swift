@@ -212,7 +212,7 @@ class LaTeXLanguageDelegate: LanguageDelegate {
 
     private func scanHelpfiles(for packageName: String) -> [HelpFile] {
         guard let process = Process.create(
-            "/Library/TeX/texbin/texdoc",
+            UserDefaults.texdocPath.value,
             arguments: ["-l", "-M", packageName],
             additionalEnvironmentPaths: [URL(fileURLWithPath: UserDefaults.latexPath.value).deletingLastPathComponent().path],
             local: "en_US.UTF-8") else {
@@ -262,7 +262,7 @@ extension LaTeXLanguageDelegate {
         SimpleHighlighter(pattern: "(?:\\\\documentclass|usepackage|input)(?:\\[([^\\]]*)\\])?\\{([^}]*)\\}", colors: [.variable, .variable]),
         SimpleHighlighter(pattern: "(?:\\\\(?:begin|end))\\{([^}]*)\\}", colors: [.variable]),
         SimpleHighlighter(pattern: "(\\$.*?\\$)", colors: [.inlineMath]),
-        SimpleHighlighter(pattern: "(%.*)$", colors: [.comment]),
+        SimpleHighlighter(pattern: "(%.*)", colors: [.comment]),
     ]
 
     private static let latexDefOutputRegex = try! NSRegularExpression(pattern: "^\\\\(.*)", options: NSRegularExpression.Options.anchorsMatchLines)

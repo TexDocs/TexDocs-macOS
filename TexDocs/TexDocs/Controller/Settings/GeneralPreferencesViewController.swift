@@ -23,17 +23,19 @@ class GeneralPreferencesViewController: NSViewController, CCNPreferencesWindowCo
     }
 
     @IBOutlet weak var showInvisibleCharactersButton: NSButton!
-    @IBOutlet weak var showControlleCharactersButton: NSButton!
+    @IBOutlet weak var showControlCharactersButton: NSButton!
     @IBOutlet weak var themeSelector: NSPopUpButton!
     @IBOutlet weak var fontSelectButton: NSButton!
     @IBOutlet weak var latexPathTextField: LabeledTextField!
     @IBOutlet weak var latexdefPathTextField: LabeledTextField!
+    @IBOutlet weak var texdocPathTextField: LabeledTextField!
 
     override func viewDidLoad() {
         showInvisibleCharactersButton.state = UserDefaults.showInvisibleCharacters.value ? .on : .off
-        showControlleCharactersButton.state = UserDefaults.showControlCharacters.value ? .on : .off
+        showControlCharactersButton.state = UserDefaults.showControlCharacters.value ? .on : .off
         latexPathTextField.value = UserDefaults.latexPath.value
         latexdefPathTextField.value = UserDefaults.latexdefPath.value
+        texdocPathTextField.value = UserDefaults.texdocPath.value
         themeSelector.removeAllItems()
         themeSelector.addItems(withTitles: ThemesHandler.default.themeNames)
         themeSelector.selectItem(withTitle: UserDefaults.themeName.value)
@@ -72,6 +74,10 @@ class GeneralPreferencesViewController: NSViewController, CCNPreferencesWindowCo
         UserDefaults.showInvisibleCharacters.value = showInvisibleCharactersButton.state == .on
     }
 
+    @IBAction func toggleShowControlCharacters(_ sender: Any) {
+        UserDefaults.showControlCharacters.value = showControlCharactersButton.state == .on
+    }
+
     override func changeFont(_ sender: Any?) {
         UserDefaults.updateFontFromFontPanel()
         updateFontButtonText()
@@ -94,5 +100,15 @@ class GeneralPreferencesViewController: NSViewController, CCNPreferencesWindowCo
         latexdefPathTextField.textView.textColor = .black
         UserDefaults.latexdefPath.value = latexdefPathTextField.value
     }
+
+    @IBAction func texdocPathChanged(_ sender: Any) {
+        guard FileManager.default.fileExists(atPath: texdocPathTextField.value) else {
+            texdocPathTextField.textView.textColor = .red
+            return
+        }
+        texdocPathTextField.textView.textColor = .black
+        UserDefaults.texdocPath.value = texdocPathTextField.value
+    }
+
 
 }
