@@ -11,8 +11,9 @@
                 <outlet property="fontSelectButton" destination="xFr-ib-Phk" id="wNg-3f-8zx"/>
                 <outlet property="latexPathTextField" destination="mkQ-qR-snc" id="0B1-76-gxH"/>
                 <outlet property="latexdefPathTextField" destination="opO-qc-uke" id="z0d-uS-wv8"/>
-                <outlet property="showControlleCharactersButton" destination="EzU-ni-GZM" id="gJo-4u-zeB"/>
+                <outlet property="showControlCharactersButton" destination="EzU-ni-GZM" id="gJo-4u-zeB"/>
                 <outlet property="showInvisibleCharactersButton" destination="4mn-Mz-ecY" id="DcZ-y5-SOt"/>
+                <outlet property="texdocPathTextField" destination="IRN-hn-JIG" id="6CN-xI-WsM"/>
                 <outlet property="themeSelector" destination="OBY-3I-W8r" id="njN-e1-Wgk"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -20,17 +21,17 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="541" height="174"/>
+            <rect key="frame" x="0.0" y="0.0" width="541" height="195"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9wT-71-P1k">
-                    <rect key="frame" x="20" y="20" width="501" height="134"/>
+                    <rect key="frame" x="20" y="20" width="501" height="155"/>
                     <subviews>
                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IfC-U5-pkD">
-                            <rect key="frame" x="0.0" y="104" width="270" height="30"/>
+                            <rect key="frame" x="0.0" y="134" width="270" height="21"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="n1c-6q-qvl">
-                                    <rect key="frame" x="-2" y="13" width="50" height="17"/>
+                                    <rect key="frame" x="-2" y="4" width="50" height="17"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Theme:" id="X5B-Iz-Na8">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -38,7 +39,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OBY-3I-W8r">
-                                    <rect key="frame" x="52" y="6" width="76" height="26"/>
+                                    <rect key="frame" x="52" y="-3" width="76" height="26"/>
                                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="W6G-ly-hgT" id="OQ0-Fr-OMl">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="menu"/>
@@ -51,17 +52,17 @@
                                         </menu>
                                     </popUpButtonCell>
                                     <connections>
-                                        <action selector="selectTheme:" target="-2" id="Xnx-jA-p33"/>
+                                        <action selector="selectTheme:" target="-2" id="7WV-dC-cZB"/>
                                     </connections>
                                 </popUpButton>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xFr-ib-Phk">
-                                    <rect key="frame" x="127" y="2" width="149" height="32"/>
+                                    <rect key="frame" x="127" y="-7" width="149" height="32"/>
                                     <buttonCell key="cell" type="push" title="Select Editor Font" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vRp-Ve-pD0">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="selectEditorFont:" target="-2" id="udY-qk-mZu"/>
+                                        <action selector="selectEditorFont:" target="-2" id="3lT-9h-Abg"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -77,24 +78,27 @@
                             </customSpacing>
                         </stackView>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4mn-Mz-ecY">
-                            <rect key="frame" x="-2" y="80" width="176" height="18"/>
+                            <rect key="frame" x="-2" y="110" width="176" height="18"/>
                             <buttonCell key="cell" type="check" title="Show invisible characters" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="WW1-Hj-oPg">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="toggleShowInvisibleCharacters:" target="-2" id="j0M-1h-Ch9"/>
+                                <action selector="toggleShowInvisibleCharacters:" target="-2" id="8iP-FP-xN7"/>
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EzU-ni-GZM">
-                            <rect key="frame" x="-2" y="58" width="170" height="18"/>
+                            <rect key="frame" x="-2" y="88" width="170" height="18"/>
                             <buttonCell key="cell" type="check" title="Show control characters" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="czS-UF-mI7">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="toggleShowControlCharacters:" target="-2" id="dLp-Ik-yMP"/>
+                            </connections>
                         </button>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="mkQ-qR-snc" customClass="LabeledTextField" customModule="LabeledTextField">
-                            <rect key="frame" x="0.0" y="30" width="501" height="22"/>
+                            <rect key="frame" x="0.0" y="60" width="501" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="LZz-s0-xGD"/>
                             </constraints>
@@ -103,16 +107,25 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="value" value="latexdef Path:"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="pdflatexPathChanged:" target="-2" id="oLK-Uf-pPz"/>
+                                <action selector="pdflatexPathChanged:" target="-2" id="LSj-tn-gjw"/>
                             </connections>
                         </customView>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="opO-qc-uke" customClass="LabeledTextField" customModule="LabeledTextField">
-                            <rect key="frame" x="0.0" y="0.0" width="501" height="22"/>
+                            <rect key="frame" x="0.0" y="30" width="501" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="dHa-RF-nT8"/>
                             </constraints>
                             <connections>
-                                <action selector="latexdefPathChanged:" target="-2" id="gWJ-oq-rBA"/>
+                                <action selector="latexdefPathChanged:" target="-2" id="Vdu-Lc-SRa"/>
+                            </connections>
+                        </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="IRN-hn-JIG" customClass="LabeledTextField" customModule="LabeledTextField">
+                            <rect key="frame" x="0.0" y="0.0" width="501" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="22" id="iCa-J9-ZUd"/>
+                            </constraints>
+                            <connections>
+                                <action selector="texdocPathChanged:" target="-2" id="MLG-TI-LfS"/>
                             </connections>
                         </customView>
                     </subviews>
@@ -131,8 +144,10 @@
                         <integer value="1000"/>
                         <integer value="1000"/>
                         <integer value="1000"/>
+                        <integer value="1000"/>
                     </visibilityPriorities>
                     <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>

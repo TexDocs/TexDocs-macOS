@@ -212,7 +212,7 @@ class LaTeXLanguageDelegate: LanguageDelegate {
 
     private func scanHelpfiles(for packageName: String) -> [HelpFile] {
         guard let process = Process.create(
-            "/Library/TeX/texbin/texdoc",
+            UserDefaults.texdocPath.value,
             arguments: ["-l", "-M", packageName],
             additionalEnvironmentPaths: [URL(fileURLWithPath: UserDefaults.latexPath.value).deletingLastPathComponent().path],
             local: "en_US.UTF-8") else {
