@@ -62,7 +62,7 @@ class EditorWindowController: NSWindowController {
 
         do {
             updateConnectionState(newState: false)
-            if let collaborationServer = document.documentData?.collaboration?.server {
+            if let collaborationServer = document.documentData?.collaboration {
                 connectTo(collaborationServer: collaborationServer)
             } else {
                 if !FileManager.default.fileExists(atPath: dataFolderURL.path) {
@@ -235,7 +235,12 @@ class EditorWindowController: NSWindowController {
     }
 
     @IBAction func reconnectButtonClicked(_ sender: Any) {
-        client.connect()
+        client.close()
+        guard let collaborationServer = texDocsDocument.documentData?.collaboration else {
+            return
+        }
+
+        self.connectTo(collaborationServer: collaborationServer)
     }
 }
 

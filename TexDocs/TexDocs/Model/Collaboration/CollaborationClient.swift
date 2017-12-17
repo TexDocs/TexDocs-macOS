@@ -15,7 +15,7 @@ class CollaborationClient {
     
     weak var delegate: CollaborationClientDelegate?
     
-    private let webSocket: WebSocket
+    private var webSocket: WebSocket?
     private var ignoreClosingReason = false
     private var syncStatus = SyncStatus.notSyncing
     private var syncRequired = false
@@ -25,33 +25,27 @@ class CollaborationClient {
         return syncStatus != .notSyncing
     }
     
-    func connect(to url: URL? = nil) {
+    func connect(to url: URL) {
         ignoreClosingReason = false
         syncStatus = .notSyncing
         editsInSyncMode = []
-        if let url = url {
-            webSocket.open(nsurl: url)
-        } else {
-            webSocket.open()
-        }
-        webSocket.delegate = self
+        webSocket = WebSocket()
+        webSocket?.open(nsurl: url)
+        webSocket?.delegate = self
     }
 
     func willStartCloning() {
         syncStatus = .cloning
     }
     
-    init() {
-        webSocket = WebSocket()
-    }
-    
     deinit {
-        webSocket.close()
+        webSocket?.close()
     }
     
     private func connectionError(_ error: Error) {
         ignoreClosingReason = true
-        webSocket.close()
+        webSocket?.close()
+        webSocket = nil
         delegate?.collaborationClient(self, encounteredError: error)
     }
 }
@@ -62,7 +56,7 @@ class CollaborationClient {
 protocol CollaborationClientDelegate: class {
     func collaborationClient(_ client: CollaborationClient, encounteredError error: Error)
     func collaborationCursorsChanged(_ client: CollaborationClient)
-    func collaborationClient(_ client: CollaborationClient, didConnectedAndReceivedRepositoryURL repositoryURL: URL)
+    func collaborationClient(_ client: CollaborationClient, didConnectedAndReceivedRepositoryURL repositoryURL: URL, andProjectID projectID: String)
     func collaborationClient(_ client: CollaborationClient, didReceivedChangeIn range: NSRange, replacedWith replaceString: String, inFile relativeFilePath: String)
     func collaborationClient(_ client: CollaborationClient, didDisconnectedBecause reason: String)
     func collaborationClientDidStartSync(_ client: CollaborationClient)
@@ -74,7 +68,7 @@ protocol CollaborationClientDelegate: class {
 extension CollaborationClient {
     func send<Package: Encodable>(package: Package) {
         do {
-            try webSocket.send(data: JSONEncoder().encode(package))
+            try webSocket?.send(data: JSONEncoder().encode(package))
         } catch {
             delegate?.collaborationClient(self, encounteredError: error)
         }
@@ -83,7 +77,7 @@ extension CollaborationClient {
     private func handleIncomingData(_ data: Data) throws {
         let jsonDecoder = JSONDecoder()
         let message: BasePackage
-        
+
         do {
             message = try jsonDecoder.decode(BasePackage.self, from: data)
         } catch {
@@ -240,7 +234,7 @@ extension CollaborationClient {
     
     func close() {
         ignoreClosingReason = true
-        webSocket.close()
+        webSocket?.close()
     }
 }
 
@@ -253,7 +247,7 @@ extension CollaborationClient {
             return
         }
         self.repositoryURL = url
-        delegate?.collaborationClient(self, didConnectedAndReceivedRepositoryURL: url)
+        delegate?.collaborationClient(self, didConnectedAndReceivedRepositoryURL: url, andProjectID: package.projectID)
     }
     
     private func handleCollaborationCursorUpdatePackage(_ package: CollaborationCursorUpdatePackage) {

@@ -78,8 +78,11 @@ class NewProjectViewController: NSViewController {
         if createOfflineRadioButton.state == .on {
             return .offline
         } else if joinRadioButton.state == .on {
-            guard let serverURL = getServerURL() else { return nil }
-            return .join(serverURL: serverURL)
+            let parts = serverURLTextField.stringValue.components(separatedBy: "?")
+            guard parts.count == 2, let serverURL = URL(string: parts[0]) else {
+                return nil
+            }
+            return .join(serverURL: serverURL, projectID: parts[1])
         } else {
             guard let serverURL = getServerURL(), let repositoryURL = getRepositoryURL() else { return nil }
             return .create(serverURL: serverURL, repositoryURL: repositoryURL)
@@ -102,7 +105,7 @@ class NewProjectViewController: NSViewController {
         }
         
         self.method = method
-        
+
         let savePanel = NSSavePanel()
         
         savePanel.beginSheetModal(for: window) { [weak self] response in

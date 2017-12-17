@@ -120,7 +120,7 @@ extension EditorWindowController {
     }
 
     func scheduleSync() {
-        client.scheduleSync()
+        self.client.scheduleSync()
         showScheduledSyncSheet()
     }
 

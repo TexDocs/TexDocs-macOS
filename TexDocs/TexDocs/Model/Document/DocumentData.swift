@@ -30,10 +30,12 @@ struct DocumentData: Codable {
         switch method {
         case .create(let serverURL, let repositoryURL):
             collaboration = Collaboration(
-                server: Collaboration.Server(url: serverURL),
+                server: Collaboration.Server(baseURL: serverURL, projectID: nil),
                 repository: Collaboration.Repository(url: repositoryURL))
-        case .join(let serverURL):
-            collaboration = Collaboration(server: Collaboration.Server(url: serverURL))
+        case .join(let serverURL, let projectID):
+            collaboration = Collaboration(server: Collaboration.Server(
+                baseURL: serverURL,
+                projectID: projectID))
         case .offline:
             collaboration = nil
         }
@@ -48,6 +50,27 @@ struct DocumentData: Codable {
         
         /// Repository used for offline collaboration.
         var repository: Repository?
+
+        var joinURL: URL? {
+            guard let projectID = server.projectID else {
+                return nil
+            }
+            return server.baseURL.appendingPathComponent("project/join/\(projectID)")
+        }
+
+        var shareURL: URL? {
+            guard let projectID = server.projectID else {
+                return nil
+            }
+            return server.baseURL.appendingPathComponent("?\(projectID)")
+        }
+
+        var createURL: URL? {
+            guard let gitURL = repository?.url.absoluteString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+                return nil
+            }
+            return URL(string: server.baseURL.appendingPathComponent("project/create/").absoluteString + gitURL)
+        }
         
         /// Initializes collaboration data with at least a collaboration server.
         ///
@@ -61,13 +84,15 @@ struct DocumentData: Codable {
         
         struct Server: Codable {
             /// Collaboration web socket server url.
-            let url: URL
+            let baseURL: URL
+            var projectID: String?
             
             /// Initializes collaboration server data with a url.
             ///
             /// - Parameter url: WebSocketServer url.
-            init(url: URL) {
-                self.url = url
+            init(baseURL: URL, projectID: String?) {
+                self.baseURL = baseURL
+                self.projectID = projectID
             }
         }
         

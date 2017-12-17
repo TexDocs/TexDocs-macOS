@@ -9,9 +9,13 @@
 import Foundation
 
 extension EditorWindowController {
-    func connectTo(collaborationServer: DocumentData.Collaboration.Server) {
+    func connectTo(collaborationServer: DocumentData.Collaboration) {
+        guard let url = collaborationServer.joinURL ?? collaborationServer.createURL else {
+            showInternalErrorSheet()
+            return
+        }
         showConnectingSheet()
-        client.connect(to: collaborationServer.url)
+        client.connect(to: url)
     }
 
     func receivedChange(in range: NSRange, replaceWith replaceString: String, inFile relativeFilePath: String) {
@@ -46,16 +50,20 @@ extension EditorWindowController: CollaborationClientDelegate {
         }
     }
 
-    func collaborationClient(_ client: CollaborationClient, didConnectedAndReceivedRepositoryURL repositoryURL: URL) {
+    func collaborationClient(_ client: CollaborationClient, didConnectedAndReceivedRepositoryURL repositoryURL: URL, andProjectID projectID: String) {
         updateConnectionState(newState: true)
         do {
-            guard let oldRepositoryURL = texDocsDocument.documentData?.collaboration?.repository?.url else {
+            texDocsDocument.documentData?.collaboration?.server.projectID = projectID
+            editedDocument()
+
+            guard FileManager.default.fileExists(atPath: dataFolderURL.path) else {
                 repository = try self.clone(repositoryURL: repositoryURL) {
                     self.scheduleSync()
                 }
                 return
             }
-            
+
+            let oldRepositoryURL = texDocsDocument.documentData?.collaboration?.repository?.url
             guard oldRepositoryURL == repositoryURL else {
                 showMissmatchedURLReceivedSheet()
                 return

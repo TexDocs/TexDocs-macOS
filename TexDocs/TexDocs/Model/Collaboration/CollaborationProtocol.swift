@@ -35,10 +35,12 @@ struct BasePackage: Codable {
 struct ProjectJoinPackage: Codable {
     let userID: String
     let repositoryURL: String
+    let projectID: String
     
     enum CodingKeys: String, CodingKey {
         case userID
         case repositoryURL = "repoURL"
+        case projectID
     }
 }
 
