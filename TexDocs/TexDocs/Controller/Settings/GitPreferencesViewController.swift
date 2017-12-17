@@ -49,4 +49,8 @@ class GitPreferencesViewController: NSViewController, CCNPreferencesWindowContro
     @IBAction func emailChanged(_ sender: Any) {
         UserDefaults.gitEMail.value = emailTextField.value
     }
+
+    @IBAction func helpButtonClicked(_ sender: Any) {
+        NSWorkspace.shared.open(URL(string: "https://help.github.com/articles/connecting-to-github-with-ssh/")!)
+    }
 }

@@ -81,7 +81,7 @@ class SourceCodeRulerView: NSRulerView {
 
         attributes.invalidateCache()
 
-        let highestLineNumber = NewLineRegex.numberOfMatches(
+        let highestLineNumber = 1 + NewLineRegex.numberOfMatches(
             in: textView.string,
             options: [],
             range: NSRange(textView.string.startIndex..<textView.string.endIndex, in: textView.string))
