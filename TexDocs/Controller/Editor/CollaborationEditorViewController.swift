@@ -49,7 +49,7 @@ class CollaborationEditorViewController: BaseEditorViewController, EditorControl
     }
 
     override func willOpen() {
-        editableFileSystemItem.textStorage.deselectAllTokens()
+//        editableFileSystemItem.textStorage.deselectAllTokens()
         editor.updateSourceCodeHighlighting(in: editor.stringRange)
     }
 

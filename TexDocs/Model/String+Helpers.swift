@@ -23,3 +23,9 @@ extension String {
         return count
     }
 }
+
+extension NSRange {
+    func shifted(by shift: Int) -> NSRange {
+        return NSRange(location: location + shift, length: length)
+    }
+}

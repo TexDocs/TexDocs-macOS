@@ -38,7 +38,7 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
         try super.save()
 
         let outputTextStorage = NSTextStorage(attributedString: textStorage)
-        outputTextStorage.removeAllTokens()
+//        outputTextStorage.removeAllTokens()
         try outputTextStorage.string.write(to: url, atomically: false, encoding: .utf8)
     }
 
@@ -46,7 +46,7 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
         try super.reload()
         let newString = try String(contentsOf: url)
         textStorage.replaceContent(with: newString)
-        textStorage.createAllTokens()
+//        textStorage.createAllTokens()
         delegates.forEach {
             $0.editableFileSystemItemReloaded(self)
         }
@@ -68,29 +68,29 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
         }
     }
 
-    fileprivate func updateIndent(in range: NSRange) {
-        guard let structureNode = rootStructureNode else {
-            return
-        }
-
-        let newLineRegex = try! NSRegularExpression(pattern: ".*?\n", options: [])
-        var totalShift = 0
-        let string = textStorage.string
-        for match in newLineRegex.matches(in: string, options: [], range: NSString(string: string).lineRange(for: range)) {
-            let lineRange = match.range
-            let lineString = string[lineRange]
-            let currentIndent = lineString.leadingSpaces
-            let targetIndent = (structureNode.path(toPosition: lineRange.upperBound - 2, range: \.indentRange).count - 1) * 4
-            if currentIndent != targetIndent {
-                textStorage.replaceCharacters(
-                    in: NSRange(location: lineRange.location, length: currentIndent).shifted(by: totalShift),
-                    with: String(repeating: " ", count: targetIndent),
-                    byUser: true,
-                    updateIndent: false)
-                totalShift += targetIndent - currentIndent
-            }
-        }
-    }
+//    fileprivate func updateIndent(in range: NSRange) {
+//        guard let structureNode = rootStructureNode else {
+//            return
+//        }
+//
+//        let newLineRegex = try! NSRegularExpression(pattern: ".*?\n", options: [])
+//        var totalShift = 0
+//        let string = textStorage.string
+//        for match in newLineRegex.matches(in: string, options: [], range: NSString(string: string).lineRange(for: range)) {
+//            let lineRange = match.range
+//            let lineString = string[lineRange]
+//            let currentIndent = lineString.leadingSpaces
+//            let targetIndent = (structureNode.path(toPosition: lineRange.upperBound - 2, range: \.indentRange).count - 1) * 4
+//            if currentIndent != targetIndent {
+//                textStorage.replaceCharacters(
+//                    in: NSRange(location: lineRange.location, length: currentIndent).shifted(by: totalShift),
+//                    with: String(repeating: " ", count: targetIndent),
+//                    byUser: true,
+//                    updateIndent: false)
+//                totalShift += targetIndent - currentIndent
+//            }
+//        }
+//    }
 }
 
 @objc protocol EditableFileSystemItemDelegate: class {
@@ -106,19 +106,19 @@ extension NSTextStorage {
         replaceCharacters(in: range, with: str)
         editableFileSystemItem?.userInitiated = true
 
-        let lineRange = NSString(string: string)
-            .lineRange(for: NSRange(
-                location: range.location,
-                length: NSString(string: str).length))
-        editableFileSystemItem?.userInitiated = false
-        let insertedTextShift = createTokens(in: lineRange)
-        editableFileSystemItem?.userInitiated = true
-
-        if let textViewDelegate = editableFileSystemItem, updateIndent, byUser {
-            textViewDelegate.updateIndent(in: NSRange(
-                location: range.location,
-                length: NSString(string: str).length + insertedTextShift))
-        }
+//        let lineRange = NSString(string: string)
+//            .lineRange(for: NSRange(
+//                location: range.location,
+//                length: NSString(string: str).length))
+//        editableFileSystemItem?.userInitiated = false
+//        let insertedTextShift = createTokens(in: lineRange)
+//        editableFileSystemItem?.userInitiated = true
+//
+//        if let textViewDelegate = editableFileSystemItem, updateIndent, byUser {
+//            textViewDelegate.updateIndent(in: NSRange(
+//                location: range.location,
+//                length: NSString(string: str).length + insertedTextShift))
+//        }
     }
 
     func replaceContent(with str: String) {

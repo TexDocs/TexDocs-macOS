@@ -170,7 +170,7 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
 
         let completion = languageCompletions.words[index].completionString
         textStorage?.replaceCharacters(in: languageCompletions.rangeForUserCompletion, with: completion, byUser: true)
-        goToFirstPlaceholder(inRange: NSRange(location: languageCompletions.rangeForUserCompletion.location, length: NSString(string: completion).length))
+//        goToFirstPlaceholder(inRange: NSRange(location: languageCompletions.rangeForUserCompletion.location, length: NSString(string: completion).length))
     }
 
     override func keyDown(with event: NSEvent) {
@@ -200,22 +200,22 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
             } else if typedString == "\\" {
                 super.keyDown(with: event)
                 complete(self)
-            } else if typedString == "\t" {
-                if !goToNextPlaceholder() {
-                    let currentLineRange = self.currentLineRange
-                    let currentLine = string[currentLineRange]
-                    let positionInLine = selectedRange().location - currentLineRange.location
-
-                    if selectedRange().length > 0 || currentLine.leadingSpaces >= positionInLine {
-                        incraseIndent()
-                    } else {
-                        super.keyDown(with: event)
-                    }
-                }
-            } else if typedString == "\u{19}" { // shift-tab
-                if !goToPreviousPlaceholder() {
-                    decreaseIndent()
-                }
+//            } else if typedString == "\t" {
+//                if !goToNextPlaceholder() {
+//                    let currentLineRange = self.currentLineRange
+//                    let currentLine = string[currentLineRange]
+//                    let positionInLine = selectedRange().location - currentLineRange.location
+//
+//                    if selectedRange().length > 0 || currentLine.leadingSpaces >= positionInLine {
+//                        incraseIndent()
+//                    } else {
+//                        super.keyDown(with: event)
+//                    }
+//                }
+//            } else if typedString == "\u{19}" { // shift-tab
+//                if !goToPreviousPlaceholder() {
+//                    decreaseIndent()
+//                }
             } else {
                 super.keyDown(with: event)
             }
@@ -266,32 +266,32 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
 
     override func mouseDown(with event: NSEvent) {
         closeCompletionPopover()
-        textStorage?.deselectAllTokens()
+//        textStorage?.deselectAllTokens()
         super.mouseDown(with: event)
     }
 
-    func textView(_ textView: NSTextView, willChangeSelectionFromCharacterRange oldSelectedCharRange: NSRange, toCharacterRange newSelectedCharRange: NSRange) -> NSRange {
-
-        textStorage?.deselectAllTokens()
-
-        let deltaMovement = newSelectedCharRange.location - oldSelectedCharRange.location
-        guard oldSelectedCharRange.length == 0, abs(deltaMovement) == 1 else {
-            return newSelectedCharRange
-        }
-
-        let movedForward = deltaMovement > 0
-        let checkPositon = movedForward ? oldSelectedCharRange.location : newSelectedCharRange.location
-
-        guard checkPositon < nsString.length, let attachment = textStorage?.attribute(.attachment, at: checkPositon, effectiveRange: nil) as? NSTextAttachment else {
-            return newSelectedCharRange
-        }
-
-        if let token = attachment.attachmentCell as? TokenCell {
-            token.isSelected = true
-        }
-
-        return NSRange(location: checkPositon, length: 1)
-    }
+//    func textView(_ textView: NSTextView, willChangeSelectionFromCharacterRange oldSelectedCharRange: NSRange, toCharacterRange newSelectedCharRange: NSRange) -> NSRange {
+//
+//        textStorage?.deselectAllTokens()
+//
+//        let deltaMovement = newSelectedCharRange.location - oldSelectedCharRange.location
+//        guard oldSelectedCharRange.length == 0, abs(deltaMovement) == 1 else {
+//            return newSelectedCharRange
+//        }
+//
+//        let movedForward = deltaMovement > 0
+//        let checkPositon = movedForward ? oldSelectedCharRange.location : newSelectedCharRange.location
+//
+//        guard checkPositon < nsString.length, let attachment = textStorage?.attribute(.attachment, at: checkPositon, effectiveRange: nil) as? NSTextAttachment else {
+//            return newSelectedCharRange
+//        }
+//
+//        if let token = attachment.attachmentCell as? TokenCell {
+//            token.isSelected = true
+//        }
+//
+//        return NSRange(location: checkPositon, length: 1)
+//    }
 
     override func complete(_ sender: Any?) {
         guard let layoutManager = layoutManager, let textContainer = textContainer else {
