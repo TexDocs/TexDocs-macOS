@@ -14,7 +14,6 @@ class NewProjectViewController: NSViewController {
     @IBOutlet weak var createOfflineRadioButton: NSButton!
     @IBOutlet weak var saveButton: NSButton!
     @IBOutlet weak var serverURLTextField: NSTextField!
-    @IBOutlet weak var repositoryURLTextField: NSTextField!
     @IBOutlet weak var warningStackView: NSStackView!
     
     
@@ -22,7 +21,6 @@ class NewProjectViewController: NSViewController {
     private(set) var localURL: URL?
     
     override func viewDidLoad() {
-        repositoryURLTextField.isHidden = true
         warningStackView.isHidden = true
     }
     
@@ -33,7 +31,6 @@ class NewProjectViewController: NSViewController {
     
     @IBAction func joinRadioButtonPressed(_ sender: NSButton) {
         serverURLTextField.isHidden = false
-        repositoryURLTextField.isHidden = true
         saveButton.title = NSLocalizedString("TD_BUTTON_JOIN", comment: "Button to join an existing project.")
         createRadioButton.state = .off
         createOfflineRadioButton.state = .off
@@ -42,7 +39,6 @@ class NewProjectViewController: NSViewController {
     
     @IBAction func createRadioButtonPressed(_ sender: NSButton) {
         serverURLTextField.isHidden = false
-        repositoryURLTextField.isHidden = false
         saveButton.title = NSLocalizedString("TD_BUTTON_CREATE", comment: "Button to create a new project.")
         joinRadioButton.state = .off
         createOfflineRadioButton.state = .off
@@ -51,7 +47,6 @@ class NewProjectViewController: NSViewController {
     
     @IBAction func createOfflineRadioButtonPressed(_ sender: NSButton) {
         serverURLTextField.isHidden = true
-        repositoryURLTextField.isHidden = true
         saveButton.title = NSLocalizedString("TD_BUTTON_CREATE_OFFLINE", comment: "Button to create a new offline project.")
         joinRadioButton.state = .off
         createRadioButton.state = .off
@@ -66,26 +61,16 @@ class NewProjectViewController: NSViewController {
         warningStackView.isHidden = true
     }
     
-    private func getServerURL() -> URL? {
-        return URL(string: serverURLTextField.stringValue)
-    }
-    
-    private func getRepositoryURL() -> URL? {
-        return URL(string: repositoryURLTextField.stringValue)
-    }
-    
     private func getNewProjectMethod() -> NewProjectOpenMethod? {
         if createOfflineRadioButton.state == .on {
             return .offline
         } else if joinRadioButton.state == .on {
             let parts = serverURLTextField.stringValue.components(separatedBy: "?")
-            guard parts.count == 2, let serverURL = URL(string: parts[0]) else {
-                return nil
-            }
+            guard parts.count == 2, let serverURL = URL(string: parts[0]) else { return nil }
             return .join(serverURL: serverURL, projectID: parts[1])
         } else {
-            guard let serverURL = getServerURL(), let repositoryURL = getRepositoryURL() else { return nil }
-            return .create(serverURL: serverURL, repositoryURL: repositoryURL)
+            guard let serverURL = URL(string: serverURLTextField.stringValue) else { return nil }
+            return .create(serverURL: serverURL)
         }
     }
     

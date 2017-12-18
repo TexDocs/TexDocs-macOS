@@ -28,14 +28,10 @@ struct DocumentData: Codable {
     /// - Parameter method: The method used to open the project.
     init(open method: NewProjectOpenMethod, dataFolderName: String) {
         switch method {
-        case .create(let serverURL, let repositoryURL):
-            collaboration = Collaboration(
-                server: Collaboration.Server(baseURL: serverURL, projectID: nil),
-                repository: Collaboration.Repository(url: repositoryURL))
+        case .create(let serverURL):
+            collaboration = Collaboration(baseURL: serverURL, projectID: nil)
         case .join(let serverURL, let projectID):
-            collaboration = Collaboration(server: Collaboration.Server(
-                baseURL: serverURL,
-                projectID: projectID))
+            collaboration = Collaboration(baseURL: serverURL, projectID: projectID)
         case .offline:
             collaboration = nil
         }
@@ -46,30 +42,25 @@ struct DocumentData: Codable {
     /// Data required for collaboration.
     struct Collaboration: Codable {
         /// Collaboration server used for live collaboration.
-        var server: Server
-        
-        /// Repository used for offline collaboration.
-        var repository: Repository?
+        let baseURL: URL
+        var projectID: String?
 
         var joinURL: URL? {
-            guard let projectID = server.projectID else {
+            guard let projectID = projectID else {
                 return nil
             }
-            return server.baseURL.appendingPathComponent("project/join/\(projectID)")
+            return baseURL.appendingPathComponent("project/join/\(projectID)")
         }
 
         var shareURL: URL? {
-            guard let projectID = server.projectID else {
+            guard let projectID = projectID else {
                 return nil
             }
-            return server.baseURL.appendingPathComponent("?\(projectID)")
+            return baseURL.appendingPathComponent("?\(projectID)")
         }
 
         var createURL: URL? {
-            guard let gitURL = repository?.url.absoluteString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
-                return nil
-            }
-            return URL(string: server.baseURL.appendingPathComponent("project/create/").absoluteString + gitURL)
+            return baseURL.appendingPathComponent("project/create/")
         }
         
         /// Initializes collaboration data with at least a collaboration server.
@@ -77,35 +68,9 @@ struct DocumentData: Codable {
         /// - Parameters:
         ///   - server: Collaboration server used for live collaboration.
         ///   - repository: Repository used for offline collaboration.
-        init(server: Server, repository: Repository? = nil) {
-            self.server = server
-            self.repository = repository
-        }
-        
-        struct Server: Codable {
-            /// Collaboration web socket server url.
-            let baseURL: URL
-            var projectID: String?
-            
-            /// Initializes collaboration server data with a url.
-            ///
-            /// - Parameter url: WebSocketServer url.
-            init(baseURL: URL, projectID: String?) {
-                self.baseURL = baseURL
-                self.projectID = projectID
-            }
-        }
-        
-        struct Repository: Codable {
-            /// Git repository url
-            let url: URL
-            
-            /// Initializes repository data with a url.
-            ///
-            /// - Parameter url: Git url.
-            init(url: URL) {
-                self.url = url
-            }
+        init(baseURL: URL, projectID: String?) {
+            self.baseURL = baseURL
+            self.projectID = projectID
         }
     }
 

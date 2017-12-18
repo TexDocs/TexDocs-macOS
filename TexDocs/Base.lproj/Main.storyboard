@@ -428,11 +428,11 @@
                 <customObject id="vvC-0r-FD1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <viewController id="0Pr-ML-Wrq" customClass="NewProjectViewController" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="u4D-VP-omw">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="243"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="213"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tBz-sD-iHg">
-                                <rect key="frame" x="148" y="165" width="184" height="78"/>
+                                <rect key="frame" x="148" y="135" width="184" height="78"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="TexDocs" id="BUX-zJ-3Dp">
                                     <font key="font" size="47" name="Avenir-Book"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -440,10 +440,10 @@
                                 </textFieldCell>
                             </textField>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gz9-bR-gBz">
-                                <rect key="frame" x="20" y="40" width="440" height="115"/>
+                                <rect key="frame" x="20" y="40" width="440" height="85"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="15" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yfc-us-1tK">
-                                        <rect key="frame" x="101" y="97" width="239" height="18"/>
+                                        <rect key="frame" x="101" y="67" width="239" height="18"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="60o-0u-dYD">
                                                 <rect key="frame" x="-1" y="1" width="48" height="18"/>
@@ -491,34 +491,26 @@
                                         </customSpacing>
                                     </stackView>
                                     <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="T1P-J3-JB6">
-                                        <rect key="frame" x="0.0" y="86" width="440" height="5"/>
+                                        <rect key="frame" x="0.0" y="56" width="440" height="5"/>
                                     </box>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mcr-DI-Umt">
-                                        <rect key="frame" x="0.0" y="58" width="440" height="22"/>
+                                        <rect key="frame" x="0.0" y="28" width="440" height="22"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL" drawsBackground="YES" id="Ab6-uq-2Pn">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZlD-GX-NMB">
-                                        <rect key="frame" x="0.0" y="28" width="440" height="22"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Repository-URL (SSH)" drawsBackground="YES" id="Hxr-j1-Dlg">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EW2-Cg-weX">
-                                        <rect key="frame" x="91" y="0.0" width="258" height="20"/>
+                                        <rect key="frame" x="142" y="0.0" width="157" height="20"/>
                                         <subviews>
                                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="94Z-IO-hyh">
                                                 <rect key="frame" x="0.0" y="0.0" width="32" height="20"/>
                                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSCaution" id="IhT-Vw-P4Z"/>
                                             </imageView>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3sv-Ws-76O">
-                                                <rect key="frame" x="30" y="3" width="230" height="17"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="At least one of your URLs is not valid." id="HO0-l8-tpQ">
+                                                <rect key="frame" x="30" y="3" width="129" height="17"/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="The URL is not valid." id="HO0-l8-tpQ">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -543,10 +535,8 @@
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
-                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -608,7 +598,6 @@ Gw
                         <outlet property="createOfflineRadioButton" destination="7Ld-Gl-Pmi" id="hhL-YP-5jO"/>
                         <outlet property="createRadioButton" destination="T0B-mR-ezu" id="YaJ-Y6-Xrp"/>
                         <outlet property="joinRadioButton" destination="60o-0u-dYD" id="70v-tO-hZk"/>
-                        <outlet property="repositoryURLTextField" destination="ZlD-GX-NMB" id="P5K-QE-8Bw"/>
                         <outlet property="saveButton" destination="3Hk-zR-gKu" id="dTo-VY-khL"/>
                         <outlet property="serverURLTextField" destination="Mcr-DI-Umt" id="MjC-Ou-tfN"/>
                         <outlet property="warningStackView" destination="EW2-Cg-weX" id="yzx-4R-UsJ"/>
@@ -1375,7 +1364,7 @@ Gw
         <image name="NSShareTemplate" width="11" height="16"/>
         <image name="NSSlideshowTemplate" width="17" height="14"/>
         <image name="NSStatusNone" width="16" height="16"/>
-        <image name="NSStopProgressFreestandingTemplate" width="11" height="11"/>
+        <image name="NSStopProgressFreestandingTemplate" width="14" height="14"/>
         <image name="NSTouchBarFolderTemplate" width="22" height="30"/>
         <image name="NSTouchBarGoDownTemplate" width="16" height="30"/>
         <image name="NSTouchBarGoUpTemplate" width="16" height="30"/>
