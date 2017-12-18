@@ -25,20 +25,8 @@ extension EditorWindowController {
                     return
                 }
 
-                let url = URL(fileURLWithPath: event.path)
+                // let url = URL(fileURLWithPath: event.path)
                 self?.srcDirectoryDidChange()
-                
-                // Ignore other changes as well
-                let syncBlock = self?.client.inSync ?? true
-                guard !FileTypeHandler.shouldIgnoreEvent(of: url), !syncBlock else {
-                    return
-                }
-                
-                if !event.flag.isDisjoint(with: .fileListChangedGroup) {
-                    self?.client.scheduleSync()
-                } else if event.flag.contains(.itemModified) && !FileTypeHandler.shouldIgnoreModification(of: url) {
-                    self?.client.scheduleSync()
-                }
             }
         }
     }

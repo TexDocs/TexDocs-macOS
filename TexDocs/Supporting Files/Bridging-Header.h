@@ -9,7 +9,7 @@
 #ifndef Bridging_Header_h
 #define Bridging_Header_h
 
-#import <ObjectiveGit/ObjectiveGit.h>
+
 #import "CCNPreferencesWindowControllerProtocol.h"
 #import "CCNPreferencesWindowController.h"
 

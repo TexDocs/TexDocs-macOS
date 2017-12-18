@@ -31,9 +31,6 @@
 /* Name of the empty state editor */
 "TD_EMPTY_STATE_EDITOR_NAME" = "Empty State";
 
-/* Error message after unexpected connection drop. */
-"TD_ERROR_CONNECTION_LOST" = "Connection lost.";
-
 /* Message shown to the user if an internal error occures. */
 "TD_ERROR_INTERNAL_ERROR" = "Internal error.";
 
@@ -46,17 +43,8 @@
 /* Message shown to the user if the saved and the received repository url don't match. */
 "TD_ERROR_MISSMATCHED_REPOSITORY_URL" = "The received repository url does not match the local one.";
 
-/* Error message if a received message is corrupted. */
-"TD_ERROR_UNEXPECTED_STATUS_CODE" = "The received data is corrupted.";
-
 /* Name of the image editor */
 "TD_IMAGE_EDITOR_NAME" = "Image Viewer";
-
-/* Error message if the received repository url is invalid. */
-"TD_INVALID_REPOSITORY_URL" = "The received repository is invalid.";
-
-/* Error description if the signature is invalid. */
-"TD_INVALID_SIGNATURE" = "Invalid git signature.";
 
 /* Name of the latex root document structure node */
 "TD_LATEX_ROOT_STRUCTURE_NODE" = "Tex Document";

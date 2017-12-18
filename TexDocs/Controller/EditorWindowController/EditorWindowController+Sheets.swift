@@ -49,7 +49,6 @@ extension EditorWindowController {
     }
     
     private func showErrorClosingSheet(text: String) {
-        self.client.close()
         DispatchQueue.main.async { [weak self] in
             self?.showSheetIfRequired()
             self?.notificationSheet.updateLabel(text: text)

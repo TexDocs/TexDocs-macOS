@@ -6,7 +6,7 @@
 //  Copyright © 2017 TexDocs. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 class LaTeXLanguageDelegate: LanguageDelegate {
     private static var cachedPackages: [String: PackageInfo] = [:]

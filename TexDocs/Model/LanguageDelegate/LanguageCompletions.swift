@@ -6,7 +6,7 @@
 //  Copyright © 2017 TexDocs. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 struct LanguageCompletions {
     let words: [LanguageCompletion]

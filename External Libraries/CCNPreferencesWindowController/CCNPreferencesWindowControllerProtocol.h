@@ -27,6 +27,8 @@
  THE SOFTWARE.
  */
 
+#import <AppKit/AppKit.h>
+
 @protocol CCNPreferencesWindowControllerProtocol <NSObject>
 
 - (NSString *)preferenceIdentifier;

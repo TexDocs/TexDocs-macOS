@@ -13,12 +13,6 @@ class EditorWindowController: NSWindowController {
     
     // MARK: Variables
     
-    /// Client used to connect to the collaboration server
-    let client = CollaborationClient()
-    
-    /// Local repository
-    var repository: GTRepository?
-    
     /// File system event monitoring
     var fileSystemMonitor: FileSystemEventMonitor?
     
@@ -59,15 +53,10 @@ class EditorWindowController: NSWindowController {
     
     func loaded(document: Document) {
         reloadSchemeSelector()
-        updateConnectionState(newState: .disconnected)
 
         do {
-            if let collaborationServer = document.documentData?.collaboration {
-                connectTo(collaborationServer: collaborationServer)
-            } else {
-                if !FileManager.default.fileExists(atPath: dataFolderURL.path) {
-                    try FileManager.default.createDirectory(at: dataFolderURL, withIntermediateDirectories: true, attributes: nil)
-                }
+            if !FileManager.default.fileExists(atPath: dataFolderURL.path) {
+                try FileManager.default.createDirectory(at: dataFolderURL, withIntermediateDirectories: true, attributes: nil)
             }
 
             rootDirectory = try FileSystemItem(dataFolderURL)
@@ -175,7 +164,6 @@ class EditorWindowController: NSWindowController {
     override func windowDidLoad() {
         outlineViewController.delegate = self
         editorWrapperViewController.delegate = self
-        client.delegate = self
         shouldCascadeWindows = true
     }
     
@@ -235,12 +223,6 @@ class EditorWindowController: NSWindowController {
     }
 
     @IBAction func reconnectButtonClicked(_ sender: Any) {
-        client.close()
-        guard let collaborationServer = texDocsDocument.documentData?.collaboration else {
-            return
-        }
-
-        self.connectTo(collaborationServer: collaborationServer)
     }
 }
 
