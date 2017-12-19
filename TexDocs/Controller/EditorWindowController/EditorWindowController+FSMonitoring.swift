@@ -15,19 +15,12 @@ extension EditorWindowController {
             return
         }
         
-        let gitPath = dataFolderURL.appendingPathComponent(".git", isDirectory: true).path
-        
         fileSystemMonitor = FileSystemEventMonitor(pathsToWatch: [dataFolderURL.path]) { [weak self] events in
-            for event in events {
-
-                // Ignore any changes in .git folder
-                guard !event.path.hasPrefix(gitPath) else {
-                    return
-                }
-
-                // let url = URL(fileURLWithPath: event.path)
-                self?.srcDirectoryDidChange()
-            }
+//            for event in events {
+//                 let url = URL(fileURLWithPath: event.path)
+////                self?.srcDirectoryDidChange()
+//            }
+            self?.srcDirectoryDidChange()
         }
     }
 

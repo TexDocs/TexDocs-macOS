@@ -17,7 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         preferences.centerToolbarItems = false
         preferences.setPreferencesViewControllers([
             GeneralPreferencesViewController(),
-            GitPreferencesViewController()
+            VCSPreferencesViewController()
         ])
     }
 

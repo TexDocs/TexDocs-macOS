@@ -40,47 +40,11 @@
 /* Shown to the user of the latex path is not executable */
 "TD_ERROR_INVALID_LATEX_PATH" = "TD_ERROR_INVALID_LATEX_PATH";
 
-/* Message shown to the user if the saved and the received repository url don't match. */
-"TD_ERROR_MISSMATCHED_REPOSITORY_URL" = "The received repository url does not match the local one.";
-
 /* Name of the image editor */
 "TD_IMAGE_EDITOR_NAME" = "Image Viewer";
 
 /* Name of the latex root document structure node */
 "TD_LATEX_ROOT_STRUCTURE_NODE" = "Tex Document";
-
-/* Message shown to the user while starting the cloning. */
-"TD_NOTIFICATION_CLONING_REPOSITORY" = "Cloning repository...";
-
-/* Message shown to the user while connecting to the server. */
-"TD_NOTIFICATION_CONNECTING_TO_SERVER" = "Connecting to server...";
-
-/* Shown while fetching from git remote. */
-"TD_NOTIFICATION_FETCH_PROGRESS" = "Fetching ...";
-
-/* Shown while pulling from git remote. */
-"TD_NOTIFICATION_PULLING_PROGRESS" = "Pulling ...";
-
-/* Shown while pushing to git remote. */
-"TD_NOTIFICATION_PUSHING_PROGRESS" = "Pushing ...";
-
-/* Shown while receiving objects from git remote. */
-"TD_NOTIFICATION_RECEIVING_OBJECTS" = "Receiving objects...";
-
-/* Notification for the user after a successfull clone. */
-"TD_NOTIFICATION_REPOSITORY_CLONED" = "Cloned successfully.";
-
-/* Notification for the user while waiting for a sync start package. */
-"TD_NOTIFICATION_REQUESTED_SYNC" = "Requested sync...";
-
-/* Notification for the user after pull started. */
-"TD_NOTIFICATION_STARTED_PULLING" = "Fetching...";
-
-/* Notification for the user while waiting for the sync to complete. */
-"TD_NOTIFICATION_WAITING_FOR_SYNC_TO_COMPLETE" = "Waiting for sync to complete...";
-
-/* Notification for the user while waiting for the own sync to start. */
-"TD_NOTIFICATION_WAITING_FOR_SYNC_TO_START" = "Waiting for sync to start...";
 
 /* Open in <Application name> */
 "TD_OPEN_IN" = "Open in";
@@ -88,8 +52,8 @@
 /* General preferences title */
 "TD_PREFERENCS_TITLE_GENERAL" = "General";
 
-/* Git preferences title */
-"TD_PREFERENCS_TITLE_GIT" = "GIT";
+/* VCS preferences title */
+"TD_PREFERENCS_TITLE_VCS" = "TD_PREFERENCS_TITLE_VCS";
 
 /* Name of the web view editor */
 "TD_WEB_VIEW_EDITOR_NAME" = "Web View";

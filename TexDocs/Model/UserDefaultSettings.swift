@@ -42,10 +42,7 @@ extension UserDefaults {
     static let latexPath = UserDefaultSettings<String>(key: "latexPath", default: "/Library/TeX/texbin/pdflatex")
     static let latexdefPath = UserDefaultSettings<String>(key: "latexdefPath", default: "/Library/TeX/texbin/latexdef")
     static let texdocPath = UserDefaultSettings<String>(key: "texdocPath", default: "/Library/TeX/texbin/texdoc")
-    static let publicKeyPath = UserDefaultSettings<String>(key: "publicKeyPath", default: "~/.ssh/id_rsa.pub")
-    static let privateKeyPath = UserDefaultSettings<String>(key: "privateKeyPath", default: "~/.ssh/id_rsa")
-    static let gitName = UserDefaultSettings<String>(key: "gitName", default: "Anonymous")
-    static let gitEMail = UserDefaultSettings<String>(key: "gitEMail", default: "Anonymous@example.com")
+    static let vcsName = UserDefaultSettings<String>(key: "name", default: "Anonymous")
 
     static var editorFont: NSFont? {
         return NSFont(name: UserDefaults.editorFontName.value, size: UserDefaults.editorFontSize.value)
