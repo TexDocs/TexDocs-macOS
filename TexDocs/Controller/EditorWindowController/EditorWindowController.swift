@@ -30,7 +30,7 @@ class EditorWindowController: NSWindowController {
     /// Document loaded in this window controller.
     override var document: AnyObject? {
         didSet {
-            guard let texDocsDocument = texDocsDocument else {
+            guard let texDocsDocument = workspace else {
                 return
             }
             loaded(document: texDocsDocument)
@@ -51,7 +51,7 @@ class EditorWindowController: NSWindowController {
     
     // Mark: Document
     
-    func loaded(document: Document) {
+    func loaded(document: Workspace) {
         reloadSchemeSelector()
 
         do {
@@ -70,7 +70,7 @@ class EditorWindowController: NSWindowController {
 
     func editedDocument() {
         DispatchQueue.main.async {
-            self.texDocsDocument.updateChangeCount(.changeDone)
+            self.workspace.updateChangeCount(.changeDone)
         }
     }
 
@@ -112,11 +112,11 @@ class EditorWindowController: NSWindowController {
 
     var selectedScheme: DocumentData.Scheme? {
         guard let uuid = selectedSchemeMenuItem?.uuid else { return nil }
-        return texDocsDocument.documentData?.scheme(withUUID: uuid)
+        return workspace.documentData.scheme(withUUID: uuid)
     }
 
     func reloadSchemeSelector(selectUUID newSelctedUUID: UUID? = nil) {
-        guard let schemes = texDocsDocument.documentData?.schemes else { return }
+        let schemes = workspace.documentData.schemes
 
         let initialUUID = newSelctedUUID ?? selectedSchemeMenuItem?.uuid
         schemeSelector.removeAllItems()
@@ -151,11 +151,11 @@ class EditorWindowController: NSWindowController {
 
     @objc func deleteScheme() {
         schemeSelectorSelectionDidChange(self)
-        guard let index = texDocsDocument.documentData?.schemes.index(where: { $0.uuid == selectedScheme?.uuid }) else {
+        guard let index = workspace.documentData.schemes.index(where: { $0.uuid == selectedScheme?.uuid }) else {
             return
         }
 
-        texDocsDocument.documentData?.schemes.remove(at: index)
+        workspace.documentData.schemes.remove(at: index)
         reloadSchemeSelector()
     }
 

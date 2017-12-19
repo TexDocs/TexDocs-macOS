@@ -9,17 +9,16 @@
 import Foundation
 
 extension EditorWindowController {
-    var texDocsDocument: Document! {
-        return self.document as? Document
+    var workspace: Workspace! {
+        return self.document as? Workspace
     }
     
     var workspaceURL: URL! {
-        return texDocsDocument.workspaceURL
+        return workspace.workspaceURL
     }
     
     var dataFolderURL: URL! {
-        guard let documentData = texDocsDocument.documentData else { return nil }
-        return workspaceURL.appendingPathComponent(documentData.dataFolderName, isDirectory: true)
+        return workspaceURL.appendingPathComponent("Data", isDirectory: true)
     }
 
     func relativePathInDataFolder(of url: URL) -> String? {

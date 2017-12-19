@@ -31,7 +31,7 @@ extension EditorWindowController: NavigationOutlineViewControllerDelegate {
         }
 
         let newSceme = DocumentData.Scheme(name: item.name, path: path)
-        texDocsDocument.documentData?.schemes.append(newSceme)
+        workspace.documentData.schemes.append(newSceme)
         editedDocument()
 
         reloadSchemeSelector(selectUUID: newSceme.uuid)

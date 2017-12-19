@@ -1,5 +1,5 @@
 //
-//  Document.swift
+//  Workspace.swift
 //  TexDocs
 //
 //  Created by Noah Peeters on 11.11.17.
@@ -8,26 +8,34 @@
 
 import Cocoa
 
-class Document: NSDocument {
+class Workspace: NSPersistentDocument {
     var workspaceURL: URL? {
         return fileURL?.deletingLastPathComponent()
     }
+
+    lazy var workspaceModel: WorkspaceModel = managedObjectContext!.fetchOrCreateWorkspaceModel()
     
     override init() {
         super.init()
+//        Swift.print(workspaceModel.serverURL)
     }
 
-    init(documentData: DocumentData) {
-        self.documentData = documentData
+    init(openMethod: NewProjectOpenMethod) {
         super.init()
+        workspaceModel.serverURL = openMethod.serverURL
+        workspaceModel.serverProjectID = openMethod.projectID
     }
-    
-    var documentData: DocumentData?
+
+    var documentData = DocumentData(open: .offline, dataFolderName: "Untitled")
     
     var mainWindowController: EditorWindowController?
     
     override class var autosavesInPlace: Bool {
         return true
+    }
+
+    override func write(to absoluteURL: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType, originalContentsURL absoluteOriginalContentsURL: URL?) throws {
+        try super.write(to: absoluteURL, ofType: typeName, for: saveOperation, originalContentsURL: absoluteURL)
     }
     
     override func makeWindowControllers() {
@@ -36,16 +44,18 @@ class Document: NSDocument {
         let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("DocumentWindowController")) as! EditorWindowController
         mainWindowController = windowController
         self.addWindowController(windowController)
+
+        Swift.print(workspaceModel.serverURL)
     }
 
-    override func data(ofType typeName: String) throws -> Data {
-        mainWindowController?.saveAllDocuments()
-        return try JSONEncoder().encode(documentData)
-    }
-
-    override func read(from data: Data, ofType typeName: String) throws {
-        documentData = try JSONDecoder().decode(DocumentData.self, from: data)
-    }
+//    override func data(ofType typeName: String) throws -> Data {
+//        mainWindowController?.saveAllDocuments()
+//        return try JSONEncoder().encode(documentData)
+//    }
+//
+//    override func read(from data: Data, ofType typeName: String) throws {
+//        documentData = try JSONDecoder().decode(DocumentData.self, from: data)
+//    }
 
     override func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) throws -> NSPrintOperation {
         guard let editor = mainWindowController?.editorWrapperViewController.openedEditorController else {
@@ -65,6 +75,13 @@ enum DocumentError: Error {
     case notPrintable
 }
 
+extension NSManagedObjectContext {
+    func fetchOrCreateWorkspaceModel() -> WorkspaceModel {
+        let response = try? fetch(WorkspaceModel.mainFetchRequest())
+        return response?.first ?? createWorkspaceModel()
+    }
+}
+
 class TexDocsDocumentController: NSDocumentController {
     override func openUntitledDocumentAndDisplay(_ displayDocument: Bool) throws -> NSDocument {
         
@@ -81,8 +98,9 @@ class TexDocsDocumentController: NSDocumentController {
         try! FileManager.default.createDirectory(at: localURL, withIntermediateDirectories: true, attributes: nil)
         
         let projectFileURL = localURL.appendingPathComponent(localURL.lastPathComponent).appendingPathExtension("texdocs")
-        let document = Document(documentData: DocumentData(open: method, dataFolderName: localURL.lastPathComponent))
-        document.save(to: projectFileURL, ofType: "", for: .saveOperation) { error in
+        let document = Workspace(openMethod: method)
+
+        document.save(to: projectFileURL, ofType: "SQLite", for: .saveOperation) { error in
             self.addDocument(document)
             document.makeWindowControllers()
             if (displayDocument) {

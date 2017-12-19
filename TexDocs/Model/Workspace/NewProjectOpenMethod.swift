@@ -14,8 +14,18 @@ enum NewProjectOpenMethod {
     case join(serverURL: URL, projectID: String)
     
     var serverURL: URL? {
-        switch self { case .join(let serverURL, _), .create(let serverURL):
+        switch self {
+        case .join(let serverURL, _), .create(let serverURL):
             return serverURL
+        default:
+            return nil
+        }
+    }
+
+    var projectID: String? {
+        switch self {
+        case .join(_, let projectID):
+            return projectID
         default:
             return nil
         }
