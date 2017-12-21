@@ -29,3 +29,13 @@ extension NSRange {
         return NSRange(location: location + shift, length: length)
     }
 }
+
+extension Data {
+    func generateHash() -> Data {
+        var hash = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
+        withUnsafeBytes {
+            _ = CC_SHA256($0, CC_LONG(count), &hash)
+        }
+        return Data(bytes: hash)
+    }
+}

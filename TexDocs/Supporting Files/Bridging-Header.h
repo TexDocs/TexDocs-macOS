@@ -9,6 +9,7 @@
 #ifndef Bridging_Header_h
 #define Bridging_Header_h
 
+#import <CommonCrypto/CommonHMAC.h>
 
 #import "CCNPreferencesWindowControllerProtocol.h"
 #import "CCNPreferencesWindowController.h"

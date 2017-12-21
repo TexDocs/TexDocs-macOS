@@ -30,11 +30,13 @@ extension EditorWindowController: NavigationOutlineViewControllerDelegate {
             return
         }
 
-        let newSceme = DocumentData.Scheme(name: item.name, path: path)
-        workspace.documentData.schemes.append(newSceme)
-        editedDocument()
-
-        reloadSchemeSelector(selectUUID: newSceme.uuid)
+        workspace.asyncDatabaseOperations(operations: {
+            let scheme = $0.createSchemeModel(name: item.name, path: path)
+            self.workspace.workspaceModel.addToSchemes(scheme)
+            self.workspace.workspaceModel.selectedSchemeUUID = scheme.uuid
+        }, completion: { _ in
+            self.reloadSchemeSelector()
+        })
     }
 
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, encounterdError error: Error) {

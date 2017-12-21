@@ -82,7 +82,6 @@ extension EditorWindowController {
 
 extension EditorWindowController: EditSchemeSheetDelegate {
     func schemeUpdated() {
-        editedDocument()
         reloadSchemeSelector()
     }
 }

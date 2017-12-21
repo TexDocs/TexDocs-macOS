@@ -9,11 +9,11 @@
 import Cocoa
 
 class SchemeMenuItem: NSMenuItem {
-    let uuid: UUID
+    let scheme: SchemeModel
 
-    init(scheme: DocumentData.Scheme) {
-        self.uuid = scheme.uuid
-        super.init(title: scheme.name, action: nil, keyEquivalent: "")
+    init(scheme: SchemeModel) {
+        self.scheme = scheme
+        super.init(title: scheme.name ?? "", action: nil, keyEquivalent: "")
     }
 
     required init(coder decoder: NSCoder) {

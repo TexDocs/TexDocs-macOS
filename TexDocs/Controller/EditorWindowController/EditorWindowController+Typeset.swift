@@ -24,9 +24,11 @@ extension EditorWindowController {
     }
 
     func typeset() {
-        guard let scheme = selectedScheme else {
-            return
-        }
+//        guard let mainTexFilePath = selectedScheme.path else {
+//            return
+//        }
+
+        let mainTexFilePath = ""
 
         autoTypesetTimer?.invalidate()
         autoTypesetTimer = nil
@@ -37,7 +39,7 @@ extension EditorWindowController {
 
         consoleViewController.clearConsole()
 
-        let inputFile = workspaceURL.appendingPathComponent(scheme.path, isDirectory: false)
+        let inputFile = workspaceURL.appendingPathComponent(mainTexFilePath, isDirectory: false)
         let inputFileNameWithoutExtension = inputFile.deletingPathExtension().lastPathComponent
         let outputDirectory = workspaceURL.appendingPathComponent("out", isDirectory: false)
         let outputFile = outputDirectory

@@ -13,11 +13,11 @@ class EditSchemeSheet: NSViewController {
     @IBOutlet weak var fileTextField: NSTextField!
 
     weak var delegate: EditSchemeSheetDelegate?
-    var scheme: DocumentData.Scheme!
+    var scheme: SchemeModel!
 
     override func viewWillAppear() {
-        nameTextField.stringValue = scheme.name
-        fileTextField.stringValue = scheme.path
+        nameTextField.stringValue = scheme.name ?? ""
+        fileTextField.stringValue = scheme.path ?? ""
     }
 
     @IBAction func closeButtonClicked(_ sender: Any) {

@@ -41,9 +41,10 @@ class EditorWindowController: NSWindowController {
         return NSStoryboard.sheets.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("SimpleSheet")) as! SimpleSheet
     }()
 
-    func editSchemeSheet() -> EditSchemeSheet {
+    func editSchemeSheet(for scheme: SchemeModel) -> EditSchemeSheet {
         let sheet = NSStoryboard.sheets.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("editSchemeSheet")) as! EditSchemeSheet
         sheet.delegate = self
+        sheet.scheme = scheme
         return sheet
     }
 
@@ -65,12 +66,6 @@ class EditorWindowController: NSWindowController {
             startDirectoryMonitoring()
         } catch {
             showErrorSheet(error)
-        }
-    }
-
-    func editedDocument() {
-        DispatchQueue.main.async {
-            self.workspace.updateChangeCount(.changeDone)
         }
     }
 
@@ -110,22 +105,15 @@ class EditorWindowController: NSWindowController {
 
     var selectedSchemeMenuItem: SchemeMenuItem? = nil
 
-    var selectedScheme: DocumentData.Scheme? {
-        guard let uuid = selectedSchemeMenuItem?.uuid else { return nil }
-        return workspace.documentData.scheme(withUUID: uuid)
-    }
+    func reloadSchemeSelector() {
+        let schemes = workspace.workspaceModel.fetchAllSchemes()
 
-    func reloadSchemeSelector(selectUUID newSelctedUUID: UUID? = nil) {
-        let schemes = workspace.documentData.schemes
-
-        let initialUUID = newSelctedUUID ?? selectedSchemeMenuItem?.uuid
-        schemeSelector.removeAllItems()
-
+        schemeSelector.menu?.removeAllItems()
         if schemes.count > 0 {
             for scheme in schemes {
                 let menuItem = SchemeMenuItem(scheme: scheme)
                 schemeSelector.menu?.addItem(menuItem)
-                if scheme.uuid == initialUUID {
+                if scheme.uuid == workspace.workspaceModel.selectedSchemeUUID {
                     schemeSelector.select(menuItem)
                 }
             }
@@ -142,21 +130,25 @@ class EditorWindowController: NSWindowController {
     }
 
     @objc func editScheme() {
+        guard let selectedScheme = selectedSchemeMenuItem?.scheme else {
+            return
+        }
         schemeSelectorSelectionDidChange(self)
-        guard let scheme = selectedScheme else { return }
-        let sheet = editSchemeSheet()
-        sheet.scheme = scheme
+        let sheet = editSchemeSheet(for: selectedScheme)
         window?.contentViewController?.presentViewControllerAsSheet(sheet)
     }
 
     @objc func deleteScheme() {
-        schemeSelectorSelectionDidChange(self)
-        guard let index = workspace.documentData.schemes.index(where: { $0.uuid == selectedScheme?.uuid }) else {
+        guard let selectedScheme = selectedSchemeMenuItem?.scheme else {
             return
         }
+        schemeSelectorSelectionDidChange(self)
 
-        workspace.documentData.schemes.remove(at: index)
-        reloadSchemeSelector()
+        workspace.asyncDatabaseOperations(operations: {
+            $0.delete(selectedScheme)
+        }, completion: { _ in
+            self.reloadSchemeSelector()
+        })
     }
 
     // MARK: Life cycle
@@ -220,6 +212,7 @@ class EditorWindowController: NSWindowController {
             return
         }
         selectedSchemeMenuItem = newSelection
+        workspace.workspaceModel.selectedSchemeUUID = newSelection.scheme.uuid
     }
 
     @IBAction func reconnectButtonClicked(_ sender: Any) {

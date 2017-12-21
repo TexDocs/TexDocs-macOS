@@ -14,10 +14,10 @@ class Workspace: NSPersistentDocument {
     }
 
     lazy var workspaceModel: WorkspaceModel = managedObjectContext!.fetchOrCreateWorkspaceModel()
+    let databaseQueue = DispatchQueue(label: "Workspace Queue")
     
     override init() {
         super.init()
-//        Swift.print(workspaceModel.serverURL)
     }
 
     init(openMethod: NewProjectOpenMethod) {
@@ -25,8 +25,6 @@ class Workspace: NSPersistentDocument {
         workspaceModel.serverURL = openMethod.serverURL
         workspaceModel.serverProjectID = openMethod.projectID
     }
-
-    var documentData = DocumentData(open: .offline, dataFolderName: "Untitled")
     
     var mainWindowController: EditorWindowController?
     
@@ -36,26 +34,47 @@ class Workspace: NSPersistentDocument {
 
     override func write(to absoluteURL: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType, originalContentsURL absoluteOriginalContentsURL: URL?) throws {
         try super.write(to: absoluteURL, ofType: typeName, for: saveOperation, originalContentsURL: absoluteURL)
+        // TODO: Write documents to file system
     }
     
     override func makeWindowControllers() {
+
+        // TODO: Stuff
+        asyncDatabaseOperations(operations: {
+            let date = Date().timeIntervalSince1970
+            Swift.print(date)
+//            self.workspaceModel.addToSchemes($0.createSchemeModel(name: "Test Scheme \(date)", path: "this/is/a/path/to/a/file.tex"))
+
+//            try? self.workspaceModel.currentFilesFetchedResultController.performFetch()
+            let currentFiles = self.workspaceModel.currentFilesFetchedResultController.fetch()
+
+            Swift.print(currentFiles)
+            for file in currentFiles {
+//                try? self.workspaceModel.currentFilesFetchedResultController.performFetch()
+
+                self.workspaceModel.appendCommit($0.createDeleteFileCommit(forFile: file))
+            }
+//            try? self.workspaceModel.currentFilesFetchedResultController.performFetch()
+            Swift.print(self.workspaceModel.currentFilesFetchedResultController.fetch())
+
+            let file = $0.createBinaryFile(atPath: "a/path/to/a/file", withContent: "\(date)".data(using: .utf8)!)
+            self.workspaceModel.addToFiles(file)
+            self.workspaceModel.appendCommit(file.createCommit!)
+
+//            try? self.workspaceModel.currentFilesFetchedResultController.performFetch()
+            Swift.print(self.workspaceModel.currentFilesFetchedResultController.fetch())
+        })
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            Swift.print(String(data: ((self.workspaceModel.commitsFetchedResultController[0] as? CreateFileCommit)?.createdFile?.data?.data)!, encoding: .utf8))
+        }
+
         // Returns the Storyboard that contains the Document window.
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("DocumentWindowController")) as! EditorWindowController
         mainWindowController = windowController
         self.addWindowController(windowController)
-
-        Swift.print(workspaceModel.serverURL)
     }
-
-//    override func data(ofType typeName: String) throws -> Data {
-//        mainWindowController?.saveAllDocuments()
-//        return try JSONEncoder().encode(documentData)
-//    }
-//
-//    override func read(from data: Data, ofType typeName: String) throws {
-//        documentData = try JSONDecoder().decode(DocumentData.self, from: data)
-//    }
 
     override func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) throws -> NSPrintOperation {
         guard let editor = mainWindowController?.editorWrapperViewController.openedEditorController else {
@@ -73,41 +92,4 @@ class Workspace: NSPersistentDocument {
 enum DocumentError: Error {
     case noEditorOpened
     case notPrintable
-}
-
-extension NSManagedObjectContext {
-    func fetchOrCreateWorkspaceModel() -> WorkspaceModel {
-        let response = try? fetch(WorkspaceModel.mainFetchRequest())
-        return response?.first ?? createWorkspaceModel()
-    }
-}
-
-class TexDocsDocumentController: NSDocumentController {
-    override func openUntitledDocumentAndDisplay(_ displayDocument: Bool) throws -> NSDocument {
-        
-        let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
-        let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("NewProjectWindowController")) as! NSWindowController
-        
-        guard NSApplication.shared.runModal(for: windowController.window!) == .OK,
-            let controller = windowController.contentViewController as? NewProjectViewController,
-            let method = controller.method,
-            let localURL = controller.localURL else {
-            return NSDocument()
-        }
-        
-        try! FileManager.default.createDirectory(at: localURL, withIntermediateDirectories: true, attributes: nil)
-        
-        let projectFileURL = localURL.appendingPathComponent(localURL.lastPathComponent).appendingPathExtension("texdocs")
-        let document = Workspace(openMethod: method)
-
-        document.save(to: projectFileURL, ofType: "SQLite", for: .saveOperation) { error in
-            self.addDocument(document)
-            document.makeWindowControllers()
-            if (displayDocument) {
-                document.showWindows()
-            }
-        }
-        
-        return document
-    }
 }
