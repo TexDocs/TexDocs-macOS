@@ -17,8 +17,10 @@ class FileSystemItem: NSObject {
         return url.lastPathComponent
     }
 
+    let fileModel: FileModel?
+
     var isDirectory: Bool {
-        return url.hasDirectoryPath
+        return fileModel == nil
     }
 
     var editorControllerTypes: [EditorController.Type] {
@@ -29,36 +31,38 @@ class FileSystemItem: NSObject {
         }
     }
 
-    init(_ url: URL) throws {
+    init(_ url: URL, fileModel: FileModel? = nil) {
         self.url = url
+        self.fileModel = fileModel
         super.init()
-
-        try updateChildren()
     }
 
-    private func subURLs() -> [URL] {
-        guard isDirectory else { return [] }
-        return (try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])) ?? []
-    }
+    static func createTree(forFiles files: [FileModel], atURL baseURL: URL) -> FileSystemItem {
+        let root = FileSystemItem(baseURL)
 
-    func updateChildren() throws {
-        let newChildrenURLs = subURLs()
-
-        children = children.filter { newChildrenURLs.contains($0.url) }
-
-        try children.append(contentsOf: newChildrenURLs.filter { url in
-            !children.contains { child in
-                child.url == url
+        for file in files {
+            guard let components = file.relativePath?.components(separatedBy: "/"),
+                let fileName = components.last,
+                let superFolder = root.findChild(withRelativePathComponents: components.dropLast(), createIfNessesary: true) else {
+                continue
             }
-            }.fileSystemItems())
 
-        children.sort {
-            $0.name.lowercased() < $1.name.lowercased()
+            let url = superFolder.url.appendingPathComponent(fileName)
+
+            if let versionedFileSystemItem = file as? VersionedFileModel {
+                superFolder.children.append(EditableFileSystemItem(url, fileModel: versionedFileSystemItem))
+            } else {
+                switch url.pathExtension {
+                case "png", "jpg", "jpeg":
+                    superFolder.children.append(ImageFileSystemItem(superFolder.url.appendingPathComponent(fileName), fileModel: file))
+                default:
+                    superFolder.children.append(FileSystemItem(superFolder.url.appendingPathComponent(fileName), fileModel: file))
+                }
+
+            }
         }
 
-        try children.forEach {
-            try $0.updateChildren()
-        }
+        return root
     }
 
     func findChild(withURL url: URL) -> FileSystemItem? {
@@ -78,37 +82,29 @@ class FileSystemItem: NSObject {
         }
     }
 
-    private func findChild(withRelativePathComponents relativePath: ArraySlice<String>) -> FileSystemItem? {
+    private func findChild(withRelativePathComponents relativePath: ArraySlice<String>, createIfNessesary: Bool = false) -> FileSystemItem? {
         if relativePath.count == 0 {
             return self
         }
 
+        let name = relativePath.first
+
         for child in children {
-            if child.name == relativePath.first {
+            if child.name == name {
                 return child.findChild(withRelativePathComponents: relativePath.dropFirst())
             }
         }
-        return nil
+
+        guard createIfNessesary, let unwrappedName = name else {
+            return nil
+        }
+
+        let child = FileSystemItem(url.appendingPathComponent(unwrappedName))
+        self.children.append(child)
+        return child.findChild(withRelativePathComponents: relativePath.dropFirst(), createIfNessesary: true)
     }
 
     func allSubItems() -> [FileSystemItem] {
         return children.map({ [[$0], $0.allSubItems()].flatMap({ $0 }) }).flatMap({ $0 })
-    }
-
-    func save() throws {}
-    func reload() throws {}
-}
-
-extension Array where Element == URL {
-    func fileSystemItems() throws -> [FileSystemItem] {
-        return try map {
-            if FileTypeHandler.supportEditing(of: $0) {
-                return try EditableFileSystemItem($0)
-            } else if FileTypeHandler.isImageURL($0) {
-                return try ImageFileSystemItem($0)
-            } else {
-                return try FileSystemItem($0)
-            }
-        }
     }
 }

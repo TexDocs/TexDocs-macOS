@@ -7,34 +7,10 @@
 //
 
 import Foundation
-import EonilFileSystemEvents
 
 extension EditorWindowController {
-    func startDirectoryMonitoring() {
-        guard let dataFolderURL = dataFolderURL else {
-            return
-        }
-        
-        fileSystemMonitor = FileSystemEventMonitor(pathsToWatch: [dataFolderURL.path]) { [weak self] events in
-//            for event in events {
-//                 let url = URL(fileURLWithPath: event.path)
-////                self?.srcDirectoryDidChange()
-//            }
-            self?.srcDirectoryDidChange()
-        }
-    }
-
-    func stopDirectoryMonitoring() {
-        fileSystemMonitor = nil
-    }
-
-    func srcDirectoryDidChange() {
-        do {
-            try rootDirectory?.updateChildren()
-        } catch {
-            showErrorSheet(error)
-        }
+    func fileListDidChange() {
         outlineViewController.reloadData(inTab: .directory)
-        editorWrapperViewController.srcDirectoryDidChange()
+        editorWrapperViewController.fileListDidChange()
     }
 }

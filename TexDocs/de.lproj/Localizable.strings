@@ -16,12 +16,6 @@
 /* The display name of the collaboration editor */
 "TD_COLLABORATION_EDITOR_NAME" = "TD_COLLABORATION_EDITOR_NAME";
 
-/* Default name for a new directory */
-"TD_CONSTANT_UNTITLED_DIRECTORY" = "TD_CONSTANT_UNTITLED_DIRECTORY";
-
-/* Default name for a new file */
-"TD_CONSTANT_UNTITLED_FILE" = "TD_CONSTANT_UNTITLED_FILE";
-
 /* Menu item to delete the selected scheme */
 "TD_CONTEXTMENU_ITEM_DELETE_SCHEME" = "TD_CONTEXTMENU_ITEM_DELETE_SCHEME";
 

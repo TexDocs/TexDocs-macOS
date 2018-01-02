@@ -40,7 +40,7 @@ class EditorWrapperViewController: NSViewController {
         updateNavigationButtons()
     }
 
-    func srcDirectoryDidChange() {
+    func fileListDidChange() {
         var currentIndex = 0
 
         while currentIndex < editorControllerHistory.count {
@@ -112,6 +112,6 @@ protocol EditorWrapperViewControllerDelegate: class {
 
 extension FileSystemItem {
     fileprivate var isDeleted: Bool {
-        return !FileManager.default.fileExists(atPath: url.path)
+        return self.fileModel?.deleteCommit != nil
     }
 }

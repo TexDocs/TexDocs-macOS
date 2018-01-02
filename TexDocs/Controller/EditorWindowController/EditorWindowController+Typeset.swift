@@ -24,11 +24,9 @@ extension EditorWindowController {
     }
 
     func typeset() {
-//        guard let mainTexFilePath = selectedScheme.path else {
-//            return
-//        }
-
-        let mainTexFilePath = ""
+        guard let mainTexFilePath = selectedSchemeMenuItem?.scheme.path else {
+            return
+        }
 
         autoTypesetTimer?.invalidate()
         autoTypesetTimer = nil
@@ -48,6 +46,7 @@ extension EditorWindowController {
 
         do {
             try FileManager.default.createDirectory(at: outputDirectory, withIntermediateDirectories: true, attributes: nil)
+            try? saveFileListToFileSystem()
         } catch {
             showErrorSheet(error)
             return
@@ -72,8 +71,6 @@ extension EditorWindowController {
             }
         }
 
-        saveAllDocuments()
-
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             //launch and wait
             process.launch()
@@ -84,6 +81,20 @@ extension EditorWindowController {
                     self?.pdfViewController.showPDF(withURL: outputFile)
                 }
             }
+        }
+    }
+
+    func saveFileListToFileSystem() throws {
+        guard let rootDirectory = rootDirectory else {
+            return
+        }
+
+        for file in rootDirectory.allSubItems() {
+            guard let data = file.fileModel?.data?.data else {
+                continue
+            }
+            try FileManager.default.createDirectory(at: file.url.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
+            try data.write(to: file.url)
         }
     }
 }

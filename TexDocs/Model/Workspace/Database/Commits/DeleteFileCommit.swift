@@ -9,8 +9,8 @@
 import Foundation
 
 extension NSManagedObjectContext {
-    func createDeleteFileCommit(forFile file: FileModel) -> DeleteFileCommit {
-        let commit = NSEntityDescription.insertNewObject(forEntityName: "DeleteFileCommit", into: self) as! DeleteFileCommit
+    func createDeleteFileCommit(forFile file: FileModel) -> DeleteFileCommitModel {
+        let commit = NSEntityDescription.insertNewObject(forEntityName: "DeleteFileCommit", into: self) as! DeleteFileCommitModel
         commit.deletedFile = file
         return commit
     }

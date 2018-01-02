@@ -8,9 +8,16 @@
 
 import Foundation
 
+protocol DeleteTextCommit: FileContentCommit {
+    var location: Int64 { get }
+    var length: Int64 { get }
+}
+
+extension DeleteTextCommitModel: DeleteTextCommit {}
+
 extension NSManagedObjectContext {
-    func createDeleteTextCommit(inFile file: VersionedFileModel, atLocation location: Int, withLength length: Int) -> DeleteTextCommit {
-        let commit = NSEntityDescription.insertNewObject(forEntityName: "DeleteTextCommit", into: self) as! DeleteTextCommit
+    func createDeleteTextCommit(inFile file: VersionedFileModel, atLocation location: Int, withLength length: Int) -> DeleteTextCommitModel {
+        let commit = NSEntityDescription.insertNewObject(forEntityName: "DeleteTextCommit", into: self) as! DeleteTextCommitModel
         commit.file = file
         commit.location = Int64(location)
         commit.length = Int64(length)

@@ -9,20 +9,12 @@
 import Cocoa
 
 class ImageFileSystemItem: FileSystemItem {
-    var image: CachedProperty<NSImage?>!
+    lazy var image: CachedProperty<NSImage?> = CachedProperty(block: { [weak self] in
+        guard let data = self?.fileModel?.data?.data else { return nil }
+        return NSImage(data: data)
+    })
 
     override var editorControllerTypes: [EditorController.Type] {
         return [[ImageEditorViewController.self], super.editorControllerTypes].flatMap { $0}
-    }
-
-    override init(_ url: URL) throws {
-        try super.init(url)
-        image = CachedProperty(block: {
-            return NSImage(contentsOf: url)
-        })
-    }
-
-    override func reload() throws {
-        image.invalidateCache()
     }
 }

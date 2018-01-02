@@ -11,8 +11,8 @@ import CoreData
 
 @objc(WorkspaceModel)
 public class WorkspaceModel: NSManagedObject {
-    lazy var commitsFetchedResultController: SimpleFetchedResultsController<BaseCommit> = {
-        let request: NSFetchRequest<BaseCommit> = BaseCommit.fetchRequest()
+    lazy var commitsFetchedResultController: SimpleFetchedResultsController<BaseCommitModel> = {
+        let request: NSFetchRequest<BaseCommitModel> = BaseCommitModel.fetchRequest()
         request.sortDescriptors = [
             NSSortDescriptor(key: "index", ascending: true)
         ]
@@ -45,7 +45,7 @@ public class WorkspaceModel: NSManagedObject {
         return schemes?.flatMap { $0 as? SchemeModel } ?? []
     }
 
-    func insertCommit(_ newCommit: BaseCommit, at index: Int) {
+    func insertCommit(_ newCommit: BaseCommitModel, at index: Int) {
         for commit in commitsFetchedResultController[index...] {
             commit.index = commit.index + 1
         }
@@ -54,7 +54,7 @@ public class WorkspaceModel: NSManagedObject {
         newCommit.index = Int64(index)
     }
 
-    func appendCommit(_ commit: BaseCommit) {
+    func appendCommit(_ commit: BaseCommitModel) {
         let index = commitsFetchedResultController.numberOfItems()
         commit.workspace = self
         commit.index = Int64(index)

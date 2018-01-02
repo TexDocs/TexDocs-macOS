@@ -87,7 +87,7 @@ class SourceCodeRulerView: NSRulerView {
             range: NSRange(textView.string.startIndex..<textView.string.endIndex, in: textView.string))
         ruleThickness = lineNumberText(forLineNumber: highestLineNumber).size().width + 2 * padding
 
-        let annotations = textView.editableFileSystemItem?.annotations ?? []
+        let annotations: [RulerAnnotation] = textView.editableFileSystemItem?.annotations ?? []
         visibleAnnotations.removeAll(keepingCapacity: true)
 
         NSColor.white.setFill()

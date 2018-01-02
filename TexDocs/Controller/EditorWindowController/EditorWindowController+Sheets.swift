@@ -79,9 +79,42 @@ extension EditorWindowController {
     
 }
 
-
 extension EditorWindowController: EditSchemeSheetDelegate {
+    func editSchemeSheet(for scheme: SchemeModel) -> EditSchemeSheet {
+        let sheet = NSStoryboard.sheets.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("editSchemeSheet")) as! EditSchemeSheet
+        sheet.delegate = self
+        sheet.scheme = scheme
+        return sheet
+    }
+
     func schemeUpdated() {
         reloadSchemeSelector()
+    }
+}
+
+extension EditorWindowController: CreateNewFileSheetDelegate {
+    func newFileSystemItemSheet(forType type: NewFileItemType, withSuperItem superItem: FileSystemItem) -> CreateNewFileItemSheet {
+        let sheet = NSStoryboard.sheets.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("createNewFileItemSheet")) as! CreateNewFileItemSheet
+        sheet.delegate = self
+        sheet.type  = type
+        sheet.superItem = superItem
+        return sheet
+    }
+
+    func createNewFileItemSheet(_ sheet: CreateNewFileItemSheet, createWithName name: String, ofType type: NewFileItemType) {
+        switch type {
+        case .folder:
+            let url = sheet.superItem.url.appendingPathComponent(name)
+            sheet.superItem.children.append(FileSystemItem(url))
+        case .file:
+            dbUserCreateVersionedFile(withName: name, withSuperItem: sheet.superItem)
+        }
+        fileListDidChange()
+    }
+}
+
+extension NSStoryboard {
+    static var sheets: NSStoryboard {
+        return NSStoryboard(name: NSStoryboard.Name("Sheets"), bundle: nil)
     }
 }

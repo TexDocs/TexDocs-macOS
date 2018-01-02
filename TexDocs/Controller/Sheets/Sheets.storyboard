@@ -82,6 +82,78 @@
             </objects>
             <point key="canvasLocation" x="-523" y="773.5"/>
         </scene>
+        <!--Create New File Item Sheet-->
+        <scene sceneID="apG-Ma-9et">
+            <objects>
+                <viewController storyboardIdentifier="createNewFileItemSheet" id="Iis-xF-13e" customClass="CreateNewFileItemSheet" customModule="TexDocs" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="q1Z-PT-xqR">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="126"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6lx-Mh-q0p">
+                                <rect key="frame" x="20" y="51" width="410" height="55"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qUI-gT-di4">
+                                        <rect key="frame" x="-2" y="30" width="414" height="25"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Create a new file" id="mTS-hb-yoJ">
+                                            <font key="font" metaFont="system" size="21"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Cib-aY-sLF">
+                                        <rect key="frame" x="0.0" y="0.0" width="410" height="22"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Name" drawsBackground="YES" id="N28-xb-lAs">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="qUI-gT-di4" secondAttribute="trailing" id="NHy-Bo-vAh"/>
+                                    <constraint firstItem="qUI-gT-di4" firstAttribute="leading" secondItem="6lx-Mh-q0p" secondAttribute="leading" id="jzp-8l-EVj"/>
+                                    <constraint firstAttribute="trailing" secondItem="Cib-aY-sLF" secondAttribute="trailing" id="qfb-vs-ghh"/>
+                                    <constraint firstItem="Cib-aY-sLF" firstAttribute="leading" secondItem="6lx-Mh-q0p" secondAttribute="leading" id="wDA-Sv-rft"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wLJ-90-U7P">
+                                <rect key="frame" x="355" y="13" width="81" height="32"/>
+                                <buttonCell key="cell" type="push" title="Create" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lqw-HC-IwE">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="closeButtonClicked:" target="Iis-xF-13e" id="7On-da-681"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="6lx-Mh-q0p" secondAttribute="trailing" constant="20" id="BHS-yP-UgJ"/>
+                            <constraint firstItem="wLJ-90-U7P" firstAttribute="top" secondItem="6lx-Mh-q0p" secondAttribute="bottom" constant="10" id="OXz-7U-ByE"/>
+                            <constraint firstAttribute="trailing" secondItem="wLJ-90-U7P" secondAttribute="trailing" constant="20" id="beD-Wa-iKb"/>
+                            <constraint firstItem="6lx-Mh-q0p" firstAttribute="top" secondItem="q1Z-PT-xqR" secondAttribute="top" constant="20" id="hY8-cF-2LE"/>
+                            <constraint firstAttribute="bottom" secondItem="wLJ-90-U7P" secondAttribute="bottom" constant="20" id="lK2-LY-kVD"/>
+                            <constraint firstItem="6lx-Mh-q0p" firstAttribute="leading" secondItem="q1Z-PT-xqR" secondAttribute="leading" constant="20" id="vUq-0j-wA1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="label" destination="qUI-gT-di4" id="ruj-kV-bLq"/>
+                        <outlet property="nameTextField" destination="Cib-aY-sLF" id="tu3-aS-DGA"/>
+                    </connections>
+                </viewController>
+                <customObject id="aEc-4B-sUy" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-548" y="979.5"/>
+        </scene>
         <!--Edit Scheme Sheet-->
         <scene sceneID="LwW-Sp-VH6">
             <objects>

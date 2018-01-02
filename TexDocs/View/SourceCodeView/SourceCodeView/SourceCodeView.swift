@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, CompletionViewControllerDelegate {    
+class SourceCodeView: ImprovedTextView, VersionedFileDelegate, CompletionViewControllerDelegate {    
     // MARK: Variables
     
     /// The line number view on the left side.
@@ -115,16 +115,13 @@ class SourceCodeView: ImprovedTextView, EditableFileSystemItemDelegate, Completi
         sourceCodeViewDelegate?.sourceCodeView(self, annotationClicked: annotation, inRuler: ruler, rect: rect)
     }
     
-    func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, isContentReplace: Bool) {
+    func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool) {
         updateSourceCodeHighlighting(in: newRange)
+        sourceCodeViewDelegate?.sourceCodeViewStructureChanged(self)
     }
     
     func updateSourceCodeHighlighting(in editedRange: NSRange) {
         editableFileSystemItem?.languageDelegate?.sourceCodeView(self, updateCodeHighlightingInRange: editedRange)
-    }
-
-    func editableFileSystemItemDocumentStructureChanged(_ editableFileSystemItem: EditableFileSystemItem) {
-        sourceCodeViewDelegate?.sourceCodeViewStructureChanged(self)
     }
 
     func editableFileSystemItemReloaded(_ editableFileSystemItem: EditableFileSystemItem) {

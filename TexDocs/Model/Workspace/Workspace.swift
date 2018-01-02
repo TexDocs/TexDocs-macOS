@@ -34,41 +34,9 @@ class Workspace: NSPersistentDocument {
 
     override func write(to absoluteURL: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType, originalContentsURL absoluteOriginalContentsURL: URL?) throws {
         try super.write(to: absoluteURL, ofType: typeName, for: saveOperation, originalContentsURL: absoluteURL)
-        // TODO: Write documents to file system
     }
     
     override func makeWindowControllers() {
-
-        // TODO: Stuff
-        asyncDatabaseOperations(operations: {
-            let date = Date().timeIntervalSince1970
-            Swift.print(date)
-//            self.workspaceModel.addToSchemes($0.createSchemeModel(name: "Test Scheme \(date)", path: "this/is/a/path/to/a/file.tex"))
-
-//            try? self.workspaceModel.currentFilesFetchedResultController.performFetch()
-            let currentFiles = self.workspaceModel.currentFilesFetchedResultController.fetch()
-
-            Swift.print(currentFiles)
-            for file in currentFiles {
-//                try? self.workspaceModel.currentFilesFetchedResultController.performFetch()
-
-                self.workspaceModel.appendCommit($0.createDeleteFileCommit(forFile: file))
-            }
-//            try? self.workspaceModel.currentFilesFetchedResultController.performFetch()
-            Swift.print(self.workspaceModel.currentFilesFetchedResultController.fetch())
-
-            let file = $0.createBinaryFile(atPath: "a/path/to/a/file", withContent: "\(date)".data(using: .utf8)!)
-            self.workspaceModel.addToFiles(file)
-            self.workspaceModel.appendCommit(file.createCommit!)
-
-//            try? self.workspaceModel.currentFilesFetchedResultController.performFetch()
-            Swift.print(self.workspaceModel.currentFilesFetchedResultController.fetch())
-        })
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-            Swift.print(String(data: ((self.workspaceModel.commitsFetchedResultController[0] as? CreateFileCommit)?.createdFile?.data?.data)!, encoding: .utf8))
-        }
-
         // Returns the Storyboard that contains the Document window.
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("DocumentWindowController")) as! EditorWindowController

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17C88" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="BaseCommit" representedClassName="BaseCommit" isAbstract="YES" syncable="YES" codeGenerationType="class">
+    <entity name="BaseCommit" representedClassName="BaseCommitModel" isAbstract="YES" syncable="YES" codeGenerationType="class">
         <attribute name="index" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="workspace" maxCount="1" deletionRule="Nullify" destinationEntity="Workspace" inverseName="commits" inverseEntity="Workspace" syncable="YES"/>
         <fetchIndex name="byIndex">
@@ -8,13 +8,13 @@
             <fetchIndexElement property="workspace" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
-    <entity name="CreateFileCommit" representedClassName="CreateFileCommit" parentEntity="BaseCommit" syncable="YES" codeGenerationType="class">
+    <entity name="CreateFileCommit" representedClassName="CreateFileCommitModel" parentEntity="BaseCommit" syncable="YES" codeGenerationType="class">
         <relationship name="createdFile" maxCount="1" deletionRule="Nullify" destinationEntity="File" inverseName="createCommit" inverseEntity="File" syncable="YES"/>
     </entity>
-    <entity name="DeleteFileCommit" representedClassName="DeleteFileCommit" parentEntity="BaseCommit" syncable="YES" codeGenerationType="class">
+    <entity name="DeleteFileCommit" representedClassName="DeleteFileCommitModel" parentEntity="BaseCommit" syncable="YES" codeGenerationType="class">
         <relationship name="deletedFile" maxCount="1" deletionRule="Nullify" destinationEntity="File" inverseName="deleteCommit" inverseEntity="File" syncable="YES"/>
     </entity>
-    <entity name="DeleteTextCommit" representedClassName="DeleteTextCommit" parentEntity="FileContentCommit" syncable="YES" codeGenerationType="class">
+    <entity name="DeleteTextCommit" representedClassName="DeleteTextCommitModel" parentEntity="FileContentCommit" syncable="YES" codeGenerationType="class">
         <attribute name="length" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <entity name="File" representedClassName="FileModel" syncable="YES" codeGenerationType="category">
@@ -25,7 +25,7 @@
         <relationship name="deleteCommit" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="DeleteFileCommit" inverseName="deletedFile" inverseEntity="DeleteFileCommit" syncable="YES"/>
         <relationship name="workspace" maxCount="1" deletionRule="Nullify" destinationEntity="Workspace" inverseName="files" inverseEntity="Workspace" syncable="YES"/>
     </entity>
-    <entity name="FileContentCommit" representedClassName="FileContentCommit" isAbstract="YES" parentEntity="BaseCommit" syncable="YES" codeGenerationType="class">
+    <entity name="FileContentCommit" representedClassName="FileContentCommitModel" isAbstract="YES" parentEntity="BaseCommit" syncable="YES" codeGenerationType="class">
         <attribute name="location" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="file" maxCount="1" deletionRule="Nullify" destinationEntity="VersionedFile" inverseName="commits" inverseEntity="VersionedFile" syncable="YES"/>
     </entity>
@@ -33,7 +33,7 @@
         <attribute name="data" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <relationship name="file" maxCount="1" deletionRule="Nullify" destinationEntity="File" inverseName="data" inverseEntity="File" syncable="YES"/>
     </entity>
-    <entity name="InsertTextCommit" representedClassName="InsertTextCommit" parentEntity="FileContentCommit" syncable="YES" codeGenerationType="class">
+    <entity name="InsertTextCommit" representedClassName="InsertTextCommitModel" parentEntity="FileContentCommit" syncable="YES" codeGenerationType="class">
         <attribute name="text" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Scheme" representedClassName="SchemeModel" syncable="YES" codeGenerationType="class">
@@ -43,7 +43,7 @@
         <relationship name="workspace" maxCount="1" deletionRule="Nullify" destinationEntity="Workspace" inverseName="schemes" inverseEntity="Workspace" syncable="YES"/>
     </entity>
     <entity name="VersionedFile" representedClassName="VersionedFileModel" parentEntity="File" syncable="YES" codeGenerationType="category">
-        <relationship name="commits" maxCount="1" deletionRule="Nullify" destinationEntity="FileContentCommit" inverseName="file" inverseEntity="FileContentCommit" syncable="YES"/>
+        <relationship name="commits" toMany="YES" deletionRule="Nullify" destinationEntity="FileContentCommit" inverseName="file" inverseEntity="FileContentCommit" syncable="YES"/>
     </entity>
     <entity name="Workspace" representedClassName="WorkspaceModel" syncable="YES" codeGenerationType="category">
         <attribute name="pendingIndex" attributeType="Integer 64" minValueString="-1" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>

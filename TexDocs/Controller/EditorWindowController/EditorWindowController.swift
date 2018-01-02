@@ -15,9 +15,9 @@ class EditorWindowController: NSWindowController {
     
     /// File system event monitoring
     var fileSystemMonitor: FileSystemEventMonitor?
-    
+
     /// Content directory
-    var rootDirectory: FileSystemItem?
+    private(set) var rootDirectory: FileSystemItem?
 
     var currentTypesetProcess: Process? {
         didSet {
@@ -41,13 +41,6 @@ class EditorWindowController: NSWindowController {
         return NSStoryboard.sheets.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("SimpleSheet")) as! SimpleSheet
     }()
 
-    func editSchemeSheet(for scheme: SchemeModel) -> EditSchemeSheet {
-        let sheet = NSStoryboard.sheets.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("editSchemeSheet")) as! EditSchemeSheet
-        sheet.delegate = self
-        sheet.scheme = scheme
-        return sheet
-    }
-
     var sheetIsShown: Bool = false
     
     // Mark: Document
@@ -55,40 +48,16 @@ class EditorWindowController: NSWindowController {
     func loaded(document: Workspace) {
         reloadSchemeSelector()
 
-        do {
-            if !FileManager.default.fileExists(atPath: dataFolderURL.path) {
-                try FileManager.default.createDirectory(at: dataFolderURL, withIntermediateDirectories: true, attributes: nil)
-            }
-
-            rootDirectory = try FileSystemItem(dataFolderURL)
-            srcDirectoryDidChange()
-        
-            startDirectoryMonitoring()
-        } catch {
-            showErrorSheet(error)
-        }
+        rootDirectory = generateRootDirectory()
+        fileListDidChange()
     }
 
-    func saveAllDocuments() {
-        do {
-            for item in rootDirectory?.allSubItems() ?? [] {
-                try item.save()
-            }
-        } catch {
-            showErrorSheet(error)
+    private func generateRootDirectory() -> FileSystemItem {
+        guard let files = workspace?.workspaceModel.currentFilesFetchedResultController.fetch() else {
+            return FileSystemItem(dataFolderURL)
         }
-    }
 
-    func reloadAllDocuments() {
-        DispatchQueue.main.async { [weak self] in
-            do {
-                for item in self?.rootDirectory?.allSubItems() ?? [] {
-                    try item.reload()
-                }
-            } catch {
-                self?.showErrorSheet(error)
-            }
-        }
+        return FileSystemItem.createTree(forFiles: files, atURL: dataFolderURL)
     }
 
     func open(fileSystemItem: FileSystemItem, withEditorControllerType editorControllerType: EditorController.Type?) {
@@ -106,14 +75,16 @@ class EditorWindowController: NSWindowController {
     var selectedSchemeMenuItem: SchemeMenuItem? = nil
 
     func reloadSchemeSelector() {
-        let schemes = workspace.workspaceModel.fetchAllSchemes()
+        guard let schemes = workspace?.workspaceModel.fetchAllSchemes() else {
+            return
+        }
 
         schemeSelector.menu?.removeAllItems()
         if schemes.count > 0 {
             for scheme in schemes {
                 let menuItem = SchemeMenuItem(scheme: scheme)
                 schemeSelector.menu?.addItem(menuItem)
-                if scheme.uuid == workspace.workspaceModel.selectedSchemeUUID {
+                if scheme.uuid == workspace?.workspaceModel.selectedSchemeUUID {
                     schemeSelector.select(menuItem)
                 }
             }
@@ -143,12 +114,7 @@ class EditorWindowController: NSWindowController {
             return
         }
         schemeSelectorSelectionDidChange(self)
-
-        workspace.asyncDatabaseOperations(operations: {
-            $0.delete(selectedScheme)
-        }, completion: { _ in
-            self.reloadSchemeSelector()
-        })
+        dbDeleteScheme(selectedScheme)
     }
 
     // MARK: Life cycle
@@ -157,10 +123,6 @@ class EditorWindowController: NSWindowController {
         outlineViewController.delegate = self
         editorWrapperViewController.delegate = self
         shouldCascadeWindows = true
-    }
-    
-    deinit {
-        stopDirectoryMonitoring()
     }
 
     // MARK: Outlets
@@ -212,7 +174,7 @@ class EditorWindowController: NSWindowController {
             return
         }
         selectedSchemeMenuItem = newSelection
-        workspace.workspaceModel.selectedSchemeUUID = newSelection.scheme.uuid
+        dbSelectScheme(newSelection.scheme)
     }
 
     @IBAction func reconnectButtonClicked(_ sender: Any) {
@@ -229,10 +191,4 @@ extension FileSystemEventFlag {
         .mount,
         .unmount
     ]
-}
-
-extension NSStoryboard {
-    static var sheets: NSStoryboard {
-        return NSStoryboard(name: NSStoryboard.Name("Sheets"), bundle: nil)
-    }
 }

@@ -9,12 +9,12 @@
 import Foundation
 
 extension EditorWindowController {
-    var workspace: Workspace! {
+    var workspace: Workspace? {
         return self.document as? Workspace
     }
     
     var workspaceURL: URL! {
-        return workspace.workspaceURL
+        return workspace?.workspaceURL
     }
     
     var dataFolderURL: URL! {

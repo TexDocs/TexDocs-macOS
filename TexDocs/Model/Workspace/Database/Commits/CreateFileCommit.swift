@@ -9,8 +9,8 @@
 import Foundation
 
 extension NSManagedObjectContext {
-    func createCreateFileCommit() -> CreateFileCommit {
-        let commit = NSEntityDescription.insertNewObject(forEntityName: "CreateFileCommit", into: self) as! CreateFileCommit
+    func createCreateFileCommit() -> CreateFileCommitModel {
+        let commit = NSEntityDescription.insertNewObject(forEntityName: "CreateFileCommit", into: self) as! CreateFileCommitModel
         return commit
     }
 }

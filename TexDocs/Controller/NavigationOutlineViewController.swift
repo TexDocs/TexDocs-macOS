@@ -25,7 +25,6 @@ class NavigationOutlineViewController: NSViewController {
         }
         outlineView.reloadData()
         outlineView.expandItem(outlineView.item(atRow: 0), expandChildren: true)
-
     }
 
     // MARK: Context menu events
@@ -43,25 +42,22 @@ class NavigationOutlineViewController: NSViewController {
     @IBAction func newFile(_ sender: Any) {
         guard let item: FileSystemItem = outlineView.clickedItem()?.casted() else { return }
 
-        let parentUrl = item.isDirectory ? item.url : item.url.deletingLastPathComponent()
-        let newFileURL = parentUrl.appendingPathComponent(NSLocalizedString("TD_CONSTANT_UNTITLED_FILE", comment: "Default name for a new file"))
-        FileManager.default.createFile(atPath: newFileURL.path, contents: nil, attributes: nil)
+        delegate?.outlineViewController(self, createNewFileItemWithType: .file, withSuperItem: item)
     }
 
-    @IBAction func openFile(_ sender: Any) {
-        openWrapper(outlineView.clickedItem())
+    @IBAction func addFiles(_ sender: Any) {
+        guard let item: FileSystemItem = outlineView.clickedItem()?.casted() else { return }
+
+        delegate?.outlineViewController(self, addFilesToSuperItem: item)
     }
 
     @IBAction func newFolder(_ sender: Any) {
         guard let item: FileSystemItem = outlineView.clickedItem()?.casted() else { return }
+        delegate?.outlineViewController(self, createNewFileItemWithType: .folder, withSuperItem: item)
+    }
 
-        let parentUrl = item.isDirectory ? item.url : item.url.deletingLastPathComponent()
-        let newDirectoryURL = parentUrl.appendingPathComponent(NSLocalizedString("TD_CONSTANT_UNTITLED_DIRECTORY", comment: "Default name for a new directory"))
-        do {
-            try FileManager.default.createDirectory(at: newDirectoryURL, withIntermediateDirectories: false, attributes: nil)
-        } catch {
-            delegate?.outlineViewController(self, encounterdError: error)
-        }
+    @IBAction func openFile(_ sender: Any) {
+        openWrapper(outlineView.clickedItem())
     }
 
     @IBAction func delete(_ sender: Any) {
@@ -72,12 +68,7 @@ class NavigationOutlineViewController: NSViewController {
 
     private func deleteItem(fileSystemItem: FileSystemItem?) {
         guard let fileSystemItem = fileSystemItem else { return }
-
-        do {
-            try FileManager.default.removeItem(at: fileSystemItem.url)
-        } catch {
-            delegate?.outlineViewController(self, encounterdError: error)
-        }
+        delegate?.outlineViewController(self, deleteItem: fileSystemItem)
     }
 
     private func rootItem() -> NavigationOutlineViewItem? {
@@ -196,6 +187,10 @@ extension NavigationOutlineViewController: NavigationOutlineViewContextMenuDeleg
 
             if fileSystemItem.isDirectory {
                 menu.item(at: 4)?.isEnabled = false
+            } else {
+                menu.item(at: 6)?.isEnabled = false
+                menu.item(at: 7)?.isEnabled = false
+                menu.item(at: 8)?.isEnabled = false
             }
         } else {
             menu.setItemsEnabled(false)
@@ -235,4 +230,7 @@ protocol NavigationOutlineViewControllerDelegate: class {
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, selectedDocumentStructureNode item: DocumentStructureNode)
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, createNewSchemeFor item: FileSystemItem)
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, encounterdError error: Error)
+    func outlineViewController(_ outlineViewController: NavigationOutlineViewController, createNewFileItemWithType type: NewFileItemType, withSuperItem superItem: FileSystemItem)
+    func outlineViewController(_ outlineViewController: NavigationOutlineViewController, deleteItem item: FileSystemItem)
+    func outlineViewController(_ outlineViewController: NavigationOutlineViewController, addFilesToSuperItem item: FileSystemItem)
 }

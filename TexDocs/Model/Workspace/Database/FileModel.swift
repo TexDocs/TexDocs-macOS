@@ -17,16 +17,7 @@ public class FileModel: NSManagedObject {
 }
 
 extension NSManagedObjectContext {
-    func createVersionedFile(atPath path: String) -> VersionedFileModel {
-        let file = NSEntityDescription.insertNewObject(forEntityName: "VersionedFile", into: self) as! VersionedFileModel
-        file.relativePath = path
-        file.createCommit = createCreateFileCommit()
-        file.data = createFileDataModel()
-        file.updateFileHash()
-        return file
-    }
-
-    func createBinaryFile(atPath path: String, withContent data: Data) -> FileModel {
+    func createBinaryFile(at path: String, withData data: Data) -> FileModel {
         let file = NSEntityDescription.insertNewObject(forEntityName: "File", into: self) as! FileModel
         file.relativePath = path
         file.createCommit = createCreateFileCommit()

@@ -1007,6 +1007,12 @@ Gw
                                 <action selector="newFile:" target="7G5-ZZ-tBV" id="WWo-4W-5a5"/>
                             </connections>
                         </menuItem>
+                        <menuItem title="Add Files" id="prs-yR-bzw">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="addFiles:" target="7G5-ZZ-tBV" id="k3J-vk-nPY"/>
+                            </connections>
+                        </menuItem>
                         <menuItem title="New Folder" id="7Rs-LG-bm5">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>

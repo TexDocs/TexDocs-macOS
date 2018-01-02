@@ -14,18 +14,18 @@ extension EditorWindowController: SourceCodeViewDelegate {
     }
 
     func sourceCodeView(_ sourceCodeView: SourceCodeView, annotationClicked annotation: RulerAnnotation, inRuler ruler: NSRulerView, rect: NSRect) {
-        switch annotation.type {
-        case .file(let relativePath):
-            if let fileSystemItem = rootDirectory?.findChild(withRelativePath: relativePath) {
-                open(fileSystemItem: fileSystemItem, withEditorControllerType: nil)
-            }
-        case .helpFiles(let helpFiles):
-            if let helpFile = helpFiles.first(where: {
-                $0.url.pathExtension == "pdf"
-            }) {
-                pdfViewController.showPDF(withURL: helpFile.url)
-            }
-        }
+//        switch annotation.type {
+//        case .file(let relativePath):
+//            if let fileSystemItem = rootDirectory?.findChild(withRelativePath: relativePath) {
+//                open(fileSystemItem: fileSystemItem, withEditorControllerType: nil)
+//            }
+//        case .helpFiles(let helpFiles):
+//            if let helpFile = helpFiles.first(where: {
+//                $0.url.pathExtension == "pdf"
+//            }) {
+//                pdfViewController.showPDF(withURL: helpFile.url)
+//            }
+//        }
     }
 }
 
