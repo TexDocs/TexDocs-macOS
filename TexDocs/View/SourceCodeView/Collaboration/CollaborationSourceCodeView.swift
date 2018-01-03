@@ -73,11 +73,6 @@ class CollaborationSourceCodeView: SourceCodeView {
         NSRect(x: editorBounds.minX, y: minY, width: editorBounds.width, height: maxY - minY).fill()
     }
     
-    override func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool) {
-        super.textDidChange(oldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser)
-        collaborationDelegate?.collaborationSourceCodeView(self, textDidChangeInOldRange: oldRange, newRange: newRange, changeInLength: delta, byUser: byUser, to: string[newRange])
-    }
-    
     override func selectionDidChange(selection: NSRange) {
         super.selectionDidChange(selection: selection)
         collaborationDelegate?.collaborationSourceCodeView(self, userSelectionDidChange: selection)
@@ -85,7 +80,6 @@ class CollaborationSourceCodeView: SourceCodeView {
 }
 
 protocol CollaborationSourceCodeViewDelegate: class {
-    func collaborationSourceCodeView(_ collaborationSourceCodeView: CollaborationSourceCodeView, textDidChangeInOldRange oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, to newString: String)
     func collaborationSourceCodeView(_ collaborationSourceCodeView: CollaborationSourceCodeView, userSelectionDidChange newSelection: NSRange)
     func collaborationCursors(for editor: CollaborationSourceCodeView) -> [CollaborationCursor]
 }

@@ -66,6 +66,14 @@ extension EditorWindowController: NavigationOutlineViewControllerDelegate {
     }
 
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, deleteItem item: FileSystemItem) {
+        guard let fileModel = item.fileModel,
+            let parent = item.parent,
+            let index = parent.children.index(of: item) else {
+                return
+        }
 
+        parent.children.remove(at: index)
+        dbUserDeleteFile(fileModel)
+        fileListDidChange()
     }
 }

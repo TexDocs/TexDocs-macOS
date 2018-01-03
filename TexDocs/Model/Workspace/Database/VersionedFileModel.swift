@@ -60,6 +60,7 @@ public class VersionedFileModel: FileModel, NSTextStorageDelegate {
     }
 
     fileprivate var userInitiated = true
+    var collaborationDelegate: VersionedFileCollaborationDelegate?
     let delegates = MultiDelegate<VersionedFileDelegate>()
     private(set) lazy var languageDelegate: LanguageDelegate? = {
         allLanguageDelegates[pathExtension]?.init()
@@ -70,18 +71,24 @@ public class VersionedFileModel: FileModel, NSTextStorageDelegate {
             let oldRange = NSRange(location: editedRange.location, length: editedRange.length - delta)
 
             languageDelegate?.textStorageUpdated(textStorage)
+
+            let newString = textStorage.string[editedRange]
+            collaborationDelegate?.versionedFile(self, textDidChangeInOldRange: oldRange, newRange: editedRange, changeInLength: delta, byUser: userInitiated, newString: newString)
             delegates.forEach {
-                $0.textDidChange(oldRange: oldRange, newRange: editedRange, changeInLength: delta, byUser: userInitiated)
+                $0.versionedFile(self, textDidChangeInOldRange: oldRange, newRange: editedRange, changeInLength: delta, byUser: userInitiated, newString: newString)
             }
 
+            // TODO: Improve performance
             data?.data = textStorage.string.data(using: .utf8)
         }
     }
 }
 
 @objc protocol VersionedFileDelegate: class {
-    func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool)
+    func versionedFile(_ versionedFile: VersionedFileModel, textDidChangeInOldRange oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, newString: String)
 }
+
+protocol VersionedFileCollaborationDelegate: VersionedFileDelegate {}
 
 extension NSManagedObjectContext {
     func createVersionedFile(at path: String) -> VersionedFileModel {

@@ -105,7 +105,7 @@ extension EditorWindowController: CreateNewFileSheetDelegate {
         switch type {
         case .folder:
             let url = sheet.superItem.url.appendingPathComponent(name)
-            sheet.superItem.children.append(FileSystemItem(url))
+            sheet.superItem.children.append(FileSystemItem(url, parent: sheet.superItem))
         case .file:
             dbUserCreateVersionedFile(withName: name, withSuperItem: sheet.superItem)
         }

@@ -1,6 +1,7 @@
 begin
 def
 usepackage
+input
 part
 chapter
 section

@@ -11,6 +11,7 @@ import Cocoa
 class FileSystemItem: NSObject {
     let url: URL
 
+    var parent: FileSystemItem?
     var children: [FileSystemItem] = []
 
     var name: String {
@@ -31,14 +32,15 @@ class FileSystemItem: NSObject {
         }
     }
 
-    init(_ url: URL, fileModel: FileModel? = nil) {
+    init(_ url: URL, parent: FileSystemItem?, fileModel: FileModel? = nil) {
         self.url = url
         self.fileModel = fileModel
+        self.parent = parent
         super.init()
     }
 
     static func createTree(forFiles files: [FileModel], atURL baseURL: URL) -> FileSystemItem {
-        let root = FileSystemItem(baseURL)
+        let root = FileSystemItem(baseURL, parent: nil)
 
         for file in files {
             guard let components = file.relativePath?.components(separatedBy: "/"),
@@ -50,13 +52,22 @@ class FileSystemItem: NSObject {
             let url = superFolder.url.appendingPathComponent(fileName)
 
             if let versionedFileSystemItem = file as? VersionedFileModel {
-                superFolder.children.append(EditableFileSystemItem(url, fileModel: versionedFileSystemItem))
+                superFolder.children.append(EditableFileSystemItem(
+                    url,
+                    parent: superFolder,
+                    fileModel: versionedFileSystemItem))
             } else {
                 switch url.pathExtension {
                 case "png", "jpg", "jpeg":
-                    superFolder.children.append(ImageFileSystemItem(superFolder.url.appendingPathComponent(fileName), fileModel: file))
+                    superFolder.children.append(ImageFileSystemItem(
+                        superFolder.url.appendingPathComponent(fileName),
+                        parent: superFolder,
+                        fileModel: file))
                 default:
-                    superFolder.children.append(FileSystemItem(superFolder.url.appendingPathComponent(fileName), fileModel: file))
+                    superFolder.children.append(FileSystemItem(
+                        superFolder.url.appendingPathComponent(fileName),
+                        parent: superFolder,
+                        fileModel: file))
                 }
 
             }
@@ -99,7 +110,7 @@ class FileSystemItem: NSObject {
             return nil
         }
 
-        let child = FileSystemItem(url.appendingPathComponent(unwrappedName))
+        let child = FileSystemItem(url.appendingPathComponent(unwrappedName), parent: self)
         self.children.append(child)
         return child.findChild(withRelativePathComponents: relativePath.dropFirst(), createIfNessesary: true)
     }

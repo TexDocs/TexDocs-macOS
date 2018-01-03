@@ -10,11 +10,11 @@ import Foundation
 
 extension URL {
     func path(relativeTo base: URL) -> String? {
-        let basePath = base.path
-        guard path.hasPrefix(basePath) else {
+        let basePath = base.standardized.path
+        guard standardized.path.hasPrefix(basePath) else {
             return nil
         }
 
-        return String(path[basePath.endIndex...].dropFirst())
+        return String(standardized.path[basePath.endIndex...].dropFirst())
     }
 }

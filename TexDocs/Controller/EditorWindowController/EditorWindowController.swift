@@ -54,7 +54,7 @@ class EditorWindowController: NSWindowController {
 
     private func generateRootDirectory() -> FileSystemItem {
         guard let files = workspace?.workspaceModel.currentFilesFetchedResultController.fetch() else {
-            return FileSystemItem(dataFolderURL)
+            return FileSystemItem(dataFolderURL, parent: nil)
         }
 
         return FileSystemItem.createTree(forFiles: files, atURL: dataFolderURL)

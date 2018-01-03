@@ -37,12 +37,11 @@ extension EditorWindowController {
         let url = superItem.url.appendingPathComponent(name)
         guard let relativePath = url.path(relativeTo: dataFolderURL) else { return }
 
-        workspace?.syncDatabaseOperations(
-            operations: {
+        workspace?.syncDatabaseOperations(operations: {
                 let fileModel = $0.createVersionedFile(at: relativePath)
                 fileModel.workspace = self.workspace?.workspaceModel
                 self.workspace?.workspaceModel.appendCommit(fileModel.createCommit!)
-                superItem.children.append(FileSystemItem(url, fileModel: fileModel))
+            superItem.children.append(FileSystemItem(url, parent: superItem, fileModel: fileModel))
         })
     }
 
@@ -50,24 +49,30 @@ extension EditorWindowController {
         let url = superItem.url.appendingPathComponent(name)
         guard let relativePath = url.path(relativeTo: dataFolderURL) else { return }
 
-        workspace?.syncDatabaseOperations(
-            operations: {
+        workspace?.syncDatabaseOperations(operations: {
                 let fileModel = $0.createBinaryFile(at: relativePath, withData: data)
                 fileModel.workspace = self.workspace?.workspaceModel
                 self.workspace?.workspaceModel.appendCommit(fileModel.createCommit!)
-                superItem.children.append(FileSystemItem(url, fileModel: fileModel))
+            superItem.children.append(FileSystemItem(url, parent: superItem, fileModel: fileModel))
+        })
+    }
+
+    func dbUserDeleteFile(_ file: FileModel) {
+        workspace?.syncDatabaseOperations(operations: {
+            let deleteCommit = $0.createDeleteFileCommit(forFile: file)
+            workspace?.workspaceModel.appendCommit(deleteCommit)
         })
     }
 
     func dbUserInsertedText(inFile file: VersionedFileModel, atLocation location: Int, text: String) {
-        workspace?.asyncDatabaseOperations(operations: {
+        workspace?.syncDatabaseOperations(operations: {
             let commit = $0.createInsertTextCommit(inFile: file, atLocation: location, text: text)
             self.workspace?.workspaceModel.appendCommit(commit)
         })
     }
 
     func dbUserDeletedText(inFile file: VersionedFileModel, atLocation location: Int, withLength length: Int) {
-        workspace?.asyncDatabaseOperations(operations: {
+        workspace?.syncDatabaseOperations(operations: {
             let commit = $0.createDeleteTextCommit(inFile: file, atLocation: location, withLength: length)
             self.workspace?.workspaceModel.appendCommit(commit)
         })

@@ -114,8 +114,8 @@ class SourceCodeView: ImprovedTextView, VersionedFileDelegate, CompletionViewCon
     func rulerViewAnnotationClicked(annotation: RulerAnnotation, inRuler ruler: NSRulerView, rect: NSRect) {
         sourceCodeViewDelegate?.sourceCodeView(self, annotationClicked: annotation, inRuler: ruler, rect: rect)
     }
-    
-    func textDidChange(oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool) {
+
+    func versionedFile(_ versionedFile: VersionedFileModel, textDidChangeInOldRange oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, newString: String) {
         updateSourceCodeHighlighting(in: newRange)
         sourceCodeViewDelegate?.sourceCodeViewStructureChanged(self)
     }

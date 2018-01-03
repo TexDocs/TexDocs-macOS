@@ -9,21 +9,25 @@
 import Foundation
 
 extension EditorWindowController: CollaborationSourceCodeViewDelegate {
-    func collaborationSourceCodeView(_ collaborationSourceCodeView: CollaborationSourceCodeView, textDidChangeInOldRange oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, to newString: String) {
-        if byUser, let fileModel = collaborationSourceCodeView.editableFileSystemItem?.versionedFileModel {
-            if oldRange.length > 0 {
-                dbUserDeletedText(inFile: fileModel, atLocation: oldRange.location, withLength: oldRange.length)
-            }
-            if newRange.length > 0 {
-                dbUserInsertedText(inFile: fileModel, atLocation: newRange.location, text: newString)
-            }
-        }
-    }
-
     func collaborationSourceCodeView(_ collaborationSourceCodeView: CollaborationSourceCodeView, userSelectionDidChange newSelection: NSRange) {
+        //TODO implement
     }
     
     func collaborationCursors(for editor: CollaborationSourceCodeView) -> [CollaborationCursor] {
+        //TODO implement
         return []
+    }
+}
+
+extension EditorWindowController: VersionedFileCollaborationDelegate {
+    func versionedFile(_ versionedFile: VersionedFileModel, textDidChangeInOldRange oldRange: NSRange, newRange: NSRange, changeInLength delta: Int, byUser: Bool, newString: String) {
+        if byUser {
+            if oldRange.length > 0 {
+                dbUserDeletedText(inFile: versionedFile, atLocation: oldRange.location, withLength: oldRange.length)
+            }
+            if newRange.length > 0 {
+                dbUserInsertedText(inFile: versionedFile, atLocation: newRange.location, text: newString)
+            }
+        }
     }
 }

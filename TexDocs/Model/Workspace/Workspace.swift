@@ -13,7 +13,7 @@ class Workspace: NSPersistentDocument {
         return fileURL?.deletingLastPathComponent()
     }
 
-    lazy var workspaceModel: WorkspaceModel = managedObjectContext!.fetchOrCreateWorkspaceModel()
+    lazy var workspaceModel: WorkspaceModel = managedObjectContext!.fetchOrCreateWorkspaceModel(collaborationDelegate: mainWindowController!)
     let databaseQueue = DispatchQueue(label: "Workspace Queue")
     
     override init() {

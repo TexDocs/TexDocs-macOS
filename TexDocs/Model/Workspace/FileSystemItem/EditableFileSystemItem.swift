@@ -34,8 +34,8 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
         return [[CollaborationEditorViewController.self], super.editorControllerTypes].flatMap { $0}
     }
 
-    init(_ url: URL, fileModel: VersionedFileModel) {
-        super.init(url, fileModel: fileModel)
+    init(_ url: URL, parent: FileSystemItem?, fileModel: VersionedFileModel) {
+        super.init(url, parent: parent, fileModel: fileModel)
     }
 
     // MARK: Text did change

@@ -21,10 +21,18 @@ public class WorkspaceModel: NSManagedObject {
         return controller
     }()
 
+    var collaborationDelegate: VersionedFileCollaborationDelegate?
+
     lazy var currentFilesFetchedResultController: SimpleFetchedResultsController<FileModel> = {
         let request: NSFetchRequest<FileModel> = FileModel.fetchRequest()
         request.predicate = NSPredicate(format: "workspace == %@ AND deleteCommit == NULL", self)
-        let controller = SimpleFetchedResultsController(request: request, managedObjectContext: managedObjectContext!)
+        let controller = SimpleFetchedResultsController(
+            request: request,
+            managedObjectContext: managedObjectContext!) { [weak self] in
+                if let versionedFile = $0 as? VersionedFileModel {
+                    versionedFile.collaborationDelegate = self?.collaborationDelegate
+                }
+        }
         return controller
     }()
 
@@ -63,9 +71,11 @@ public class WorkspaceModel: NSManagedObject {
 }
 
 extension NSManagedObjectContext {
-    func fetchOrCreateWorkspaceModel() -> WorkspaceModel {
+    func fetchOrCreateWorkspaceModel(collaborationDelegate: VersionedFileCollaborationDelegate) -> WorkspaceModel {
         let response = try? fetch(WorkspaceModel.mainFetchRequest())
-        return response?.first ?? createWorkspaceModel()
+        let workspaceModel = response?.first ?? createWorkspaceModel()
+        workspaceModel.collaborationDelegate = collaborationDelegate
+        return workspaceModel
     }
 
     private func createWorkspaceModel() -> WorkspaceModel {
