@@ -18,12 +18,18 @@ class Workspace: NSPersistentDocument {
     
     override init() {
         super.init()
+        setUp()
     }
 
     init(openMethod: NewProjectOpenMethod) {
         super.init()
         workspaceModel.serverURL = openMethod.serverURL
         workspaceModel.serverProjectID = openMethod.projectID
+        setUp()
+    }
+
+    func setUp() {
+        managedObjectContext?.undoManager = nil
     }
     
     var mainWindowController: EditorWindowController?
