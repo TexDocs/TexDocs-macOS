@@ -24,8 +24,20 @@ class FileSystemItem: NSObject {
         return fileModel == nil
     }
 
-    var editorControllerTypes: [EditorController.Type] {
+    var icon: NSImage {
+        if FileManager.default.fileExists(atPath: url.path) {
+            return NSWorkspace.shared.icon(forFile: url.path)
+        }
+
         if isDirectory {
+            return NSWorkspace.shared.icon(forFile: "/bin")
+        } else {
+            return NSWorkspace.shared.icon(forFileType: url.pathExtension)
+        }
+    }
+
+    var editorControllerTypes: [EditorController.Type] {
+        if isDirectory || !(fileModel is VersionedFileModel) {
             return [EmptyStateEditorViewController.self]
         } else {
             return [WebViewEditorViewController.self, EmptyStateEditorViewController.self]

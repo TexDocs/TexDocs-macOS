@@ -17,7 +17,7 @@ class FileSystemItemCell: NSTableCellView {
     var fileSystemItem: FileSystemItem? {
         didSet {
             guard let fileSystemItem = fileSystemItem else { return }
-            iconView.image = NSWorkspace.shared.icon(forFile: fileSystemItem.url.path)
+            iconView.image = fileSystemItem.icon
             nameTextField.stringValue = fileSystemItem.url.lastPathComponent
         }
     }

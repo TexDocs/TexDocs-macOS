@@ -33,7 +33,7 @@ class EmptyStateEditorViewController: BaseEditorViewController, EditorController
     func reloadFromFileSystemItem() {
         let workspace = NSWorkspace.shared
 
-        imageView.image = workspace.icon(forFile: fileSystemItem.url.path)
+        imageView.image = fileSystemItem.icon
 
         guard let applicationPath = workspace.urlForApplication(toOpen: fileSystemItem.url) else {
             openInButton.isHidden = true
