@@ -53,3 +53,9 @@ protocol NavigationOutlineViewContextMenuDelegate: class {
     func navigationOutlineView(_ navigationOutlineView: NavigationOutlineView, updateContextMenu menu: NSMenu, for wrapper: ItemWrapper)
     func navigationOutlineView(_ navigationOutlineView: NavigationOutlineView, updateContextMenu menu: NSMenu)
 }
+
+class OutlineViewTextField: NSTextField {
+    override func rightMouseDown(with event: NSEvent) {
+        superview?.rightMouseDown(with: event)
+    }
+}

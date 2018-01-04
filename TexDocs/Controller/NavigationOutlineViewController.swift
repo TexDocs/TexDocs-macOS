@@ -212,14 +212,8 @@ extension NSMenu {
 
 extension NavigationOutlineViewController: FileSystemItemCellDelegate {
     func fileSystemItemCell(_ fileSystemItemCell: FileSystemItemCell, didChangeNameTo newName: String) {
-        guard let url = fileSystemItemCell.fileSystemItem?.url else { return }
-        do {
-            if FileManager.default.fileExists(atPath: url.path) {
-                try FileManager.default.renameItem(at: url, to: newName)
-            }
-        } catch {
-            delegate?.outlineViewController(self, encounterdError: error)
-        }
+        guard let fileSystemItem = fileSystemItemCell.fileSystemItem else { return }
+        delegate?.outlineViewController(self, renameItem: fileSystemItem, renameTo: newName)
     }
 }
 
@@ -232,5 +226,6 @@ protocol NavigationOutlineViewControllerDelegate: class {
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, encounterdError error: Error)
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, createNewFileItemWithType type: NewFileItemType, withSuperItem superItem: FileSystemItem)
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, deleteItem item: FileSystemItem)
+    func outlineViewController(_ outlineViewController: NavigationOutlineViewController, renameItem item: FileSystemItem, renameTo newName: String)
     func outlineViewController(_ outlineViewController: NavigationOutlineViewController, addFilesToSuperItem item: FileSystemItem)
 }

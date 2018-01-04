@@ -631,16 +631,16 @@ Gw
                                 <toolbarItem implicitItemIdentifier="0DD630CE-89BE-4893-8314-C724F1DC8D62" label="Mode" paletteLabel="Mode" id="ihT-jl-5TQ">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="102" height="23"/>
-                                    <size key="maxSize" width="102" height="24"/>
+                                    <size key="maxSize" width="102" height="23"/>
                                     <segmentedControl key="view" verticalHuggingPriority="750" id="Yxy-ac-IA5">
-                                        <rect key="frame" x="0.0" y="14" width="102" height="24"/>
+                                        <rect key="frame" x="0.0" y="14" width="102" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="selectOne" id="yER-UF-PsC">
                                             <font key="font" metaFont="system"/>
                                             <segments>
-                                                <segment image="NSListViewTemplate" width="32"/>
-                                                <segment image="NSColumnViewTemplate" width="32" selected="YES" tag="1"/>
-                                                <segment image="NSBookmarksTemplate" width="32">
+                                                <segment image="NSListViewTemplate"/>
+                                                <segment image="NSColumnViewTemplate" selected="YES" tag="1"/>
+                                                <segment image="NSBookmarksTemplate">
                                                     <nil key="label"/>
                                                 </segment>
                                             </segments>
@@ -858,7 +858,7 @@ Gw
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="Xzk-iW-zPM"/>
                                                                 </imageView>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yui-69-UgM">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yui-69-UgM" customClass="OutlineViewTextField" customModule="TexDocs" customModuleProvider="target">
                                                                     <rect key="frame" x="25" y="0.0" width="135" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="FileSystemItem" id="MZr-WD-2ak">

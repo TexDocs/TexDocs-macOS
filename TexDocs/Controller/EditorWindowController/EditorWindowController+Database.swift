@@ -33,27 +33,29 @@ extension EditorWindowController {
         })
     }
 
-    func dbUserCreateVersionedFile(withName name: String, withSuperItem superItem: FileSystemItem) {
+    @discardableResult func dbUserCreateVersionedFile(withName name: String, withSuperItem superItem: FileSystemItem) -> VersionedFileModel? {
         let url = superItem.url.appendingPathComponent(name)
-        guard let relativePath = url.path(relativeTo: dataFolderURL) else { return }
+        guard let relativePath = url.path(relativeTo: dataFolderURL) else { return nil }
 
-        workspace?.syncDatabaseOperations(operations: {
-                let fileModel = $0.createVersionedFile(at: relativePath)
-                fileModel.workspace = self.workspace?.workspaceModel
-                self.workspace?.workspaceModel.appendCommit(fileModel.createCommit!)
+        return workspace?.syncDatabaseOperations(operations: {
+            let fileModel = $0.createVersionedFile(at: relativePath)
+            fileModel.workspace = self.workspace?.workspaceModel
+            self.workspace?.workspaceModel.appendCommit(fileModel.createCommit!)
             superItem.children.append(FileSystemItem(url, parent: superItem, fileModel: fileModel))
+            return fileModel
         })
     }
 
-    func dbUserAddedBinaryFile(withName name: String, withData data: Data, withSuperItem superItem: FileSystemItem) {
+    @discardableResult func dbUserAddedBinaryFile(withName name: String, withData data: Data, withSuperItem superItem: FileSystemItem) -> FileModel? {
         let url = superItem.url.appendingPathComponent(name)
-        guard let relativePath = url.path(relativeTo: dataFolderURL) else { return }
+        guard let relativePath = url.path(relativeTo: dataFolderURL) else { return nil }
 
-        workspace?.syncDatabaseOperations(operations: {
-                let fileModel = $0.createBinaryFile(at: relativePath, withData: data)
-                fileModel.workspace = self.workspace?.workspaceModel
-                self.workspace?.workspaceModel.appendCommit(fileModel.createCommit!)
+        return workspace?.syncDatabaseOperations(operations: {
+            let fileModel = $0.createBinaryFile(at: relativePath, withData: data)
+            fileModel.workspace = self.workspace?.workspaceModel
+            self.workspace?.workspaceModel.appendCommit(fileModel.createCommit!)
             superItem.children.append(FileSystemItem(url, parent: superItem, fileModel: fileModel))
+            return fileModel
         })
     }
 

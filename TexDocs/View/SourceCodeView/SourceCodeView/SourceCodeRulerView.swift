@@ -90,6 +90,7 @@ class SourceCodeRulerView: NSRulerView {
         let annotations: [RulerAnnotation] = textView.editableFileSystemItem?.annotations ?? []
         visibleAnnotations.removeAll(keepingCapacity: true)
 
+        // draw background color
         NSColor.white.setFill()
         rect.fill()
 

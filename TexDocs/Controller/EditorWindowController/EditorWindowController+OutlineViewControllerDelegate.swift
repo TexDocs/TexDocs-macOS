@@ -76,4 +76,24 @@ extension EditorWindowController: NavigationOutlineViewControllerDelegate {
         dbUserDeleteFile(fileModel)
         fileListDidChange()
     }
+
+    func outlineViewController(_ outlineViewController: NavigationOutlineViewController, renameItem item: FileSystemItem, renameTo newName: String) {
+        guard let oldModel = item.fileModel,
+            item.name != newName,
+            let parent = item.parent,
+            let data = oldModel.data?.data,
+            let text = String(data: data, encoding: .utf8),
+            let index = parent.children.index(of: item) else {
+                return
+        }
+
+        parent.children.remove(at: index)
+        dbUserDeleteFile(oldModel)
+        guard let newFileModel = dbUserCreateVersionedFile(withName: newName, withSuperItem: parent) else {
+            return
+        }
+        dbUserInsertedText(inFile: newFileModel, atLocation: 0, text: text)
+
+        fileListDidChange()
+    }
 }

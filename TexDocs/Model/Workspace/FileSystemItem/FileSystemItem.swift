@@ -114,7 +114,7 @@ class FileSystemItem: NSObject {
 
         for child in children {
             if child.name == name {
-                return child.findChild(withRelativePathComponents: relativePath.dropFirst())
+                return child.findChild(withRelativePathComponents: relativePath.dropFirst(), createIfNessesary: createIfNessesary)
             }
         }
 
