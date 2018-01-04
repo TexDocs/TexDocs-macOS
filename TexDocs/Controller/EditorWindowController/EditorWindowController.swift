@@ -140,8 +140,12 @@ class EditorWindowController: NSWindowController {
     }
     
     @IBAction func panelsDidChange(_ sender: NSSegmentedControl) {
-        outlinePanel.isCollapsed = !sender.isSelected(forSegment: 0)
-        consolePanel.isCollapsed = !sender.isSelected(forSegment: 1)
+        if outlinePanel.isCollapsed == sender.isSelected(forSegment: 0) {
+            rootSplitViewController.toggleSidebar(sender)
+        }
+        if consolePanel.isCollapsed == sender.isSelected(forSegment: 1) {
+            centerSplitViewController.toggleSidebar(sender)
+        }
     }
     
     @IBAction func selectedModeDidChange(_ sender: NSSegmentedControl) {
