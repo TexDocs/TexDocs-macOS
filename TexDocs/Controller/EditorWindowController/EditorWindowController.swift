@@ -7,14 +7,10 @@
 //
 
 import Cocoa
-import EonilFileSystemEvents
 
 class EditorWindowController: NSWindowController {
     
     // MARK: Variables
-    
-    /// File system event monitoring
-    var fileSystemMonitor: FileSystemEventMonitor?
 
     /// Content directory
     private(set) var rootDirectory: FileSystemItem?
@@ -183,16 +179,4 @@ class EditorWindowController: NSWindowController {
 
     @IBAction func reconnectButtonClicked(_ sender: Any) {
     }
-}
-
-extension FileSystemEventFlag {
-    static var fileListChangedGroup: FileSystemEventFlag = [
-        .itemCreated,
-        .itemRemoved,
-        .itemRenamed,
-        .rootChanged,
-        .mustScanSubDirs,
-        .mount,
-        .unmount
-    ]
 }

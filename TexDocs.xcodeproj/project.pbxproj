@@ -68,7 +68,6 @@
 		4056A7E61FE4AAFC00697C57 /* String+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4056A7E51FE4AAFC00697C57 /* String+Helpers.swift */; };
 		4074B3501FC1BB4A0038176A /* RegexLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074B34F1FC1BB4A0038176A /* RegexLib.swift */; };
 		409176B11FD86ACD0086421B /* FileManager+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409176B01FD86ACD0086421B /* FileManager+Helpers.swift */; };
-		409176C51FD8917A0086421B /* EonilFileSystemEvents.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40BD4C341FC1C7220048ABF6 /* EonilFileSystemEvents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4095F7541FFFE3FF006A861A /* MessagePack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4095F7531FFFE3FE006A861A /* MessagePack.framework */; };
 		40A13BD41FD5D2800044E897 /* SchemeMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */; };
 		40A13BDA1FD5ECBA0044E897 /* EditSchemeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD91FD5ECBA0044E897 /* EditSchemeSheet.swift */; };
@@ -99,7 +98,6 @@
 		40BD25DC1FBCB7B900211743 /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BD25DB1FBCB7B900211743 /* WebSocket.swift */; };
 		40BD25E11FBCDC3400211743 /* NewProjectOpenMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BD25E01FBCDC3400211743 /* NewProjectOpenMethod.swift */; };
 		40BD25E31FBCE2B100211743 /* EditorWindowController+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BD25E21FBCE2B100211743 /* EditorWindowController+UI.swift */; };
-		40BD4C3B1FC1C7430048ABF6 /* EonilFileSystemEvents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BD4C341FC1C7220048ABF6 /* EonilFileSystemEvents.framework */; };
 		40BD4C3D1FC1C9CF0048ABF6 /* FileTypeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BD4C3C1FC1C9CF0048ABF6 /* FileTypeHandler.swift */; };
 		40C88C211FB8B659006F6BB9 /* NavigationOutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C88C201FB8B659006F6BB9 /* NavigationOutlineViewController.swift */; };
 		40E1D8711FD9CD230077BA90 /* LanguageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E1D8701FD9CD230077BA90 /* LanguageDelegate.swift */; };
@@ -134,34 +132,6 @@
 			remoteGlobalIDString = 40A7D0D91FB78A3F002FBB8B;
 			remoteInfo = TexDocs;
 		};
-		40BD4C331FC1C7220048ABF6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40BD4C2C1FC1C7220048ABF6 /* EonilFileSystemEvents.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 45D970A61A1569090037649F;
-			remoteInfo = EonilFileSystemEvents;
-		};
-		40BD4C351FC1C7220048ABF6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40BD4C2C1FC1C7220048ABF6 /* EonilFileSystemEvents.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 45D970961A155DD50037649F;
-			remoteInfo = InternalTester;
-		};
-		40BD4C371FC1C7220048ABF6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40BD4C2C1FC1C7220048ABF6 /* EonilFileSystemEvents.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 45DA95801A69F1610091410B;
-			remoteInfo = InternalTester4;
-		};
-		40BD4C391FC1C7220048ABF6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 40BD4C2C1FC1C7220048ABF6 /* EonilFileSystemEvents.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 45BF99C51A131E3A004E4E2E;
-			remoteInfo = TestdriveApp;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -172,7 +142,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				401CD55F1FDF1DA400396A7E /* LabeledTextField.framework in Embed Frameworks */,
-				409176C51FD8917A0086421B /* EonilFileSystemEvents.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -284,7 +253,6 @@
 		40BD25DD1FBCB90C00211743 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		40BD25E01FBCDC3400211743 /* NewProjectOpenMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectOpenMethod.swift; sourceTree = "<group>"; };
 		40BD25E21FBCE2B100211743 /* EditorWindowController+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+UI.swift"; sourceTree = "<group>"; };
-		40BD4C2C1FC1C7220048ABF6 /* EonilFileSystemEvents.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EonilFileSystemEvents.xcodeproj; path = "External Libraries/FileSystemEvents/EonilFileSystemEvents.xcodeproj"; sourceTree = "<group>"; };
 		40BD4C3C1FC1C9CF0048ABF6 /* FileTypeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTypeHandler.swift; sourceTree = "<group>"; };
 		40C88C201FB8B659006F6BB9 /* NavigationOutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOutlineViewController.swift; sourceTree = "<group>"; };
 		40E1D8701FD9CD230077BA90 /* LanguageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageDelegate.swift; sourceTree = "<group>"; };
@@ -311,7 +279,6 @@
 			files = (
 				4095F7541FFFE3FF006A861A /* MessagePack.framework in Frameworks */,
 				403C2F771FE8451E00B20CA4 /* libz.tbd in Frameworks */,
-				40BD4C3B1FC1C7430048ABF6 /* EonilFileSystemEvents.framework in Frameworks */,
 				400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */,
 				401CD55E1FDF1DA400396A7E /* LabeledTextField.framework in Frameworks */,
 			);
@@ -490,7 +457,6 @@
 		40A7D0D11FB78A3F002FBB8B = {
 			isa = PBXGroup;
 			children = (
-				40BD4C2C1FC1C7220048ABF6 /* EonilFileSystemEvents.xcodeproj */,
 				4056A7DD1FE4709100697C57 /* Application Support */,
 				40BD25D81FBCB5BC00211743 /* External Libraries */,
 				40A7D0DC1FB78A3F002FBB8B /* TexDocs */,
@@ -677,17 +643,6 @@
 			path = "External Libraries";
 			sourceTree = "<group>";
 		};
-		40BD4C2D1FC1C7220048ABF6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				40BD4C341FC1C7220048ABF6 /* EonilFileSystemEvents.framework */,
-				40BD4C361FC1C7220048ABF6 /* InternalTester */,
-				40BD4C381FC1C7220048ABF6 /* InternalTester4.app */,
-				40BD4C3A1FC1C7220048ABF6 /* TestdriveApp.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -823,12 +778,6 @@
 			mainGroup = 40A7D0D11FB78A3F002FBB8B;
 			productRefGroup = 40A7D0DB1FB78A3F002FBB8B /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 40BD4C2D1FC1C7220048ABF6 /* Products */;
-					ProjectRef = 40BD4C2C1FC1C7220048ABF6 /* EonilFileSystemEvents.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				40A7D0D91FB78A3F002FBB8B /* TexDocs */,
@@ -838,37 +787,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		40BD4C341FC1C7220048ABF6 /* EonilFileSystemEvents.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = EonilFileSystemEvents.framework;
-			remoteRef = 40BD4C331FC1C7220048ABF6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		40BD4C361FC1C7220048ABF6 /* InternalTester */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = InternalTester;
-			remoteRef = 40BD4C351FC1C7220048ABF6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		40BD4C381FC1C7220048ABF6 /* InternalTester4.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = InternalTester4.app;
-			remoteRef = 40BD4C371FC1C7220048ABF6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		40BD4C3A1FC1C7220048ABF6 /* TestdriveApp.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = TestdriveApp.app;
-			remoteRef = 40BD4C391FC1C7220048ABF6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		401CD5551FDF1DA400396A7E /* Resources */ = {
