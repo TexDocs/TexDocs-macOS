@@ -71,10 +71,9 @@ public class WorkspaceModel: NSManagedObject {
 }
 
 extension NSManagedObjectContext {
-    func fetchOrCreateWorkspaceModel(collaborationDelegate: VersionedFileCollaborationDelegate) -> WorkspaceModel {
+    func fetchOrCreateWorkspaceModel() -> WorkspaceModel {
         let response = try? fetch(WorkspaceModel.mainFetchRequest())
         let workspaceModel = response?.first ?? createWorkspaceModel()
-        workspaceModel.collaborationDelegate = collaborationDelegate
         return workspaceModel
     }
 

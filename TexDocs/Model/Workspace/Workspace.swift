@@ -13,7 +13,7 @@ class Workspace: NSPersistentDocument {
         return fileURL?.deletingLastPathComponent()
     }
 
-    lazy var workspaceModel: WorkspaceModel = managedObjectContext!.fetchOrCreateWorkspaceModel(collaborationDelegate: mainWindowController!)
+    lazy var workspaceModel: WorkspaceModel = managedObjectContext!.fetchOrCreateWorkspaceModel()
     let databaseQueue = DispatchQueue(label: "Workspace Queue")
     
     override init() {
@@ -47,6 +47,7 @@ class Workspace: NSPersistentDocument {
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("DocumentWindowController")) as! EditorWindowController
         mainWindowController = windowController
+        workspaceModel.collaborationDelegate = windowController
         self.addWindowController(windowController)
     }
 

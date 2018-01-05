@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import MessagePack
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -19,10 +20,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             GeneralPreferencesViewController(),
             VCSPreferencesViewController()
         ])
-    }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
     }
 
     @IBAction func showPreferencesWindow(_ sender: Any) {

@@ -16,6 +16,7 @@ extension EditorWindowController {
             self.workspace?.workspaceModel.selectedSchemeUUID = scheme.uuid
         }, completion: {
             if $0 { self.reloadSchemeSelector() }
+            self.editedDocument()
         })
     }
 
@@ -24,12 +25,15 @@ extension EditorWindowController {
             $0.delete(scheme)
         }, completion: {
             if $0 { self.reloadSchemeSelector() }
+            self.editedDocument()
         })
     }
 
     func dbSelectScheme(_ scheme: SchemeModel) {
         workspace?.asyncDatabaseOperations(operations: {_ in
             self.workspace?.workspaceModel.selectedSchemeUUID = scheme.uuid
+        }, completion: { _ in
+            self.editedDocument()
         })
     }
 
@@ -41,7 +45,8 @@ extension EditorWindowController {
             let fileModel = $0.createVersionedFile(at: relativePath)
             fileModel.workspace = self.workspace?.workspaceModel
             self.workspace?.workspaceModel.appendCommit(fileModel.createCommit!)
-            superItem.children.append(FileSystemItem(url, parent: superItem, fileModel: fileModel))
+            superItem.children.append(EditableFileSystemItem(url, parent: superItem, fileModel: fileModel))
+            fileModel.collaborationDelegate = self
             return fileModel
         })
     }

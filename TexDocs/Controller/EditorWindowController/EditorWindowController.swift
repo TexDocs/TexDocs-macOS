@@ -15,6 +15,10 @@ class EditorWindowController: NSWindowController {
     /// Content directory
     private(set) var rootDirectory: FileSystemItem?
 
+    lazy var collaborationClient = {
+        CollaborationClient(delegate: self)
+    }()
+
     var currentTypesetProcess: Process? {
         didSet {
             stopProcessButton.isEnabled = currentTypesetProcess != nil
@@ -46,6 +50,16 @@ class EditorWindowController: NSWindowController {
 
         rootDirectory = generateRootDirectory()
         fileListDidChange()
+
+        if let serverURL = document.workspaceModel.serverURL {
+            collaborationClient.connect(to: serverURL)
+        }
+    }
+
+    func editedDocument() {
+        DispatchQueue.main.async {
+            self.workspace?.updateChangeCount(.changeDone)
+        }
     }
 
     private func generateRootDirectory() -> FileSystemItem {

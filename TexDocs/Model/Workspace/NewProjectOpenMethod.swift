@@ -11,7 +11,7 @@ import Foundation
 enum NewProjectOpenMethod {
     case offline
     case create(serverURL: URL)
-    case join(serverURL: URL, projectID: String)
+    case join(serverURL: URL, projectID: UUID)
     
     var serverURL: URL? {
         switch self {
@@ -22,7 +22,7 @@ enum NewProjectOpenMethod {
         }
     }
 
-    var projectID: String? {
+    var projectID: UUID? {
         switch self {
         case .join(_, let projectID):
             return projectID

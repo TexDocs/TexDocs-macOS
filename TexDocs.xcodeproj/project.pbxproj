@@ -69,6 +69,12 @@
 		4074B3501FC1BB4A0038176A /* RegexLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074B34F1FC1BB4A0038176A /* RegexLib.swift */; };
 		409176B11FD86ACD0086421B /* FileManager+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409176B01FD86ACD0086421B /* FileManager+Helpers.swift */; };
 		4095F7541FFFE3FF006A861A /* MessagePack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4095F7531FFFE3FE006A861A /* MessagePack.framework */; };
+		4095F7571FFFEA78006A861A /* CollaborationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4095F7561FFFEA78006A861A /* CollaborationClient.swift */; };
+		4095F75C1FFFF6AC006A861A /* CollaborationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4095F75B1FFFF6AC006A861A /* CollaborationProtocol.swift */; };
+		4095F75F20000966006A861A /* MessagePackValuePrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4095F75E20000966006A861A /* MessagePackValuePrimitive.swift */; };
+		4095F76120000982006A861A /* MessagePackCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4095F76020000982006A861A /* MessagePackCodable.swift */; };
+		4095F76320001ED4006A861A /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 4095F76220001ED4006A861A /* Cartfile */; };
+		4095F76520002030006A861A /* EditorWindowController+CollaborationClientDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4095F76420002030006A861A /* EditorWindowController+CollaborationClientDelegate.swift */; };
 		40A13BD41FD5D2800044E897 /* SchemeMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */; };
 		40A13BDA1FD5ECBA0044E897 /* EditSchemeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD91FD5ECBA0044E897 /* EditSchemeSheet.swift */; };
 		40A13BDE1FD5F4C80044E897 /* EditorWindowController+Typeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BDD1FD5F4C80044E897 /* EditorWindowController+Typeset.swift */; };
@@ -135,6 +141,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		4095F7581FFFF517006A861A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		40A7D11C1FB79261002FBB8B /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -187,7 +202,6 @@
 		401CD56E1FE0845900396A7E /* CompletionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletionViewController.xib; sourceTree = "<group>"; };
 		4026AC8C1FBCE91D00FFB18B /* Sheets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Sheets.storyboard; sourceTree = "<group>"; };
 		4026AC8F1FBCEC5000FFB18B /* SimpleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSheet.swift; sourceTree = "<group>"; };
-		4026ACBF1FBF525C00FFB18B /* ObjectiveGit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectiveGit.framework; path = Carthage/Build/Mac/ObjectiveGit.framework; sourceTree = "<group>"; };
 		4026ACC51FBF549600FFB18B /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		4026ACC61FBF55D700FFB18B /* EditorWindowControllerHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWindowControllerHelpers.swift; sourceTree = "<group>"; };
 		402F52031FE095C4000F7AEA /* SourceCodeViewPlaceholders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCodeViewPlaceholders.swift; sourceTree = "<group>"; };
@@ -215,6 +229,12 @@
 		4074B34F1FC1BB4A0038176A /* RegexLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexLib.swift; sourceTree = "<group>"; };
 		409176B01FD86ACD0086421B /* FileManager+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Helpers.swift"; sourceTree = "<group>"; };
 		4095F7531FFFE3FE006A861A /* MessagePack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessagePack.framework; path = Carthage/Build/Mac/MessagePack.framework; sourceTree = "<group>"; };
+		4095F7561FFFEA78006A861A /* CollaborationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationClient.swift; sourceTree = "<group>"; };
+		4095F75B1FFFF6AC006A861A /* CollaborationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationProtocol.swift; sourceTree = "<group>"; };
+		4095F75E20000966006A861A /* MessagePackValuePrimitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePackValuePrimitive.swift; sourceTree = "<group>"; };
+		4095F76020000982006A861A /* MessagePackCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePackCodable.swift; sourceTree = "<group>"; };
+		4095F76220001ED4006A861A /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
+		4095F76420002030006A861A /* EditorWindowController+CollaborationClientDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+CollaborationClientDelegate.swift"; sourceTree = "<group>"; };
 		40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeMenuItem.swift; sourceTree = "<group>"; };
 		40A13BD91FD5ECBA0044E897 /* EditSchemeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSchemeSheet.swift; sourceTree = "<group>"; };
 		40A13BDD1FD5F4C80044E897 /* EditorWindowController+Typeset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+Typeset.swift"; sourceTree = "<group>"; };
@@ -341,7 +361,6 @@
 			isa = PBXGroup;
 			children = (
 				4095F7531FFFE3FE006A861A /* MessagePack.framework */,
-				4026ACBF1FBF525C00FFB18B /* ObjectiveGit.framework */,
 				40BD25DD1FBCB90C00211743 /* libz.tbd */,
 				400D97B51FBA3E1800540207 /* Quartz.framework */,
 			);
@@ -392,6 +411,7 @@
 				40322FEE1FC2238600C75CEF /* EditorWindowController+FSMonitoring.swift */,
 				40A13BDD1FD5F4C80044E897 /* EditorWindowController+Typeset.swift */,
 				400C27691FFBACC200BDF40C /* EditorWindowController+Database.swift */,
+				4095F76420002030006A861A /* EditorWindowController+CollaborationClientDelegate.swift */,
 			);
 			path = EditorWindowController;
 			sourceTree = "<group>";
@@ -444,6 +464,25 @@
 			path = LanguageDelegate;
 			sourceTree = "<group>";
 		};
+		4095F7551FFFEA63006A861A /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				4095F7561FFFEA78006A861A /* CollaborationClient.swift */,
+				4095F75B1FFFF6AC006A861A /* CollaborationProtocol.swift */,
+				4095F75D2000095A006A861A /* MessagePackHelpers */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		4095F75D2000095A006A861A /* MessagePackHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				4095F75E20000966006A861A /* MessagePackValuePrimitive.swift */,
+				4095F76020000982006A861A /* MessagePackCodable.swift */,
+			);
+			path = MessagePackHelpers;
+			sourceTree = "<group>";
+		};
 		40A13BF01FD731390044E897 /* FileSystemItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -457,6 +496,7 @@
 		40A7D0D11FB78A3F002FBB8B = {
 			isa = PBXGroup;
 			children = (
+				4095F76220001ED4006A861A /* Cartfile */,
 				4056A7DD1FE4709100697C57 /* Application Support */,
 				40BD25D81FBCB5BC00211743 /* External Libraries */,
 				40A7D0DC1FB78A3F002FBB8B /* TexDocs */,
@@ -486,6 +526,7 @@
 				40AA16F21FB88A4200373B07 /* View */,
 				40AB8C421FB87CCA00BC6D82 /* Controller */,
 				40AA16F11FB88A3800373B07 /* Model */,
+				4095F7551FFFEA63006A861A /* Client */,
 				40A7D0E51FB78A3F002FBB8B /* Main.storyboard */,
 				4007C7DC1FDC8E2B00A53649 /* Editors.storyboard */,
 				4007C8191FDD73DE00A53649 /* Localizable.strings */,
@@ -685,6 +726,7 @@
 				40A7D11C1FB79261002FBB8B /* Embed Frameworks */,
 				4007C81E1FDD748500A53649 /* Localize */,
 				4095F74E1FFFE246006A861A /* Carthage Copy */,
+				4095F7581FFFF517006A861A /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -800,6 +842,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4095F76320001ED4006A861A /* Cartfile in Resources */,
 				4056A7DE1FE4709100697C57 /* Application Support in Resources */,
 				4007C81B1FDD73DE00A53649 /* Localizable.strings in Resources */,
 				4007C8161FDD736600A53649 /* Main.storyboard in Resources */,
@@ -877,6 +920,8 @@
 				4048199F1FB8DD9400AAFBF0 /* NewProjectViewController.swift in Sources */,
 				403C2FC71FEC5BE400B20CA4 /* DeleteTextCommit.swift in Sources */,
 				401CD56F1FE0845900396A7E /* CompletionViewController.swift in Sources */,
+				4095F75F20000966006A861A /* MessagePackValuePrimitive.swift in Sources */,
+				4095F7571FFFEA78006A861A /* CollaborationClient.swift in Sources */,
 				40BD4C3D1FC1C9CF0048ABF6 /* FileTypeHandler.swift in Sources */,
 				4007C8371FDDA82E00A53649 /* ImageEditorViewController.swift in Sources */,
 				40FFD8F21FDC48B1007BA858 /* DocumentStructureItemCell.swift in Sources */,
@@ -902,6 +947,7 @@
 				40A13BE81FD720C30044E897 /* ThreadHelpers.swift in Sources */,
 				401CD5481FDF14FA00396A7E /* CCNPreferencesWindowController.m in Sources */,
 				40AA16FC1FB88F5600373B07 /* ThemesHandler.swift in Sources */,
+				4095F76520002030006A861A /* EditorWindowController+CollaborationClientDelegate.swift in Sources */,
 				401CD53D1FDEFC1F00396A7E /* MultiDelegate.swift in Sources */,
 				4007C7E01FDCB3C900A53649 /* CollaborationEditorViewController.swift in Sources */,
 				4056A7E61FE4AAFC00697C57 /* String+Helpers.swift in Sources */,
@@ -911,6 +957,8 @@
 				4007C7E81FDD63FF00A53649 /* ClosureMenuItem.swift in Sources */,
 				403C2FBD1FEC2B5300B20CA4 /* DeleteFileCommit.swift in Sources */,
 				40A13BDE1FD5F4C80044E897 /* EditorWindowController+Typeset.swift in Sources */,
+				4095F76120000982006A861A /* MessagePackCodable.swift in Sources */,
+				4095F75C1FFFF6AC006A861A /* CollaborationProtocol.swift in Sources */,
 				40FFD8EE1FDC37FD007BA858 /* NavigationOutlineViewItem.swift in Sources */,
 				40A13BF81FD731930044E897 /* URL+RelativePath.swift in Sources */,
 				40A13BF41FD731690044E897 /* EditableFileSystemItem.swift in Sources */,

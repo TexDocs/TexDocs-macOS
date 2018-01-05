@@ -19,8 +19,7 @@ extension FileManager {
             subDirectorys(of: applicationSupportBundleURLs(in: .systemDomainMask), withPath: path),
             subDirectorys(of: [Bundle.main.bundleURL.appendingPathComponent("Contents/Resources/Application Support", isDirectory: true)], withPath: path)
         ].flatMap { $0 }
-            .map { try? contentsOfDirectory(at: $0, includingPropertiesForKeys: [], options: []) }
-            .flatMap { $0 }
+            .flatMap { try? contentsOfDirectory(at: $0, includingPropertiesForKeys: [], options: []) }
             .flatMap { $0 }
     }
 

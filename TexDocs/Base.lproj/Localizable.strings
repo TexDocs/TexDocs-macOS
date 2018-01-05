@@ -25,6 +25,9 @@
 /* Name of the empty state editor */
 "TD_EMPTY_STATE_EDITOR_NAME" = "TD_EMPTY_STATE_EDITOR_NAME";
 
+/* Error message after unexpected connection drop. */
+"TD_ERROR_CONNECTION_LOST" = "TD_ERROR_CONNECTION_LOST";
+
 /* Message shown to the user if an internal error occures. */
 "TD_ERROR_INTERNAL_ERROR" = "TD_ERROR_INTERNAL_ERROR";
 
@@ -39,6 +42,9 @@
 
 /* Name of the latex root document structure node */
 "TD_LATEX_ROOT_STRUCTURE_NODE" = "TD_LATEX_ROOT_STRUCTURE_NODE";
+
+/* Project id not found. */
+"TD_NO_PROJECT_ID" = "TD_NO_PROJECT_ID";
 
 /* Open in <Application name> */
 "TD_OPEN_IN" = "TD_OPEN_IN";

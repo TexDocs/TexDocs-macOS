@@ -724,12 +724,14 @@ private class InnerWebSocket: Hashable {
                         switch self.binaryType {
                         case .uInt8Array:
                             self.event.message(frame.payload.array)
+                            self.eventDelegate?.webSocketMessageData?(Data(bytes: frame.payload.array))
                         case .nsData:
                             self.event.message(frame.payload.nsdata)
                             // The WebSocketDelegate is necessary to add Objective-C compability and it is only possible to send binary data with NSData.
                             self.eventDelegate?.webSocketMessageData?(frame.payload.nsdata)
                         case .uInt8UnsafeBufferPointer:
                             self.event.message(frame.payload.buffer)
+                            self.eventDelegate?.webSocketMessageData?(Data(buffer: frame.payload.buffer))
                         }
                     }
                 case .ping:

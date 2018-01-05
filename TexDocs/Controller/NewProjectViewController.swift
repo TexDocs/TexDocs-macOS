@@ -66,8 +66,8 @@ class NewProjectViewController: NSViewController {
             return .offline
         } else if joinRadioButton.state == .on {
             let parts = serverURLTextField.stringValue.components(separatedBy: "?")
-            guard parts.count == 2, let serverURL = URL(string: parts[0]) else { return nil }
-            return .join(serverURL: serverURL, projectID: parts[1])
+            guard parts.count == 2, let serverURL = URL(string: parts[0]), let uuid = UUID(uuidString: parts[1]) else { return nil }
+            return .join(serverURL: serverURL, projectID: uuid)
         } else {
             guard let serverURL = URL(string: serverURLTextField.stringValue) else { return nil }
             return .create(serverURL: serverURL)
@@ -88,6 +88,7 @@ class NewProjectViewController: NSViewController {
             warningStackView.isHidden = false
             return
         }
+        warningStackView.isHidden = true
         
         self.method = method
 
