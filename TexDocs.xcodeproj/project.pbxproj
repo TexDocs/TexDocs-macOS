@@ -69,6 +69,7 @@
 		4074B3501FC1BB4A0038176A /* RegexLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074B34F1FC1BB4A0038176A /* RegexLib.swift */; };
 		409176B11FD86ACD0086421B /* FileManager+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409176B01FD86ACD0086421B /* FileManager+Helpers.swift */; };
 		409176C51FD8917A0086421B /* EonilFileSystemEvents.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40BD4C341FC1C7220048ABF6 /* EonilFileSystemEvents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4095F7541FFFE3FF006A861A /* MessagePack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4095F7531FFFE3FE006A861A /* MessagePack.framework */; };
 		40A13BD41FD5D2800044E897 /* SchemeMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */; };
 		40A13BDA1FD5ECBA0044E897 /* EditSchemeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD91FD5ECBA0044E897 /* EditSchemeSheet.swift */; };
 		40A13BDE1FD5F4C80044E897 /* EditorWindowController+Typeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BDD1FD5F4C80044E897 /* EditorWindowController+Typeset.swift */; };
@@ -244,6 +245,7 @@
 		4056A7E51FE4AAFC00697C57 /* String+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Helpers.swift"; sourceTree = "<group>"; };
 		4074B34F1FC1BB4A0038176A /* RegexLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexLib.swift; sourceTree = "<group>"; };
 		409176B01FD86ACD0086421B /* FileManager+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Helpers.swift"; sourceTree = "<group>"; };
+		4095F7531FFFE3FE006A861A /* MessagePack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessagePack.framework; path = Carthage/Build/Mac/MessagePack.framework; sourceTree = "<group>"; };
 		40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeMenuItem.swift; sourceTree = "<group>"; };
 		40A13BD91FD5ECBA0044E897 /* EditSchemeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSchemeSheet.swift; sourceTree = "<group>"; };
 		40A13BDD1FD5F4C80044E897 /* EditorWindowController+Typeset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+Typeset.swift"; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4095F7541FFFE3FF006A861A /* MessagePack.framework in Frameworks */,
 				403C2F771FE8451E00B20CA4 /* libz.tbd in Frameworks */,
 				40BD4C3B1FC1C7430048ABF6 /* EonilFileSystemEvents.framework in Frameworks */,
 				400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */,
@@ -370,6 +373,7 @@
 		400D97AF1FBA3E1800540207 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4095F7531FFFE3FE006A861A /* MessagePack.framework */,
 				4026ACBF1FBF525C00FFB18B /* ObjectiveGit.framework */,
 				40BD25DD1FBCB90C00211743 /* libz.tbd */,
 				400D97B51FBA3E1800540207 /* Quartz.framework */,
@@ -725,6 +729,7 @@
 				40A7D0D81FB78A3F002FBB8B /* Resources */,
 				40A7D11C1FB79261002FBB8B /* Embed Frameworks */,
 				4007C81E1FDD748500A53649 /* Localize */,
+				4095F74E1FFFE246006A861A /* Carthage Copy */,
 			);
 			buildRules = (
 			);
@@ -919,6 +924,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./mergegenstrings.py TexDocs";
+		};
+		4095F74E1FFFE246006A861A /* Carthage Copy */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/Mac/MessagePack.framework",
+			);
+			name = "Carthage Copy";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1244,6 +1264,10 @@
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 52A793VRAY;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = "TexDocs/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = to.us.peeters.TexDocs;
@@ -1261,6 +1285,10 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 52A793VRAY;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = "TexDocs/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = to.us.peeters.TexDocs;
