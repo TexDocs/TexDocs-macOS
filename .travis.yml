@@ -11,5 +11,4 @@ script:
   - xcodebuild build -project TexDocs.xcodeproj -scheme TexDocs
 
 notifications:
-  webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
   webhooks: https://hooks.aethonan.pro/travisci/-289366026/
