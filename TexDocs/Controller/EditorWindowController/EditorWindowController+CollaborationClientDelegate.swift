@@ -29,7 +29,7 @@ extension EditorWindowController: CollaborationClientDelegate {
     }
 
     func collaborationClientDidCompletedHandshake(_ client: CollaborationClient) {
-        guard let projectID = workspace?.workspaceModel.serverProjectID else {
+        guard let projectID = workspace?.workspaceModel.serverProjectUUID else {
             client.closeConnection(reason: NSLocalizedString("TD_NO_PROJECT_ID", comment: "Project id not found."))
             return
         }

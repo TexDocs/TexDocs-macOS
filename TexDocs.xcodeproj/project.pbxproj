@@ -70,6 +70,7 @@
 		4095F76320001ED4006A861A /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 4095F76220001ED4006A861A /* Cartfile */; };
 		4095F76520002030006A861A /* EditorWindowController+CollaborationClientDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4095F76420002030006A861A /* EditorWindowController+CollaborationClientDelegate.swift */; };
 		4096D8C420010839001763A9 /* CompletionTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096D8C320010839001763A9 /* CompletionTableRowView.swift */; };
+		4096D8C620011309001763A9 /* UUID+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096D8C520011309001763A9 /* UUID+Data.swift */; };
 		40A13BD41FD5D2800044E897 /* SchemeMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */; };
 		40A13BDA1FD5ECBA0044E897 /* EditSchemeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD91FD5ECBA0044E897 /* EditSchemeSheet.swift */; };
 		40A13BDE1FD5F4C80044E897 /* EditorWindowController+Typeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BDD1FD5F4C80044E897 /* EditorWindowController+Typeset.swift */; };
@@ -253,6 +254,7 @@
 		4095F76220001ED4006A861A /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		4095F76420002030006A861A /* EditorWindowController+CollaborationClientDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+CollaborationClientDelegate.swift"; sourceTree = "<group>"; };
 		4096D8C320010839001763A9 /* CompletionTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionTableRowView.swift; sourceTree = "<group>"; };
+		4096D8C520011309001763A9 /* UUID+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UUID+Data.swift"; sourceTree = "<group>"; };
 		40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeMenuItem.swift; sourceTree = "<group>"; };
 		40A13BD91FD5ECBA0044E897 /* EditSchemeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSchemeSheet.swift; sourceTree = "<group>"; };
 		40A13BDD1FD5F4C80044E897 /* EditorWindowController+Typeset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+Typeset.swift"; sourceTree = "<group>"; };
@@ -625,6 +627,7 @@
 				401CD56B1FDF233B00396A7E /* UserDefaultSettings.swift */,
 				4056A7E51FE4AAFC00697C57 /* String+Helpers.swift */,
 				403C2FC81FED78C000B20CA4 /* SimpleFetchedResultsController.swift */,
+				4096D8C520011309001763A9 /* UUID+Data.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1102,6 +1105,7 @@
 				4007C7D51FDC730C00A53649 /* LatexRootDocumentStructureNode.swift in Sources */,
 				4007C7E81FDD63FF00A53649 /* ClosureMenuItem.swift in Sources */,
 				403C2FBD1FEC2B5300B20CA4 /* DeleteFileCommit.swift in Sources */,
+				4096D8C620011309001763A9 /* UUID+Data.swift in Sources */,
 				40A13BDE1FD5F4C80044E897 /* EditorWindowController+Typeset.swift in Sources */,
 				40FFD8EE1FDC37FD007BA858 /* NavigationOutlineViewItem.swift in Sources */,
 				40A13BF81FD731930044E897 /* URL+RelativePath.swift in Sources */,

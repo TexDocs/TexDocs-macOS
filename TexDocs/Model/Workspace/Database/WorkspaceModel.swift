@@ -70,6 +70,32 @@ public class WorkspaceModel: NSManagedObject {
     }
 }
 
+extension WorkspaceModel {
+    var serverProjectUUID: UUID? {
+        get {
+            guard let serverProjectUUIDData = serverProjectUUIDData else {
+                return nil
+            }
+            return UUID(data: serverProjectUUIDData)
+        }
+        set {
+            serverProjectUUIDData = newValue?.data
+        }
+    }
+
+    var selectedSchemeUUID: UUID? {
+        get {
+            guard let selectedSchemeUUIDData = selectedSchemeUUIDData else {
+                return nil
+            }
+            return UUID(data: selectedSchemeUUIDData)
+        }
+        set {
+            selectedSchemeUUIDData = newValue?.data
+        }
+    }
+}
+
 extension NSManagedObjectContext {
     func fetchOrCreateWorkspaceModel() -> WorkspaceModel {
         let response = try? fetch(WorkspaceModel.mainFetchRequest())

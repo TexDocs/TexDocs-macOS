@@ -39,7 +39,7 @@
     <entity name="Scheme" representedClassName="SchemeModel" syncable="YES" codeGenerationType="class">
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="path" attributeType="String" syncable="YES"/>
-        <attribute name="uuid" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="uuidData" attributeType="Binary" syncable="YES"/>
         <relationship name="workspace" maxCount="1" deletionRule="Nullify" destinationEntity="Workspace" inverseName="schemes" inverseEntity="Workspace" syncable="YES"/>
     </entity>
     <entity name="VersionedFile" representedClassName="VersionedFileModel" parentEntity="File" syncable="YES" codeGenerationType="category">
@@ -47,8 +47,8 @@
     </entity>
     <entity name="Workspace" representedClassName="WorkspaceModel" syncable="YES" codeGenerationType="category">
         <attribute name="pendingIndex" attributeType="Integer 64" minValueString="-1" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="selectedSchemeUUID" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="serverProjectID" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="selectedSchemeUUIDData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="serverProjectUUIDData" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="serverURL" optional="YES" attributeType="URI" syncable="YES"/>
         <attribute name="syncedIndex" attributeType="Integer 64" minValueString="-1" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="commits" toMany="YES" deletionRule="Cascade" destinationEntity="BaseCommit" inverseName="workspace" inverseEntity="BaseCommit" syncable="YES"/>

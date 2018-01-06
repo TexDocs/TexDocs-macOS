@@ -24,7 +24,7 @@ class Workspace: NSPersistentDocument {
     init(openMethod: NewProjectOpenMethod) {
         super.init()
         workspaceModel.serverURL = openMethod.serverURL
-        workspaceModel.serverProjectID = openMethod.projectID
+        workspaceModel.serverProjectUUID = openMethod.projectID
         setUp()
     }
 

@@ -8,6 +8,20 @@
 
 import Foundation
 
+extension SchemeModel {
+    var uuid: UUID? {
+        get {
+            guard let uuidData = uuidData else {
+                return nil
+            }
+            return UUID(data: uuidData)
+        }
+        set {
+            uuidData = newValue?.data
+        }
+    }
+}
+
 extension NSManagedObjectContext {
     func createSchemeModel(name: String, path: String) -> SchemeModel {
         // swiftlint:disable force_cast
