@@ -11,4 +11,4 @@ script:
   - xcodebuild build -project TexDocs.xcodeproj -scheme TexDocs
 
 notifications:
-  webhooks: https://hooks.aethonan.pro/travisci/-289366026/
+  webhooks: https://hooks.aethonan.pro/travisci/358138371/
