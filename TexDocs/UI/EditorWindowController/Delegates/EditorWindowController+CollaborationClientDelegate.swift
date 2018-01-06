@@ -38,10 +38,12 @@ extension EditorWindowController: CollaborationClientDelegate {
     }
 
     func collaborationClient(_ client: CollaborationClient, userJoined user: CollaborationUser) {
+        print("user with session uuid \(user.sessionUUID) joined")
         // TODO implement
     }
 
     func collaborationClient(_ client: CollaborationClient, userLeft user: CollaborationUser) {
+        print("user with session uuid \(user.sessionUUID) left")
         // TODO implement
     }
 

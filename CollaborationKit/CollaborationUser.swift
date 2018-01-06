@@ -9,9 +9,9 @@
 import Foundation
 
 public class CollaborationUser {
-    var cursor: CollaborationCursor?
-    let displayName: String
-    let sessionUUID: UUID
+    public private(set) var cursor: CollaborationCursor?
+    public let displayName: String
+    public let sessionUUID: UUID
 
     init(displayName: String, sessionUUID: UUID) {
         self.displayName = displayName
