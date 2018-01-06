@@ -8,16 +8,16 @@
 
 import Foundation
 
-class CollaborationClient {
+public class CollaborationClient {
     private(set) var collaborationCursors: [String: CollaborationCursor] = [:]
     private(set) var sessionID: UUID?
 
-    weak var delegate: CollaborationClientDelegate?
+    public weak var delegate: CollaborationClientDelegate?
 
     private var webSocket: WebSocket?
     private var ignoreCloseReason: Bool = false
 
-    func connect(to url: URL) {
+    public func connect(to url: URL) {
         sessionID = nil
         ignoreCloseReason = false
         webSocket = WebSocket()
@@ -26,7 +26,7 @@ class CollaborationClient {
         delegate?.collaborationClientDidStartConnecting(self)
     }
 
-    init(delegate: CollaborationClientDelegate) {
+    public init(delegate: CollaborationClientDelegate) {
         self.delegate = delegate
     }
 
@@ -43,7 +43,7 @@ class CollaborationClient {
 
 // MARK: - Protocols
 /// Collaboration Client Protocol
-protocol CollaborationClientDelegate: class {
+public protocol CollaborationClientDelegate: class {
     func collaborationClientDidStartConnecting(_ client: CollaborationClient)
     func collaborationClientDidConnected(_ client: CollaborationClient)
     func collaborationClient(_ client: CollaborationClient, encounteredError error: Error)
@@ -80,12 +80,12 @@ extension CollaborationClient {
 
 // MARK: - WebSocketDelegate
 extension CollaborationClient: WebSocketDelegate {
-    func webSocketOpen() {
+    public func webSocketOpen() {
         sendHandshake()
         delegate?.collaborationClientDidConnected(self)
     }
 
-    func webSocketClose(_ code: Int, reason: String, wasClean: Bool) {
+    public func webSocketClose(_ code: Int, reason: String, wasClean: Bool) {
         guard !ignoreCloseReason else { return }
 
         guard reason.count > 0 else {
@@ -95,13 +95,13 @@ extension CollaborationClient: WebSocketDelegate {
         delegate?.collaborationClient(self, didDisconnectedBecause: reason)
     }
 
-    func webSocketError(_ error: NSError) {
+    public func webSocketError(_ error: NSError) {
         guard !ignoreCloseReason else { return }
 
         connectionError(error)
     }
 
-    func webSocketMessageData(_ data: Data) {
+    public func webSocketMessageData(_ data: Data) {
         // Dispatch to prevent the server closing the connection.
         DispatchQueue.global(qos: .userInteractive).async {
             do {
@@ -115,15 +115,15 @@ extension CollaborationClient: WebSocketDelegate {
 
 // MARK: - Events
 extension CollaborationClient {
-    func sendHandshake() {
+    private func sendHandshake() {
         send(package: HandshakeRequest())
     }
 
-    func sendProjectRequest(forUUID uuid: UUID) {
+    public func sendProjectRequest(forUUID uuid: UUID) {
         send(package: ProjectRequest(uuid: uuid))
     }
 
-    func closeConnection(reason: String) {
+    public func closeConnection(reason: String) {
         ignoreCloseReason = true
         webSocket?.close()
         delegate?.collaborationClient(self, didDisconnectedBecause: reason)

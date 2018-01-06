@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import CollaborationKit
 
 class EditorWindowController: NSWindowController {
     

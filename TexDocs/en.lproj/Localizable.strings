@@ -25,9 +25,6 @@
 /* Name of the empty state editor */
 "TD_EMPTY_STATE_EDITOR_NAME" = "Empty State";
 
-/* Error message after unexpected connection drop. */
-"TD_ERROR_CONNECTION_LOST" = "TD_ERROR_CONNECTION_LOST";
-
 /* Message shown to the user if an internal error occures. */
 "TD_ERROR_INTERNAL_ERROR" = "Internal error.";
 

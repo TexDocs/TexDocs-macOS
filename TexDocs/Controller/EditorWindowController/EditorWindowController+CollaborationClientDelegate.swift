@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CollaborationKit
 
 extension EditorWindowController: CollaborationClientDelegate {
     func collaborationClientDidStartConnecting(_ client: CollaborationClient) {

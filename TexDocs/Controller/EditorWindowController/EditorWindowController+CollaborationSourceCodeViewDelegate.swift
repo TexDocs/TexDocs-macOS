@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CollaborationKit
 
 extension EditorWindowController: CollaborationSourceCodeViewDelegate {
     func collaborationSourceCodeView(_ collaborationSourceCodeView: CollaborationSourceCodeView, userSelectionDidChange newSelection: NSRange) {
