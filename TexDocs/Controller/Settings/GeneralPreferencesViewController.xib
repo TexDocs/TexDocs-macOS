@@ -97,7 +97,7 @@
                                 <action selector="toggleShowControlCharacters:" target="-2" id="dLp-Ik-yMP"/>
                             </connections>
                         </button>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="mkQ-qR-snc" customClass="LabeledTextField" customModule="LabeledTextField">
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="mkQ-qR-snc" customClass="LabeledTextField" customModule="UIElementsKit">
                             <rect key="frame" x="0.0" y="60" width="501" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="LZz-s0-xGD"/>
@@ -109,7 +109,7 @@
                                 <action selector="pdflatexPathChanged:" target="-2" id="LSj-tn-gjw"/>
                             </connections>
                         </customView>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="opO-qc-uke" customClass="LabeledTextField" customModule="LabeledTextField">
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="opO-qc-uke" customClass="LabeledTextField" customModule="UIElementsKit">
                             <rect key="frame" x="0.0" y="30" width="501" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="dHa-RF-nT8"/>
@@ -121,7 +121,7 @@
                                 <action selector="latexdefPathChanged:" target="-2" id="Vdu-Lc-SRa"/>
                             </connections>
                         </customView>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="IRN-hn-JIG" customClass="LabeledTextField" customModule="LabeledTextField">
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="IRN-hn-JIG" customClass="LabeledTextField" customModule="UIElementsKit">
                             <rect key="frame" x="0.0" y="0.0" width="501" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="iCa-J9-ZUd"/>

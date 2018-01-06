@@ -21,7 +21,7 @@
                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qLp-ql-xiM">
                     <rect key="frame" x="22" y="22" width="440" height="22"/>
                     <subviews>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="N7o-Jq-zaY" customClass="LabeledTextField" customModule="LabeledTextField">
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="N7o-Jq-zaY" customClass="LabeledTextField" customModule="UIElementsKit">
                             <rect key="frame" x="0.0" y="0.0" width="440" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="oJ5-Ho-c9g"/>

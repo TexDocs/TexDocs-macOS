@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import LabeledTextField
+import UIElementsKit
 
 class VCSPreferencesViewController: NSViewController, CCNPreferencesWindowControllerProtocol {
     func preferenceIdentifier() -> String! {

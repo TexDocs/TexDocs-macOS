@@ -8,16 +8,16 @@
 
 import Cocoa
 
-class ModernTabBar: NSStackView {
-    weak var tabBarDelegate: ModernTabBarDelegate?
+public class ModernTabBar: NSStackView {
+    public weak var tabBarDelegate: ModernTabBarDelegate?
 
-    var buttons: [NSButton] {
+    private var buttons: [NSButton] {
         return subviews.flatMap {
             $0 as? NSButton
         }
     }
 
-    var selectedButton: Int = 0 {
+    public var selectedButton: Int = 0 {
         didSet {
             buttons[oldValue].state = .off
             buttons[selectedButton].state = .on
@@ -25,7 +25,7 @@ class ModernTabBar: NSStackView {
         }
     }
 
-    required init?(coder decoder: NSCoder) {
+    public required init?(coder decoder: NSCoder) {
         super.init(coder: decoder)
 
         for button in buttons {
@@ -43,6 +43,6 @@ class ModernTabBar: NSStackView {
     }
 }
 
-protocol ModernTabBarDelegate: class {
+public protocol ModernTabBarDelegate: class {
     func modernTabBar(_ modernTabBar: ModernTabBar, didSelected buttonIndex: Int)
 }

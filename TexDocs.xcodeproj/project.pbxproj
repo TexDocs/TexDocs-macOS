@@ -31,10 +31,6 @@
 		401CD5481FDF14FA00396A7E /* CCNPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 401CD5451FDF14FA00396A7E /* CCNPreferencesWindowController.m */; };
 		401CD54C1FDF15F200396A7E /* VCSPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401CD54A1FDF15F200396A7E /* VCSPreferencesViewController.swift */; };
 		401CD54D1FDF15F200396A7E /* VCSPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 401CD54B1FDF15F200396A7E /* VCSPreferencesViewController.xib */; };
-		401CD55B1FDF1DA400396A7E /* LabeledTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 401CD5591FDF1DA400396A7E /* LabeledTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		401CD55E1FDF1DA400396A7E /* LabeledTextField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 401CD5571FDF1DA400396A7E /* LabeledTextField.framework */; };
-		401CD55F1FDF1DA400396A7E /* LabeledTextField.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 401CD5571FDF1DA400396A7E /* LabeledTextField.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		401CD5641FDF1DB400396A7E /* LabeledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401CD5631FDF1DB400396A7E /* LabeledTextField.swift */; };
 		401CD5691FDF211F00396A7E /* GeneralPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401CD5671FDF211F00396A7E /* GeneralPreferencesViewController.swift */; };
 		401CD56A1FDF211F00396A7E /* GeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 401CD5681FDF211F00396A7E /* GeneralPreferencesViewController.xib */; };
 		401CD56C1FDF233B00396A7E /* UserDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401CD56B1FDF233B00396A7E /* UserDefaultSettings.swift */; };
@@ -71,6 +67,11 @@
 		4095F76520002030006A861A /* EditorWindowController+CollaborationClientDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4095F76420002030006A861A /* EditorWindowController+CollaborationClientDelegate.swift */; };
 		4096D8C420010839001763A9 /* CompletionTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096D8C320010839001763A9 /* CompletionTableRowView.swift */; };
 		4096D8C620011309001763A9 /* UUID+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096D8C520011309001763A9 /* UUID+Data.swift */; };
+		4096D8E4200133DE001763A9 /* UIElementsKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4096D8E2200133DE001763A9 /* UIElementsKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4096D8E7200133DE001763A9 /* UIElementsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4096D8E0200133DE001763A9 /* UIElementsKit.framework */; };
+		4096D8E8200133DE001763A9 /* UIElementsKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4096D8E0200133DE001763A9 /* UIElementsKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4096D8EC200133E4001763A9 /* ModernTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFD8EB1FDC1B5E007BA858 /* ModernTabBar.swift */; };
+		4096D8ED200133F1001763A9 /* LabeledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401CD5631FDF1DB400396A7E /* LabeledTextField.swift */; };
 		40A13BD41FD5D2800044E897 /* SchemeMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */; };
 		40A13BDA1FD5ECBA0044E897 /* EditSchemeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD91FD5ECBA0044E897 /* EditSchemeSheet.swift */; };
 		40A13BDE1FD5F4C80044E897 /* EditorWindowController+Typeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BDD1FD5F4C80044E897 /* EditorWindowController+Typeset.swift */; };
@@ -119,7 +120,6 @@
 		40FF79BE2000F8AA006B3A62 /* CollaborationCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AB8C4A1FB884C900BC6D82 /* CollaborationCursor.swift */; };
 		40FF79BF2000F8B7006B3A62 /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BD25DB1FBCB7B900211743 /* WebSocket.swift */; };
 		40FF79C12000F8F6006B3A62 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BD25DD1FBCB90C00211743 /* libz.tbd */; };
-		40FFD8EC1FDC1B5E007BA858 /* ModernTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFD8EB1FDC1B5E007BA858 /* ModernTabBar.swift */; };
 		40FFD8EE1FDC37FD007BA858 /* NavigationOutlineViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFD8ED1FDC37FD007BA858 /* NavigationOutlineViewItem.swift */; };
 		40FFD8F01FDC3C4D007BA858 /* CachedProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFD8EF1FDC3C4D007BA858 /* CachedProperty.swift */; };
 		40FFD8F21FDC48B1007BA858 /* DocumentStructureItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFD8F11FDC48B1007BA858 /* DocumentStructureItemCell.swift */; };
@@ -127,12 +127,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		401CD55C1FDF1DA400396A7E /* PBXContainerItemProxy */ = {
+		4096D8E5200133DE001763A9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 40A7D0D21FB78A3F002FBB8B /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 401CD5561FDF1DA400396A7E;
-			remoteInfo = LabeledTextField;
+			remoteGlobalIDString = 4096D8DF200133DE001763A9;
+			remoteInfo = UIElementsKit;
 		};
 		40A7D0EF1FB78A3F002FBB8B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -173,7 +173,7 @@
 			files = (
 				40FF79A62000F6DA006B3A62 /* MessagePack.framework in Embed Frameworks */,
 				40FF79A42000EEAE006B3A62 /* MessagePackKit.framework in Embed Frameworks */,
-				401CD55F1FDF1DA400396A7E /* LabeledTextField.framework in Embed Frameworks */,
+				4096D8E8200133DE001763A9 /* UIElementsKit.framework in Embed Frameworks */,
 				40FF79B42000F7A6006B3A62 /* CollaborationKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -209,9 +209,6 @@
 		401CD5471FDF14FA00396A7E /* CCNPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNPreferencesWindowController.h; sourceTree = "<group>"; };
 		401CD54A1FDF15F200396A7E /* VCSPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCSPreferencesViewController.swift; sourceTree = "<group>"; };
 		401CD54B1FDF15F200396A7E /* VCSPreferencesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VCSPreferencesViewController.xib; sourceTree = "<group>"; };
-		401CD5571FDF1DA400396A7E /* LabeledTextField.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LabeledTextField.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		401CD5591FDF1DA400396A7E /* LabeledTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabeledTextField.h; sourceTree = "<group>"; };
-		401CD55A1FDF1DA400396A7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		401CD5631FDF1DB400396A7E /* LabeledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledTextField.swift; sourceTree = "<group>"; };
 		401CD5671FDF211F00396A7E /* GeneralPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferencesViewController.swift; sourceTree = "<group>"; };
 		401CD5681FDF211F00396A7E /* GeneralPreferencesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralPreferencesViewController.xib; sourceTree = "<group>"; };
@@ -255,6 +252,9 @@
 		4095F76420002030006A861A /* EditorWindowController+CollaborationClientDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+CollaborationClientDelegate.swift"; sourceTree = "<group>"; };
 		4096D8C320010839001763A9 /* CompletionTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionTableRowView.swift; sourceTree = "<group>"; };
 		4096D8C520011309001763A9 /* UUID+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UUID+Data.swift"; sourceTree = "<group>"; };
+		4096D8E0200133DE001763A9 /* UIElementsKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UIElementsKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4096D8E2200133DE001763A9 /* UIElementsKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIElementsKit.h; sourceTree = "<group>"; };
+		4096D8E3200133DE001763A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeMenuItem.swift; sourceTree = "<group>"; };
 		40A13BD91FD5ECBA0044E897 /* EditSchemeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSchemeSheet.swift; sourceTree = "<group>"; };
 		40A13BDD1FD5F4C80044E897 /* EditorWindowController+Typeset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+Typeset.swift"; sourceTree = "<group>"; };
@@ -312,7 +312,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		401CD5531FDF1DA400396A7E /* Frameworks */ = {
+		4096D8DC200133DE001763A9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -325,7 +325,7 @@
 			files = (
 				400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */,
 				40FF79B32000F7A6006B3A62 /* CollaborationKit.framework in Frameworks */,
-				401CD55E1FDF1DA400396A7E /* LabeledTextField.framework in Frameworks */,
+				4096D8E7200133DE001763A9 /* UIElementsKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,16 +431,6 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		401CD5581FDF1DA400396A7E /* LabeledTextField */ = {
-			isa = PBXGroup;
-			children = (
-				401CD5591FDF1DA400396A7E /* LabeledTextField.h */,
-				401CD5631FDF1DB400396A7E /* LabeledTextField.swift */,
-				401CD55A1FDF1DA400396A7E /* Info.plist */,
-			);
-			path = LabeledTextField;
-			sourceTree = "<group>";
-		};
 		4026AC871FBCE30400FFB18B /* EditorWindowController */ = {
 			isa = PBXGroup;
 			children = (
@@ -507,6 +497,17 @@
 			path = LanguageDelegate;
 			sourceTree = "<group>";
 		};
+		4096D8E1200133DE001763A9 /* UIElementsKit */ = {
+			isa = PBXGroup;
+			children = (
+				40FFD8EB1FDC1B5E007BA858 /* ModernTabBar.swift */,
+				401CD5631FDF1DB400396A7E /* LabeledTextField.swift */,
+				4096D8E2200133DE001763A9 /* UIElementsKit.h */,
+				4096D8E3200133DE001763A9 /* Info.plist */,
+			);
+			path = UIElementsKit;
+			sourceTree = "<group>";
+		};
 		40A13BF01FD731390044E897 /* FileSystemItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -526,9 +527,9 @@
 				40A7D0DC1FB78A3F002FBB8B /* TexDocs */,
 				40A7D0F11FB78A3F002FBB8B /* TexDocsTests */,
 				40A7D0FC1FB78A3F002FBB8B /* TexDocsUITests */,
-				401CD5581FDF1DA400396A7E /* LabeledTextField */,
 				40FF79922000EDCA006B3A62 /* MessagePackKit */,
 				40FF79AD2000F7A6006B3A62 /* CollaborationKit */,
+				4096D8E1200133DE001763A9 /* UIElementsKit */,
 				40A7D0DB1FB78A3F002FBB8B /* Products */,
 				400D97AF1FBA3E1800540207 /* Frameworks */,
 			);
@@ -540,9 +541,9 @@
 				40A7D0DA1FB78A3F002FBB8B /* TexDocs.app */,
 				40A7D0EE1FB78A3F002FBB8B /* TexDocsTests.xctest */,
 				40A7D0F91FB78A3F002FBB8B /* TexDocsUITests.xctest */,
-				401CD5571FDF1DA400396A7E /* LabeledTextField.framework */,
 				40FF79912000EDC9006B3A62 /* MessagePackKit.framework */,
 				40FF79AC2000F7A6006B3A62 /* CollaborationKit.framework */,
+				4096D8E0200133DE001763A9 /* UIElementsKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -640,7 +641,6 @@
 				40FFD8F11FDC48B1007BA858 /* DocumentStructureItemCell.swift */,
 				40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */,
 				40A13BEA1FD724AC0044E897 /* NavigationOutlineView.swift */,
-				40FFD8EB1FDC1B5E007BA858 /* ModernTabBar.swift */,
 				4007C7E71FDD63FF00A53649 /* ClosureMenuItem.swift */,
 				402F52091FE1E632000F7AEA /* TokenCell.swift */,
 			);
@@ -746,11 +746,11 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		401CD5541FDF1DA400396A7E /* Headers */ = {
+		4096D8DD200133DE001763A9 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				401CD55B1FDF1DA400396A7E /* LabeledTextField.h in Headers */,
+				4096D8E4200133DE001763A9 /* UIElementsKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -773,22 +773,22 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		401CD5561FDF1DA400396A7E /* LabeledTextField */ = {
+		4096D8DF200133DE001763A9 /* UIElementsKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 401CD5601FDF1DA400396A7E /* Build configuration list for PBXNativeTarget "LabeledTextField" */;
+			buildConfigurationList = 4096D8E9200133DE001763A9 /* Build configuration list for PBXNativeTarget "UIElementsKit" */;
 			buildPhases = (
-				401CD5521FDF1DA400396A7E /* Sources */,
-				401CD5531FDF1DA400396A7E /* Frameworks */,
-				401CD5541FDF1DA400396A7E /* Headers */,
-				401CD5551FDF1DA400396A7E /* Resources */,
+				4096D8DB200133DE001763A9 /* Sources */,
+				4096D8DC200133DE001763A9 /* Frameworks */,
+				4096D8DD200133DE001763A9 /* Headers */,
+				4096D8DE200133DE001763A9 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = LabeledTextField;
-			productName = LabeledTextField;
-			productReference = 401CD5571FDF1DA400396A7E /* LabeledTextField.framework */;
+			name = UIElementsKit;
+			productName = UIElementsKit;
+			productReference = 4096D8E0200133DE001763A9 /* UIElementsKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		40A7D0D91FB78A3F002FBB8B /* TexDocs */ = {
@@ -805,8 +805,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				401CD55D1FDF1DA400396A7E /* PBXTargetDependency */,
 				40FF79B22000F7A6006B3A62 /* PBXTargetDependency */,
+				4096D8E6200133DE001763A9 /* PBXTargetDependency */,
 			);
 			name = TexDocs;
 			productName = TexDocs;
@@ -897,9 +897,9 @@
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = TexDocs;
 				TargetAttributes = {
-					401CD5561FDF1DA400396A7E = {
+					4096D8DF200133DE001763A9 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 0920;
+						ProvisioningStyle = Automatic;
 					};
 					40A7D0D91FB78A3F002FBB8B = {
 						CreatedOnToolsVersion = 9.1;
@@ -946,15 +946,15 @@
 				40A7D0D91FB78A3F002FBB8B /* TexDocs */,
 				40A7D0ED1FB78A3F002FBB8B /* TexDocsTests */,
 				40A7D0F81FB78A3F002FBB8B /* TexDocsUITests */,
-				401CD5561FDF1DA400396A7E /* LabeledTextField */,
 				40FF79902000EDC9006B3A62 /* MessagePackKit */,
 				40FF79AB2000F7A6006B3A62 /* CollaborationKit */,
+				4096D8DF200133DE001763A9 /* UIElementsKit */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		401CD5551FDF1DA400396A7E /* Resources */ = {
+		4096D8DE200133DE001763A9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1055,11 +1055,12 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		401CD5521FDF1DA400396A7E /* Sources */ = {
+		4096D8DB200133DE001763A9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				401CD5641FDF1DB400396A7E /* LabeledTextField.swift in Sources */,
+				4096D8EC200133E4001763A9 /* ModernTabBar.swift in Sources */,
+				4096D8ED200133F1001763A9 /* LabeledTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1135,7 +1136,6 @@
 				403C2FA51FE9AB5000B20CA4 /* WorkspaceModel.swift in Sources */,
 				40AB8C481FB8841C00BC6D82 /* SourceCodeView.swift in Sources */,
 				40FFD8F01FDC3C4D007BA858 /* CachedProperty.swift in Sources */,
-				40FFD8EC1FDC1B5E007BA858 /* ModernTabBar.swift in Sources */,
 				400C27681FFB9E1500BDF40C /* CreateNewFileItemScheme.swift in Sources */,
 				403C2FC51FEC5B2500B20CA4 /* InsertTextCommit.swift in Sources */,
 				4007C7D01FDC728300A53649 /* DocumentStructureNode.swift in Sources */,
@@ -1193,10 +1193,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		401CD55D1FDF1DA400396A7E /* PBXTargetDependency */ = {
+		4096D8E6200133DE001763A9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 401CD5561FDF1DA400396A7E /* LabeledTextField */;
-			targetProxy = 401CD55C1FDF1DA400396A7E /* PBXContainerItemProxy */;
+			target = 4096D8DF200133DE001763A9 /* UIElementsKit */;
+			targetProxy = 4096D8E5200133DE001763A9 /* PBXContainerItemProxy */;
 		};
 		40A7D0F01FB78A3F002FBB8B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1242,47 +1242,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		401CD5611FDF1DA400396A7E /* Debug */ = {
+		4096D8EA200133DE001763A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 52A793VRAY;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = LabeledTextField/Info.plist;
+				INFOPLIST_FILE = UIElementsKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = to.us.peeters.LabeledTextField;
+				PRODUCT_BUNDLE_IDENTIFIER = to.us.peeters.UIElementsKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		401CD5621FDF1DA400396A7E /* Release */ = {
+		4096D8EB200133DE001763A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 52A793VRAY;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = LabeledTextField/Info.plist;
+				INFOPLIST_FILE = UIElementsKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = to.us.peeters.LabeledTextField;
+				PRODUCT_BUNDLE_IDENTIFIER = to.us.peeters.UIElementsKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -1622,11 +1623,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		401CD5601FDF1DA400396A7E /* Build configuration list for PBXNativeTarget "LabeledTextField" */ = {
+		4096D8E9200133DE001763A9 /* Build configuration list for PBXNativeTarget "UIElementsKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				401CD5611FDF1DA400396A7E /* Debug */,
-				401CD5621FDF1DA400396A7E /* Release */,
+				4096D8EA200133DE001763A9 /* Debug */,
+				4096D8EB200133DE001763A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

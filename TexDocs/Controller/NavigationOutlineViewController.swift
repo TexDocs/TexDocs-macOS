@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import UIElementsKit
 
 class NavigationOutlineViewController: NSViewController {
     @IBOutlet weak var outlineView: NavigationOutlineView!
