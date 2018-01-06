@@ -69,6 +69,7 @@
 		409176B11FD86ACD0086421B /* FileManager+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409176B01FD86ACD0086421B /* FileManager+Helpers.swift */; };
 		4095F76320001ED4006A861A /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 4095F76220001ED4006A861A /* Cartfile */; };
 		4095F76520002030006A861A /* EditorWindowController+CollaborationClientDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4095F76420002030006A861A /* EditorWindowController+CollaborationClientDelegate.swift */; };
+		4096D8C420010839001763A9 /* CompletionTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096D8C320010839001763A9 /* CompletionTableRowView.swift */; };
 		40A13BD41FD5D2800044E897 /* SchemeMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */; };
 		40A13BDA1FD5ECBA0044E897 /* EditSchemeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD91FD5ECBA0044E897 /* EditSchemeSheet.swift */; };
 		40A13BDE1FD5F4C80044E897 /* EditorWindowController+Typeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BDD1FD5F4C80044E897 /* EditorWindowController+Typeset.swift */; };
@@ -251,6 +252,7 @@
 		4095F76020000982006A861A /* MessagePackCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePackCodable.swift; sourceTree = "<group>"; };
 		4095F76220001ED4006A861A /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		4095F76420002030006A861A /* EditorWindowController+CollaborationClientDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+CollaborationClientDelegate.swift"; sourceTree = "<group>"; };
+		4096D8C320010839001763A9 /* CompletionTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionTableRowView.swift; sourceTree = "<group>"; };
 		40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeMenuItem.swift; sourceTree = "<group>"; };
 		40A13BD91FD5ECBA0044E897 /* EditSchemeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSchemeSheet.swift; sourceTree = "<group>"; };
 		40A13BDD1FD5F4C80044E897 /* EditorWindowController+Typeset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+Typeset.swift"; sourceTree = "<group>"; };
@@ -593,6 +595,7 @@
 				40A7D11F1FB7936B002FBB8B /* SourceCodeRulerView.swift */,
 				401CD56D1FE0845900396A7E /* CompletionViewController.swift */,
 				401CD56E1FE0845900396A7E /* CompletionViewController.xib */,
+				4096D8C320010839001763A9 /* CompletionTableRowView.swift */,
 			);
 			path = SourceCodeView;
 			sourceTree = "<group>";
@@ -794,6 +797,7 @@
 				40A7D0D81FB78A3F002FBB8B /* Resources */,
 				40A7D11C1FB79261002FBB8B /* Embed Frameworks */,
 				4007C81E1FDD748500A53649 /* Localize */,
+				40FF79C22000FC56006B3A62 /* swiftlint */,
 			);
 			buildRules = (
 			);
@@ -1031,6 +1035,20 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
+		40FF79C22000FC56006B3A62 /* swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = swiftlint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint or use brew install swiftlint\"\nexit 1\nfi";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1098,6 +1116,7 @@
 				40A13BE11FD5F5610044E897 /* ConsoleViewController.swift in Sources */,
 				403C2FAF1FEAF8BA00B20CA4 /* Workspace+DatabaseOperations.swift in Sources */,
 				40A7D0E21FB78A3F002FBB8B /* Workspace.swift in Sources */,
+				4096D8C420010839001763A9 /* CompletionTableRowView.swift in Sources */,
 				402F520A1FE1E632000F7AEA /* TokenCell.swift in Sources */,
 				40A13BEB1FD724AC0044E897 /* NavigationOutlineView.swift in Sources */,
 				400C276A1FFBACC200BDF40C /* EditorWindowController+Database.swift in Sources */,

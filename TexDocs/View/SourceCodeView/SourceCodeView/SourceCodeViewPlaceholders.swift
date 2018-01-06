@@ -50,9 +50,11 @@ import Foundation
 //    }
 //}
 
-let EditorPlaceHolderOpen = "{#"
-let EditorPlaceHolderClose = "#}"
-let EditorPlaceHolderOpenRegex = NSRegularExpression.escapedPattern(for: EditorPlaceHolderOpen)
-let EditorPlaceHolderCloseRegex = NSRegularExpression.escapedPattern(for: EditorPlaceHolderClose)
-let EditorPlaceHolderRegex = try! NSRegularExpression(pattern: "\(EditorPlaceHolderOpenRegex)(.*?)\(EditorPlaceHolderCloseRegex)", options: .caseInsensitive)
-let EditorParameterPlaceholder = "\(EditorPlaceHolderOpen)parameters\(EditorPlaceHolderClose)"
+let editorPlaceHolderOpen = "{#"
+let editorPlaceHolderClose = "#}"
+let editorPlaceHolderOpenRegex = NSRegularExpression.escapedPattern(for: editorPlaceHolderOpen)
+let editorPlaceHolderCloseRegex = NSRegularExpression.escapedPattern(for: editorPlaceHolderClose)
+
+// swiftlint:disable force_try
+let editorPlaceHolderRegex = try! NSRegularExpression(pattern: "\(editorPlaceHolderOpenRegex)(.*?)\(editorPlaceHolderCloseRegex)", options: .caseInsensitive)
+let editorParameterPlaceholder = "\(editorPlaceHolderOpen)parameters\(editorPlaceHolderClose)"

@@ -17,6 +17,7 @@ extension DeleteTextCommitModel: DeleteTextCommit {}
 
 extension NSManagedObjectContext {
     func createDeleteTextCommit(inFile file: VersionedFileModel, atLocation location: Int, withLength length: Int) -> DeleteTextCommitModel {
+        // swiftlint:disable force_cast
         let commit = NSEntityDescription.insertNewObject(forEntityName: "DeleteTextCommit", into: self) as! DeleteTextCommitModel
         commit.file = file
         commit.location = Int64(location)

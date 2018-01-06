@@ -15,7 +15,7 @@ class Workspace: NSPersistentDocument {
 
     lazy var workspaceModel: WorkspaceModel = managedObjectContext!.fetchOrCreateWorkspaceModel()
     let databaseQueue = DispatchQueue(label: "Workspace Queue")
-    
+
     override init() {
         super.init()
         setUp()
@@ -31,9 +31,9 @@ class Workspace: NSPersistentDocument {
     func setUp() {
         managedObjectContext?.undoManager = nil
     }
-    
+
     var mainWindowController: EditorWindowController?
-    
+
     override class var autosavesInPlace: Bool {
         return true
     }
@@ -41,17 +41,18 @@ class Workspace: NSPersistentDocument {
     override func write(to absoluteURL: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType, originalContentsURL absoluteOriginalContentsURL: URL?) throws {
         try super.write(to: absoluteURL, ofType: typeName, for: saveOperation, originalContentsURL: absoluteURL)
     }
-    
+
     override func makeWindowControllers() {
         // Returns the Storyboard that contains the Document window.
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
+        // swiftlint:disable force_cast
         let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("DocumentWindowController")) as! EditorWindowController
         mainWindowController = windowController
         workspaceModel.collaborationDelegate = windowController
         self.addWindowController(windowController)
     }
 
-    override func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) throws -> NSPrintOperation {
+    override func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey: Any]) throws -> NSPrintOperation {
         guard let editor = mainWindowController?.editorWrapperViewController.openedEditorController else {
             throw DocumentError.noEditorOpened
         }

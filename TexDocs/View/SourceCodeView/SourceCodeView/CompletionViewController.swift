@@ -27,4 +27,3 @@ class CompletionViewController: NSViewController {
 protocol CompletionViewControllerDelegate: NSTableViewDelegate, NSTableViewDataSource {
     func completionTableView(_ tableView: NSTableView, doubleClicked row: Int)
 }
-

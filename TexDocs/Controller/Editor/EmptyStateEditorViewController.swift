@@ -22,7 +22,7 @@ class EmptyStateEditorViewController: BaseEditorViewController, EditorController
 
     func receivedChange(in range: NSRange, replaceWith replaceString: String) {}
 
-    func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) -> NSPrintOperation? {
+    func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey: Any]) -> NSPrintOperation? {
         return nil
     }
 
@@ -50,7 +50,9 @@ class EmptyStateEditorViewController: BaseEditorViewController, EditorController
     static let displayName: String = NSLocalizedString("TD_EMPTY_STATE_EDITOR_NAME", comment: "Name of the empty state editor")
 
     static func instantiateController(withFileSystemItem fileSystemItem: FileSystemItem, windowController: EditorWindowController) -> EditorController? {
-        let editorController = NSStoryboard(name: NSStoryboard.Name(rawValue: "Editors"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "EmptyStateEditorViewController")) as! EmptyStateEditorViewController
+        let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Editors"), bundle: nil)
+        // swiftlint:disable force_cast
+        let editorController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "EmptyStateEditorViewController")) as! EmptyStateEditorViewController
         editorController.fileSystemItem = fileSystemItem
         return editorController
     }

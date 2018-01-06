@@ -10,36 +10,36 @@ import Cocoa
 
 /// Ruler view for line numbers
 class SourceCodeRulerView: NSRulerView {
-    
+
     // MARK: Variables
-    
+
     override var requiredThickness: CGFloat {
         return ruleThickness
     }
-    
+
     /// Client source code view
     private weak var textView: SourceCodeView? {
         return clientView as? SourceCodeView
     }
-    
+
     // MARK: Config
-    
+
     var padding: CGFloat = 5
     var attributes = CachedProperty<[NSAttributedStringKey: Any]>(block: {
-        var attributes: [NSAttributedStringKey : Any] = [
+        var attributes: [NSAttributedStringKey: Any] = [
             NSAttributedStringKey.foregroundColor: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         ]
         attributes[NSAttributedStringKey.font] = UserDefaults.editorFont
         return attributes
     })
-    
+
     // MARK: Init
-    
+
     init(sourceCodeView: SourceCodeView) {
         super.init(scrollView: sourceCodeView.enclosingScrollView!, orientation: .verticalRuler)
         self.clientView = sourceCodeView
     }
-    
+
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -51,11 +51,11 @@ class SourceCodeRulerView: NSRulerView {
         )
     }
 
-    private func drawLineNumber(_ lineNumber: Int, atY y: CGFloat) {
+    private func drawLineNumber(_ lineNumber: Int, atYPosition yPosition: CGFloat) {
         let text = lineNumberText(forLineNumber: lineNumber)
 
         let drawWidth = text.size().width
-        text.draw(at: NSPoint(x: ruleThickness - drawWidth - padding, y: y))
+        text.draw(at: NSPoint(x: ruleThickness - drawWidth - padding, y: yPosition))
     }
 
     private var visibleAnnotations: [(NSRect, RulerAnnotation)] = []
@@ -72,7 +72,7 @@ class SourceCodeRulerView: NSRulerView {
         annotaion.type.color.setFill()
         bezierPath.fill()
     }
-    
+
     override func drawHashMarksAndLabels(in rect: NSRect) {
         guard let textView = self.textView,
               let layoutManager = textView.layoutManager else {
@@ -81,7 +81,7 @@ class SourceCodeRulerView: NSRulerView {
 
         attributes.invalidateCache()
 
-        let highestLineNumber = 1 + NewLineRegex.numberOfMatches(
+        let highestLineNumber = 1 + newLineRegex.numberOfMatches(
             in: textView.string,
             options: [],
             range: NSRange(textView.string.startIndex..<textView.string.endIndex, in: textView.string))
@@ -102,7 +102,7 @@ class SourceCodeRulerView: NSRulerView {
 
         // count line numbers in invisible range
         let invisibleRange = NSRange(location: 0, length: firstVisibleCharacterIndex)
-        var lineNumber = NewLineRegex.numberOfMatches(in: textView.string, options: [], range: invisibleRange)
+        var lineNumber = newLineRegex.numberOfMatches(in: textView.string, options: [], range: invisibleRange)
 
         textView.lines(inRange: visibleGlyphRange) { (_, lineRange) in
             lineNumber += 1
@@ -111,14 +111,14 @@ class SourceCodeRulerView: NSRulerView {
                 draw(annotaion: annotation, at: lineFragmentRect, relativeYTranslation: relativeYTranslation)
                 return 0
             }
-            drawLineNumber(lineNumber, atY: lineFragmentRect.origin.y + relativeYTranslation)
+            drawLineNumber(lineNumber, atYPosition: lineFragmentRect.origin.y + relativeYTranslation)
             return 0
         }
 
         if layoutManager.extraLineFragmentRect.height != 0 {
             lineNumber += 1
             let lineFragmentRect = layoutManager.extraLineFragmentRect
-            drawLineNumber(lineNumber, atY: lineFragmentRect.origin.y + relativeYTranslation)
+            drawLineNumber(lineNumber, atYPosition: lineFragmentRect.origin.y + relativeYTranslation)
         }
     }
 

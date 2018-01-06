@@ -8,6 +8,7 @@
 
 import Cocoa
 
+// swiftlint:disable class_delegate_protocol
 protocol LanguageDelegate {
     init()
     func textStorageUpdated(_ textStorage: NSTextStorage)
@@ -28,9 +29,9 @@ enum RulerAnnotationType {
 
     var color: NSColor {
         switch self {
-        case .file(_):
+        case .file:
             return #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
-        case .helpFiles(_):
+        case .helpFiles:
             return #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
         }
     }

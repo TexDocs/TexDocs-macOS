@@ -9,7 +9,7 @@
 import Foundation
 
 class CachedProperty<Value> {
-    private var cache: Value? = nil
+    private var cache: Value?
     private let block: () -> Value
     private let invalidationBlock: (() -> Void)?
 

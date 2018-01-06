@@ -8,7 +8,6 @@
 
 import Cocoa
 
-
 protocol NavigationOutlineViewItem {
     var numberOfChildren: Int { get }
     var isExpandable: Bool { get }
@@ -30,6 +29,7 @@ extension FileSystemItem: NavigationOutlineViewItem {
     }
 
     func cell(in outlineView: NSOutlineView, controller: NavigationOutlineViewController) -> NSView? {
+        // swiftlint:disable force_cast
         let cell = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "FileSystemItemCell"), owner: nil) as! FileSystemItemCell
         cell.fileSystemItem = self
         cell.delegate = controller

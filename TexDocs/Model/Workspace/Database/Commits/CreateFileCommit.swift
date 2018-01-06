@@ -10,6 +10,7 @@ import Foundation
 
 extension NSManagedObjectContext {
     func createCreateFileCommit() -> CreateFileCommitModel {
+        // swiftlint:disable force_cast
         let commit = NSEntityDescription.insertNewObject(forEntityName: "CreateFileCommit", into: self) as! CreateFileCommitModel
         return commit
     }

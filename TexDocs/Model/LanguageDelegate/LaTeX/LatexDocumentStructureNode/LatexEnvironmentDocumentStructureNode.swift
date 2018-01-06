@@ -59,6 +59,4 @@ extension LatexEnvironmentDocumentStructureNode: ClosableDocumentStructureNode {
     var closeString: String {
         return "\\end{\(displayName)}"
     }
-
-
 }

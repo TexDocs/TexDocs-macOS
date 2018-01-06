@@ -10,9 +10,9 @@ import Foundation
 
 extension NSManagedObjectContext {
     func createFileDataModel(withContent data: Data = Data()) -> FileDataModel {
+        // swiftlint:disable force_cast
         let fileData = NSEntityDescription.insertNewObject(forEntityName: "FileData", into: self) as! FileDataModel
         fileData.data = data
         return fileData
     }
 }
-

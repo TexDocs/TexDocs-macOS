@@ -20,9 +20,9 @@ class ThemesHandler {
     func color(for colorKey: ColorKey) -> NSColor {
         return current.color(forKey: colorKey) ?? defaultScheme.color(forKey: colorKey) ?? .black
     }
-    
+
     static let `default` = ThemesHandler()
-    
+
     var current: Theme {
         return themes[UserDefaults.themeName.value] ?? defaultScheme
     }

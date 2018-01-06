@@ -17,6 +17,7 @@ extension InsertTextCommitModel: InsertTextCommit {}
 
 extension NSManagedObjectContext {
     func createInsertTextCommit(inFile file: VersionedFileModel, atLocation location: Int, text: String) -> InsertTextCommitModel {
+        // swiftlint:disable force_cast
         let commit = NSEntityDescription.insertNewObject(forEntityName: "InsertTextCommit", into: self) as! InsertTextCommitModel
         commit.file = file
         commit.location = Int64(location)

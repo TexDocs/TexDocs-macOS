@@ -10,7 +10,7 @@ import Cocoa
 
 class ClosureMenuItem: NSMenuItem {
 
-    private let actionClosure:() -> ()
+    private let actionClosure:() -> Void
 
     init(title: String, keyEquivalent: String = "", actionClosure: @escaping () -> Void) {
         self.actionClosure = actionClosure

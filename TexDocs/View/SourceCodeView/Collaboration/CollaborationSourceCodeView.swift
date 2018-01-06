@@ -12,15 +12,15 @@ import CollaborationKit
 class CollaborationSourceCodeView: SourceCodeView {
 
     weak var collaborationDelegate: CollaborationSourceCodeViewDelegate?
-    
+
     func collaborationCursorsDidChange() {
         setNeedsDisplay(editorBounds)
     }
-    
+
     private var collaborationCursors: [CollaborationCursor] {
         return collaborationDelegate?.collaborationCursors(for: self) ?? []
     }
-    
+
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
 
@@ -61,19 +61,19 @@ class CollaborationSourceCodeView: SourceCodeView {
     private var editorBounds: CGRect {
         return bounds.insetBy(dx: 5, dy: 0)
     }
-    
+
     private func drawSelectionToEndOfLine(from origin: CGPoint, cursorHeight: CGFloat) {
         NSRect(origin: origin, size: CGSize(width: editorBounds.maxX - origin.x, height: cursorHeight)).fill()
     }
-    
+
     private func drawSelectionToBeginningOfLine(from origin: CGPoint, cursorHeight: CGFloat) {
         NSRect(x: editorBounds.minX, y: origin.y, width: origin.x - editorBounds.minX, height: cursorHeight).fill()
     }
-    
+
     private func fillLines(between minY: CGFloat, and maxY: CGFloat) {
         NSRect(x: editorBounds.minX, y: minY, width: editorBounds.width, height: maxY - minY).fill()
     }
-    
+
     override func selectionDidChange(selection: NSRange) {
         super.selectionDidChange(selection: selection)
         collaborationDelegate?.collaborationSourceCodeView(self, userSelectionDidChange: selection)

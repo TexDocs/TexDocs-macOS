@@ -44,7 +44,7 @@ class LaTeXLanguageDelegate: LanguageDelegate {
         let range = sourceCodeView.nsString.lineRange(for: editedRange)
 
         sourceCodeView.textStorage?.addAttribute(NSAttributedStringKey.foregroundColor, value: ThemesHandler.default.color(for: .text), range: range)
-        
+
         for rule in LaTeXLanguageDelegate.highlightingRules {
             rule.applyRule(to: sourceCodeView, range: range)
         }
@@ -89,7 +89,10 @@ class LaTeXLanguageDelegate: LanguageDelegate {
             }
         }
     }
+}
 
+// MARK: - Private Helpers
+extension LaTeXLanguageDelegate {
     private func inspectCompletionLocation(_ location: Int, inString string: NSString) -> InspectionResult? {
         var scannerHead = location
         var scannerTail = location
@@ -252,22 +255,24 @@ class LaTeXLanguageDelegate: LanguageDelegate {
     }
 }
 
+// swiftlint:disable force_try
 extension LaTeXLanguageDelegate {
     private static let documentClassRegex = try! NSRegularExpression(pattern: "\\\\documentclass.*?\\{(\\w+)\\}", options: [])
     private static let documentStructureRegex = try! NSRegularExpression(pattern: "\\\\(begin|end|(?:part|section|subsection|subsubsection|paragraph|subparagraph)\\*?)\\{(.+?)\\}(:?\\{.*\\})*", options: [])
+    private static let latexDefOutputRegex = try! NSRegularExpression(pattern: "^\\\\(.*)", options: NSRegularExpression.Options.anchorsMatchLines)
+    private static let includeFilesRegex = try! NSRegularExpression(pattern: "\\\\(?:includegraphics|input)(?:\\[.*?\\])?\\{(.*?)\\}", options: [])
+    private static let packageRegex = try! NSRegularExpression(pattern: "\\\\usepackage(?:\\[.*?\\])?\\{(.*?)\\}", options: [])
+}
 
+extension LaTeXLanguageDelegate {
     private static let highlightingRules: [SourceCodeHighlightRule] = [
         SimpleHighlighter(pattern: "(\\d+)", colors: [.variable]),
         SimpleHighlighter(pattern: "(\\\\\\w*)", colors: [.keyword]),
         SimpleHighlighter(pattern: "(?:\\\\documentclass|usepackage|input)(?:\\[([^\\]]*)\\])?\\{([^}]*)\\}", colors: [.variable, .variable]),
         SimpleHighlighter(pattern: "(?:\\\\(?:begin|end))\\{([^}]*)\\}", colors: [.variable]),
         SimpleHighlighter(pattern: "(\\$.*?\\$)", colors: [.inlineMath]),
-        SimpleHighlighter(pattern: "(%.*)", colors: [.comment]),
+        SimpleHighlighter(pattern: "(%.*)", colors: [.comment])
     ]
-
-    private static let latexDefOutputRegex = try! NSRegularExpression(pattern: "^\\\\(.*)", options: NSRegularExpression.Options.anchorsMatchLines)
-    private static let includeFilesRegex = try! NSRegularExpression(pattern: "\\\\(?:includegraphics|input)(?:\\[.*?\\])?\\{(.*?)\\}", options: [])
-    private static let packageRegex = try! NSRegularExpression(pattern: "\\\\usepackage(?:\\[.*?\\])?\\{(.*?)\\}", options: [])
 
     private static let templates: [LanguageCompletion] = {
         return FileManager.default.applicationSupportDirectoryFileContent(withPath: "latex/templates")
@@ -278,7 +283,7 @@ extension LaTeXLanguageDelegate {
 
     private static let knownCommands: [LanguageCompletion] = {
         return FileManager.default.applicationSupportDirectoryFileContent(withPath: "latex/commands")
-            .flatMap { url, content in
+            .flatMap { _, content in
                 return content.nonEmptyLines.map { command in
                     return LanguageCompletion(
                         displayString: command,
@@ -321,7 +326,7 @@ private struct InspectionResult {
 
 extension String {
     fileprivate var commandCompletionString: String {
-        return "\\\(self){\(EditorParameterPlaceholder)}"
+        return "\\\(self){\(editorParameterPlaceholder)}"
     }
 
     fileprivate var nonEmptyLines: [String] {
@@ -330,4 +335,3 @@ extension String {
         }
     }
 }
-

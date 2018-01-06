@@ -8,10 +8,11 @@
 
 import Foundation
 
-public let NewLineRegex = try! NSRegularExpression(pattern: "\\n", options: .caseInsensitive)
+// swiftlint:disable force_try
+public let newLineRegex = try! NSRegularExpression(pattern: "\\n", options: .caseInsensitive)
 
 extension String {
     func numberOfLine(in range: NSRange) -> Int {
-        return NewLineRegex.numberOfMatches(in: self, options: [], range: range)
+        return newLineRegex.numberOfMatches(in: self, options: [], range: range)
     }
 }

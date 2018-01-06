@@ -10,6 +10,7 @@ import Foundation
 
 extension NSManagedObjectContext {
     func createDeleteFileCommit(forFile file: FileModel) -> DeleteFileCommitModel {
+        // swiftlint:disable force_cast
         let commit = NSEntityDescription.insertNewObject(forEntityName: "DeleteFileCommit", into: self) as! DeleteFileCommitModel
         commit.deletedFile = file
         return commit

@@ -17,7 +17,7 @@ class CollaborationEditorViewController: BaseEditorViewController, EditorControl
     }
 
     var editableFileSystemItem: EditableFileSystemItem!
-    
+
     var rootDocumentStructureNode: DocumentStructureNode? {
         return editableFileSystemItem.rootStructureNode
     }
@@ -32,7 +32,7 @@ class CollaborationEditorViewController: BaseEditorViewController, EditorControl
         editor.collaborationCursorsDidChange()
     }
 
-    func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) -> NSPrintOperation? {
+    func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey: Any]) -> NSPrintOperation? {
         var settings = printSettings
         settings[NSPrintInfo.AttributeKey.verticallyCentered] = NSNumber(value: false)
 
@@ -61,9 +61,10 @@ class CollaborationEditorViewController: BaseEditorViewController, EditorControl
         guard let editableFileSystemItem = fileSystemItem as? EditableFileSystemItem else {
             return nil
         }
-        let editorController = NSStoryboard(name: NSStoryboard.Name(rawValue: "Editors"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "CollaborationEditorViewController")) as! CollaborationEditorViewController
-        editorController.editableFileSystemItem = editableFileSystemItem
-        editorController.delegateModel = CollaborationEditorViewControllerModel(collaborationDelegate: windowController, sourceCodeViewDelegate: windowController)
+        let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Editors"), bundle: nil)
+        let editorController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "CollaborationEditorViewController")) as? CollaborationEditorViewController
+        editorController?.editableFileSystemItem = editableFileSystemItem
+        editorController?.delegateModel = CollaborationEditorViewControllerModel(collaborationDelegate: windowController, sourceCodeViewDelegate: windowController)
         return editorController
     }
 }

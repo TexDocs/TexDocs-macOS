@@ -32,7 +32,6 @@ class UserDefaultSettings<Value: Equatable> {
     }
 }
 
-
 extension UserDefaults {
     static let showInvisibleCharacters = UserDefaultSettings<Bool>(key: "showInvisibleCharacters", default: false)
     static let showControlCharacters = UserDefaultSettings<Bool>(key: "showControlCharacters", default: false)

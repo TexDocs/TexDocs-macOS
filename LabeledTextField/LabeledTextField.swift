@@ -66,7 +66,7 @@ public class LabeledTextField: NSControl {
         labelView.alignment = .right
         labelView.translatesAutoresizingMaskIntoConstraints = false
         textView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         labelView.firstBaselineAnchor.constraint(equalTo: textView.firstBaselineAnchor).isActive = true
         labelView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         labelView.rightAnchor.constraint(equalTo: textView.leftAnchor, constant: -8).isActive = true

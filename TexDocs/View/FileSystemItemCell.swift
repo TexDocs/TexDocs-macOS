@@ -12,7 +12,7 @@ class FileSystemItemCell: NSTableCellView {
     @IBOutlet weak var iconView: NSImageView!
     @IBOutlet weak var nameTextField: NSTextField!
 
-    var delegate: FileSystemItemCellDelegate?
+    weak var delegate: FileSystemItemCellDelegate?
 
     var fileSystemItem: FileSystemItem? {
         didSet {

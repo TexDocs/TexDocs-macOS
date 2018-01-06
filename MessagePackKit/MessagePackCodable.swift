@@ -34,7 +34,6 @@ public extension MessagePackDecodable {
 // MARK: - Codable
 public protocol MessagePackCodable: MessagePackEncodable, MessagePackDecodable {}
 
-
 // MARK: - Helpers
 public enum MessagePackError: Error {
     case unwrapFailed

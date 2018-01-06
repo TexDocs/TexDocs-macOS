@@ -6,7 +6,6 @@
 //  Copyright © 2017 TexDocs. All rights reserved.
 //
 
-
 import Foundation
 
 protocol FileContentCommit {

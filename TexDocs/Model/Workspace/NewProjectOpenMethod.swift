@@ -12,7 +12,7 @@ enum NewProjectOpenMethod {
     case offline
     case create(serverURL: URL)
     case join(serverURL: URL, projectID: UUID)
-    
+
     var serverURL: URL? {
         switch self {
         case .join(let serverURL, _), .create(let serverURL):

@@ -112,10 +112,8 @@ class FileSystemItem: NSObject {
 
         let name = relativePath.first
 
-        for child in children {
-            if child.name == name {
-                return child.findChild(withRelativePathComponents: relativePath.dropFirst(), createIfNessesary: createIfNessesary)
-            }
+        for child in children where child.name == name {
+            return child.findChild(withRelativePathComponents: relativePath.dropFirst(), createIfNessesary: createIfNessesary)
         }
 
         guard createIfNessesary, let unwrappedName = name else {

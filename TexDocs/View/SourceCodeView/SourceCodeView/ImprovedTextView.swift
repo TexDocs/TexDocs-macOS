@@ -48,47 +48,6 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
         }
     }
 
-    // MARK: Helper
-
-    var stringRange: NSRange {
-        return NSRange(string.startIndex..<string.endIndex, in: string)
-    }
-
-    /// NSString version of string property
-    var nsString: NSString {
-        return NSString(string: string)
-    }
-
-    /// The Range of the current line.
-    var currentLineRange: NSRange {
-        return nsString.lineRange(for: selectedRange())
-    }
-
-    /// The string of the current line
-    var currentLine: String {
-        return nsString.substring(with: currentLineRange)
-    }
-    
-    @discardableResult func lines(inRange range: NSRange, block: (Int, NSRange) -> Int) -> Int {
-        var glyphIndexForStringLine = range.location
-        let endIndex = NSMaxRange(range)
-        var relativeLineNumber = 0
-        var totalCharactersAdded = 0
-        
-        while glyphIndexForStringLine < endIndex + totalCharactersAdded {
-            // get line range
-            let stringIndex = layoutManager!.characterIndexForGlyph(at: glyphIndexForStringLine)
-            let lineRange = nsString.lineRange(for: NSRange(location: stringIndex, length: 0))
-            
-            let lineChange = block(relativeLineNumber, lineRange)
-            
-            totalCharactersAdded += lineChange
-            glyphIndexForStringLine = NSMaxRange(lineRange) + lineChange
-            relativeLineNumber += 1
-        }
-        return totalCharactersAdded
-    }
-
     override func insertText(_ insertString: Any) {
         insertText(insertString, replacementRange: selectedRange())
     }
@@ -96,7 +55,7 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
     override func insertText(_ string: Any, replacementRange: NSRange) {
         super.insertText(string, replacementRange: replacementRange)
 
-        if let string = string as? String, let autocloseString = EditorAutoClose[string] {
+        if let string = string as? String, let autocloseString = editorAutoCloseCharacters[string] {
             super.insertText(autocloseString, replacementRange: NSRange(location: NSMaxRange(replacementRange) + 1, length: 0))
             moveBackward(nil)
         }
@@ -113,7 +72,7 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
 
         super.deleteBackward(sender)
 
-        if let closingString = EditorAutoClose[leftString], NSMaxRange(selectedRange()) < string.count {
+        if let closingString = editorAutoCloseCharacters[leftString], NSMaxRange(selectedRange()) < string.count {
             let rightString = nsString.substring(with: NSRange(location: NSMaxRange(selectedRange()), length: 1))
             if closingString == rightString {
                 super.deleteForward(sender)
@@ -147,13 +106,13 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
     }
 
     open func incraseIndent() {
-        updateIndent() {
+        updateIndent {
             return (($0 / 4 + 1) * 4)
         }
     }
 
     open func decreaseIndent() {
-        updateIndent() {
+        updateIndent {
             return max((Int(ceil((Double($0) / Double(4))) - 1) * 4), 0)
         }
     }
@@ -200,7 +159,50 @@ class ImprovedTextView: NSTextView, NSTextViewDelegate {
     override func underline(_ sender: Any?) {}
 }
 
-private let EditorAutoClose = [
+extension ImprovedTextView {
+    // MARK: Helper
+
+    var stringRange: NSRange {
+        return NSRange(string.startIndex..<string.endIndex, in: string)
+    }
+
+    /// NSString version of string property
+    var nsString: NSString {
+        return NSString(string: string)
+    }
+
+    /// The Range of the current line.
+    var currentLineRange: NSRange {
+        return nsString.lineRange(for: selectedRange())
+    }
+
+    /// The string of the current line
+    var currentLine: String {
+        return nsString.substring(with: currentLineRange)
+    }
+
+    @discardableResult func lines(inRange range: NSRange, block: (Int, NSRange) -> Int) -> Int {
+        var glyphIndexForStringLine = range.location
+        let endIndex = NSMaxRange(range)
+        var relativeLineNumber = 0
+        var totalCharactersAdded = 0
+
+        while glyphIndexForStringLine < endIndex + totalCharactersAdded {
+            // get line range
+            let stringIndex = layoutManager!.characterIndexForGlyph(at: glyphIndexForStringLine)
+            let lineRange = nsString.lineRange(for: NSRange(location: stringIndex, length: 0))
+
+            let lineChange = block(relativeLineNumber, lineRange)
+
+            totalCharactersAdded += lineChange
+            glyphIndexForStringLine = NSMaxRange(lineRange) + lineChange
+            relativeLineNumber += 1
+        }
+        return totalCharactersAdded
+    }
+}
+
+private let editorAutoCloseCharacters = [
     "[": "]",
     "{": "}",
     "<": ">",

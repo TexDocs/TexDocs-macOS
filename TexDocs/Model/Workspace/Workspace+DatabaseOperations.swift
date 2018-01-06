@@ -54,7 +54,7 @@ extension Workspace {
         guard let managedObjectContext = managedObjectContext else {
             return nil
         }
-        
+
         var result: T?
         databaseQueue.sync {
             result = try? operations(managedObjectContext)

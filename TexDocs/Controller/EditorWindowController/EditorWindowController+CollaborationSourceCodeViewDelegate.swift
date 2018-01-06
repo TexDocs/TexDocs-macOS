@@ -13,7 +13,7 @@ extension EditorWindowController: CollaborationSourceCodeViewDelegate {
     func collaborationSourceCodeView(_ collaborationSourceCodeView: CollaborationSourceCodeView, userSelectionDidChange newSelection: NSRange) {
         //TODO implement
     }
-    
+
     func collaborationCursors(for editor: CollaborationSourceCodeView) -> [CollaborationCursor] {
         //TODO implement
         return []

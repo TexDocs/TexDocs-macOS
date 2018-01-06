@@ -10,7 +10,6 @@ import Cocoa
 import Quartz
 
 class PDFViewController: NSViewController {
-
     @IBOutlet weak var pdfView: PDFView!
     @IBOutlet weak var backButton: NSButton!
     @IBOutlet weak var nextButton: NSButton!
@@ -30,14 +29,14 @@ class PDFViewController: NSViewController {
         updateNavigationButtons()
     }
 
-    private func destinationOfCurrentPDF() -> (pageIndex: Int, point: NSPoint, zoom: CGFloat)? {
+    private func destinationOfCurrentPDF() -> CachedPDFLocation? {
         guard let destination = pdfView.currentDestination,
             let page = destination.page,
             let document = pdfView.document else {
                 return nil
         }
 
-        return (pageIndex: document.index(for: page), point: destination.point, zoom: pdfView.scaleFactor)
+        return CachedPDFLocation(pageIndex: document.index(for: page), point: destination.point, zoom: pdfView.scaleFactor)
     }
 
     func showPDF(withURL url: URL) {
@@ -80,4 +79,10 @@ class PDFViewController: NSViewController {
             NSWorkspace.shared.open(url)
         }
     }
+}
+
+private struct CachedPDFLocation {
+    let pageIndex: Int
+    let point: NSPoint
+    let zoom: CGFloat
 }

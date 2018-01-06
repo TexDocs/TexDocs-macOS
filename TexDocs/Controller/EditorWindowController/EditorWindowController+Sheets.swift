@@ -16,7 +16,7 @@ extension EditorWindowController {
         sheetIsShown = true
         window?.contentViewController?.presentViewControllerAsSheet(notificationSheet)
     }
-    
+
     func closeSheet() {
         DispatchQueue.main.async { [weak self] in
             guard let unwrappedSelf = self, unwrappedSelf.sheetIsShown else {
@@ -26,7 +26,7 @@ extension EditorWindowController {
             self?.notificationSheet.dismiss(self)
         }
     }
-    
+
     private func showSheetStep(text: String, buttonTitle: String? = nil, progressBarValue: ProgressBarValue) {
         DispatchQueue.main.async { [weak self] in
             self?.showSheetIfRequired()
@@ -35,7 +35,7 @@ extension EditorWindowController {
             self?.notificationSheet.updateProgressBar(value: progressBarValue)
         }
     }
-    
+
     func showUserNotificationSheet(text: String, action: (() -> Void)? = nil) {
         DispatchQueue.main.async { [weak self] in
             self?.showSheetIfRequired()
@@ -47,7 +47,7 @@ extension EditorWindowController {
             self?.notificationSheet.updateProgressBar(value: .hidden)
         }
     }
-    
+
     private func showErrorClosingSheet(text: String) {
         DispatchQueue.main.async { [weak self] in
             self?.showSheetIfRequired()
@@ -64,11 +64,11 @@ extension EditorWindowController {
     func showErrorSheet(_ error: Error) {
         showErrorClosingSheet(text: error.localizedDescription)
     }
-    
+
     func showErrorSheet(withCustomMessage text: String) {
         showErrorClosingSheet(text: text)
     }
-    
+
     func showInternalErrorSheet() {
         showErrorClosingSheet(
             text: NSLocalizedString(
@@ -76,11 +76,12 @@ extension EditorWindowController {
                 comment: "Message shown to the user if an internal error occures.")
         )
     }
-    
+
 }
 
 extension EditorWindowController: EditSchemeSheetDelegate {
     func editSchemeSheet(for scheme: SchemeModel) -> EditSchemeSheet {
+        // swiftlint:disable force_cast
         let sheet = NSStoryboard.sheets.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("editSchemeSheet")) as! EditSchemeSheet
         sheet.delegate = self
         sheet.scheme = scheme
@@ -94,6 +95,7 @@ extension EditorWindowController: EditSchemeSheetDelegate {
 
 extension EditorWindowController: CreateNewFileSheetDelegate {
     func newFileSystemItemSheet(forType type: NewFileItemType, withSuperItem superItem: FileSystemItem) -> CreateNewFileItemSheet {
+        // swiftlint:disable force_cast
         let sheet = NSStoryboard.sheets.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("createNewFileItemSheet")) as! CreateNewFileItemSheet
         sheet.delegate = self
         sheet.type  = type

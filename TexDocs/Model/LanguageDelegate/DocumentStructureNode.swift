@@ -17,7 +17,6 @@ protocol DocumentStructureNode: NavigationOutlineViewItem {
     var subNodes: [DocumentStructureNode] { get }
 }
 
-
 extension DocumentStructureNode {
     var numberOfChildren: Int {
         return subNodes.count
@@ -32,6 +31,7 @@ extension DocumentStructureNode {
     }
 
     func cell(in outlineView: NSOutlineView, controller: NavigationOutlineViewController) -> NSView? {
+        // swiftlint:disable force_cast
         let cell = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "DocumentStructureNodeCell"), owner: nil) as! DocumentStructureNodeCell
         cell.structureNode = self
         return cell
@@ -43,7 +43,7 @@ extension DocumentStructureNode {
         return resultPath
     }
 
-    private func path(toPosition position: Int, resultPath: inout [DocumentStructureNode], range: KeyPath<DocumentStructureNode, NSRange>)  {
+    private func path(toPosition position: Int, resultPath: inout [DocumentStructureNode], range: KeyPath<DocumentStructureNode, NSRange>) {
         resultPath.append(self)
 
         guard let newPathElement = subNodes.first(where: { $0[keyPath: range].contains(position) }) else {

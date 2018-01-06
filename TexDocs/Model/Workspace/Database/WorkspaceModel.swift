@@ -21,7 +21,7 @@ public class WorkspaceModel: NSManagedObject {
         return controller
     }()
 
-    var collaborationDelegate: VersionedFileCollaborationDelegate?
+    weak var collaborationDelegate: VersionedFileCollaborationDelegate?
 
     lazy var currentFilesFetchedResultController: SimpleFetchedResultsController<FileModel> = {
         let request: NSFetchRequest<FileModel> = FileModel.fetchRequest()
@@ -55,7 +55,7 @@ public class WorkspaceModel: NSManagedObject {
 
     func insertCommit(_ newCommit: BaseCommitModel, at index: Int) {
         for commit in commitsFetchedResultController[index...] {
-            commit.index = commit.index + 1
+            commit.index += 1
         }
 
         newCommit.workspace = self
@@ -78,6 +78,7 @@ extension NSManagedObjectContext {
     }
 
     private func createWorkspaceModel() -> WorkspaceModel {
+        // swiftlint:disable force_cast
         return NSEntityDescription.insertNewObject(forEntityName: "Workspace", into: self) as! WorkspaceModel
     }
 }

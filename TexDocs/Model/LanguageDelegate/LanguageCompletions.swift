@@ -32,7 +32,6 @@ struct LanguageCompletions {
     }
 }
 
-
 struct LanguageCompletion {
     let displayString: String
     let completionString: String

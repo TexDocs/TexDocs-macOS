@@ -12,11 +12,11 @@ extension EditorWindowController {
     var workspace: Workspace? {
         return self.document as? Workspace
     }
-    
+
     var workspaceURL: URL! {
         return workspace?.workspaceURL
     }
-    
+
     var dataFolderURL: URL! {
         return workspaceURL.appendingPathComponent("Data", isDirectory: true)
     }

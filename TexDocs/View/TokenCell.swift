@@ -123,7 +123,7 @@ import Cocoa
 //    }
 //
 //    func createTokens(in range: NSRange) -> Int {
-//        let matches = EditorPlaceHolderRegex.matches(in: string, options: [], range: range)
+//        let matches = editorPlaceHolderRegex.matches(in: string, options: [], range: range)
 //        var shift = 0
 //
 //        for match in matches {
@@ -146,4 +146,3 @@ import Cocoa
 //        return NSRange(location: location + shift, length: length)
 //    }
 //}
-

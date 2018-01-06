@@ -60,8 +60,10 @@ public class VersionedFileModel: FileModel, NSTextStorageDelegate {
     }
 
     fileprivate var userInitiated = true
-    var collaborationDelegate: VersionedFileCollaborationDelegate?
+    weak var collaborationDelegate: VersionedFileCollaborationDelegate?
     let delegates = MultiDelegate<VersionedFileDelegate>()
+
+    // swiftlint:disable weak_delegate
     private(set) lazy var languageDelegate: LanguageDelegate? = {
         allLanguageDelegates[pathExtension]?.init()
     }()
@@ -92,6 +94,7 @@ protocol VersionedFileCollaborationDelegate: VersionedFileDelegate {}
 
 extension NSManagedObjectContext {
     func createVersionedFile(at path: String) -> VersionedFileModel {
+        // swiftlint:disable force_cast
         let file = NSEntityDescription.insertNewObject(forEntityName: "VersionedFile", into: self) as! VersionedFileModel
         file.relativePath = path
         file.createCommit = createCreateFileCommit()

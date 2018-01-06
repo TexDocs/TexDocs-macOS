@@ -41,7 +41,7 @@ class SimpleFetchedResultsController<ResultType: NSManagedObject> {
         return fetch(offset: from.lowerBound)
     }
 
-    subscript(to: PartialRangeUpTo<Int>) -> [ResultType] {
-        return fetch(limit: to.upperBound)
+    subscript(upTo upper: PartialRangeUpTo<Int>) -> [ResultType] {
+        return fetch(limit: upper.upperBound)
     }
 }

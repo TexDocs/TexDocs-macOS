@@ -24,7 +24,7 @@ class ImageEditorViewController: BaseEditorViewController, EditorController {
 
     func receivedChange(in range: NSRange, replaceWith replaceString: String) {}
 
-    func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) -> NSPrintOperation? {
+    func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey: Any]) -> NSPrintOperation? {
         return NSPrintOperation(view: imageView, printInfo: NSPrintInfo(dictionary: printSettings))
     }
 
@@ -42,9 +42,9 @@ class ImageEditorViewController: BaseEditorViewController, EditorController {
         guard let imageFileSystemItem = fileSystemItem as? ImageFileSystemItem else {
             return nil
         }
-
-        let editorController = NSStoryboard(name: NSStoryboard.Name(rawValue: "Editors"), bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "ImageEditorViewController")) as! ImageEditorViewController
-        editorController.imageFileSystemItem = imageFileSystemItem
+        let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Editors"), bundle: nil)
+        let editorController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "ImageEditorViewController")) as? ImageEditorViewController
+        editorController?.imageFileSystemItem = imageFileSystemItem
         return editorController
     }
 }

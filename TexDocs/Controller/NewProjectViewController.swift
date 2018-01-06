@@ -15,20 +15,19 @@ class NewProjectViewController: NSViewController {
     @IBOutlet weak var saveButton: NSButton!
     @IBOutlet weak var serverURLTextField: NSTextField!
     @IBOutlet weak var warningStackView: NSStackView!
-    
-    
+
     private(set) var method: NewProjectOpenMethod?
     private(set) var localURL: URL?
-    
+
     override func viewDidLoad() {
         warningStackView.isHidden = true
     }
-    
+
     override func viewDidDisappear() {
         super.viewDidDisappear()
         NSApp.stopModal()
     }
-    
+
     @IBAction func joinRadioButtonPressed(_ sender: NSButton) {
         serverURLTextField.isHidden = false
         saveButton.title = NSLocalizedString("TD_BUTTON_JOIN", comment: "Button to join an existing project.")
@@ -36,7 +35,7 @@ class NewProjectViewController: NSViewController {
         createOfflineRadioButton.state = .off
         inputChanged()
     }
-    
+
     @IBAction func createRadioButtonPressed(_ sender: NSButton) {
         serverURLTextField.isHidden = false
         saveButton.title = NSLocalizedString("TD_BUTTON_CREATE", comment: "Button to create a new project.")
@@ -44,7 +43,7 @@ class NewProjectViewController: NSViewController {
         createOfflineRadioButton.state = .off
         inputChanged()
     }
-    
+
     @IBAction func createOfflineRadioButtonPressed(_ sender: NSButton) {
         serverURLTextField.isHidden = true
         saveButton.title = NSLocalizedString("TD_BUTTON_CREATE_OFFLINE", comment: "Button to create a new offline project.")
@@ -52,15 +51,15 @@ class NewProjectViewController: NSViewController {
         createRadioButton.state = .off
         inputChanged()
     }
-    
+
     @IBAction func userEditedURL(_ sender: NSTextField) {
         inputChanged()
     }
-    
+
     private func inputChanged() {
         warningStackView.isHidden = true
     }
-    
+
     private func getNewProjectMethod() -> NewProjectOpenMethod? {
         if createOfflineRadioButton.state == .on {
             return .offline
@@ -73,27 +72,27 @@ class NewProjectViewController: NSViewController {
             return .create(serverURL: serverURL)
         }
     }
-    
+
     @IBAction func cancel(_ sender: Any) {
         view.window?.close()
         NSApp.stopModal(withCode: .cancel)
     }
-    
+
     @IBAction func save(_ sender: Any) {
         guard let window = view.window else {
             return
         }
-        
+
         guard let method = getNewProjectMethod() else {
             warningStackView.isHidden = false
             return
         }
         warningStackView.isHidden = true
-        
+
         self.method = method
 
         let savePanel = NSSavePanel()
-        
+
         savePanel.beginSheetModal(for: window) { [weak self] response in
             if response == .OK, let url = savePanel.url {
                 self?.localURL = url
@@ -103,4 +102,3 @@ class NewProjectViewController: NSViewController {
         }
     }
 }
-

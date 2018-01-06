@@ -10,6 +10,7 @@ import Foundation
 
 extension NSManagedObjectContext {
     func createSchemeModel(name: String, path: String) -> SchemeModel {
+        // swiftlint:disable force_cast
         let scheme = NSEntityDescription.insertNewObject(forEntityName: "Scheme", into: self) as! SchemeModel
         scheme.name = name
         scheme.path = path

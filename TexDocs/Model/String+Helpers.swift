@@ -15,10 +15,8 @@ extension String {
     }
 
     var leadingSpaces: Int {
-        for (count, character) in self.enumerated() {
-            if character != " " {
-                return count
-            }
+        for (count, character) in self.enumerated() where character != " " {
+            return count
         }
         return count
     }

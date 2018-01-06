@@ -22,7 +22,7 @@ protocol EditorController: class {
     func saveToFileSystemItem()
     func editorControllerWillOpen()
 
-    func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) -> NSPrintOperation?
+    func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey: Any]) -> NSPrintOperation?
 
     // MARK: NSViewController functions
     func removeFromSuperview()
@@ -42,7 +42,6 @@ class BaseEditorViewController: NSViewController {
     override func viewDidLoad() {
         willOpen()
     }
-
 
     func editorControllerWillOpen() {
         willOpen()

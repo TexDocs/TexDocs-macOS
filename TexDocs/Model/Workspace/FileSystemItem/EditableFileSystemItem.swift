@@ -10,6 +10,7 @@ import Cocoa
 
 class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
     var versionedFileModel: VersionedFileModel {
+        // swiftlint:disable force_cast
         return fileModel as! VersionedFileModel
     }
 
@@ -28,7 +29,6 @@ class EditableFileSystemItem: FileSystemItem, NSTextStorageDelegate {
     var annotations: [RulerAnnotation]? {
         return languageDelegate?.textStorageRulerAnnotations(textStorage)
     }
-
 
     override var editorControllerTypes: [EditorController.Type] {
         return [[CollaborationEditorViewController.self], super.editorControllerTypes].flatMap { $0}

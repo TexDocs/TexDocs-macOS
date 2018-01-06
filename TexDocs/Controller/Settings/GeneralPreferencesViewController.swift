@@ -109,6 +109,4 @@ class GeneralPreferencesViewController: NSViewController, CCNPreferencesWindowCo
         texdocPathTextField.textView.textColor = .black
         UserDefaults.texdocPath.value = texdocPathTextField.value
     }
-
-
 }

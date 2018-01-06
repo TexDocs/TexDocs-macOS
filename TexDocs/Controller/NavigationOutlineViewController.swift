@@ -123,10 +123,10 @@ extension NavigationOutlineViewController: ModernTabBarDelegate {
 extension NavigationOutlineViewController: NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         guard let item = item as? ItemWrapper else { return 1 }
-        
+
         return item.item.numberOfChildren
     }
-    
+
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         guard let item = item as? ItemWrapper else {
             guard let newRootItem = rootItem() else {
@@ -134,15 +134,15 @@ extension NavigationOutlineViewController: NSOutlineViewDataSource {
             }
             return ItemWrapper(newRootItem)
         }
-        
+
         return ItemWrapper(item.item.child(at: index))
     }
-    
+
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
         guard let item = item as? ItemWrapper else { return false }
         return item.item.isExpandable
     }
-    
+
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         guard let item = item as? ItemWrapper else { return nil }
 

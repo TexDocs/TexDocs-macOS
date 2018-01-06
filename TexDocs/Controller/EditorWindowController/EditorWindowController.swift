@@ -10,8 +10,8 @@ import Cocoa
 import CollaborationKit
 
 class EditorWindowController: NSWindowController {
-    
-    // MARK: Variables
+
+    // MARK: - Variables
 
     /// Content directory
     private(set) var rootDirectory: FileSystemItem?
@@ -27,7 +27,7 @@ class EditorWindowController: NSWindowController {
     }
 
     var autoTypesetTimer: Timer?
-    
+
     /// Document loaded in this window controller.
     override var document: AnyObject? {
         didSet {
@@ -39,51 +39,13 @@ class EditorWindowController: NSWindowController {
     }
 
     let notificationSheet: SimpleSheet = {
+        // swiftlint:disable force_cast
         return NSStoryboard.sheets.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("SimpleSheet")) as! SimpleSheet
     }()
 
     var sheetIsShown: Bool = false
-    
-    // Mark: Document
-    
-    func loaded(document: Workspace) {
-        reloadSchemeSelector()
 
-        rootDirectory = generateRootDirectory()
-        fileListDidChange()
-
-        if let serverURL = document.workspaceModel.serverURL {
-            collaborationClient.connect(to: serverURL)
-        }
-    }
-
-    func editedDocument() {
-        DispatchQueue.main.async {
-            self.workspace?.updateChangeCount(.changeDone)
-        }
-    }
-
-    private func generateRootDirectory() -> FileSystemItem {
-        guard let files = workspace?.workspaceModel.currentFilesFetchedResultController.fetch() else {
-            return FileSystemItem(dataFolderURL, parent: nil)
-        }
-
-        return FileSystemItem.createTree(forFiles: files, atURL: dataFolderURL)
-    }
-
-    func open(fileSystemItem: FileSystemItem, withEditorControllerType editorControllerType: EditorController.Type?) {
-        guard let editorController = instantiateEditorController(for: fileSystemItem, withEditorControllerType: editorControllerType) else {
-            showErrorSheet(withCustomMessage: NSLocalizedString("TD_ERROR_INVALID_EDITOR_CONTROLLER", comment: "Error message if the requested editor controller cannot be created"))
-            return
-        }
-        editorWrapperViewController.pushToOpenedFiles(editorController)
-    }
-
-    private func instantiateEditorController(for fileSystemItem: FileSystemItem, withEditorControllerType editorControllerType: EditorController.Type?) -> EditorController? {
-        return (editorControllerType ?? fileSystemItem.editorControllerTypes.first)?.instantiateController(withFileSystemItem: fileSystemItem, windowController: self)
-    }
-
-    var selectedSchemeMenuItem: SchemeMenuItem? = nil
+    var selectedSchemeMenuItem: SchemeMenuItem?
 
     func reloadSchemeSelector() {
         guard let schemes = workspace?.workspaceModel.fetchAllSchemes() else {
@@ -129,7 +91,7 @@ class EditorWindowController: NSWindowController {
     }
 
     // MARK: Life cycle
-    
+
     override func windowDidLoad() {
         outlineViewController.delegate = self
         editorWrapperViewController.delegate = self
@@ -149,7 +111,7 @@ class EditorWindowController: NSWindowController {
     override func changeFont(_ sender: Any?) {
         UserDefaults.updateFontFromFontPanel()
     }
-    
+
     @IBAction func panelsDidChange(_ sender: NSSegmentedControl) {
         if outlinePanel.isCollapsed == sender.isSelected(forSegment: 0) {
             rootSplitViewController.toggleSidebar(sender)
@@ -158,7 +120,7 @@ class EditorWindowController: NSWindowController {
             centerSplitViewController.toggleSidebar(sender)
         }
     }
-    
+
     @IBAction func selectedModeDidChange(_ sender: NSSegmentedControl) {
         switch sender.selectedSegment {
         case 0:
@@ -178,7 +140,7 @@ class EditorWindowController: NSWindowController {
     @IBAction func typesetButtonClicked(_ sender: Any) {
         typeset()
     }
-    
+
     @IBAction func stopProcessButtonClicked(_ sender: Any) {
         currentTypesetProcess?.terminate()
     }
@@ -193,5 +155,45 @@ class EditorWindowController: NSWindowController {
     }
 
     @IBAction func reconnectButtonClicked(_ sender: Any) {
+    }
+}
+
+// MARK: - Document
+extension EditorWindowController {
+    func loaded(document: Workspace) {
+        reloadSchemeSelector()
+
+        rootDirectory = generateRootDirectory()
+        fileListDidChange()
+
+        if let serverURL = document.workspaceModel.serverURL {
+            collaborationClient.connect(to: serverURL)
+        }
+    }
+
+    func editedDocument() {
+        DispatchQueue.main.async {
+            self.workspace?.updateChangeCount(.changeDone)
+        }
+    }
+
+    private func generateRootDirectory() -> FileSystemItem {
+        guard let files = workspace?.workspaceModel.currentFilesFetchedResultController.fetch() else {
+            return FileSystemItem(dataFolderURL, parent: nil)
+        }
+
+        return FileSystemItem.createTree(forFiles: files, atURL: dataFolderURL)
+    }
+
+    func open(fileSystemItem: FileSystemItem, withEditorControllerType editorControllerType: EditorController.Type?) {
+        guard let editorController = instantiateEditorController(for: fileSystemItem, withEditorControllerType: editorControllerType) else {
+            showErrorSheet(withCustomMessage: NSLocalizedString("TD_ERROR_INVALID_EDITOR_CONTROLLER", comment: "Error message if the requested editor controller cannot be created"))
+            return
+        }
+        editorWrapperViewController.pushToOpenedFiles(editorController)
+    }
+
+    private func instantiateEditorController(for fileSystemItem: FileSystemItem, withEditorControllerType editorControllerType: EditorController.Type?) -> EditorController? {
+        return (editorControllerType ?? fileSystemItem.editorControllerTypes.first)?.instantiateController(withFileSystemItem: fileSystemItem, windowController: self)
     }
 }

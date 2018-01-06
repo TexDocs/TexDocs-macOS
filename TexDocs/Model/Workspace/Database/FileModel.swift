@@ -18,6 +18,7 @@ public class FileModel: NSManagedObject {
 
 extension NSManagedObjectContext {
     func createBinaryFile(at path: String, withData data: Data) -> FileModel {
+        // swiftlint:disable force_cast
         let file = NSEntityDescription.insertNewObject(forEntityName: "File", into: self) as! FileModel
         file.relativePath = path
         file.createCommit = createCreateFileCommit()

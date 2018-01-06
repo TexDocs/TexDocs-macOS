@@ -16,22 +16,22 @@ class SimpleSheet: NSViewController {
     @IBAction func buttonPressed(_ sender: NSButton) {
         action?()
     }
-    
-    private var buttonTitle: String? = nil
+
+    private var buttonTitle: String?
     private var labelText: String = ""
     private var progressValue: ProgressBarValue = .indeterminate
-    
+
     private var action: (() -> Void)?
-    
+
     func updateButton(title: String?, action: (() -> Void)? = nil) {
         self.buttonTitle = title
         self.action = action
-        
+
         guard let title = title else {
             button?.isHidden = true
             return
         }
-        
+
         button?.title = title
         button?.isHidden = false
         if action != nil {
@@ -43,11 +43,11 @@ class SimpleSheet: NSViewController {
         self.labelText = text
         statusLabel?.stringValue = text
     }
-    
+
     func updateProgressBar(value: ProgressBarValue) {
         self.progressValue = value
         progressBar?.isHidden = false
-        
+
         switch value {
         case .hidden:
             progressBar?.isHidden = true

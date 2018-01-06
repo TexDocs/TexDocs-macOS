@@ -1,0 +1,12 @@
+disabled_rules:
+  - function_parameter_count
+  - todo
+
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - Carthage
+  - CollaborationKit/External Libraries
+
+line_length: 235
+type_body_length: 100
+file_length: 350
+function_body_length: 50
