@@ -9,11 +9,4 @@ script:
   - xcodebuild build -project TexDocs.xcodeproj -scheme TexDocs | xcpretty -f `xcpretty-travis-formatter`
 
 notifications:
-webhooks:
-  urls:
-    - https://hooks.aethonan.pro/travisci/358138371
-  on_success: always
-  on_failure: always
-  on_start: change
-  on_cancel: always
-  on_error: always
+    slack: texdocs:X1gHGkvu82Ks33JCLRFvlAyV
