@@ -37,20 +37,30 @@ extension EditorWindowController: CollaborationClientDelegate {
         client.sendProjectRequest(forUUID: projectID)
     }
 
-    func collaborationCursorsChanged(_ client: CollaborationClient) {
-        //TODO implement
+    func collaborationClient(_ client: CollaborationClient, userJoined user: CollaborationUser) {
+        // TODO implement
     }
 
+    func collaborationClient(_ client: CollaborationClient, userLeft user: CollaborationUser) {
+        // TODO implement
+    }
+
+    func collaborationCursorsDidChanged(_ client: CollaborationClient) {
+        //TODO implement
+    }
+}
+
+extension EditorWindowController {
     func updateConnectionStatus(_ newStatus: ConnectionState) {
         DispatchQueue.main.async {
             self.connectionStatusToolbarItem.image = NSImage(named: NSImage.Name(rawValue: newStatus.rawValue))
         }
     }
-}
 
-enum ConnectionState: String {
-    case unknown = "NSImageNameStatusNone"
-    case connected = "NSStatusAvailable"
-    case disconnected = "NSStatusUnavailable"
-    case connecting = "NSStatusPartiallyAvailable"
+    enum ConnectionState: String {
+        case unknown = "NSImageNameStatusNone"
+        case connected = "NSStatusAvailable"
+        case disconnected = "NSStatusUnavailable"
+        case connecting = "NSStatusPartiallyAvailable"
+    }
 }

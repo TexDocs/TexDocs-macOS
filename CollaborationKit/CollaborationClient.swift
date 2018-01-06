@@ -9,16 +9,15 @@
 import Foundation
 
 public class CollaborationClient {
-    private(set) var collaborationCursors: [String: CollaborationCursor] = [:]
-    private(set) var sessionID: UUID?
-
-    public weak var delegate: CollaborationClientDelegate?
-
+    private var collaborationUsers: [UUID: CollaborationUser] = [:]
+    private var sessionUUID: UUID?
     private var webSocket: WebSocket?
     private var ignoreCloseReason: Bool = false
 
+    public weak var delegate: CollaborationClientDelegate?
+
     public func connect(to url: URL) {
-        sessionID = nil
+        sessionUUID = nil
         ignoreCloseReason = false
         webSocket = WebSocket()
         webSocket?.open(nsurl: url)
@@ -49,7 +48,9 @@ public protocol CollaborationClientDelegate: class {
     func collaborationClient(_ client: CollaborationClient, encounteredError error: Error)
     func collaborationClient(_ client: CollaborationClient, didDisconnectedBecause reason: String)
     func collaborationClientDidCompletedHandshake(_ client: CollaborationClient)
-    func collaborationCursorsChanged(_ client: CollaborationClient)
+    func collaborationClient(_ client: CollaborationClient, userJoined user: CollaborationUser)
+    func collaborationClient(_ client: CollaborationClient, userLeft user: CollaborationUser)
+    func collaborationCursorsDidChanged(_ client: CollaborationClient)
 }
 
 extension CollaborationClient {
@@ -72,8 +73,12 @@ extension CollaborationClient {
             try handleHandshakeErrorResponse(HandshakeErrorResponse(decode: data))
         case .projectRequestSuccessResponse:
             try handleProjectRequestSuccessResponse(ProjectRequestSuccessResponse(decode: data))
-        case .projectRequestErrorResponse:
+        case .projectRequestError:
             try handleProjectRequestErrorResponse(ProjectRequestErrorResponse(decode: data))
+        case .userJoindNotification:
+            try handleUserJoindNotification(UserJoinedNotification(decode: data))
+        case .userLeftNotification:
+            try handleUserLeftNotification(UserLeftNotification(decode: data))
         }
     }
 }
@@ -133,7 +138,7 @@ extension CollaborationClient {
 // MARK: - Package handling
 extension CollaborationClient {
     private func handleHandshakeAcknowledgementResponse(_ response: HandshakeAcknowledgementResponse) {
-        self.sessionID = response.sessionID
+        self.sessionUUID = response.sessionUUID
         delegate?.collaborationClientDidCompletedHandshake(self)
     }
 
@@ -142,7 +147,7 @@ extension CollaborationClient {
     }
 
     private func handleProjectRequestSuccessResponse(_ response: ProjectRequestSuccessResponse) {
-        print(response.projectID)
+        print(response.projectUUID)
         print(response.projectName)
 
         // TODO: Implement
@@ -150,5 +155,19 @@ extension CollaborationClient {
 
     private func handleProjectRequestErrorResponse(_ response: ProjectRequestErrorResponse) {
         closeConnection(reason: response.reason)
+    }
+
+    private func handleUserJoindNotification(_ notification: UserJoinedNotification) {
+        // TODO set name and image
+        let user = CollaborationUser(displayName: "Annonymous", sessionUUID: notification.sessionUUID)
+        collaborationUsers[notification.sessionUUID] = user
+        delegate?.collaborationClient(self, userJoined: user)
+    }
+
+    private func handleUserLeftNotification(_ notification: UserLeftNotification) {
+        if let user = collaborationUsers.removeValue(forKey: notification.sessionUUID) {
+            delegate?.collaborationClient(self, userLeft: user)
+            delegate?.collaborationCursorsDidChanged(self)
+        }
     }
 }
