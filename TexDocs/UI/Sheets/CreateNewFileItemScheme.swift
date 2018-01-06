@@ -24,6 +24,10 @@ class CreateNewFileItemSheet: NSViewController {
         delegate?.createNewFileItemSheet(self, createWithName: nameTextField.stringValue, ofType: type)
         dismiss(sender)
     }
+
+    @IBAction func cancelButtonClicked(_ sender: Any) {
+        dismiss(sender)
+    }
 }
 
 enum NewFileItemType {

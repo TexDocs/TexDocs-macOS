@@ -37,6 +37,9 @@
                                         <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="BkL-Yr-JWa">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
+                                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                                         </buttonCell>
                                         <connections>
                                             <action selector="buttonPressed:" target="MXl-if-Q0B" id="2Wt-fc-6t6"/>
@@ -130,18 +133,37 @@
                                 <buttonCell key="cell" type="push" title="Create" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lqw-HC-IwE">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                                 </buttonCell>
                                 <connections>
                                     <action selector="closeButtonClicked:" target="Iis-xF-13e" id="7On-da-681"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ok5-6v-J6M">
+                                <rect key="frame" x="273" y="13" width="82" height="32"/>
+                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="BYN-y0-0Nd">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="cancelButtonClicked:" target="Iis-xF-13e" id="dfW-0p-Ty9"/>
                                 </connections>
                             </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="6lx-Mh-q0p" secondAttribute="trailing" constant="20" id="BHS-yP-UgJ"/>
                             <constraint firstItem="wLJ-90-U7P" firstAttribute="top" secondItem="6lx-Mh-q0p" secondAttribute="bottom" constant="10" id="OXz-7U-ByE"/>
+                            <constraint firstItem="wLJ-90-U7P" firstAttribute="leading" secondItem="ok5-6v-J6M" secondAttribute="trailing" constant="12" id="Oag-rU-rnJ"/>
                             <constraint firstAttribute="trailing" secondItem="wLJ-90-U7P" secondAttribute="trailing" constant="20" id="beD-Wa-iKb"/>
                             <constraint firstItem="6lx-Mh-q0p" firstAttribute="top" secondItem="q1Z-PT-xqR" secondAttribute="top" constant="20" id="hY8-cF-2LE"/>
                             <constraint firstAttribute="bottom" secondItem="wLJ-90-U7P" secondAttribute="bottom" constant="20" id="lK2-LY-kVD"/>
+                            <constraint firstAttribute="bottom" secondItem="ok5-6v-J6M" secondAttribute="bottom" constant="20" id="n0G-2m-sdf"/>
+                            <constraint firstItem="ok5-6v-J6M" firstAttribute="top" secondItem="6lx-Mh-q0p" secondAttribute="bottom" constant="10" id="v2p-ri-lOD"/>
                             <constraint firstItem="6lx-Mh-q0p" firstAttribute="leading" secondItem="q1Z-PT-xqR" secondAttribute="leading" constant="20" id="vUq-0j-wA1"/>
                         </constraints>
                     </view>
@@ -265,6 +287,9 @@
                                 <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="95m-1a-MCi">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                                 </buttonCell>
                                 <connections>
                                     <action selector="closeButtonClicked:" target="ojR-pF-oDv" id="S51-fu-lao"/>
