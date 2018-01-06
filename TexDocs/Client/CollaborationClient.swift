@@ -16,7 +16,7 @@ class CollaborationClient {
     weak var delegate: CollaborationClientDelegate?
 
     private var webSocket: WebSocket?
-    fileprivate var ignoreCloseReason: Bool = false
+    private var ignoreCloseReason: Bool = false
 
     func connect(to url: URL) {
         sessionID = nil
@@ -42,7 +42,7 @@ class CollaborationClient {
     }
 }
 
-// MARK: Protocols
+// MARK: - Protocols
 /// Collaboration Client Protocol
 protocol CollaborationClientDelegate: class {
     func collaborationClientDidStartConnecting(_ client: CollaborationClient)
@@ -54,7 +54,7 @@ protocol CollaborationClientDelegate: class {
 }
 
 extension CollaborationClient {
-    func send<Package: SendablePackage>(package: Package) {
+    private func send<Package: SendablePackage>(package: Package) {
         var encoded = package.encode()
         encoded.append(package.packageIdentifier.rawValue)
         webSocket?.send(data: encoded)
@@ -114,6 +114,7 @@ extension CollaborationClient: WebSocketDelegate {
     }
 }
 
+// MARK: - Events
 extension CollaborationClient {
     func sendHandshake() {
         send(package: HandshakeRequest())
@@ -130,24 +131,25 @@ extension CollaborationClient {
     }
 }
 
+// MARK: - Package handling
 extension CollaborationClient {
-    func handleHandshakeAcknowledgementResponse(_ response: HandshakeAcknowledgementResponse) {
+    private func handleHandshakeAcknowledgementResponse(_ response: HandshakeAcknowledgementResponse) {
         self.sessionID = response.sessionID
         delegate?.collaborationClientDidCompletedHandshake(self)
     }
 
-    func handleHandshakeErrorResponse(_ response: HandshakeErrorResponse) {
+    private func handleHandshakeErrorResponse(_ response: HandshakeErrorResponse) {
         closeConnection(reason: response.reason)
     }
 
-    func handleProjectRequestSuccessResponse(_ response: ProjectRequestSuccessResponse) {
+    private func handleProjectRequestSuccessResponse(_ response: ProjectRequestSuccessResponse) {
         print(response.projectID)
         print(response.projectName)
 
         // TODO: Implement
     }
 
-    func handleProjectRequestErrorResponse(_ response: ProjectRequestErrorResponse) {
+    private func handleProjectRequestErrorResponse(_ response: ProjectRequestErrorResponse) {
         closeConnection(reason: response.reason)
     }
 }

@@ -25,6 +25,7 @@ enum ResponsePackageIdentifier: Int {
     case projectRequestSuccessResponse = 5
 }
 
+// MARK: - Handshake
 struct HandshakeRequest: SendablePackage {
     let version = "0.1.0"
     let packageIdentifier: RequestPackageIdentifier = .handshakeRequest
@@ -47,6 +48,7 @@ struct HandshakeAcknowledgementResponse: MessagePackDecodable {
     }
 }
 
+// MARK: - Project Request
 struct ProjectRequest: SendablePackage {
     let uuid: UUID
     let packageIdentifier: RequestPackageIdentifier = .projectRequest
