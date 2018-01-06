@@ -6,9 +6,10 @@ cache:
 
 before_script:
  - carthage bootstrap --platform macOS
+ - gem install xcpretty-travis-formatter
 
 script:
-  - xcodebuild build -project TexDocs.xcodeproj -scheme TexDocs
+  - xcodebuild build -project TexDocs.xcodeproj -scheme TexDocs | xcpretty -f `xcpretty-travis-formatter`
 
 notifications:
   webhooks: https://hooks.aethonan.pro/travisci/358138371/
