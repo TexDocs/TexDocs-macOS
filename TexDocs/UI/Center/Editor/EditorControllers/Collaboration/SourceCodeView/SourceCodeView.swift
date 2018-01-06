@@ -54,8 +54,7 @@ class SourceCodeView: ImprovedTextView {
     override func insertNewline(_ sender: Any?) {
         super.insertNewline(sender)
 
-        // -2: -1 (\n newline) + -1 (arrays start with 0)
-        if let path = editableFileSystemItem?.rootStructureNode?.path(toPosition: currentLineRange.upperBound - 2, range: \.indentRange) {
+        if let path = editableFileSystemItem?.rootStructureNode?.path(toPosition: currentLineRange.upperBound, range: \.indentRange) {
             insertText(String(repeating: " ", count: (path.count - 1) * 4))
 
             if let closableDocumentStructureNode = path.last as? ClosableDocumentStructureNode, !closableDocumentStructureNode.closed {
