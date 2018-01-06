@@ -299,22 +299,24 @@ extension SourceCodeView: CompletionViewControllerDelegate {
             } else if typedString == "\\" {
                 super.keyDown(with: event)
                 complete(self)
-                //            } else if typedString == "\t" {
-                //                if !goToNextPlaceholder() {
-                //                    let currentLineRange = self.currentLineRange
-                //                    let currentLine = string[currentLineRange]
-                //                    let positionInLine = selectedRange().location - currentLineRange.location
-                //
-                //                    if selectedRange().length > 0 || currentLine.leadingSpaces >= positionInLine {
-                //                        incraseIndent()
-                //                    } else {
-                //                        super.keyDown(with: event)
-                //                    }
-                //                }
-                //            } else if typedString == "\u{19}" { // shift-tab
-                //                if !goToPreviousPlaceholder() {
-                //                    decreaseIndent()
-                //                }
+            } else if typedString == "\t" {
+                incraseIndent()
+//                    if !goToNextPlaceholder() {
+//                        let currentLineRange = self.currentLineRange
+//                        let currentLine = string[currentLineRange]
+//                        let positionInLine = selectedRange().location - currentLineRange.location
+//
+//                        if selectedRange().length > 0 || currentLine.leadingSpaces >= positionInLine {
+//                            incraseIndent()
+//                        } else {
+//                            super.keyDown(with: event)
+//                        }
+//                    }
+                } else if typedString == "\u{19}" { // shift-tab
+                    decreaseIndent()
+//                    if !goToPreviousPlaceholder() {
+//                        decreaseIndent()
+//                    }
             } else {
                 super.keyDown(with: event)
             }
