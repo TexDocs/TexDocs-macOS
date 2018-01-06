@@ -9,36 +9,40 @@
 import Foundation
 import MessagePack
 
-
-protocol MessagePackEncodable {
+// MARK: - Encodable
+public protocol MessagePackEncodable {
     var values: [MessagePackValuePrimitive] { get }
 }
 
-protocol MessagePackDecodable {
-    init(from values: [MessagePackValue]) throws
-}
-
-protocol MessagePackCodable: MessagePackEncodable, MessagePackDecodable {}
-
 extension MessagePackEncodable {
-    func encode() -> Data {
+    public func encode() -> Data {
         return pack(.array(values.map { $0.messagePackValue }))
     }
 }
 
-extension MessagePackDecodable {
-    init(decode packedData: Data) throws {
+// MARK: - Decodable
+public protocol MessagePackDecodable {
+    init(from values: [MessagePackValue]) throws
+}
+
+public extension MessagePackDecodable {
+    public init(decode packedData: Data) throws {
         try self.init(from: (unpackAll(packedData).first?.arrayValue).unwrap())
     }
 }
 
-enum MessagePackError: Error {
+// MARK: - Codable
+public protocol MessagePackCodable: MessagePackEncodable, MessagePackDecodable {}
+
+
+// MARK: - Helpers
+public enum MessagePackError: Error {
     case unwrapFailed
     case arrayIndexDoesNotExists
 }
 
-extension Optional {
-    func unwrap() throws -> Wrapped {
+public extension Optional {
+    public func unwrap() throws -> Wrapped {
         guard let wrapped = self else {
             throw MessagePackError.unwrapFailed
         }
@@ -47,7 +51,7 @@ extension Optional {
 }
 
 extension MessagePackValue {
-    var uuidValue: UUID? {
+    public var uuidValue: UUID? {
         guard let uuidString = stringValue else { return nil }
 
         return UUID(uuidString: uuidString)
@@ -55,7 +59,7 @@ extension MessagePackValue {
 }
 
 extension Array where Element == MessagePackValue {
-    func at(_ index: Int) throws -> MessagePackValue {
+    public func at(_ index: Int) throws -> MessagePackValue {
         guard count > index else {
             throw MessagePackError.arrayIndexDoesNotExists
         }

@@ -8,6 +8,7 @@
 
 import Foundation
 import MessagePack
+import MessagePackKit
 
 protocol SendablePackage: MessagePackEncodable {
     var packageIdentifier: RequestPackageIdentifier { get }

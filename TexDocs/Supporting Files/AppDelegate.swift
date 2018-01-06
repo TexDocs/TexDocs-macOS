@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import MessagePack
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {

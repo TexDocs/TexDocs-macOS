@@ -68,11 +68,8 @@
 		4056A7E61FE4AAFC00697C57 /* String+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4056A7E51FE4AAFC00697C57 /* String+Helpers.swift */; };
 		4074B3501FC1BB4A0038176A /* RegexLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074B34F1FC1BB4A0038176A /* RegexLib.swift */; };
 		409176B11FD86ACD0086421B /* FileManager+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409176B01FD86ACD0086421B /* FileManager+Helpers.swift */; };
-		4095F7541FFFE3FF006A861A /* MessagePack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4095F7531FFFE3FE006A861A /* MessagePack.framework */; };
 		4095F7571FFFEA78006A861A /* CollaborationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4095F7561FFFEA78006A861A /* CollaborationClient.swift */; };
 		4095F75C1FFFF6AC006A861A /* CollaborationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4095F75B1FFFF6AC006A861A /* CollaborationProtocol.swift */; };
-		4095F75F20000966006A861A /* MessagePackValuePrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4095F75E20000966006A861A /* MessagePackValuePrimitive.swift */; };
-		4095F76120000982006A861A /* MessagePackCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4095F76020000982006A861A /* MessagePackCodable.swift */; };
 		4095F76320001ED4006A861A /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 4095F76220001ED4006A861A /* Cartfile */; };
 		4095F76520002030006A861A /* EditorWindowController+CollaborationClientDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4095F76420002030006A861A /* EditorWindowController+CollaborationClientDelegate.swift */; };
 		40A13BD41FD5D2800044E897 /* SchemeMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */; };
@@ -109,6 +106,13 @@
 		40E1D8711FD9CD230077BA90 /* LanguageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E1D8701FD9CD230077BA90 /* LanguageDelegate.swift */; };
 		40E1D8771FD9CD910077BA90 /* LaTeXLanguageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E1D8761FD9CD910077BA90 /* LaTeXLanguageDelegate.swift */; };
 		40EF5D541FC05EC0003E0E40 /* EditorWindowController+Sheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EF5D531FC05EC0003E0E40 /* EditorWindowController+Sheets.swift */; };
+		40FF79952000EDCA006B3A62 /* MessagePackKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 40FF79932000EDCA006B3A62 /* MessagePackKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		40FF79982000EDCA006B3A62 /* MessagePackKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40FF79912000EDC9006B3A62 /* MessagePackKit.framework */; };
+		40FF799D2000EDF8006B3A62 /* MessagePack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4095F7531FFFE3FE006A861A /* MessagePack.framework */; };
+		40FF79A22000EE88006B3A62 /* MessagePackCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4095F76020000982006A861A /* MessagePackCodable.swift */; };
+		40FF79A32000EE88006B3A62 /* MessagePackValuePrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4095F75E20000966006A861A /* MessagePackValuePrimitive.swift */; };
+		40FF79A42000EEAE006B3A62 /* MessagePackKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40FF79912000EDC9006B3A62 /* MessagePackKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		40FF79A62000F6DA006B3A62 /* MessagePack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4095F7531FFFE3FE006A861A /* MessagePack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		40FFD8EC1FDC1B5E007BA858 /* ModernTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFD8EB1FDC1B5E007BA858 /* ModernTabBar.swift */; };
 		40FFD8EE1FDC37FD007BA858 /* NavigationOutlineViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFD8ED1FDC37FD007BA858 /* NavigationOutlineViewItem.swift */; };
 		40FFD8F01FDC3C4D007BA858 /* CachedProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FFD8EF1FDC3C4D007BA858 /* CachedProperty.swift */; };
@@ -138,24 +142,24 @@
 			remoteGlobalIDString = 40A7D0D91FB78A3F002FBB8B;
 			remoteInfo = TexDocs;
 		};
+		40FF79962000EDCA006B3A62 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40A7D0D21FB78A3F002FBB8B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40FF79902000EDC9006B3A62;
+			remoteInfo = MessagePackKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		4095F7581FFFF517006A861A /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		40A7D11C1FB79261002FBB8B /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				40FF79A62000F6DA006B3A62 /* MessagePack.framework in Embed Frameworks */,
+				40FF79A42000EEAE006B3A62 /* MessagePackKit.framework in Embed Frameworks */,
 				401CD55F1FDF1DA400396A7E /* LabeledTextField.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -278,6 +282,9 @@
 		40E1D8701FD9CD230077BA90 /* LanguageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageDelegate.swift; sourceTree = "<group>"; };
 		40E1D8761FD9CD910077BA90 /* LaTeXLanguageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaTeXLanguageDelegate.swift; sourceTree = "<group>"; };
 		40EF5D531FC05EC0003E0E40 /* EditorWindowController+Sheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+Sheets.swift"; sourceTree = "<group>"; };
+		40FF79912000EDC9006B3A62 /* MessagePackKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MessagePackKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		40FF79932000EDCA006B3A62 /* MessagePackKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessagePackKit.h; sourceTree = "<group>"; };
+		40FF79942000EDCA006B3A62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		40FFD8EB1FDC1B5E007BA858 /* ModernTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernTabBar.swift; sourceTree = "<group>"; };
 		40FFD8ED1FDC37FD007BA858 /* NavigationOutlineViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOutlineViewItem.swift; sourceTree = "<group>"; };
 		40FFD8EF1FDC3C4D007BA858 /* CachedProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedProperty.swift; sourceTree = "<group>"; };
@@ -297,8 +304,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4095F7541FFFE3FF006A861A /* MessagePack.framework in Frameworks */,
 				403C2F771FE8451E00B20CA4 /* libz.tbd in Frameworks */,
+				40FF79982000EDCA006B3A62 /* MessagePackKit.framework in Frameworks */,
 				400D97B61FBA3E2300540207 /* Quartz.framework in Frameworks */,
 				401CD55E1FDF1DA400396A7E /* LabeledTextField.framework in Frameworks */,
 			);
@@ -315,6 +322,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40FF798D2000EDC9006B3A62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40FF799D2000EDF8006B3A62 /* MessagePack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,8 +492,6 @@
 		4095F75D2000095A006A861A /* MessagePackHelpers */ = {
 			isa = PBXGroup;
 			children = (
-				4095F75E20000966006A861A /* MessagePackValuePrimitive.swift */,
-				4095F76020000982006A861A /* MessagePackCodable.swift */,
 			);
 			path = MessagePackHelpers;
 			sourceTree = "<group>";
@@ -503,6 +516,7 @@
 				40A7D0F11FB78A3F002FBB8B /* TexDocsTests */,
 				40A7D0FC1FB78A3F002FBB8B /* TexDocsUITests */,
 				401CD5581FDF1DA400396A7E /* LabeledTextField */,
+				40FF79922000EDCA006B3A62 /* MessagePackKit */,
 				40A7D0DB1FB78A3F002FBB8B /* Products */,
 				400D97AF1FBA3E1800540207 /* Frameworks */,
 			);
@@ -515,6 +529,7 @@
 				40A7D0EE1FB78A3F002FBB8B /* TexDocsTests.xctest */,
 				40A7D0F91FB78A3F002FBB8B /* TexDocsUITests.xctest */,
 				401CD5571FDF1DA400396A7E /* LabeledTextField.framework */,
+				40FF79912000EDC9006B3A62 /* MessagePackKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -684,6 +699,17 @@
 			path = "External Libraries";
 			sourceTree = "<group>";
 		};
+		40FF79922000EDCA006B3A62 /* MessagePackKit */ = {
+			isa = PBXGroup;
+			children = (
+				4095F75E20000966006A861A /* MessagePackValuePrimitive.swift */,
+				4095F76020000982006A861A /* MessagePackCodable.swift */,
+				40FF79932000EDCA006B3A62 /* MessagePackKit.h */,
+				40FF79942000EDCA006B3A62 /* Info.plist */,
+			);
+			path = MessagePackKit;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -692,6 +718,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				401CD55B1FDF1DA400396A7E /* LabeledTextField.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40FF798E2000EDC9006B3A62 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40FF79952000EDCA006B3A62 /* MessagePackKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -725,13 +759,12 @@
 				40A7D0D81FB78A3F002FBB8B /* Resources */,
 				40A7D11C1FB79261002FBB8B /* Embed Frameworks */,
 				4007C81E1FDD748500A53649 /* Localize */,
-				4095F74E1FFFE246006A861A /* Carthage Copy */,
-				4095F7581FFFF517006A861A /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				401CD55D1FDF1DA400396A7E /* PBXTargetDependency */,
+				40FF79972000EDCA006B3A62 /* PBXTargetDependency */,
 			);
 			name = TexDocs;
 			productName = TexDocs;
@@ -774,6 +807,25 @@
 			productReference = 40A7D0F91FB78A3F002FBB8B /* TexDocsUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		40FF79902000EDC9006B3A62 /* MessagePackKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40FF799C2000EDCA006B3A62 /* Build configuration list for PBXNativeTarget "MessagePackKit" */;
+			buildPhases = (
+				40FF798C2000EDC9006B3A62 /* Sources */,
+				40FF798D2000EDC9006B3A62 /* Frameworks */,
+				40FF798E2000EDC9006B3A62 /* Headers */,
+				40FF798F2000EDC9006B3A62 /* Resources */,
+				40FF79A02000EE3D006B3A62 /* Carthage Copy */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MessagePackKit;
+			productName = MessagePackKit;
+			productReference = 40FF79912000EDC9006B3A62 /* MessagePackKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -806,6 +858,10 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 40A7D0D91FB78A3F002FBB8B;
 					};
+					40FF79902000EDC9006B3A62 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 40A7D0D51FB78A3F002FBB8B /* Build configuration list for PBXProject "TexDocs" */;
@@ -826,6 +882,7 @@
 				40A7D0ED1FB78A3F002FBB8B /* TexDocsTests */,
 				40A7D0F81FB78A3F002FBB8B /* TexDocsUITests */,
 				401CD5561FDF1DA400396A7E /* LabeledTextField */,
+				40FF79902000EDC9006B3A62 /* MessagePackKit */,
 			);
 		};
 /* End PBXProject section */
@@ -869,6 +926,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		40FF798F2000EDC9006B3A62 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -886,7 +950,7 @@
 			shellPath = /bin/sh;
 			shellScript = "./mergegenstrings.py TexDocs";
 		};
-		4095F74E1FFFE246006A861A /* Carthage Copy */ = {
+		40FF79A02000EE3D006B3A62 /* Carthage Copy */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -920,7 +984,6 @@
 				4048199F1FB8DD9400AAFBF0 /* NewProjectViewController.swift in Sources */,
 				403C2FC71FEC5BE400B20CA4 /* DeleteTextCommit.swift in Sources */,
 				401CD56F1FE0845900396A7E /* CompletionViewController.swift in Sources */,
-				4095F75F20000966006A861A /* MessagePackValuePrimitive.swift in Sources */,
 				4095F7571FFFEA78006A861A /* CollaborationClient.swift in Sources */,
 				40BD4C3D1FC1C9CF0048ABF6 /* FileTypeHandler.swift in Sources */,
 				4007C8371FDDA82E00A53649 /* ImageEditorViewController.swift in Sources */,
@@ -957,7 +1020,6 @@
 				4007C7E81FDD63FF00A53649 /* ClosureMenuItem.swift in Sources */,
 				403C2FBD1FEC2B5300B20CA4 /* DeleteFileCommit.swift in Sources */,
 				40A13BDE1FD5F4C80044E897 /* EditorWindowController+Typeset.swift in Sources */,
-				4095F76120000982006A861A /* MessagePackCodable.swift in Sources */,
 				4095F75C1FFFF6AC006A861A /* CollaborationProtocol.swift in Sources */,
 				40FFD8EE1FDC37FD007BA858 /* NavigationOutlineViewItem.swift in Sources */,
 				40A13BF81FD731930044E897 /* URL+RelativePath.swift in Sources */,
@@ -1023,6 +1085,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		40FF798C2000EDC9006B3A62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40FF79A32000EE88006B3A62 /* MessagePackValuePrimitive.swift in Sources */,
+				40FF79A22000EE88006B3A62 /* MessagePackCodable.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1040,6 +1111,11 @@
 			isa = PBXTargetDependency;
 			target = 40A7D0D91FB78A3F002FBB8B /* TexDocs */;
 			targetProxy = 40A7D0FA1FB78A3F002FBB8B /* PBXContainerItemProxy */;
+		};
+		40FF79972000EDCA006B3A62 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40FF79902000EDC9006B3A62 /* MessagePackKit */;
+			targetProxy = 40FF79962000EDCA006B3A62 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1326,6 +1402,64 @@
 			};
 			name = Release;
 		};
+		40FF799A2000EDCA006B3A62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 52A793VRAY;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = MessagePackKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = to.us.peeters.MessagePackKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		40FF799B2000EDCA006B3A62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 52A793VRAY;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = MessagePackKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = to.us.peeters.MessagePackKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1370,6 +1504,15 @@
 			buildConfigurations = (
 				40A7D1091FB78A3F002FBB8B /* Debug */,
 				40A7D10A1FB78A3F002FBB8B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		40FF799C2000EDCA006B3A62 /* Build configuration list for PBXNativeTarget "MessagePackKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40FF799A2000EDCA006B3A62 /* Debug */,
+				40FF799B2000EDCA006B3A62 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

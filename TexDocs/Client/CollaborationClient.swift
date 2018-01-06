@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MessagePack
 
 class CollaborationClient {
     private(set) var collaborationCursors: [String: CollaborationCursor] = [:]

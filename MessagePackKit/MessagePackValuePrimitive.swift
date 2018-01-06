@@ -8,22 +8,23 @@
 
 import MessagePack
 
-protocol MessagePackValuePrimitive {
+/// Bridges Swift values to Message pack values
+public protocol MessagePackValuePrimitive {
     var messagePackValue: MessagePackValue { get }
 }
 
 extension Int: MessagePackValuePrimitive {
-    var messagePackValue: MessagePackValue { return .int(Int64(self)) }
+    public var messagePackValue: MessagePackValue { return .int(Int64(self)) }
 }
 
 extension String: MessagePackValuePrimitive {
-    var messagePackValue: MessagePackValue { return .string(self) }
+    public var messagePackValue: MessagePackValue { return .string(self) }
 }
 
 extension UUID: MessagePackValuePrimitive {
-    var messagePackValue: MessagePackValue { return .string(self.uuidString) }
+    public var messagePackValue: MessagePackValue { return .string(self.uuidString) }
 }
 
 extension MessagePackValue: MessagePackValuePrimitive {
-    var messagePackValue: MessagePackValue { return self }
+    public var messagePackValue: MessagePackValue { return self }
 }
