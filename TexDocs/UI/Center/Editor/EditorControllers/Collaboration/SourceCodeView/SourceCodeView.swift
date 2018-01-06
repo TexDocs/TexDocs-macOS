@@ -299,6 +299,9 @@ extension SourceCodeView: CompletionViewControllerDelegate {
             } else if typedString == "\\" {
                 super.keyDown(with: event)
                 complete(self)
+            } else if let char = char, (65...90).contains(char) || (97...122).contains(char) {
+                super.keyDown(with: event)
+                complete(self)
             } else if typedString == "\t" {
                 incraseIndent()
 //                    if !goToNextPlaceholder() {
