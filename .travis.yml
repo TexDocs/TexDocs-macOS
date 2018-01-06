@@ -1,0 +1,11 @@
+language: objective-c
+osx_image: xcode9.2
+
+before_script:
+ - carthage bootstrap --platform macOS
+
+script:
+  - xcodebuild clean && xcodebuild build -project TexDocs.xcodeproj -scheme TexDocs
+
+notifications:
+  webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
