@@ -49,7 +49,7 @@
         <attribute name="pendingIndex" attributeType="Integer 64" minValueString="-1" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="selectedSchemeUUIDData" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="serverProjectUUIDData" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="serverURL" optional="YES" attributeType="URI" syncable="YES"/>
+        <attribute name="serverURLString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="syncedIndex" attributeType="Integer 64" minValueString="-1" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="commits" toMany="YES" deletionRule="Cascade" destinationEntity="BaseCommit" inverseName="workspace" inverseEntity="BaseCommit" syncable="YES"/>
         <relationship name="files" toMany="YES" deletionRule="Cascade" destinationEntity="File" inverseName="workspace" inverseEntity="File" syncable="YES"/>

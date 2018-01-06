@@ -71,6 +71,18 @@ public class WorkspaceModel: NSManagedObject {
 }
 
 extension WorkspaceModel {
+    var serverURL: URL? {
+        get {
+            guard let serverURLString = serverURLString else {
+                return nil
+            }
+            return URL(string: serverURLString)
+        }
+        set {
+            serverURLString = newValue?.absoluteString
+        }
+    }
+
     var serverProjectUUID: UUID? {
         get {
             guard let serverProjectUUIDData = serverProjectUUIDData else {
