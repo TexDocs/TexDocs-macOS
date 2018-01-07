@@ -48,15 +48,11 @@ extension Process {
     }
 
     func launchAndGetOutput(encoding: String.Encoding = .utf8) -> String {
-        var output = ""
-
-        setStringOutputHandler(encoding: encoding) { string in
-            output += string
-        }
+        let pipe = Pipe()
+        standardOutput = pipe
 
         launch()
-        waitUntilExit()
-
-        return output
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        return String(data: data, encoding: encoding) ?? ""
     }
 }
