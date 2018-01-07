@@ -75,8 +75,8 @@ extension CollaborationClient {
             try handleProjectRequestSuccessResponse(ProjectRequestSuccessResponse(decode: data))
         case .projectRequestError:
             try handleProjectRequestErrorResponse(ProjectRequestErrorResponse(decode: data))
-        case .userJoindNotification:
-            try handleUserJoindNotification(UserJoinedNotification(decode: data))
+        case .userJoinedNotification:
+            try handleUserJoinedNotification(UserJoinedNotification(decode: data))
         case .userLeftNotification:
             try handleUserLeftNotification(UserLeftNotification(decode: data))
         }
@@ -157,7 +157,7 @@ extension CollaborationClient {
         closeConnection(reason: response.reason)
     }
 
-    private func handleUserJoindNotification(_ notification: UserJoinedNotification) {
+    private func handleUserJoinedNotification(_ notification: UserJoinedNotification) {
         // TODO set name and image
         let user = CollaborationUser(displayName: "Annonymous", sessionUUID: notification.sessionUUID)
         collaborationUsers[notification.sessionUUID] = user

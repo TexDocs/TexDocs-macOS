@@ -34,6 +34,6 @@ enum ResponsePackageIdentifier: Int {
     case projectRequestError              = 0b00001_100
 
     // user management
-    case userJoindNotification            = 0b00011_000
+    case userJoinedNotification            = 0b00011_000
     case userLeftNotification             = 0b00011_001
 }
