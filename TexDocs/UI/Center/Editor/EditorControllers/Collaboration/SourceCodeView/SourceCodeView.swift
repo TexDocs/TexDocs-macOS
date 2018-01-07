@@ -91,7 +91,7 @@ class SourceCodeView: ImprovedTextView {
         updateSourceCodeHighlighting(in: stringRange)
     }
 
-    // MARK: Line Number
+    // MARK: - Line Number
 
     override func updateRuler() {
         lineNumberRuler?.redrawLineNumbers()
@@ -273,56 +273,64 @@ extension SourceCodeView: CompletionViewControllerDelegate {
     }
 
     override func keyDown(with event: NSEvent) {
-        let char = event.characters?.utf16.first
+        guard let char = event.characters?.utf16.first else { return }
 
-        if completionPopover.isShown, let char = char {
-            switch char {
-            case 13: // return
-                insertCompletion(at: completionViewController.tableView.selectedRow)
-            case 63232: // up
-                selectCompletion(at: completionViewController.tableView.selectedRow - 1)
-            case 63233: // down
-                selectCompletion(at: completionViewController.tableView.selectedRow + 1)
-            case ...31, 63234, 63235: // controll characters, left, right
-                closeCompletionPopover()
-                super.keyDown(with: event)
-            default:
-                super.keyDown(with: event)
-                complete(self)
-            }
+        if completionPopover.isShown {
+            keyDownInCompletionPopover(event, char: char)
         } else {
-            let typedString = event.charactersIgnoringModifiers
-            let controlModifier = event.modifierFlags.contains(NSEvent.ModifierFlags.control)
+            keyDownNotInCompletionPopover(event, char: char)
+        }
+    }
 
-            if controlModifier && typedString == " " {
-                complete(self)
-            } else if typedString == "\\" {
-                super.keyDown(with: event)
-                complete(self)
-            } else if let char = char, (65...90).contains(char) || (97...122).contains(char) {
-                super.keyDown(with: event)
-                complete(self)
-            } else if typedString == "\t" {
-                incraseIndent()
-//                    if !goToNextPlaceholder() {
-//                        let currentLineRange = self.currentLineRange
-//                        let currentLine = string[currentLineRange]
-//                        let positionInLine = selectedRange().location - currentLineRange.location
+    private func keyDownInCompletionPopover(_ event: NSEvent, char: String.UTF16View.Element) {
+        switch char {
+        case 13: // return
+            insertCompletion(at: completionViewController.tableView.selectedRow)
+        case 63232: // up
+            selectCompletion(at: completionViewController.tableView.selectedRow - 1)
+        case 63233: // down
+            selectCompletion(at: completionViewController.tableView.selectedRow + 1)
+        case ...31, 63234, 63235: // controll characters, left, right
+            closeCompletionPopover()
+            super.keyDown(with: event)
+        default:
+            super.keyDown(with: event)
+            complete(self)
+        }
+    }
+
+    private func keyDownNotInCompletionPopover(_ event: NSEvent, char: String.UTF16View.Element) {
+        let typedString = event.charactersIgnoringModifiers
+        let controlModifier = event.modifierFlags.contains(NSEvent.ModifierFlags.control)
+
+        if controlModifier && typedString == " " {
+            complete(self)
+        } else if typedString == "\\" {
+            super.keyDown(with: event)
+            complete(self)
+        } else if (65...90).contains(char) || (97...122).contains(char) {
+            super.keyDown(with: event)
+            complete(self)
+        } else if typedString == "\t" {
+            incraseIndent()
+//            if !goToNextPlaceholder() {
+//                let currentLineRange = self.currentLineRange
+//                let currentLine = string[currentLineRange]
+//                let positionInLine = selectedRange().location - currentLineRange.location
 //
-//                        if selectedRange().length > 0 || currentLine.leadingSpaces >= positionInLine {
-//                            incraseIndent()
-//                        } else {
-//                            super.keyDown(with: event)
-//                        }
-//                    }
-                } else if typedString == "\u{19}" { // shift-tab
-                    decreaseIndent()
-//                    if !goToPreviousPlaceholder() {
-//                        decreaseIndent()
-//                    }
-            } else {
-                super.keyDown(with: event)
-            }
+//                if selectedRange().length > 0 || currentLine.leadingSpaces >= positionInLine {
+//                    incraseIndent()
+//                } else {
+//                    super.keyDown(with: event)
+//                }
+//            }
+        } else if typedString == "\u{19}" { // shift-tab
+            decreaseIndent()
+//            if !goToPreviousPlaceholder() {
+//                decreaseIndent()
+//            }
+        } else {
+            super.keyDown(with: event)
         }
     }
 
