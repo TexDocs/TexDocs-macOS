@@ -15,8 +15,10 @@ extension EditorWindowController {
             self.workspace?.workspaceModel.addToSchemes(scheme)
             self.workspace?.workspaceModel.selectedSchemeUUID = scheme.uuid
         }, completion: {
-            if $0 { self.reloadSchemeSelector() }
-            self.editedDocument()
+            if $0 {
+                self.reloadSchemeSelector()
+                self.editedDocument()
+            }
         })
     }
 
@@ -24,13 +26,15 @@ extension EditorWindowController {
         workspace?.asyncDatabaseOperations(operations: {
             $0.delete(scheme)
         }, completion: {
-            if $0 { self.reloadSchemeSelector() }
-            self.editedDocument()
+            if $0 {
+                self.reloadSchemeSelector()
+                self.editedDocument()
+            }
         })
     }
 
     func dbSelectScheme(_ scheme: SchemeModel) {
-        workspace?.asyncDatabaseOperations(operations: {_ in
+        workspace?.asyncDatabaseOperations(operations: { _ in
             self.workspace?.workspaceModel.selectedSchemeUUID = scheme.uuid
         }, completion: { _ in
             self.editedDocument()

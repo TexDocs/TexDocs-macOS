@@ -75,7 +75,7 @@ extension EditorWindowController {
         }
 
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            //launch and wait
+            // launch and wait
             process.launch()
             process.waitUntilExit()
             DispatchQueue.main.sync { [weak self] in

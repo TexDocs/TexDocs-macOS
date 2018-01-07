@@ -158,8 +158,8 @@ class ItemWrapper {
         self.item = item
     }
 
-    func casted<T>() -> T? {
-        return item as? T
+    func casted<ReturnType>() -> ReturnType? {
+        return item as? ReturnType
     }
 }
 

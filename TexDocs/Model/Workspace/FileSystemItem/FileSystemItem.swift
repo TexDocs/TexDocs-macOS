@@ -126,6 +126,8 @@ class FileSystemItem: NSObject {
     }
 
     func allSubItems() -> [FileSystemItem] {
-        return children.map({ [[$0], $0.allSubItems()].flatMap({ $0 }) }).flatMap({ $0 })
+        return children.map {
+            [[$0], $0.allSubItems()].flatMap { $0 }
+        }.flatMap { $0 }
     }
 }
