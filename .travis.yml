@@ -12,7 +12,8 @@ before_script:
  - gem install xcpretty-travis-formatter
 
 script:
-  - xcodebuild build -project TexDocs.xcodeproj -scheme TexDocs | xcpretty -f `xcpretty-travis-formatter`
+ - xcodebuild build -project TexDocs.xcodeproj -scheme TexDocs | xcpretty -f `xcpretty-travis-formatter`
 
 notifications:
-    slack: texdocs:X1gHGkvu82Ks33JCLRFvlAyV
+ slack: texdocs:X1gHGkvu82Ks33JCLRFvlAyV
+ email: false
