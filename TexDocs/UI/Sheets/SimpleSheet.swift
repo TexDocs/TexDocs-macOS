@@ -34,9 +34,6 @@ class SimpleSheet: NSViewController {
 
         button?.title = title
         button?.isHidden = false
-        if action != nil {
-            button?.becomeFirstResponder()
-        }
     }
 
     func updateLabel(text: String) {
