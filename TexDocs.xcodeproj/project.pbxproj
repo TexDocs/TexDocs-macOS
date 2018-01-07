@@ -198,8 +198,6 @@
 		4007C7E31FDCD15A00A53649 /* WebViewEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewEditorViewController.swift; sourceTree = "<group>"; };
 		4007C7E51FDCD1B900A53649 /* EditorControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorControllerProtocol.swift; sourceTree = "<group>"; };
 		4007C7E71FDD63FF00A53649 /* ClosureMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureMenuItem.swift; sourceTree = "<group>"; };
-		4007C81A1FDD73DE00A53649 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		4007C81C1FDD73E400A53649 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4007C81D1FDD73E700A53649 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4007C8341FDDA44B00A53649 /* ImageFileSystemItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFileSystemItem.swift; sourceTree = "<group>"; };
 		4007C8361FDDA82E00A53649 /* ImageEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditorViewController.swift; sourceTree = "<group>"; };
@@ -277,7 +275,6 @@
 		40A7D0DD1FB78A3F002FBB8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40A7D0E11FB78A3F002FBB8B /* Workspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workspace.swift; sourceTree = "<group>"; };
 		40A7D0E31FB78A3F002FBB8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		40A7D0E61FB78A3F002FBB8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		40A7D0E81FB78A3F002FBB8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		40A7D0E91FB78A3F002FBB8B /* TexDocs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TexDocs.entitlements; sourceTree = "<group>"; };
 		40A7D0EE1FB78A3F002FBB8B /* TexDocsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TexDocsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -305,6 +302,8 @@
 		40C88C201FB8B659006F6BB9 /* NavigationOutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOutlineViewController.swift; sourceTree = "<group>"; };
 		40E1D8701FD9CD230077BA90 /* LanguageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageDelegate.swift; sourceTree = "<group>"; };
 		40E1D8761FD9CD910077BA90 /* LaTeXLanguageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaTeXLanguageDelegate.swift; sourceTree = "<group>"; };
+		40EC05E42001B4AE00699D3B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
+		40EC05E52001B4AE00699D3B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		40EF5D531FC05EC0003E0E40 /* EditorWindowController+Sheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+Sheets.swift"; sourceTree = "<group>"; };
 		40FF79912000EDC9006B3A62 /* MessagePackKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MessagePackKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		40FF79932000EDCA006B3A62 /* MessagePackKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessagePackKit.h; sourceTree = "<group>"; };
@@ -1027,7 +1026,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 				de,
 			);
 			mainGroup = 40A7D0D11FB78A3F002FBB8B;
@@ -1320,9 +1318,8 @@
 		4007C8191FDD73DE00A53649 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4007C81A1FDD73DE00A53649 /* Base */,
-				4007C81C1FDD73E400A53649 /* en */,
 				4007C81D1FDD73E700A53649 /* de */,
+				40EC05E52001B4AE00699D3B /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1330,7 +1327,7 @@
 		40A7D0E51FB78A3F002FBB8B /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				40A7D0E61FB78A3F002FBB8B /* Base */,
+				40EC05E42001B4AE00699D3B /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
