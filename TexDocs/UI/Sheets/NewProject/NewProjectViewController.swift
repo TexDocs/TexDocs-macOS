@@ -21,6 +21,9 @@ class NewProjectViewController: NSViewController {
 
     override func viewDidLoad() {
         warningStackView.isHidden = true
+        #if DEBUG
+            serverURLTextField.stringValue =  "ws://localhost:1710?00000000-0000-0000-0000-000000000000"
+        #endif
     }
 
     override func viewDidDisappear() {

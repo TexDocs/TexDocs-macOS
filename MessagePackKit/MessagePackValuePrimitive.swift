@@ -13,6 +13,10 @@ public protocol MessagePackValuePrimitive {
     var messagePackValue: MessagePackValue { get }
 }
 
+extension Bool: MessagePackValuePrimitive {
+    public var messagePackValue: MessagePackValue { return .bool(self) }
+}
+
 extension Int: MessagePackValuePrimitive {
     public var messagePackValue: MessagePackValue { return .int(Int64(self)) }
 }
