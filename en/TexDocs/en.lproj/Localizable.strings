@@ -1,0 +1,56 @@
+/* Button title of notification sheets. */
+"TD_BUTTON_CLOSE" = "Close";
+
+/* Button title of error sheets. */
+"TD_BUTTON_CLOSE_PROJECT" = "Close Project";
+
+/* Button to create a new project. */
+"TD_BUTTON_CREATE" = "Create";
+
+/* Button to create a new offline project. */
+"TD_BUTTON_CREATE_OFFLINE" = "Create";
+
+/* Button to join an existing project. */
+"TD_BUTTON_JOIN" = "Join";
+
+/* The display name of the collaboration editor */
+"TD_COLLABORATION_EDITOR_NAME" = "Collaboration Editor";
+
+/* Menu item to delete the selected scheme */
+"TD_CONTEXTMENU_ITEM_DELETE_SCHEME" = "Delete Scheme";
+
+/* Menu item to edit the selected scheme */
+"TD_CONTEXTMENU_ITEM_EDIT_SCHEME" = "Edit Scheme...";
+
+/* Name of the empty state editor */
+"TD_EMPTY_STATE_EDITOR_NAME" = "Empty State";
+
+/* Message shown to the user if an internal error occures. */
+"TD_ERROR_INTERNAL_ERROR" = "Internal error.";
+
+/* Error message if the requested editor controller cannot be created */
+"TD_ERROR_INVALID_EDITOR_CONTROLLER" = "Cannot create editor controller";
+
+/* Shown to the user of the latex path is not executable */
+"TD_ERROR_INVALID_LATEX_PATH" = "TD_ERROR_INVALID_LATEX_PATH";
+
+/* Name of the image editor */
+"TD_IMAGE_EDITOR_NAME" = "Image Viewer";
+
+/* Name of the latex root document structure node */
+"TD_LATEX_ROOT_STRUCTURE_NODE" = "Tex Document";
+
+/* Project id not found. */
+"TD_NO_PROJECT_ID" = "TD_NO_PROJECT_ID";
+
+/* Open in <Application name> */
+"TD_OPEN_IN" = "Open in";
+
+/* General preferences title */
+"TD_PREFERENCS_TITLE_GENERAL" = "General";
+
+/* VCS preferences title */
+"TD_PREFERENCS_TITLE_VCS" = "TD_PREFERENCS_TITLE_VCS";
+
+/* Name of the web view editor */
+"TD_WEB_VIEW_EDITOR_NAME" = "Web View";
