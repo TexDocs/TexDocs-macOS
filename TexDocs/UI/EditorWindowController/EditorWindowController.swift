@@ -155,6 +155,9 @@ class EditorWindowController: NSWindowController {
     }
 
     @IBAction func reconnectButtonClicked(_ sender: Any) {
+        if let serverURL = workspace?.workspaceModel.serverURL {
+            collaborationClient.connect(to: serverURL)
+        }
     }
 }
 
