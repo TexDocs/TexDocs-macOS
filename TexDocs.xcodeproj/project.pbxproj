@@ -74,6 +74,8 @@
 		4096D8ED200133F1001763A9 /* LabeledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401CD5631FDF1DB400396A7E /* LabeledTextField.swift */; };
 		4096D8FC20014CF9001763A9 /* Handshake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096D8FB20014CF9001763A9 /* Handshake.swift */; };
 		4096D8FE20014D25001763A9 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096D8FD20014D25001763A9 /* Project.swift */; };
+		4096D900200150A5001763A9 /* UserManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096D8FF200150A5001763A9 /* UserManagement.swift */; };
+		4096D9022001537E001763A9 /* CollaborationUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4096D9012001537E001763A9 /* CollaborationUser.swift */; };
 		40A13BD41FD5D2800044E897 /* SchemeMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */; };
 		40A13BDA1FD5ECBA0044E897 /* EditSchemeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BD91FD5ECBA0044E897 /* EditSchemeSheet.swift */; };
 		40A13BDE1FD5F4C80044E897 /* EditorWindowController+Typeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A13BDD1FD5F4C80044E897 /* EditorWindowController+Typeset.swift */; };
@@ -257,6 +259,8 @@
 		4096D8E3200133DE001763A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4096D8FB20014CF9001763A9 /* Handshake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handshake.swift; sourceTree = "<group>"; };
 		4096D8FD20014D25001763A9 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		4096D8FF200150A5001763A9 /* UserManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagement.swift; sourceTree = "<group>"; };
+		4096D9012001537E001763A9 /* CollaborationUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationUser.swift; sourceTree = "<group>"; };
 		40A13BD31FD5D2800044E897 /* SchemeMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeMenuItem.swift; sourceTree = "<group>"; };
 		40A13BD91FD5ECBA0044E897 /* EditSchemeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSchemeSheet.swift; sourceTree = "<group>"; };
 		40A13BDD1FD5F4C80044E897 /* EditorWindowController+Typeset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+Typeset.swift"; sourceTree = "<group>"; };
@@ -634,6 +638,7 @@
 				4095F75B1FFFF6AC006A861A /* CollaborationProtocol.swift */,
 				4096D8FB20014CF9001763A9 /* Handshake.swift */,
 				4096D8FD20014D25001763A9 /* Project.swift */,
+				4096D8FF200150A5001763A9 /* UserManagement.swift */,
 			);
 			path = "Collaboration Protocol";
 			sourceTree = "<group>";
@@ -814,6 +819,7 @@
 				4095F7561FFFEA78006A861A /* CollaborationClient.swift */,
 				4096D8FA20014CE4001763A9 /* Collaboration Protocol */,
 				40AB8C4A1FB884C900BC6D82 /* CollaborationCursor.swift */,
+				4096D9012001537E001763A9 /* CollaborationUser.swift */,
 				40FF79AE2000F7A6006B3A62 /* CollaborationKit.h */,
 				40FF79AF2000F7A6006B3A62 /* Info.plist */,
 			);
@@ -1269,7 +1275,9 @@
 			files = (
 				40FF79B82000F7C9006B3A62 /* CollaborationClient.swift in Sources */,
 				40FF79BF2000F8B7006B3A62 /* WebSocket.swift in Sources */,
+				4096D9022001537E001763A9 /* CollaborationUser.swift in Sources */,
 				40FF79BE2000F8AA006B3A62 /* CollaborationCursor.swift in Sources */,
+				4096D900200150A5001763A9 /* UserManagement.swift in Sources */,
 				4096D8FC20014CF9001763A9 /* Handshake.swift in Sources */,
 				40FF79B92000F7C9006B3A62 /* CollaborationProtocol.swift in Sources */,
 				4096D8FE20014D25001763A9 /* Project.swift in Sources */,

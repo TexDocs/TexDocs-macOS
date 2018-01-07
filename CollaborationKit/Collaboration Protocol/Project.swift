@@ -11,8 +11,9 @@ import MessagePackKit
 
 struct ProjectRequest: SendablePackage {
     let uuid: UUID
+    let trackFileTree = false
     let packageIdentifier: RequestPackageIdentifier = .projectRequest
-    var values: [MessagePackValuePrimitive] { return [uuid] }
+    var values: [MessagePackValuePrimitive] { return [uuid, trackFileTree] }
 }
 
 struct ProjectRequestErrorResponse: MessagePackDecodable {
@@ -24,11 +25,11 @@ struct ProjectRequestErrorResponse: MessagePackDecodable {
 }
 
 struct ProjectRequestSuccessResponse: MessagePackDecodable {
-    let projectID: UUID
+    let projectUUID: UUID
     let projectName: String
 
     init(from values: [MessagePackValue]) throws {
-        try projectID = values.at(0).uuidValue.unwrap()
+        try projectUUID = values.at(0).uuidValue.unwrap()
         try projectName = values.at(1).stringValue.unwrap()
     }
 }
