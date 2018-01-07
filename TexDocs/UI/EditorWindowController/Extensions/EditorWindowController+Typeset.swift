@@ -45,7 +45,8 @@ extension EditorWindowController {
             .appendingPathExtension("pdf")
 
         do {
-            try FileManager.default.createDirectory(at: outputDirectory, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(at: outputDirectory,
+                                                    withIntermediateDirectories: true, attributes: nil)
             try? saveFileListToFileSystem()
         } catch {
             showErrorSheet(error)
@@ -56,7 +57,9 @@ extension EditorWindowController {
                 "-output-directory=../\(relativePathInWorkspace(of: outputDirectory)!)",
                 relativePathInWorkspace(of: inputFile)!
             ]) else {
-                showUserNotificationSheet(text: NSLocalizedString("TD_ERROR_INVALID_LATEX_PATH", comment: "Shown to the user of the latex path is not executable"))
+                showUserNotificationSheet(text: NSLocalizedString(
+                    "TD_ERROR_INVALID_LATEX_PATH",
+                    comment: "Shown to the user of the latex path is not executable"))
                 return
         }
         currentTypesetProcess = process

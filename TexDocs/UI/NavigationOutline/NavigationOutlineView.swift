@@ -22,8 +22,8 @@ class NavigationOutlineView: NSOutlineView {
         }
     }
 
-    func castedItem<T>(at row: Int) -> T? {
-        return item(atRow: row) as? T
+    func castedItem<ReturnType>(at row: Int) -> ReturnType? {
+        return item(atRow: row) as? ReturnType
     }
 
     func clickedItem() -> ItemWrapper? {

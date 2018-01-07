@@ -94,16 +94,20 @@ extension EditorWindowController: EditSchemeSheetDelegate {
 }
 
 extension EditorWindowController: CreateNewFileSheetDelegate {
-    func newFileSystemItemSheet(forType type: NewFileItemType, withSuperItem superItem: FileSystemItem) -> CreateNewFileItemSheet {
+    func newFileSystemItemSheet(forType type: NewFileItemType,
+                                withSuperItem superItem: FileSystemItem) -> CreateNewFileItemSheet {
+
+        let identifier = NSStoryboard.SceneIdentifier("createNewFileItemSheet")
         // swiftlint:disable force_cast
-        let sheet = NSStoryboard.sheets.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("createNewFileItemSheet")) as! CreateNewFileItemSheet
+        let sheet = NSStoryboard.sheets.instantiateController(withIdentifier: identifier) as! CreateNewFileItemSheet
         sheet.delegate = self
         sheet.type  = type
         sheet.superItem = superItem
         return sheet
     }
 
-    func createNewFileItemSheet(_ sheet: CreateNewFileItemSheet, createWithName name: String, ofType type: NewFileItemType) {
+    func createNewFileItemSheet(_ sheet: CreateNewFileItemSheet,
+                                createWithName name: String, ofType type: NewFileItemType) {
         switch type {
         case .folder:
             let url = sheet.superItem.url.appendingPathComponent(name)

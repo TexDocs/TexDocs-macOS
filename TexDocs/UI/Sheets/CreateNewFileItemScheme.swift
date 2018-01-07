@@ -45,5 +45,6 @@ enum NewFileItemType {
 }
 
 protocol CreateNewFileSheetDelegate: class {
-    func createNewFileItemSheet(_ sheet: CreateNewFileItemSheet, createWithName name: String, ofType type: NewFileItemType)
+    func createNewFileItemSheet(_ sheet: CreateNewFileItemSheet, createWithName name: String,
+                                ofType type: NewFileItemType)
 }

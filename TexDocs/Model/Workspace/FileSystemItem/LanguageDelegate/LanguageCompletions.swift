@@ -15,7 +15,9 @@ struct LanguageCompletions {
     var count: Int {
         return words.count
     }
+}
 
+extension LanguageCompletions {
     init(words: [LanguageCompletion], range: NSRange, filteredAndSortedBy searchTerm: String) {
         self.rangeForUserCompletion = range
 
@@ -28,7 +30,7 @@ struct LanguageCompletions {
 
         self.words = rankedWords.sorted {
             return $0.1 > $1.1
-        }.map { $0.0 }
+            }.map { $0.0 }
     }
 }
 

@@ -14,11 +14,15 @@ public struct CollaborationCursor {
     public private(set) var relativeFilePath: String
 
     private func withLenght(_ newLength: Int) -> CollaborationCursor {
-        return CollaborationCursor(range: NSRange(location: self.range.location, length: newLength), color: self.color, relativeFilePath: relativeFilePath)
+        return CollaborationCursor(
+            range: NSRange(location: self.range.location, length: newLength),
+            color: self.color, relativeFilePath: relativeFilePath)
     }
 
     private func withDeltaLocation(_ deltaLocation: Int) -> CollaborationCursor {
-        return CollaborationCursor(range: NSRange(location: self.range.location + deltaLocation, length: self.range.length), color: self.color, relativeFilePath: relativeFilePath)
+        return CollaborationCursor(
+            range: NSRange(location: self.range.location + deltaLocation, length: self.range.length),
+            color: self.color, relativeFilePath: relativeFilePath)
     }
 
     private func with(_ range: NSRange) -> CollaborationCursor {
