@@ -59,7 +59,6 @@
 		403C2FC91FED78C000B20CA4 /* SimpleFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403C2FC81FED78C000B20CA4 /* SimpleFetchedResultsController.swift */; };
 		4048199F1FB8DD9400AAFBF0 /* NewProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4048199E1FB8DD9400AAFBF0 /* NewProjectViewController.swift */; };
 		404819A11FB8F37300AAFBF0 /* FileSystemItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404819A01FB8F37300AAFBF0 /* FileSystemItemCell.swift */; };
-		4056A7DE1FE4709100697C57 /* Application Support in Resources */ = {isa = PBXBuildFile; fileRef = 4056A7DD1FE4709100697C57 /* Application Support */; };
 		4056A7E61FE4AAFC00697C57 /* String+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4056A7E51FE4AAFC00697C57 /* String+Helpers.swift */; };
 		4074B3501FC1BB4A0038176A /* RegexLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074B34F1FC1BB4A0038176A /* RegexLib.swift */; };
 		409176B11FD86ACD0086421B /* FileManager+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409176B01FD86ACD0086421B /* FileManager+Helpers.swift */; };
@@ -105,6 +104,7 @@
 		40C88C211FB8B659006F6BB9 /* NavigationOutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C88C201FB8B659006F6BB9 /* NavigationOutlineViewController.swift */; };
 		40E1D8711FD9CD230077BA90 /* LanguageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E1D8701FD9CD230077BA90 /* LanguageDelegate.swift */; };
 		40E1D8771FD9CD910077BA90 /* LaTeXLanguageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E1D8761FD9CD910077BA90 /* LaTeXLanguageDelegate.swift */; };
+		40EC05E020019D8E00699D3B /* Application Support in Resources */ = {isa = PBXBuildFile; fileRef = 40EC05DF20019D8E00699D3B /* Application Support */; };
 		40EF5D541FC05EC0003E0E40 /* EditorWindowController+Sheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EF5D531FC05EC0003E0E40 /* EditorWindowController+Sheets.swift */; };
 		40FF79952000EDCA006B3A62 /* MessagePackKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 40FF79932000EDCA006B3A62 /* MessagePackKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40FF799D2000EDF8006B3A62 /* MessagePack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4095F7531FFFE3FE006A861A /* MessagePack.framework */; };
@@ -241,7 +241,6 @@
 		403C2FC81FED78C000B20CA4 /* SimpleFetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleFetchedResultsController.swift; sourceTree = "<group>"; };
 		4048199E1FB8DD9400AAFBF0 /* NewProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectViewController.swift; sourceTree = "<group>"; };
 		404819A01FB8F37300AAFBF0 /* FileSystemItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemItemCell.swift; sourceTree = "<group>"; };
-		4056A7DD1FE4709100697C57 /* Application Support */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Application Support"; sourceTree = "<group>"; };
 		4056A7E51FE4AAFC00697C57 /* String+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Helpers.swift"; sourceTree = "<group>"; };
 		4074B34F1FC1BB4A0038176A /* RegexLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexLib.swift; sourceTree = "<group>"; };
 		409176B01FD86ACD0086421B /* FileManager+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Helpers.swift"; sourceTree = "<group>"; };
@@ -301,6 +300,7 @@
 		40C88C201FB8B659006F6BB9 /* NavigationOutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOutlineViewController.swift; sourceTree = "<group>"; };
 		40E1D8701FD9CD230077BA90 /* LanguageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageDelegate.swift; sourceTree = "<group>"; };
 		40E1D8761FD9CD910077BA90 /* LaTeXLanguageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaTeXLanguageDelegate.swift; sourceTree = "<group>"; };
+		40EC05DF20019D8E00699D3B /* Application Support */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Application Support"; path = "application-support/Application Support"; sourceTree = "<group>"; };
 		40EF5D531FC05EC0003E0E40 /* EditorWindowController+Sheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorWindowController+Sheets.swift"; sourceTree = "<group>"; };
 		40FF79912000EDC9006B3A62 /* MessagePackKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MessagePackKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		40FF79932000EDCA006B3A62 /* MessagePackKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessagePackKit.h; sourceTree = "<group>"; };
@@ -654,7 +654,7 @@
 			isa = PBXGroup;
 			children = (
 				4095F76220001ED4006A861A /* Cartfile */,
-				4056A7DD1FE4709100697C57 /* Application Support */,
+				40EC05DF20019D8E00699D3B /* Application Support */,
 				40BD25D81FBCB5BC00211743 /* External Libraries */,
 				40A7D0DC1FB78A3F002FBB8B /* TexDocs */,
 				40A7D0F11FB78A3F002FBB8B /* TexDocsTests */,
@@ -1051,8 +1051,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40EC05E020019D8E00699D3B /* Application Support in Resources */,
 				4095F76320001ED4006A861A /* Cartfile in Resources */,
-				4056A7DE1FE4709100697C57 /* Application Support in Resources */,
 				4007C81B1FDD73DE00A53649 /* Localizable.strings in Resources */,
 				4007C8161FDD736600A53649 /* Main.storyboard in Resources */,
 				401CD56A1FDF211F00396A7E /* GeneralPreferencesViewController.xib in Resources */,
