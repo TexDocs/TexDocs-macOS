@@ -718,9 +718,9 @@
 			isa = PBXGroup;
 			children = (
 				4096D8F32001378F001763A9 /* Completion */,
-				40A7D14D1FB7B681002FBB8B /* CollaborationSourceCodeView.swift */,
 				40A7D1451FB79984002FBB8B /* ImprovedTextView.swift */,
 				40A7D11D1FB79296002FBB8B /* SourceCodeView.swift */,
+				40A7D14D1FB7B681002FBB8B /* CollaborationSourceCodeView.swift */,
 				402F52031FE095C4000F7AEA /* SourceCodeViewPlaceholders.swift */,
 				40A7D11F1FB7936B002FBB8B /* SourceCodeRulerView.swift */,
 				402F52091FE1E632000F7AEA /* TokenCell.swift */,
