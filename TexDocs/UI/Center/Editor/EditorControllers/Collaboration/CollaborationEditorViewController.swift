@@ -46,6 +46,7 @@ class CollaborationEditorViewController: BaseEditorViewController, EditorControl
         editor.editableFileSystemItem = editableFileSystemItem
         editor.collaborationDelegate = delegateModel?.collaborationDelegate
         editor.sourceCodeViewDelegate = delegateModel?.sourceCodeViewDelegate
+        editor.backgroundColor = ThemesHandler.default.color(for: .editorBackground)
     }
 
     override func willOpen() {
