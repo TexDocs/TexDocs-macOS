@@ -9,9 +9,9 @@
 import Cocoa
 
 class SimpleSheet: NSViewController {
-    @IBOutlet weak var progressBar: NSProgressIndicator? { didSet { updateProgressBar(value: progressValue) }}
-    @IBOutlet weak var statusLabel: NSTextField? { didSet { updateLabel(text: labelText) }}
-    @IBOutlet weak var button: NSButton? { didSet { updateButton(title: buttonTitle) }}
+    @IBOutlet weak var progressBar: NSProgressIndicator?
+    @IBOutlet weak var statusLabel: NSTextField?
+    @IBOutlet weak var button: NSButton?
 
     @IBAction func buttonPressed(_ sender: NSButton) {
         action?()
@@ -22,6 +22,12 @@ class SimpleSheet: NSViewController {
     private var progressValue: ProgressBarValue = .indeterminate
 
     private var action: (() -> Void)?
+
+    override func viewDidLoad() {
+        updateProgressBar(value: progressValue)
+        updateLabel(text: labelText)
+        updateButton(title: buttonTitle)
+    }
 
     func updateButton(title: String?, action: (() -> Void)? = nil) {
         self.buttonTitle = title

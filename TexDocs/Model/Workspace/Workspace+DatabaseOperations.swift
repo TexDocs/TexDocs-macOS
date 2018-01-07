@@ -24,7 +24,8 @@ extension Workspace {
         }
     }
 
-    func asyncDatabaseOperations<T>(operations: @escaping (NSManagedObjectContext) throws -> T, completion: ((T?) -> Void)? = nil) {
+    func asyncDatabaseOperations<Result>(operations: @escaping (NSManagedObjectContext) throws -> Result,
+                                         completion: ((Result?) -> Void)? = nil) {
         guard let managedObjectContext = managedObjectContext else {
             completion?(nil)
             return
@@ -50,12 +51,13 @@ extension Workspace {
         return true
     }
 
-    @discardableResult func syncDatabaseOperations<T>(operations: (NSManagedObjectContext) throws -> T) -> T? {
+    @discardableResult func syncDatabaseOperations<Result>(
+                                operations: (NSManagedObjectContext) throws -> Result) -> Result? {
         guard let managedObjectContext = managedObjectContext else {
             return nil
         }
 
-        var result: T?
+        var result: Result?
         databaseQueue.sync {
             result = try? operations(managedObjectContext)
         }

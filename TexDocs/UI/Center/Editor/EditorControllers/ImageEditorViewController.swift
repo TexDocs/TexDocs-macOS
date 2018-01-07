@@ -38,12 +38,17 @@ class ImageEditorViewController: BaseEditorViewController, EditorController {
 
     static let displayName: String = NSLocalizedString("TD_IMAGE_EDITOR_NAME", comment: "Name of the image editor")
 
-    static func instantiateController(withFileSystemItem fileSystemItem: FileSystemItem, windowController: EditorWindowController) -> EditorController? {
+    static func instantiateController(withFileSystemItem fileSystemItem: FileSystemItem,
+                                      windowController: EditorWindowController) -> EditorController? {
         guard let imageFileSystemItem = fileSystemItem as? ImageFileSystemItem else {
             return nil
         }
         let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Editors"), bundle: nil)
-        let editorController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "ImageEditorViewController")) as? ImageEditorViewController
+        let identifier = NSStoryboard.SceneIdentifier(rawValue: "ImageEditorViewController")
+
+        let editorController = storyboard.instantiateController(
+            withIdentifier: identifier) as? ImageEditorViewController
+
         editorController?.imageFileSystemItem = imageFileSystemItem
         return editorController
     }

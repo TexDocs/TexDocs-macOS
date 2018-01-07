@@ -31,6 +31,11 @@ class GeneralPreferencesViewController: NSViewController, CCNPreferencesWindowCo
     @IBOutlet weak var texdocPathTextField: LabeledTextField!
 
     override func viewDidLoad() {
+        setupInitialValues()
+        setupNotificationObservers()
+    }
+
+    private func setupInitialValues() {
         showInvisibleCharactersButton.state = UserDefaults.showInvisibleCharacters.value ? .on : .off
         showControlCharactersButton.state = UserDefaults.showControlCharacters.value ? .on : .off
         latexPathTextField.value = UserDefaults.latexPath.value
@@ -39,6 +44,10 @@ class GeneralPreferencesViewController: NSViewController, CCNPreferencesWindowCo
         themeSelector.removeAllItems()
         themeSelector.addItems(withTitles: ThemesHandler.default.themeNames)
         themeSelector.selectItem(withTitle: UserDefaults.themeName.value)
+        updateFontButtonText()
+    }
+
+    private func setupNotificationObservers() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(updateFontButtonText),
@@ -49,7 +58,6 @@ class GeneralPreferencesViewController: NSViewController, CCNPreferencesWindowCo
             selector: #selector(updateFontButtonText),
             name: UserDefaults.editorFontSize.notificationKey,
             object: nil)
-        updateFontButtonText()
     }
 
     @objc func updateFontButtonText() {

@@ -15,7 +15,8 @@ protocol LanguageDelegate {
     func textStorageDocumentStructure(_ textStorage: NSTextStorage) -> DocumentStructureNode
     func textStorageRulerAnnotations(_ textStorage: NSTextStorage) -> [RulerAnnotation]
     func sourceCodeView(_ sourceCodeView: SourceCodeView, updateCodeHighlightingInRange editedRange: NSRange)
-    func sourceCodeView(_ sourceCodeView: SourceCodeView, completionsForLocation location: Int, completionBlock: @escaping (LanguageCompletions?) -> Void)
+    func sourceCodeView(_ sourceCodeView: SourceCodeView, completionsForLocation location: Int,
+                        completionBlock: @escaping (LanguageCompletions?) -> Void)
 }
 
 struct RulerAnnotation {

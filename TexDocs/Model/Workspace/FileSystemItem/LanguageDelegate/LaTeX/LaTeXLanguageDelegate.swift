@@ -17,7 +17,7 @@ class LaTeXLanguageDelegate: LanguageDelegate {
     required init() {}
 
     func textStorageUpdated(_ textStorage: NSTextStorage) {
-        //clear cache
+        // clear cache
         rootStructureNode = nil
         annotations = nil
 

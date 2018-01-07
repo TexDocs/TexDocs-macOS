@@ -258,7 +258,7 @@ extension SourceCodeView: CompletionViewControllerDelegate {
 
     func selectCompletion(at index: Int) {
         let newIndex = min(max(index, 0), languageCompletions?.count ?? 0)
-        completionViewController.tableView.selectRowIndexes(IndexSet(integer: newIndex), byExtendingSelection: false) //TODO: replace with actuall count
+        completionViewController.tableView.selectRowIndexes(IndexSet(integer: newIndex), byExtendingSelection: false)
     }
 
     func insertCompletion(at index: Int) {

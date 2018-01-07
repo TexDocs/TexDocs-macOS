@@ -11,11 +11,11 @@ import CollaborationKit
 
 extension EditorWindowController: CollaborationSourceCodeViewDelegate {
     func collaborationSourceCodeView(_ collaborationSourceCodeView: CollaborationSourceCodeView, userSelectionDidChange newSelection: NSRange) {
-        //TODO implement
+        // TODO: implement
     }
 
     func collaborationCursors(for editor: CollaborationSourceCodeView) -> [CollaborationCursor] {
-        //TODO implement
+        // TODO: implement
         return []
     }
 }
