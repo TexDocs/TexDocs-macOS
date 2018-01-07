@@ -1,0 +1,3 @@
+files:
+  - source: TexDocs/en.lproj/Localizable.strings
+    translation: TexDocs/%two_letters_code%.lproj/Localizable.strings
